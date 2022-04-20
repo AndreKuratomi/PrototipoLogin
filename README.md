@@ -7,9 +7,9 @@
 
 # Descrição
 
-<p><b>Prototipo-Login</b> é uma aplicação que simula um login estático para o usuário acessa seus próprios relatórios.. Esta aplicação utiliza React e o gerenciador de states ContextAPI.</p>
+<p><b>Prototipo-Login</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios.. Esta aplicação utiliza React e o gerenciador de states ContextAPI.</p>
 <br>
-Link deploy vercel:
+Link deploy:
 
 (link)
 
@@ -65,7 +65,7 @@ yarn start
 
 <p>Ou podemos utilizar o link do deploy Vercel a seguir:</p>
 
-https://kenzieshop-umber.vercel.app/
+(link)
 
 # Termos de uso
 
