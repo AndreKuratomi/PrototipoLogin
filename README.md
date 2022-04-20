@@ -65,7 +65,7 @@ yarn start
 
 <p>Ou podemos utilizar o link do deploy Vercel a seguir:</p>
 
-https://kenzieshop-umber.vercel.app/
+(link)
 
 # Termos de uso
 
