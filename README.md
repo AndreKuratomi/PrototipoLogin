@@ -63,7 +63,7 @@ code .
 yarn start
 ```
 
-<p>Ou podemos utilizar o link do deploy Vercel a seguir:</p>
+<p>Ou podemos utilizar o link do deploy a seguir:</p>
 
 (link)
 
