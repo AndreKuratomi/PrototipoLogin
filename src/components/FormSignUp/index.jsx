@@ -11,7 +11,7 @@ import { A } from "./styles";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     backgroundColor: "#009E4F",
-    borderRadius: "10%",
+    borderRadius: "5%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
@@ -37,10 +37,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FormLogin = () => {
+export const FormSignUp = () => {
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
+    email: yup.string().email().required("Email obrigatório!"),
+    // username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
+    repeatPassword: yup.string().required("Repetir senha obrigatória!"),
   });
 
   const {
@@ -78,6 +81,17 @@ export const FormLogin = () => {
         <div>
           <TextField
             className={classes.textField}
+            label="Email"
+            margin="normal"
+            variant="standard"
+            {...register("email")}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+        </div>
+        <div>
+          <TextField
+            className={classes.textField}
             label="Senha"
             type="password"
             margin="normal"
@@ -85,6 +99,18 @@ export const FormLogin = () => {
             {...register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
+          />
+        </div>
+        <div>
+          <TextField
+            className={classes.textField}
+            label="Repetir senha"
+            type="password"
+            margin="normal"
+            variant="standard"
+            {...register("repeatPassword")}
+            error={!!errors.repeatPassword}
+            helperText={errors.repeatPassword?.message}
           />
         </div>
 
@@ -95,15 +121,15 @@ export const FormLogin = () => {
           color="primary"
           size="large"
         >
-          Entrar
+          Cadastrar
         </Button>
         <Box className={classes.box}>
-          <Typography>Não possui conta?</Typography>
+          <Typography>Já possui conta?</Typography>
           {/* //{" "} */}
           <Typography>
             Então vamos para o{" "}
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <A>Cadastro</A>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <A>Login</A>
             </Link>
           </Typography>
         </Box>

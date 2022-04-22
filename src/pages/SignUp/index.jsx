@@ -1,11 +1,9 @@
-import { Box } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { FormLogin } from "../../components/FormLogin";
+import { FormSignUp } from "../../components/FormSignUp";
 
-const Login = () => {
+const SignUp = () => {
   return (
     <section>
-      <FormLogin />
+      <FormSignUp />
 
       <figure>
         <img
@@ -18,4 +16,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
