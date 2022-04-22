@@ -1,10 +1,20 @@
+import { useState } from "react";
+
+import { Link } from "react-router-dom";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Link } from "react-router-dom";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import { A } from "./styles";
 
@@ -37,7 +47,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
 export const FormLogin = () => {
+  const [open, setOpen] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "right",
+  });
+
+  const handleClick = (newState) => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const successButton = () => {
+    return (
+      <>
+        {/* {banco.sex == female ? (
+        <> */}
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Seja bem-vinda, Fulana!{/* {} */}
+          </Alert>
+        </Snackbar>
+        {/* </>
+      ) : (
+        <> */}
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Seja bem-vindo, Fulano!{/* {} */}
+          </Alert>
+        </Snackbar>
+
+        {/* </>
+      )} */}
+      </>
+    );
+  };
+
+  const warnButton = (
+    <>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="warning">
+          AVISO: Sua assinatura vence em X dias! Fique atento!
+        </Alert>
+      </Snackbar>
+    </>
+  );
+
+  const failButton = (
+    <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="warning">
+          AVISO: Sua assinatura está vencida desde DATA! Contate setor
+          responsável!
+        </Alert>
+      </Snackbar>
+    </>
+  );
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -54,12 +132,38 @@ export const FormLogin = () => {
   const onSubmitFunction = (data) => {
     //aqui virá a requisição
     console.log(data);
+    // successButton();
+    // <Snackbar
+    //   open={open}
+    //   anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //   autoHideDuration={3000}
+    //   onClose={handleClose}
+    //   vertical="top"
+    //   horizontal="right"
+    // >
+    //   <Alert onClose={handleClose} severity="success">
+    //     EM TESTE
+    //   </Alert>
+    // </Snackbar>;
   };
 
   const classes = useStyles();
 
   return (
     <article>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        vertical="top"
+        horizontal="right"
+      >
+        <Alert onClose={handleClose} severity="success">
+          EM TESTE
+        </Alert>
+      </Snackbar>
+      ;
       <form
         onSubmit={handleSubmit(onSubmitFunction)}
         className={classes.formControl}
@@ -94,16 +198,16 @@ export const FormLogin = () => {
           className={classes.button}
           color="primary"
           size="large"
+          onClick={handleClick}
         >
           Entrar
         </Button>
         <Box className={classes.box}>
-          <Typography>Não possui conta?</Typography>
-          {/* //{" "} */}
+          <Typography>Esqueceu a senha?</Typography>
           <Typography>
-            Então vamos para o{" "}
+            Clique{" "}
             <Link to="/signup" style={{ textDecoration: "none" }}>
-              <A>Cadastro</A>
+              <A>aqui</A>
             </Link>
           </Typography>
         </Box>
