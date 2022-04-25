@@ -6,14 +6,12 @@ const Home = () => {
     <>
       <h1>Home</h1>
       <Box>
-        {/* <Typography>Não possui conta?</Typography> */}
-        {/* //{" "} */}
-        <Typography>
+        {/* <Typography>
           Vamos para o{" "}
-          <Link to="/signup" style={{ textDecoration: "none" }}>
+          <Link to="/changepassword" style={{ textDecoration: "none" }}>
             Cadastro
           </Link>
-        </Typography>
+        </Typography> */}
         <Typography>
           Vamos para o{" "}
           <Link to="/login" style={{ textDecoration: "none" }}>

@@ -206,9 +206,9 @@ export const FormLogin = () => {
           <Typography>Esqueceu a senha?</Typography>
           <Typography>
             Clique{" "}
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <A>aqui</A>
-            </Link>
+            <A target="_blanck" href="https://suporte.vestcasa.com.br">
+              aqui
+            </A>
           </Typography>
         </Box>
       </form>

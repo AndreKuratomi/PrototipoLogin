@@ -1,6 +1,6 @@
 import { FormSignUp } from "../../components/FormSignUp";
 
-const SignUp = () => {
+const ChangePassword = () => {
   return (
     <section>
       <FormSignUp />
@@ -16,4 +16,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ChangePassword;
