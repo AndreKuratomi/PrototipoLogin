@@ -163,7 +163,6 @@ export const FormLogin = () => {
           EM TESTE
         </Alert>
       </Snackbar>
-      ;
       <form
         onSubmit={handleSubmit(onSubmitFunction)}
         className={classes.formControl}
