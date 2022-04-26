@@ -6,12 +6,6 @@ const Home = () => {
     <>
       <h1>Home</h1>
       <Box>
-        {/* <Typography>
-          Vamos para o{" "}
-          <Link to="/changepassword" style={{ textDecoration: "none" }}>
-            Cadastro
-          </Link>
-        </Typography> */}
         <Typography>
           Vamos para o{" "}
           <Link to="/login" style={{ textDecoration: "none" }}>

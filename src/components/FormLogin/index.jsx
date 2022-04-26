@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { api } from "../../service/api";
+
 import {
   Box,
   Button,
@@ -105,10 +107,20 @@ export const FormLogin = () => {
     </>
   );
 
+  const notFoundButton = (
+    <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          AVISO: Usuário não cadastrado! Verificar dados digitados!
+        </Alert>
+      </Snackbar>
+    </>
+  );
+
   const failButton = (
     <>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="warning">
+        <Alert onClose={handleClose} severity="error">
           AVISO: Sua assinatura está vencida desde DATA! Contate setor
           responsável!
         </Alert>
@@ -130,39 +142,102 @@ export const FormLogin = () => {
   });
 
   const onSubmitFunction = (data) => {
-    //aqui virá a requisição
     console.log(data);
-    // successButton();
-    // <Snackbar
-    //   open={open}
-    //   anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //   autoHideDuration={3000}
-    //   onClose={handleClose}
-    //   vertical="top"
-    //   horizontal="right"
-    // >
-    //   <Alert onClose={handleClose} severity="success">
-    //     EM TESTE
-    //   </Alert>
-    // </Snackbar>;
+
+    // api
+    //   .post("/login", data)
+    //   .then((response) => {
+    //     const { token, user } = response.data;
+
+    //     setAuthenticated(true);
+
+    //     const now = Date.now();
+    //     let delta = user.signature.deadline - now;
+
+    //     // WARNING
+    //     if (delta <= 15) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="warning">
+    //           AVISO: Sua assinatura vence em {delta} dias! Fique atento!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+
+    //     if (delta < 0) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="error">
+    //           AVISO: Sua assinatura está vencida desde {user.signature.deadline}
+    //           ! Contate setor responsável!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+
+    //     // SUCCESS
+    //     if (user.sex === "female") {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={3000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="success">
+    //           Seja bem-vinda, {user.name}! //
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="success">
+    //         Seja bem-vindo, {user.name}! //
+    //       </Alert>
+    //     </Snackbar>;
+    //   })
+    //   .catch((err) => {
+    //     // ERROR
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="error">
+    //         AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
+    //         digitados!
+    //       </Alert>
+    //     </Snackbar>;
+    //     // if (usuário não cadastrado) { PRECISA OU ESTÁ SUBENTENDIDO NO DE CIMA?
+    //     //   <Snackbar
+    //     //     open={open}
+    //     //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //     //     autoHideDuration={3000}
+    //     //     onClose={handleClose}
+    //     //   >
+    //     //     <Alert onClose={handleClose} severity="error">
+    //     //       AVISO: Usuário não cadastrado! Verificar dados digitados!
+    //     //     </Alert>
+    //     //   </Snackbar>
+    //     // }
+    //   });
   };
 
   const classes = useStyles();
 
   return (
     <article>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        vertical="top"
-        horizontal="right"
-      >
-        <Alert onClose={handleClose} severity="success">
-          EM TESTE
-        </Alert>
-      </Snackbar>
       <form
         onSubmit={handleSubmit(onSubmitFunction)}
         className={classes.formControl}
