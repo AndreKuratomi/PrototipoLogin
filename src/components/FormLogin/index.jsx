@@ -19,7 +19,6 @@ import { makeStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { A } from "./styles";
-import { useAuth } from "../../providers/Auth";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -55,8 +54,6 @@ const Alert = (props) => {
 };
 
 export const FormLogin = () => {
-  const { auth, isAuth } = useAuth();
-
   const [open, setOpen] = useState({
     open: false,
     vertical: "top",
@@ -75,62 +72,6 @@ export const FormLogin = () => {
     setOpen(false);
   };
 
-  // const successButton = () => {
-  //   return (
-  //     <>
-  //       {/* {banco.sex == female ? (
-  //       <> */}
-  //       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-  //         <Alert onClose={handleClose} severity="success">
-  //           Seja bem-vinda, Fulana!{/* {} */}
-  //         </Alert>
-  //       </Snackbar>
-  //       {/* </>
-  //     ) : (
-  //       <> */}
-  //       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-  //         <Alert onClose={handleClose} severity="success">
-  //           Seja bem-vindo, Fulano!{/* {} */}
-  //         </Alert>
-  //       </Snackbar>
-
-  //       {/* </>
-  //     )} */}
-  //     </>
-  //   );
-  // };
-
-  // const warnButton = (
-  //   <>
-  //     <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-  //       <Alert onClose={handleClose} severity="warning">
-  //         AVISO: Sua assinatura vence em X dias! Fique atento!
-  //       </Alert>
-  //     </Snackbar>
-  //   </>
-  // );
-
-  // const notFoundButton = (
-  //   <>
-  //     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  //       <Alert onClose={handleClose} severity="error">
-  //         AVISO: Usuário não cadastrado! Verificar dados digitados!
-  //       </Alert>
-  //     </Snackbar>
-  //   </>
-  // );
-
-  // const failButton = (
-  //   <>
-  //     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  //       <Alert onClose={handleClose} severity="error">
-  //         AVISO: Sua assinatura está vencida desde DATA! Contate setor
-  //         responsável!
-  //       </Alert>
-  //     </Snackbar>
-  //   </>
-  // );
-
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -148,105 +89,107 @@ export const FormLogin = () => {
 
   const onSubmitFunction = (data) => {
     console.log(data);
+    // <Snackbar
+    //   open={open}
+    //   anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //   autoHideDuration={3000}
+    //   onClose={handleClose}
+    // >
+    //   <Alert onClose={handleClose} severity="success">
+    //     Seja bem-vindo, X! //
+    //   </Alert>
+    // </Snackbar>;
 
-    const now = Date.now();
-    const isLate = (signatureDeadline, today) => {
-      let delta = signatureDeadline - today;
-      return delta;
-    };
+    navigate("/dashboard");
 
-    api
-      .post("/login", data)
-      .then((response) => {
-        const { token, user } = response.data;
+    // api
+    //   .post("/login", data)
+    //   .then((response) => {
+    //     const { token, user } = response.data;
 
-        const delta = isLate(user.signature.deadline, now);
+    //     setAuthenticated(true);
 
-        // WARNING
-        if (delta <= 0 && delta <= 15) {
-          isAuth(token);
-          <Snackbar
-            open={open}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={6000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="warning">
-              AVISO: Sua assinatura vence em {delta} dias! Fique atento!
-            </Alert>
-          </Snackbar>;
-        } else if (delta < 0) {
-          // ERROR
-          isAuth();
+    //     const now = Date.now();
+    //     let delta = user.signature.deadline - now;
 
-          <Snackbar
-            open={open}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={6000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="error">
-              AVISO: Sua assinatura está vencida desde {user.signature.deadline}
-              ! Contate setor responsável!
-            </Alert>
-          </Snackbar>;
-        }
+    //     // WARNING
+    //     if (delta <= 15) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="warning">
+    //           AVISO: Sua assinatura vence em {delta} dias! Fique atento!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
 
-        isAuth(token);
+    //     if (delta < 0) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="error">
+    //           AVISO: Sua assinatura está vencida desde {user.signature.deadline}
+    //           ! Contate setor responsável!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
 
-        // SUCCESS
-        if (user.sex === "female") {
-          <Snackbar
-            open={open}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              Seja bem-vinda, {user.name}! //
-            </Alert>
-          </Snackbar>;
-        }
-        <Snackbar
-          open={open}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="success">
-            Seja bem-vindo, {user.name}! //
-          </Alert>
-        </Snackbar>;
-
-        if (auth) {
-          navigate("/dashboard");
-        }
-      })
-      .catch((err) => {
-        <Snackbar
-          open={open}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="error">
-            AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
-            digitados!
-          </Alert>
-        </Snackbar>;
-        // if (usuário não cadastrado) { PRECISA OU ESTÁ SUBENTENDIDO NO DE CIMA?
-        //   <Snackbar
-        //     open={open}
-        //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        //     autoHideDuration={3000}
-        //     onClose={handleClose}
-        //   >
-        //     <Alert onClose={handleClose} severity="error">
-        //       AVISO: Usuário não cadastrado! Verificar dados digitados!
-        //     </Alert>
-        //   </Snackbar>
-        // }
-      });
+    //     // SUCCESS
+    //     if (user.sex === "female") {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={3000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="success">
+    //           Seja bem-vinda, {user.name}! //
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="success">
+    //         Seja bem-vindo, {user.name}! //
+    //       </Alert>
+    //     </Snackbar>;
+    //   })
+    //   .catch((err) => {
+    //     // ERROR
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="error">
+    //         AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
+    //         digitados!
+    //       </Alert>
+    //     </Snackbar>;
+    //     // if (usuário não cadastrado) { PRECISA OU ESTÁ SUBENTENDIDO NO DE CIMA?
+    //     //   <Snackbar
+    //     //     open={open}
+    //     //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //     //     autoHideDuration={3000}
+    //     //     onClose={handleClose}
+    //     //   >
+    //     //     <Alert onClose={handleClose} severity="error">
+    //     //       AVISO: Usuário não cadastrado! Verificar dados digitados!
+    //     //     </Alert>
+    //     //   </Snackbar>
+    //     // }
+    //   });
   };
 
   const classes = useStyles();
@@ -291,7 +234,6 @@ export const FormLogin = () => {
         >
           Entrar
         </Button>
-
         <Box className={classes.box}>
           <Typography>Esqueceu a senha?</Typography>
           <Typography>
