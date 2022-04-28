@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
+import { SecondsTimePicker } from "../../utils";
+
 import {
   AppBar,
   Box,
@@ -84,6 +86,7 @@ const Alert = (props) => {
 };
 
 const Dashboard = () => {
+  // CARD BOAS-VINDAS:
   const [open, setOpen] = useState({
     open: false,
     vertical: "top",
@@ -102,8 +105,11 @@ const Dashboard = () => {
     setOpen(false);
   };
 
+  // DATA E HORA:
+  // let time = SecondsTimePicker;
   const [date, setDate] = useState(new Date());
 
+  // MOSTRAR/ESCONDER ASIDEMENU:
   const [hide, setHide] = useState(false);
   const openMenu = () => {
     setHide(false);
@@ -112,6 +118,7 @@ const Dashboard = () => {
     setHide(true);
   };
 
+  // STYLES:
   const classes = useStyles(hide);
 
   return (
@@ -157,7 +164,8 @@ const Dashboard = () => {
           </Button>
         )}
         <Box className={classes.userHeaderBox}>
-          <p>Quarta-feira, 27/04/2022 - 16:48:00</p>
+          {/* <p>{time}</p> */}
+          {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
           {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
 
           <Button
