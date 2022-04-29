@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { DateTime, SecondsTimePicker } from "../../utils";
+import { DateTimeMoment } from "../../utils";
 
 import {
   AppBar,
@@ -106,8 +106,7 @@ const Dashboard = () => {
   };
 
   // DATA E HORA:
-  let time = DateTime();
-  const [date, setDate] = useState(new Date());
+  let moment = DateTimeMoment();
 
   // MOSTRAR/ESCONDER ASIDEMENU:
   const [hide, setHide] = useState(false);
@@ -126,7 +125,7 @@ const Dashboard = () => {
       <Snackbar
         open={open}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success">
@@ -164,7 +163,7 @@ const Dashboard = () => {
           </Button>
         )}
         <Box className={classes.userHeaderBox}>
-          <p>{time}</p>
+          <p>{moment}</p>
           {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
           {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
 
