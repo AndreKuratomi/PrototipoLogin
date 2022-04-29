@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { SecondsTimePicker } from "../../utils";
+import { DateTime, SecondsTimePicker } from "../../utils";
 
 import {
   AppBar,
@@ -106,7 +106,7 @@ const Dashboard = () => {
   };
 
   // DATA E HORA:
-  // let time = SecondsTimePicker;
+  let time = DateTime();
   const [date, setDate] = useState(new Date());
 
   // MOSTRAR/ESCONDER ASIDEMENU:
@@ -164,7 +164,7 @@ const Dashboard = () => {
           </Button>
         )}
         <Box className={classes.userHeaderBox}>
-          {/* <p>{time}</p> */}
+          <p>{time}</p>
           {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
           {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
 
@@ -187,6 +187,7 @@ const Dashboard = () => {
             variant="standard"
           ></TextField> */}
           <Tabs orientation="vertical">
+            {/* VERIFICAR CONSOLE.LOG! children?*/}
             <Tab className={classes.tab} label="Item 1" />
             <Tab className={classes.tab} label="Item 2" />
             <Tab className={classes.tab} label="Item 3" />
