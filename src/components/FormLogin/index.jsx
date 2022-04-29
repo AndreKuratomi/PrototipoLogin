@@ -1,10 +1,22 @@
+import { useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { api } from "../../service/api";
+
+import {
+  Box,
+  Button,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Link } from "react-router-dom";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import { A } from "./styles";
 
@@ -37,7 +49,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
 export const FormLogin = () => {
+  const [open, setOpen] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "right",
+  });
+
+  const handleClick = (newState) => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -51,9 +85,111 @@ export const FormLogin = () => {
     resolver: yupResolver(formSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmitFunction = (data) => {
-    //aqui virá a requisição
     console.log(data);
+    // <Snackbar
+    //   open={open}
+    //   anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //   autoHideDuration={3000}
+    //   onClose={handleClose}
+    // >
+    //   <Alert onClose={handleClose} severity="success">
+    //     Seja bem-vindo, X! //
+    //   </Alert>
+    // </Snackbar>;
+
+    navigate("/dashboard");
+
+    // api
+    //   .post("/login", data)
+    //   .then((response) => {
+    //     const { token, user } = response.data;
+
+    //     setAuthenticated(true);
+
+    //     const now = Date.now();
+    //     let delta = user.signature.deadline - now;
+
+    //     // WARNING
+    //     if (delta <= 15) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="warning">
+    //           AVISO: Sua assinatura vence em {delta} dias! Fique atento!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+
+    //     if (delta < 0) {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={6000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="error">
+    //           AVISO: Sua assinatura está vencida desde {user.signature.deadline}
+    //           ! Contate setor responsável!
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+
+    //     // SUCCESS
+    //     if (user.sex === "female") {
+    //       <Snackbar
+    //         open={open}
+    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //         autoHideDuration={3000}
+    //         onClose={handleClose}
+    //       >
+    //         <Alert onClose={handleClose} severity="success">
+    //           Seja bem-vinda, {user.name}! //
+    //         </Alert>
+    //       </Snackbar>;
+    //     }
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="success">
+    //         Seja bem-vindo, {user.name}! //
+    //       </Alert>
+    //     </Snackbar>;
+    //   })
+    //   .catch((err) => {
+    //     // ERROR
+    //     <Snackbar
+    //       open={open}
+    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //       autoHideDuration={3000}
+    //       onClose={handleClose}
+    //     >
+    //       <Alert onClose={handleClose} severity="error">
+    //         AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
+    //         digitados!
+    //       </Alert>
+    //     </Snackbar>;
+    //     // if (usuário não cadastrado) { PRECISA OU ESTÁ SUBENTENDIDO NO DE CIMA?
+    //     //   <Snackbar
+    //     //     open={open}
+    //     //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
+    //     //     autoHideDuration={3000}
+    //     //     onClose={handleClose}
+    //     //   >
+    //     //     <Alert onClose={handleClose} severity="error">
+    //     //       AVISO: Usuário não cadastrado! Verificar dados digitados!
+    //     //     </Alert>
+    //     //   </Snackbar>
+    //     // }
+    //   });
   };
 
   const classes = useStyles();
@@ -94,17 +230,17 @@ export const FormLogin = () => {
           className={classes.button}
           color="primary"
           size="large"
+          onClick={handleClick}
         >
           Entrar
         </Button>
         <Box className={classes.box}>
-          <Typography>Não possui conta?</Typography>
-          {/* //{" "} */}
+          <Typography>Esqueceu a senha?</Typography>
           <Typography>
-            Então vamos para o{" "}
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <A>Cadastro</A>
-            </Link>
+            Clique{" "}
+            <A target="_blanck" href="https://suporte.vestcasa.com.br">
+              aqui
+            </A>
           </Typography>
         </Box>
       </form>

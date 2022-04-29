@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import SignUp from "../pages/SignUp";
+import Home from "../pages/Home";
+import ChangePassword from "../pages/ChangePassword";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../components/NotFound";
@@ -8,8 +9,8 @@ import NotFound from "../components/NotFound";
 export const Rotas = () => {
   return (
     <Routes>
-      {/* <Route path="/" element={<Home />} /> */}
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/changepassword" element={<ChangePassword />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="*" element={<NotFound />} />
