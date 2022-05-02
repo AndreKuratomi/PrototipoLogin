@@ -7,6 +7,7 @@ import { DateTimeMoment } from "../../utils";
 import {
   AppBar,
   Button,
+  Icon,
   Snackbar,
   Tab,
   Tabs,
@@ -17,6 +18,9 @@ import { makeStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
 
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+
 import { A, LeftBar } from "./styles";
 
 const useStyles = makeStyles((hide) => ({
@@ -26,49 +30,49 @@ const useStyles = makeStyles((hide) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 1rem",
+    position: "relative",
+    zIndex: 1,
     "@media (max-width: 767px)": {
       padding: "0 0.5rem",
     },
   },
   asideHeader: {
     backgroundColor: "#009E4F",
-    marginTop: "4.3rem",
+    // marginTop: "4.3rem",
     right: "auto",
-    position: "absolute",
-    zIndex: 0,
+    position: "relative",
+    zIndex: 2,
     width: "fit-content",
     transition: "all .5s ease-in-out",
-    "@media (max-width: 375px)": {
-      marginTop: "5.3rem",
+    "@media (min-width: 768px)": {
+      // marginTop: "5.75rem",
     },
   },
-  // asideHeaderButton1: {
-  //   backgroundColor: "#00f",
-  //   margin: "0.5rem",
-  //   position: "absolute",
-  //   left: "120px",
-  //   top: "45px",
-  //   zIndex: 1,
-  // },
-  // asideHeaderButton2: {
-  //   backgroundColor: "#00f",
-  //   margin: "0.5rem",
-  //   position: "absolute",
-  //   left: "-10px",
-  //   top: "45px",
-  //   zIndex: 1,
-  // },
-  textField: {
+  asideHeaderButtonOpened: {
+    color: "#000",
     backgroundColor: "#FFF",
-    padding: "0.35rem",
-    width: "9.5rem",
-    // height: "", USAR PROP DA IMAGE DO LOGO PARA SEMPRE ACOMPANHÁ-LA
-    "& .MuiFormControl-marginNormal": {
-      margin: 0,
+    borderRadius: "1rem",
+    position: "absolute",
+    left: 0,
+    top: "5rem",
+    transition: "all .5s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 600px)": {
+      top: "3.5rem",
     },
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      top: ".25rem",
+  },
+  asideHeaderButtonClosed: {
+    color: "#000",
+    backgroundColor: "#FFF",
+    borderRadius: "1rem",
+    position: "absolute",
+    left: "5.1rem",
+    top: "5rem",
+    transition: "all .5s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 600px)": {
+      left: "9.1rem",
+      top: "3.5rem",
     },
   },
   tab: {
@@ -79,6 +83,7 @@ const useStyles = makeStyles((hide) => ({
   },
   userHeaderBox: {
     display: "flex",
+    alignItems: "center",
   },
   button: {
     backgroundColor: "#00f",
@@ -86,7 +91,7 @@ const useStyles = makeStyles((hide) => ({
     "@media (max-width: 425px)": {
       fontSize: "small",
       height: "1.5rem",
-      margin: "2rem 0 0 0.5rem",
+      marginRight: "0.5rem",
     },
   },
 }));
@@ -161,29 +166,8 @@ const Dashboard = () => {
             <figcaption>Vestcasa</figcaption>
           </figure>
         </Box>
-        {/* {hide === true ? (
-          <Button
-            className={classes.asideHeaderButton2}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Menu</A>
-          </Button>
-        ) : (
-          <Button
-            className={classes.asideHeaderButton1}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Hide</A>
-          </Button>
-        )} */}
         <Box className={classes.userHeaderBox}>
           <p>{moment}</p>
-          {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
-          {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
 
           <Button
             className={classes.button}
@@ -205,7 +189,7 @@ const Dashboard = () => {
           // borderRadius: 1,
           // bgcolor: (theme) =>
           //   theme.palette.mode === "light" ? "grey.100" : "grey.900",
-          marginTop: "5rem",
+          // marginTop: "5rem",
           overflow: "hidden",
         }}
         ref={containerRef}
@@ -213,46 +197,101 @@ const Dashboard = () => {
         <Box
         //  sx={{ width: 200 }}
         >
-          <FormControlLabel
+          <Box>
+            {/* <FormControlLabel
             label="Show from target"
             control={<Switch checked={hide} onChange={handleMenu} />}
-          />
-          {/* <LeftBar
-            hide={hide}
-            // control={}
-          > */}
-          <Slide direction="right" in={hide} container={containerRef.current}>
-            {/* {icon} */}
-            <AppBar className={classes.asideHeader}>
-              <Tabs orientation="vertical" value={value}>
-                <Tab className={classes.tab} label="Item 1" {...a11yProps(0)} />
-                <Tab className={classes.tab} label="Item 2" {...a11yProps(1)} />
-                <Tab className={classes.tab} label="Item 3" {...a11yProps(2)} />
-                <Tab className={classes.tab} label="Item 4" {...a11yProps(3)} />
-                <Tab className={classes.tab} label="Item 5" {...a11yProps(4)} />
-                <Tab className={classes.tab} label="Item 6" {...a11yProps(5)} />
-                <Tab className={classes.tab} label="Item 7" {...a11yProps(6)} />
-                <Tab className={classes.tab} label="Item 8" {...a11yProps(7)} />
-                <Tab className={classes.tab} label="Item 9" {...a11yProps(8)} />
-                <Tab
-                  className={classes.tab}
-                  label="Item 10"
-                  {...a11yProps(9)}
+          /> */}
+            {!!hide ? (
+              <Slide
+                direction="right"
+                in={hide}
+                container={containerRef.current}
+              >
+                <ArrowCircleLeftIcon
+                  className={classes.asideHeaderButtonClosed}
+                  onClick={handleMenu}
                 />
-                <Tab
-                  className={classes.tab}
-                  label="Item 11"
-                  {...a11yProps(10)}
-                />
-                <Tab
-                  className={classes.tab}
-                  label="Item 12"
-                  {...a11yProps(11)}
-                />
-              </Tabs>
-            </AppBar>
-          </Slide>
-          {/* </LeftBar> */}
+              </Slide>
+            ) : (
+              // <Slide
+              //   direction="right"
+              //   in={hide}
+              //   container={containerRef.current}
+              // >
+              <ArrowCircleRightIcon
+                className={classes.asideHeaderButtonOpened}
+                onClick={handleMenu}
+              />
+              //{/* </Slide> */}
+            )}
+            <Slide direction="right" in={hide} container={containerRef.current}>
+              <AppBar className={classes.asideHeader}>
+                <Tabs orientation="vertical" value={value}>
+                  <Tab
+                    className={classes.tab}
+                    label="Item 1"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 2"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 3"
+                    {...a11yProps(2)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 4"
+                    {...a11yProps(3)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 5"
+                    {...a11yProps(4)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 6"
+                    {...a11yProps(5)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 7"
+                    {...a11yProps(6)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 8"
+                    {...a11yProps(7)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 9"
+                    {...a11yProps(8)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 10"
+                    {...a11yProps(9)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 11"
+                    {...a11yProps(10)}
+                  />
+                  <Tab
+                    className={classes.tab}
+                    label="Item 12"
+                    {...a11yProps(11)}
+                  />
+                </Tabs>
+              </AppBar>
+            </Slide>
+          </Box>
         </Box>
       </Box>
     </>
