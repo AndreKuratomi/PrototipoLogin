@@ -26,7 +26,9 @@ const useStyles = makeStyles((hide) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 1rem",
-    // paddingLeft: hide ? "11rem" : "1rem",
+    "@media (max-width: 767px)": {
+      padding: "0 0.5rem",
+    },
   },
   asideHeader: {
     backgroundColor: "#009E4F",
@@ -36,23 +38,26 @@ const useStyles = makeStyles((hide) => ({
     zIndex: 0,
     width: "fit-content",
     transition: "all .5s ease-in-out",
+    "@media (max-width: 375px)": {
+      marginTop: "5.3rem",
+    },
   },
-  asideHeaderButton1: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "120px",
-    top: "45px",
-    zIndex: 1,
-  },
-  asideHeaderButton2: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "-10px",
-    top: "45px",
-    zIndex: 1,
-  },
+  // asideHeaderButton1: {
+  //   backgroundColor: "#00f",
+  //   margin: "0.5rem",
+  //   position: "absolute",
+  //   left: "120px",
+  //   top: "45px",
+  //   zIndex: 1,
+  // },
+  // asideHeaderButton2: {
+  //   backgroundColor: "#00f",
+  //   margin: "0.5rem",
+  //   position: "absolute",
+  //   left: "-10px",
+  //   top: "45px",
+  //   zIndex: 1,
+  // },
   textField: {
     backgroundColor: "#FFF",
     padding: "0.35rem",
@@ -78,6 +83,11 @@ const useStyles = makeStyles((hide) => ({
   button: {
     backgroundColor: "#00f",
     margin: "0.5rem",
+    "@media (max-width: 425px)": {
+      fontSize: "small",
+      height: "1.5rem",
+      margin: "2rem 0 0 0.5rem",
+    },
   },
 }));
 
