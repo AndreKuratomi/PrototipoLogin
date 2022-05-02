@@ -55,7 +55,7 @@ const useStyles = makeStyles((hide) => ({
     position: "absolute",
     left: 0,
     top: "5rem",
-    transition: "all .5s ease-in-out",
+    transition: "all .4s ease-in-out",
     zIndex: 3,
     "@media (min-width: 600px)": {
       top: "3.5rem",
@@ -93,6 +93,13 @@ const useStyles = makeStyles((hide) => ({
       height: "1.5rem",
       marginRight: "0.5rem",
     },
+  },
+  boxDocuments: {
+    backgroundColor: "#aaa",
+    width: "77vw",
+    height: "77vw",
+    position: "relative",
+    zIndex: 1,
   },
 }));
 
@@ -180,51 +187,126 @@ const Dashboard = () => {
           </Button>
         </Box>
       </AppBar>
-      <Box
-        sx={{
-          // height: 180,
-          // width: 240,
-          // display: "flex",
-          // padding: 2,
-          // borderRadius: 1,
-          // bgcolor: (theme) =>
-          //   theme.palette.mode === "light" ? "grey.100" : "grey.900",
-          // marginTop: "5rem",
-          overflow: "hidden",
-        }}
-        ref={containerRef}
-      >
-        <Box
-        //  sx={{ width: 200 }}
-        >
-          <Box>
-            {/* <FormControlLabel
-            label="Show from target"
-            control={<Switch checked={hide} onChange={handleMenu} />}
-          /> */}
-            {!!hide ? (
-              <Slide
-                direction="right"
-                in={hide}
-                container={containerRef.current}
-              >
-                <ArrowCircleLeftIcon
-                  className={classes.asideHeaderButtonClosed}
-                  onClick={handleMenu}
-                />
-              </Slide>
-            ) : (
-              // <Slide
-              //   direction="right"
-              //   in={hide}
-              //   container={containerRef.current}
-              // >
-              <ArrowCircleRightIcon
+
+      <Box sx={{ display: "flex", width: "100vw" }}>
+        {!!hide ? (
+          <>
+            <Box
+              sx={{
+                // overflow: "hidden",
+                width: "23vw",
+              }}
+              // ref={containerRef}
+            >
+              <Box>
+                <Slide
+                  direction="right"
+                  in={hide}
+                  container={containerRef.current}
+                >
+                  <ArrowCircleLeftIcon
+                    className={classes.asideHeaderButtonClosed}
+                    onClick={handleMenu}
+                  />
+                </Slide>
+                {/* <ArrowCircleRightIcon
                 className={classes.asideHeaderButtonOpened}
                 onClick={handleMenu}
               />
-              //{/* </Slide> */}
-            )}
+            )} */}
+                <Slide
+                  direction="right"
+                  in={hide}
+                  container={containerRef.current}
+                >
+                  <AppBar className={classes.asideHeader}>
+                    <Tabs orientation="vertical" value={value}>
+                      <Tab
+                        className={classes.tab}
+                        label="Item 1"
+                        {...a11yProps(0)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 2"
+                        {...a11yProps(1)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 3"
+                        {...a11yProps(2)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 4"
+                        {...a11yProps(3)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 5"
+                        {...a11yProps(4)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 6"
+                        {...a11yProps(5)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 7"
+                        {...a11yProps(6)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 8"
+                        {...a11yProps(7)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 9"
+                        {...a11yProps(8)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 10"
+                        {...a11yProps(9)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 11"
+                        {...a11yProps(10)}
+                      />
+                      <Tab
+                        className={classes.tab}
+                        label="Item 12"
+                        {...a11yProps(11)}
+                      />
+                    </Tabs>
+                  </AppBar>
+                </Slide>
+              </Box>
+            </Box>
+            <Slide direction="left" in={hide} container={containerRef.current}>
+              <Box sx={{ backGroundColor: "#0F0", width: "77vw" }}>
+                OI
+                <Box className={classes.boxDocuments}>1</Box>
+                <Box className={classes.boxDocuments}>2</Box>
+                <Box className={classes.boxDocuments}>3</Box>
+                <Box className={classes.boxDocuments}>4</Box>
+                <Box className={classes.boxDocuments}>5</Box>
+              </Box>
+            </Slide>
+          </>
+        ) : (
+          <>
+            {/* <Slide direction="right" in={hide} container={containerRef.current}> */}
+            {/* ELABORAR UM FOR QUE REDUZA O NÚMERO DA LARGURA QUE NEM NO EXERCÍCIO DO CHATBOT*/}
+            <ArrowCircleRightIcon
+              className={classes.asideHeaderButtonOpened}
+              onClick={handleMenu}
+            />
+            {/* </Slide> */}
+
             <Slide direction="right" in={hide} container={containerRef.current}>
               <AppBar className={classes.asideHeader}>
                 <Tabs orientation="vertical" value={value}>
@@ -291,8 +373,18 @@ const Dashboard = () => {
                 </Tabs>
               </AppBar>
             </Slide>
-          </Box>
-        </Box>
+            {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
+            <Box sx={{ width: "100vw" }}>
+              TCHAU
+              <Box className={classes.boxDocuments}>1</Box>
+              <Box className={classes.boxDocuments}>2</Box>
+              <Box className={classes.boxDocuments}>3</Box>
+              <Box className={classes.boxDocuments}>4</Box>
+              <Box className={classes.boxDocuments}>5</Box>
+            </Box>
+            {/* </Slide> */}
+          </>
+        )}
       </Box>
     </>
   );
