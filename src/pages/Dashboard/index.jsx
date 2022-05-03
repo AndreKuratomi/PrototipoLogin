@@ -7,6 +7,7 @@ import { DateTimeMoment } from "../../utils";
 import {
   AppBar,
   Button,
+  Icon,
   Snackbar,
   Tab,
   Tabs,
@@ -17,67 +18,169 @@ import { makeStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
 
-import { A, LeftBar } from "./styles";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-const useStyles = makeStyles((hide) => ({
+import { A } from "./styles";
+
+const useStyles = makeStyles(({ hide }) => ({
   topHeader: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 1rem",
-    // paddingLeft: hide ? "11rem" : "1rem",
-  },
-  asideHeader: {
-    backgroundColor: "#009E4F",
-    marginTop: "4.3rem",
-    right: "auto",
-    position: "absolute",
-    zIndex: 0,
-    width: "fit-content",
-    transition: "all .5s ease-in-out",
-  },
-  asideHeaderButton1: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "120px",
-    top: "45px",
+    position: "relative",
     zIndex: 1,
-  },
-  asideHeaderButton2: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "-10px",
-    top: "45px",
-    zIndex: 1,
-  },
-  textField: {
-    backgroundColor: "#FFF",
-    padding: "0.35rem",
-    width: "9.5rem",
-    // height: "", USAR PROP DA IMAGE DO LOGO PARA SEMPRE ACOMPANHÁ-LA
-    "& .MuiFormControl-marginNormal": {
-      margin: 0,
+    "@media (max-width: 767px)": {
+      padding: "0 0.5rem",
     },
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      top: ".25rem",
+  },
+  asideHeaderOpened: {
+    backgroundColor: "#009E4F",
+    right: "auto",
+    position: "relative",
+    zIndex: 2,
+    width: "4.5rem",
+    // width: hide ? 0 : ,
+    transition: "all .7s ease-in-out",
+  },
+  asideHeaderClosed: {
+    backgroundColor: "#009E4F",
+    right: "auto",
+    // position: "relative",
+    zIndex: 2,
+    width: 0,
+    // width: hide ? 0 : ,
+    transition: "all .7s ease-in-out",
+  },
+  asideHeaderButtonClosed: {
+    color: "#000",
+    backgroundColor: "#FFF",
+    borderRadius: "1rem",
+    position: "absolute",
+    // left: hide ? 0 : "3.4rem",
+    left: 0,
+    top: "4.65rem",
+    // transition: "all .4s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 383px)": {
+      top: "3.5rem",
+    },
+  },
+  asideHeaderButtonOpened: {
+    color: "#000",
+    backgroundColor: "#FFF",
+    borderRadius: "1rem",
+    position: "absolute",
+    // left: hide ? 0 : "3.4rem",
+    left: "3.4rem",
+    top: "4.65rem",
+    // transition: "all .4s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 383px)": {
+      top: "3.5rem",
     },
   },
   tab: {
     "& .MuiTab-wrapper": {
       alignItems: "start",
-      marginLeft: "1rem",
     },
   },
   userHeaderBox: {
     display: "flex",
+    alignItems: "center",
   },
   button: {
     backgroundColor: "#00f",
     margin: "0.5rem",
+    "@media (max-width: 425px)": {
+      fontSize: "small",
+      height: "1.5rem",
+      marginRight: "0.5rem",
+    },
+  },
+  boxDocumentsWithAsideOpened: {
+    // backgroundColor: hide ? "#f00" : "#aaa",
+    width: "95vw",
+    // width: hide ? "100vw" : "95vw",
+    height: "576px",
+    display: "flex",
+    flexWrap: "wrap",
+    position: "relative",
+    zIndex: 1,
+  },
+  boxDocumentsWithAsideClosed: {
+    // backgroundColor: hide ? "#f00" : "#aaa",
+    width: "100vw",
+    // width: hide ? "100vw" : "95vw",
+    height: "576px",
+    position: "relative",
+    zIndex: 1,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  boxMenuWAMClosed: {
+    backgroundColor: "#f0f",
+    borderRadius: "1rem",
+    width: "100vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "10vh",
+    margin: "1rem",
+  },
+  boxMenuWAMOpened: {
+    backgroundColor: "#f0f",
+    borderRadius: "1rem",
+    width: "90vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "10vh",
+    margin: "1rem",
+  },
+  boxGraphicWAMClosed: {
+    backgroundColor: "#ff0",
+    borderRadius: "1rem",
+    width: "100vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "40vh",
+    margin: "1rem",
+  },
+  boxGraphicWAMOpened: {
+    backgroundColor: "#ff0",
+    borderRadius: "1rem",
+    width: "90vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "40vh",
+    margin: "1rem",
+  },
+  boxTopWAMClosed: {
+    backgroundColor: "#00f",
+    borderRadius: "1rem",
+    width: "45vw",
+    height: "20vh",
+    margin: "1rem",
+  },
+  boxTopWAMOpened: {
+    backgroundColor: "#00f",
+    borderRadius: "1rem",
+    width: "39vw",
+    height: "20vh",
+    margin: "1rem",
+  },
+  boxVendasSemanaWAMClosed: {
+    backgroundColor: "#0ff",
+    borderRadius: "1rem",
+    width: "45vw",
+    height: "20vh",
+    margin: "1rem",
+  },
+  boxVendasSemanaWAMOpened: {
+    backgroundColor: "#0ff",
+    borderRadius: "1rem",
+    width: "39vw",
+    height: "20vh",
+    margin: "1rem",
   },
 }));
 
@@ -115,8 +218,19 @@ const Dashboard = () => {
     setHide((prev) => !prev);
   };
 
+  // ASIDEMENU:
+  // const { value } = props;
+  const a11yProps = (index) => {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  };
+  const [value, setValue] = useState(0);
+
   // STYLES:
   const classes = useStyles(hide);
+  // console.log(classes.asideHeaderButton.top);
 
   return (
     <>
@@ -141,29 +255,8 @@ const Dashboard = () => {
             <figcaption>Vestcasa</figcaption>
           </figure>
         </Box>
-        {/* {hide === true ? (
-          <Button
-            className={classes.asideHeaderButton2}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Menu</A>
-          </Button>
-        ) : (
-          <Button
-            className={classes.asideHeaderButton1}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Hide</A>
-          </Button>
-        )} */}
         <Box className={classes.userHeaderBox}>
           <p>{moment}</p>
-          {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
-          {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
 
           <Button
             className={classes.button}
@@ -176,53 +269,199 @@ const Dashboard = () => {
           </Button>
         </Box>
       </AppBar>
-      <Box
-        sx={{
-          // height: 180,
-          // width: 240,
-          // display: "flex",
-          // padding: 2,
-          // borderRadius: 1,
-          // bgcolor: (theme) =>
-          //   theme.palette.mode === "light" ? "grey.100" : "grey.900",
-          marginTop: "5rem",
-          overflow: "hidden",
-        }}
-        ref={containerRef}
-      >
-        <Box
-        //  sx={{ width: 200 }}
-        >
-          {/* <FormControlLabel
-            control={<Switch checked={hide} onChange={handleMenu} />}
-            label="Show from target"
-          // /> */}
-          <LeftBar
-            hide={hide}
-            // control={}
-          >
-            <Slide direction="right" in={hide} container={containerRef.current}>
-              {/* {icon} */}
-              <AppBar className={classes.asideHeader}>
-                <Tabs orientation="vertical" value={""}>
-                  {/* VERIFICAR CONSOLE.LOG! children?*/}
-                  <Tab className={classes.tab} label="Item 1" />
-                  <Tab className={classes.tab} label="Item 2" />
-                  <Tab className={classes.tab} label="Item 3" />
-                  <Tab className={classes.tab} label="Item 4" />
-                  <Tab className={classes.tab} label="Item 5" />
-                  <Tab className={classes.tab} label="Item 6" />
-                  <Tab className={classes.tab} label="Item 7" />
-                  <Tab className={classes.tab} label="Item 8" />
-                  <Tab className={classes.tab} label="Item 9" />
-                  <Tab className={classes.tab} label="Item 10" />
-                  <Tab className={classes.tab} label="Item 11" />
-                  <Tab className={classes.tab} label="Item 12" />
-                </Tabs>
-              </AppBar>
-            </Slide>
-          </LeftBar>
-        </Box>
+
+      <Box sx={{ display: "flex", width: "100vw" }}>
+        {!!hide ? (
+          <>
+            {/* <Box> */}
+            <Box>
+              <Slide
+                direction="right"
+                in={hide}
+                container={containerRef.current}
+              >
+                <ArrowCircleLeftIcon
+                  className={classes.asideHeaderButtonOpened}
+                  onClick={handleMenu}
+                />
+              </Slide>
+              <Slide
+                direction="right"
+                in={hide}
+                container={containerRef.current}
+              >
+                <AppBar className={classes.asideHeaderOpened}>
+                  <Tabs
+                    orientation="vertical"
+                    value={value}
+                    sx={{ width: "5rem" }}
+                  >
+                    <Tab
+                      className={classes.tab}
+                      label="Item 1"
+                      {...a11yProps(0)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 2"
+                      {...a11yProps(1)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 3"
+                      {...a11yProps(2)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 4"
+                      {...a11yProps(3)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 5"
+                      {...a11yProps(4)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 6"
+                      {...a11yProps(5)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 7"
+                      {...a11yProps(6)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 8"
+                      {...a11yProps(7)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 9"
+                      {...a11yProps(8)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 10"
+                      {...a11yProps(9)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 11"
+                      {...a11yProps(10)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 12"
+                      {...a11yProps(11)}
+                    />
+                  </Tabs>
+                </AppBar>
+              </Slide>
+            </Box>
+            {/* </Box> */}
+            {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
+            <Box className={classes.boxDocumentsWithAsideOpened}>
+              <Box className={classes.boxMenuWAMOpened}>1</Box>
+              <Box className={classes.boxGraphicWAMOpened}>2</Box>
+              <Box className={classes.boxTopWAMOpened}>3</Box>
+              <Box className={classes.boxVendasSemanaWAMOpened}>4</Box>
+              {/* <Box className={classes.box}>5</Box> */}
+            </Box>
+            {/* </Slide> */}
+          </>
+        ) : (
+          <>
+            <Box>
+              {/* ELABORAR UM FOR QUE REDUZA O NÚMERO DA LARGURA QUE NEM NO EXERCÍCIO DO CHATBOT*/}
+              <ArrowCircleRightIcon
+                className={classes.asideHeaderButtonClosed}
+                onClick={handleMenu}
+              />
+
+              <Slide
+                direction="right"
+                in={hide}
+                container={containerRef.current}
+              >
+                <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}>
+                  <Tabs orientation="vertical" value={value}>
+                    <Tab
+                      className={classes.tab}
+                      label="Item 1"
+                      {...a11yProps(0)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 2"
+                      {...a11yProps(1)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 3"
+                      {...a11yProps(2)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 4"
+                      {...a11yProps(3)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 5"
+                      {...a11yProps(4)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 6"
+                      {...a11yProps(5)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 7"
+                      {...a11yProps(6)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 8"
+                      {...a11yProps(7)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 9"
+                      {...a11yProps(8)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 10"
+                      {...a11yProps(9)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 11"
+                      {...a11yProps(10)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 12"
+                      {...a11yProps(11)}
+                    />
+                  </Tabs>
+                </AppBar>
+              </Slide>
+              {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
+              <Box className={classes.boxDocumentsWithAsideClosed}>
+                <Box className={classes.boxMenuWAMClosed}>1</Box>
+                <Box className={classes.boxGraphicWAMClosed}>2</Box>
+                <Box className={classes.boxTopWAMClosed}>3</Box>
+                <Box className={classes.boxVendasSemanaWAMClosed}>4</Box>
+                {/* <Box className={classes.box}>5</Box> */}
+              </Box>
+              {/* </Slide> */}
+            </Box>
+          </>
+        )}
       </Box>
     </>
   );
