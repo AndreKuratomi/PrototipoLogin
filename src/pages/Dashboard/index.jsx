@@ -5,6 +5,8 @@ import {
   Button,
   Icon,
   Snackbar,
+  Tab,
+  Tabs,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -18,157 +20,161 @@ import { HeaderTop } from "../../components/HeaderTop";
 import { SnackBarWelcome } from "../../components/SnackBarWelcome";
 import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
 
-const useStyles = (hide = false) =>
-  makeStyles({
-    // console.log()
+const useStyles = makeStyles((hide) => ({
+  // console.log()
 
-    // asideHeader: {
-    //   backgroundColor: "#009E4F",
-    //   right: "auto",
-    //   position: hide ? "absolute" : "relative",
-    //   // position: "relative",
-    //   zIndex: 2,
-    //   // width: "4.5rem",
-    //   width: hide ? 0 : "4.5rem",
-    // },
-    asideHeaderOpened: {
-      backgroundColor: "#009E4F",
-      right: "auto",
-      position: "relative",
-      zIndex: 2,
-      width: "4.5rem",
-      // width: hide ? 0 : "4.5rem",
+  // asideHeader: {
+  //   backgroundColor: "#009E4F",
+  //   right: "auto",
+  //   position: hide ? "absolute" : "relative",
+  //   // position: "relative",
+  //   zIndex: 2,
+  //   // width: "4.5rem",
+  //   width: hide ? 0 : "4.5rem",
+  // },
+  asideHeaderOpened: {
+    backgroundColor: "#009E4F",
+    right: "auto",
+    position: "relative",
+    zIndex: 2,
+    width: "4.5rem",
+    // width: hide ? 0 : "4.5rem",
+  },
+  asideHeaderClosed: {
+    backgroundColor: "#009E4F",
+    right: "auto",
+    // position: "relative", //?????????????!!!!!!!!!!
+    zIndex: 2,
+    width: 0,
+    // width: hide ? 0 : "4.5rem",
+  },
+  asideHeaderButtonClosed: {
+    color: "#000",
+    backgroundColor: "#FFF",
+    borderRadius: "1rem",
+    position: "absolute",
+    // left: hide ? 0 : "3.4rem",
+    left: 0,
+    top: "4.65rem",
+    // transition: "all .4s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 383px)": {
+      top: "3.5rem",
     },
-    asideHeaderClosed: {
-      backgroundColor: "#009E4F",
-      right: "auto",
-      // position: "relative", //?????????????!!!!!!!!!!
-      zIndex: 2,
-      width: 0,
-      // width: hide ? 0 : "4.5rem",
+  },
+  asideHeaderButtonOpened: {
+    color: "#000",
+    backgroundColor: "#FFF",
+    borderRadius: "1rem",
+    position: "absolute",
+    // left: hide ? 0 : "3.4rem",
+    left: "3.4rem",
+    top: "4.65rem",
+    // transition: "all .4s ease-in-out",
+    zIndex: 3,
+    "@media (min-width: 383px)": {
+      top: "3.5rem",
     },
-    asideHeaderButtonClosed: {
-      color: "#000",
-      backgroundColor: "#FFF",
-      borderRadius: "1rem",
-      position: "absolute",
-      // left: hide ? 0 : "3.4rem",
-      left: 0,
-      top: "4.65rem",
-      // transition: "all .4s ease-in-out",
-      zIndex: 3,
-      "@media (min-width: 383px)": {
-        top: "3.5rem",
-      },
-    },
-    asideHeaderButtonOpened: {
-      color: "#000",
-      backgroundColor: "#FFF",
-      borderRadius: "1rem",
-      position: "absolute",
-      // left: hide ? 0 : "3.4rem",
-      left: "3.4rem",
-      top: "4.65rem",
-      // transition: "all .4s ease-in-out",
-      zIndex: 3,
-      "@media (min-width: 383px)": {
-        top: "3.5rem",
-      },
-    },
+  },
+  // tab: {
+  //   "& .MuiTab-wrapper": {
+  //     alignItems: "start",
+  //   },
+  // },
 
-    boxDocumentsWithAsideOpened: {
-      maxWidth: "100vw",
-      // width: hide ? "90vw" : "80vw",
-      height: "576px",
-      display: "flex",
-      flexWrap: "wrap",
-      position: "relative",
-      zIndex: 1,
-      "@media (max-width: 768px)": {
-        maxWidth: "80vw",
-      },
+  boxDocumentsWithAsideOpened: {
+    maxWidth: "100vw",
+    // width: hide ? "90vw" : "80vw",
+    height: "576px",
+    display: "flex",
+    flexWrap: "wrap",
+    position: "relative",
+    zIndex: 1,
+    "@media (max-width: 768px)": {
+      maxWidth: "80vw",
     },
-    boxDocumentsWithAsideClosed: {
+  },
+  boxDocumentsWithAsideClosed: {
+    width: "100vw",
+    // width: hide ? "100vw" : "95vw",
+    height: "576px",
+    position: "relative",
+    zIndex: 1,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  boxMenuWAMClosed: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "100vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "10vh",
+    margin: "1rem",
+  },
+  boxMenuWAMOpened: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "90vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "10vh",
+    margin: "1rem",
+    "@media (max-width: 639px)": {
       width: "100vw",
-      // width: hide ? "100vw" : "95vw",
-      height: "576px",
-      position: "relative",
-      zIndex: 1,
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      alignItems: "center",
     },
-    boxMenuWAMClosed: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
+  },
+  boxGraphicWAMClosed: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "100vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "40vh",
+    margin: "1rem",
+  },
+  boxGraphicWAMOpened: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "90vw",
+    // width: hide ? "100vw" : "90vw",
+    height: "40vh",
+    margin: "1rem",
+  },
+  boxTopWAMClosed: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "45vw",
+    height: "20vh",
+    margin: "1rem",
+    "@media (max-width: 639px)": {
       width: "100vw",
-      // width: hide ? "100vw" : "90vw",
-      height: "10vh",
-      margin: "1rem",
     },
-    boxMenuWAMOpened: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "90vw",
-      // width: hide ? "100vw" : "90vw",
-      height: "10vh",
-      margin: "1rem",
-      "@media (max-width: 639px)": {
-        width: "100vw",
-      },
-    },
-    boxGraphicWAMClosed: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
+  },
+  boxTopWAMOpened: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "39vw",
+    height: "20vh",
+    margin: "1rem",
+  },
+  boxVendasSemanaWAMClosed: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "45vw",
+    height: "20vh",
+    margin: "1rem",
+    "@media (max-width: 639px)": {
       width: "100vw",
-      // width: hide ? "100vw" : "90vw",
-      height: "40vh",
-      margin: "1rem",
     },
-    boxGraphicWAMOpened: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "90vw",
-      // width: hide ? "100vw" : "90vw",
-      height: "40vh",
-      margin: "1rem",
-    },
-    boxTopWAMClosed: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "45vw",
-      height: "20vh",
-      margin: "1rem",
-      "@media (max-width: 639px)": {
-        width: "100vw",
-      },
-    },
-    boxTopWAMOpened: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "39vw",
-      height: "20vh",
-      margin: "1rem",
-    },
-    boxVendasSemanaWAMClosed: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "45vw",
-      height: "20vh",
-      margin: "1rem",
-      "@media (max-width: 639px)": {
-        width: "100vw",
-      },
-    },
-    boxVendasSemanaWAMOpened: {
-      border: "1px solid #000",
-      borderRadius: "1rem",
-      width: "39vw",
-      height: "20vh",
-      margin: "1rem",
-    },
-  });
+  },
+  boxVendasSemanaWAMOpened: {
+    border: "1px solid #000",
+    borderRadius: "1rem",
+    width: "39vw",
+    height: "20vh",
+    margin: "1rem",
+  },
+}));
 
 const Dashboard = () => {
   // MOSTRAR/ESCONDER ASIDEMENU:
@@ -178,6 +184,16 @@ const Dashboard = () => {
     setHide((prev) => !prev);
   };
 
+  // ASIDEMENU:
+  const a11yProps = (index) => {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  };
+  const [value, setValue] = useState(0);
+
+  // STYLES:
   const classes = useStyles(hide);
   // console.log(classes);
 
@@ -209,6 +225,68 @@ const Dashboard = () => {
                 <AppBar className={classes.asideHeaderOpened}>
                   {/* <AppBar className={classes(!hide).asideHeader}> */}
                   <HeaderAsideTabs />
+                  {/* <Tabs orientation="vertical" value={value}>
+                    <Tab
+                      className={classes.tab}
+                      label="Item 1"
+                      {...a11yProps(0)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 2"
+                      {...a11yProps(1)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 3"
+                      {...a11yProps(2)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 4"
+                      {...a11yProps(3)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 5"
+                      {...a11yProps(4)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 6"
+                      {...a11yProps(5)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 7"
+                      {...a11yProps(6)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 8"
+                      {...a11yProps(7)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 9"
+                      {...a11yProps(8)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 10"
+                      {...a11yProps(9)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 11"
+                      {...a11yProps(10)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 12"
+                      {...a11yProps(11)}
+                    />
+                  </Tabs> */}
                 </AppBar>
               </Slide>
             </Box>
@@ -241,9 +319,71 @@ const Dashboard = () => {
                 in={hide}
                 container={containerRef.current}
               >
-                {/* <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}> */}
-                <AppBar className={classes(hide).asideHeader} sx={{ width: 0 }}>
+                <AppBar className={classes.asideHeaderClosed}>
+                  {/* <AppBar className={classes(hide).asideHeader} sx={{ width: 0 }}> */}
                   <HeaderAsideTabs />
+                  {/* <Tabs orientation="vertical" value={value}>
+                    <Tab
+                      className={classes.tab}
+                      label="Item 1"
+                      {...a11yProps(0)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 2"
+                      {...a11yProps(1)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 3"
+                      {...a11yProps(2)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 4"
+                      {...a11yProps(3)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 5"
+                      {...a11yProps(4)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 6"
+                      {...a11yProps(5)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 7"
+                      {...a11yProps(6)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 8"
+                      {...a11yProps(7)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 9"
+                      {...a11yProps(8)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 10"
+                      {...a11yProps(9)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 11"
+                      {...a11yProps(10)}
+                    />
+                    <Tab
+                      className={classes.tab}
+                      label="Item 12"
+                      {...a11yProps(11)}
+                    />
+                  </Tabs> */}
                 </AppBar>
               </Slide>
               {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
