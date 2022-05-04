@@ -13,9 +13,9 @@ export const SnackBarWelcome = () => {
     horizontal: "right",
   });
 
-  const handleClick = (newState) => {
-    setOpen(true);
-  };
+  //   const handleClick = (newState) => {
+  //     setOpen(true);
+  //   };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

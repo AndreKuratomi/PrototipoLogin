@@ -5,8 +5,6 @@ import {
   Button,
   Icon,
   Snackbar,
-  Tab,
-  Tabs,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -18,36 +16,37 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 import { HeaderTop } from "../../components/HeaderTop";
 import { SnackBarWelcome } from "../../components/SnackBarWelcome";
+import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
 
 const useStyles = (hide = false) =>
   makeStyles({
     // console.log()
 
-    asideHeader: {
+    // asideHeader: {
+    //   backgroundColor: "#009E4F",
+    //   right: "auto",
+    //   position: hide ? "absolute" : "relative",
+    //   // position: "relative",
+    //   zIndex: 2,
+    //   // width: "4.5rem",
+    //   width: hide ? 0 : "4.5rem",
+    // },
+    asideHeaderOpened: {
       backgroundColor: "#009E4F",
       right: "auto",
-      position: hide ? "absolute" : "relative",
-      // position: "relative",
+      position: "relative",
       zIndex: 2,
-      // width: "4.5rem",
-      width: hide ? 0 : "4.5rem",
+      width: "4.5rem",
+      // width: hide ? 0 : "4.5rem",
     },
-    // asideHeaderOpened: {
-    //   backgroundColor: "#009E4F",
-    //   right: "auto",
-    //   position: "relative",
-    //   zIndex: 2,
-    //   width: "4.5rem",
-    //   // width: hide ? 0 : "4.5rem",
-    // },
-    // asideHeaderClosed: {
-    //   backgroundColor: "#009E4F",
-    //   right: "auto",
-    //   // position: "relative", //?????????????!!!!!!!!!!
-    //   zIndex: 2,
-    //   width: 0,
-    //   // width: hide ? 0 : "4.5rem",
-    // },
+    asideHeaderClosed: {
+      backgroundColor: "#009E4F",
+      right: "auto",
+      // position: "relative", //?????????????!!!!!!!!!!
+      zIndex: 2,
+      width: 0,
+      // width: hide ? 0 : "4.5rem",
+    },
     asideHeaderButtonClosed: {
       color: "#000",
       backgroundColor: "#FFF",
@@ -74,11 +73,6 @@ const useStyles = (hide = false) =>
       zIndex: 3,
       "@media (min-width: 383px)": {
         top: "3.5rem",
-      },
-    },
-    tab: {
-      "& .MuiTab-wrapper": {
-        alignItems: "start",
       },
     },
 
@@ -184,17 +178,6 @@ const Dashboard = () => {
     setHide((prev) => !prev);
   };
 
-  // ASIDEMENU:
-  // const { value } = props;
-  const a11yProps = (index) => {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  };
-  const [value, setValue] = useState(0);
-
-  // STYLES:
   const classes = useStyles(hide);
   // console.log(classes);
 
@@ -225,72 +208,7 @@ const Dashboard = () => {
               >
                 <AppBar className={classes.asideHeaderOpened}>
                   {/* <AppBar className={classes(!hide).asideHeader}> */}
-                  <Tabs
-                    orientation="vertical"
-                    value={value}
-                    sx={{ width: "5rem" }}
-                  >
-                    <Tab
-                      className={classes.tab}
-                      label="Item 1"
-                      {...a11yProps(0)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 2"
-                      {...a11yProps(1)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 3"
-                      {...a11yProps(2)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 4"
-                      {...a11yProps(3)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 5"
-                      {...a11yProps(4)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 6"
-                      {...a11yProps(5)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 7"
-                      {...a11yProps(6)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 8"
-                      {...a11yProps(7)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 9"
-                      {...a11yProps(8)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 10"
-                      {...a11yProps(9)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 11"
-                      {...a11yProps(10)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 12"
-                      {...a11yProps(11)}
-                    />
-                  </Tabs>
+                  <HeaderAsideTabs />
                 </AppBar>
               </Slide>
             </Box>
@@ -325,68 +243,7 @@ const Dashboard = () => {
               >
                 {/* <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}> */}
                 <AppBar className={classes(hide).asideHeader} sx={{ width: 0 }}>
-                  <Tabs orientation="vertical" value={value}>
-                    <Tab
-                      className={classes.tab}
-                      label="Item 1"
-                      {...a11yProps(0)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 2"
-                      {...a11yProps(1)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 3"
-                      {...a11yProps(2)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 4"
-                      {...a11yProps(3)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 5"
-                      {...a11yProps(4)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 6"
-                      {...a11yProps(5)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 7"
-                      {...a11yProps(6)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 8"
-                      {...a11yProps(7)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 9"
-                      {...a11yProps(8)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 10"
-                      {...a11yProps(9)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 11"
-                      {...a11yProps(10)}
-                    />
-                    <Tab
-                      className={classes.tab}
-                      label="Item 12"
-                      {...a11yProps(11)}
-                    />
-                  </Tabs>
+                  <HeaderAsideTabs />
                 </AppBar>
               </Slide>
               {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
