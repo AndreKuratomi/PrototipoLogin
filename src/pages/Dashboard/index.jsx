@@ -11,205 +11,172 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import MuiAlert from "@material-ui/lab/Alert";
 import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+
 import { HeaderTop } from "../../components/HeaderTop";
+import { SnackBarWelcome } from "../../components/SnackBarWelcome";
 
-const useStyles = makeStyles((hide) => ({
-  // console.log()
+const useStyles = (hide = false) =>
+  makeStyles({
+    // console.log()
 
-  // asideHeader: {
-  //   backgroundColor: "#009E4F",
-  //   right: "auto",
-  //   position: hide ? "absolute" : "relative",
-  //   // position: "relative",
-  //   zIndex: 2,
-  //   // width: "4.5rem",
-  //   width: hide ? 0 : "4.5rem",
-  // },
-  asideHeaderOpened: {
-    backgroundColor: "#009E4F",
-    right: "auto",
-    position: "relative",
-    zIndex: 2,
-    width: "4.5rem",
-    // width: hide ? 0 : "4.5rem",
-  },
-  asideHeaderClosed: {
-    backgroundColor: "#009E4F",
-    right: "auto",
-    // position: "relative", //?????????????!!!!!!!!!!
-    zIndex: 2,
-    width: 0,
-    // width: hide ? 0 : "4.5rem",
-  },
-  asideHeaderButtonClosed: {
-    color: "#000",
-    backgroundColor: "#FFF",
-    borderRadius: "1rem",
-    position: "absolute",
-    // left: hide ? 0 : "3.4rem",
-    left: 0,
-    top: "4.65rem",
-    // transition: "all .4s ease-in-out",
-    zIndex: 3,
-    "@media (min-width: 383px)": {
-      top: "3.5rem",
+    asideHeader: {
+      backgroundColor: "#009E4F",
+      right: "auto",
+      position: hide ? "absolute" : "relative",
+      // position: "relative",
+      zIndex: 2,
+      // width: "4.5rem",
+      width: hide ? 0 : "4.5rem",
     },
-  },
-  asideHeaderButtonOpened: {
-    color: "#000",
-    backgroundColor: "#FFF",
-    borderRadius: "1rem",
-    position: "absolute",
-    // left: hide ? 0 : "3.4rem",
-    left: "3.4rem",
-    top: "4.65rem",
-    // transition: "all .4s ease-in-out",
-    zIndex: 3,
-    "@media (min-width: 383px)": {
-      top: "3.5rem",
+    // asideHeaderOpened: {
+    //   backgroundColor: "#009E4F",
+    //   right: "auto",
+    //   position: "relative",
+    //   zIndex: 2,
+    //   width: "4.5rem",
+    //   // width: hide ? 0 : "4.5rem",
+    // },
+    // asideHeaderClosed: {
+    //   backgroundColor: "#009E4F",
+    //   right: "auto",
+    //   // position: "relative", //?????????????!!!!!!!!!!
+    //   zIndex: 2,
+    //   width: 0,
+    //   // width: hide ? 0 : "4.5rem",
+    // },
+    asideHeaderButtonClosed: {
+      color: "#000",
+      backgroundColor: "#FFF",
+      borderRadius: "1rem",
+      position: "absolute",
+      // left: hide ? 0 : "3.4rem",
+      left: 0,
+      top: "4.65rem",
+      // transition: "all .4s ease-in-out",
+      zIndex: 3,
+      "@media (min-width: 383px)": {
+        top: "3.5rem",
+      },
     },
-  },
-  tab: {
-    "& .MuiTab-wrapper": {
-      alignItems: "start",
+    asideHeaderButtonOpened: {
+      color: "#000",
+      backgroundColor: "#FFF",
+      borderRadius: "1rem",
+      position: "absolute",
+      // left: hide ? 0 : "3.4rem",
+      left: "3.4rem",
+      top: "4.65rem",
+      // transition: "all .4s ease-in-out",
+      zIndex: 3,
+      "@media (min-width: 383px)": {
+        top: "3.5rem",
+      },
     },
-  },
-  userHeaderBox: {
-    display: "flex",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    "@media (max-width: 425px)": {
-      fontSize: "small",
-      height: "1.5rem",
-      marginRight: "0.5rem",
+    tab: {
+      "& .MuiTab-wrapper": {
+        alignItems: "start",
+      },
     },
-  },
-  boxDocumentsWithAsideOpened: {
-    maxWidth: "100vw",
-    // width: hide ? "90vw" : "80vw",
-    height: "576px",
-    display: "flex",
-    flexWrap: "wrap",
-    position: "relative",
-    zIndex: 1,
-    "@media (max-width: 768px)": {
-      maxWidth: "80vw",
+
+    boxDocumentsWithAsideOpened: {
+      maxWidth: "100vw",
+      // width: hide ? "90vw" : "80vw",
+      height: "576px",
+      display: "flex",
+      flexWrap: "wrap",
+      position: "relative",
+      zIndex: 1,
+      "@media (max-width: 768px)": {
+        maxWidth: "80vw",
+      },
     },
-  },
-  boxDocumentsWithAsideClosed: {
-    width: "100vw",
-    // width: hide ? "100vw" : "95vw",
-    height: "576px",
-    position: "relative",
-    zIndex: 1,
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  boxMenuWAMClosed: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "100vw",
-    // width: hide ? "100vw" : "90vw",
-    height: "10vh",
-    margin: "1rem",
-  },
-  boxMenuWAMOpened: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "90vw",
-    // width: hide ? "100vw" : "90vw",
-    height: "10vh",
-    margin: "1rem",
-    "@media (max-width: 639px)": {
+    boxDocumentsWithAsideClosed: {
       width: "100vw",
+      // width: hide ? "100vw" : "95vw",
+      height: "576px",
+      position: "relative",
+      zIndex: 1,
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      alignItems: "center",
     },
-  },
-  boxGraphicWAMClosed: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "100vw",
-    // width: hide ? "100vw" : "90vw",
-    height: "40vh",
-    margin: "1rem",
-  },
-  boxGraphicWAMOpened: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "90vw",
-    // width: hide ? "100vw" : "90vw",
-    height: "40vh",
-    margin: "1rem",
-  },
-  boxTopWAMClosed: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "45vw",
-    height: "20vh",
-    margin: "1rem",
-    "@media (max-width: 639px)": {
+    boxMenuWAMClosed: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
       width: "100vw",
+      // width: hide ? "100vw" : "90vw",
+      height: "10vh",
+      margin: "1rem",
     },
-  },
-  boxTopWAMOpened: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "39vw",
-    height: "20vh",
-    margin: "1rem",
-  },
-  boxVendasSemanaWAMClosed: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "45vw",
-    height: "20vh",
-    margin: "1rem",
-    "@media (max-width: 639px)": {
+    boxMenuWAMOpened: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "90vw",
+      // width: hide ? "100vw" : "90vw",
+      height: "10vh",
+      margin: "1rem",
+      "@media (max-width: 639px)": {
+        width: "100vw",
+      },
+    },
+    boxGraphicWAMClosed: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
       width: "100vw",
+      // width: hide ? "100vw" : "90vw",
+      height: "40vh",
+      margin: "1rem",
     },
-  },
-  boxVendasSemanaWAMOpened: {
-    border: "1px solid #000",
-    borderRadius: "1rem",
-    width: "39vw",
-    height: "20vh",
-    margin: "1rem",
-  },
-}));
-
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
-
-const Dashboard = () => {
-  // CARD BOAS-VINDAS:
-  const [open, setOpen] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "right",
+    boxGraphicWAMOpened: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "90vw",
+      // width: hide ? "100vw" : "90vw",
+      height: "40vh",
+      margin: "1rem",
+    },
+    boxTopWAMClosed: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "45vw",
+      height: "20vh",
+      margin: "1rem",
+      "@media (max-width: 639px)": {
+        width: "100vw",
+      },
+    },
+    boxTopWAMOpened: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "39vw",
+      height: "20vh",
+      margin: "1rem",
+    },
+    boxVendasSemanaWAMClosed: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "45vw",
+      height: "20vh",
+      margin: "1rem",
+      "@media (max-width: 639px)": {
+        width: "100vw",
+      },
+    },
+    boxVendasSemanaWAMOpened: {
+      border: "1px solid #000",
+      borderRadius: "1rem",
+      width: "39vw",
+      height: "20vh",
+      margin: "1rem",
+    },
   });
 
-  const handleClick = (newState) => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
+const Dashboard = () => {
   // MOSTRAR/ESCONDER ASIDEMENU:
   const [hide, setHide] = useState(false);
   const containerRef = useRef(null); //O QUE USEREF FAZ???
@@ -233,16 +200,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={2000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="success">
-          Seja bem-vindo, X!
-        </Alert>
-      </Snackbar>
+      <SnackBarWelcome />
 
       <HeaderTop />
 
@@ -266,7 +224,7 @@ const Dashboard = () => {
                 container={containerRef.current}
               >
                 <AppBar className={classes.asideHeaderOpened}>
-                  {/* <AppBar className={classes.asideHeader}> */}
+                  {/* <AppBar className={classes(!hide).asideHeader}> */}
                   <Tabs
                     orientation="vertical"
                     value={value}
@@ -365,8 +323,8 @@ const Dashboard = () => {
                 in={hide}
                 container={containerRef.current}
               >
-                <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}>
-                  {/* <AppBar className={classes.asideHeader} sx={{ width: 0 }}> */}
+                {/* <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}> */}
+                <AppBar className={classes(hide).asideHeader} sx={{ width: 0 }}>
                   <Tabs orientation="vertical" value={value}>
                     <Tab
                       className={classes.tab}
