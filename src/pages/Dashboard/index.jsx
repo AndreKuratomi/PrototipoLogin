@@ -1,9 +1,5 @@
 import { useRef, useState } from "react";
 
-import { Link } from "react-router-dom";
-
-import { DateTimeMoment } from "../../utils";
-
 import {
   AppBar,
   Button,
@@ -20,39 +16,35 @@ import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { HeaderTop } from "../../components/HeaderTop";
 
-import { A } from "./styles";
+const useStyles = makeStyles((hide) => ({
+  // console.log()
 
-const useStyles = makeStyles(({ hide }) => ({
-  topHeader: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0 1rem",
-    position: "relative",
-    zIndex: 1,
-    "@media (max-width: 767px)": {
-      padding: "0 0.5rem",
-    },
-  },
+  // asideHeader: {
+  //   backgroundColor: "#009E4F",
+  //   right: "auto",
+  //   position: hide ? "absolute" : "relative",
+  //   // position: "relative",
+  //   zIndex: 2,
+  //   // width: "4.5rem",
+  //   width: hide ? 0 : "4.5rem",
+  // },
   asideHeaderOpened: {
     backgroundColor: "#009E4F",
     right: "auto",
     position: "relative",
     zIndex: 2,
     width: "4.5rem",
-    // width: hide ? 0 : ,
-    transition: "all .7s ease-in-out",
+    // width: hide ? 0 : "4.5rem",
   },
   asideHeaderClosed: {
     backgroundColor: "#009E4F",
     right: "auto",
-    // position: "relative",
+    // position: "relative", //?????????????!!!!!!!!!!
     zIndex: 2,
     width: 0,
-    // width: hide ? 0 : ,
-    transition: "all .7s ease-in-out",
+    // width: hide ? 0 : "4.5rem",
   },
   asideHeaderButtonClosed: {
     color: "#000",
@@ -101,17 +93,18 @@ const useStyles = makeStyles(({ hide }) => ({
     },
   },
   boxDocumentsWithAsideOpened: {
-    // backgroundColor: hide ? "#f00" : "#aaa",
-    width: "95vw",
-    // width: hide ? "100vw" : "95vw",
+    maxWidth: "100vw",
+    // width: hide ? "90vw" : "80vw",
     height: "576px",
     display: "flex",
     flexWrap: "wrap",
     position: "relative",
     zIndex: 1,
+    "@media (max-width: 768px)": {
+      maxWidth: "80vw",
+    },
   },
   boxDocumentsWithAsideClosed: {
-    // backgroundColor: hide ? "#f00" : "#aaa",
     width: "100vw",
     // width: hide ? "100vw" : "95vw",
     height: "576px",
@@ -123,7 +116,7 @@ const useStyles = makeStyles(({ hide }) => ({
     alignItems: "center",
   },
   boxMenuWAMClosed: {
-    backgroundColor: "#f0f",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "100vw",
     // width: hide ? "100vw" : "90vw",
@@ -131,15 +124,18 @@ const useStyles = makeStyles(({ hide }) => ({
     margin: "1rem",
   },
   boxMenuWAMOpened: {
-    backgroundColor: "#f0f",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "90vw",
     // width: hide ? "100vw" : "90vw",
     height: "10vh",
     margin: "1rem",
+    "@media (max-width: 639px)": {
+      width: "100vw",
+    },
   },
   boxGraphicWAMClosed: {
-    backgroundColor: "#ff0",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "100vw",
     // width: hide ? "100vw" : "90vw",
@@ -147,7 +143,7 @@ const useStyles = makeStyles(({ hide }) => ({
     margin: "1rem",
   },
   boxGraphicWAMOpened: {
-    backgroundColor: "#ff0",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "90vw",
     // width: hide ? "100vw" : "90vw",
@@ -155,28 +151,34 @@ const useStyles = makeStyles(({ hide }) => ({
     margin: "1rem",
   },
   boxTopWAMClosed: {
-    backgroundColor: "#00f",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "45vw",
     height: "20vh",
     margin: "1rem",
+    "@media (max-width: 639px)": {
+      width: "100vw",
+    },
   },
   boxTopWAMOpened: {
-    backgroundColor: "#00f",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "39vw",
     height: "20vh",
     margin: "1rem",
   },
   boxVendasSemanaWAMClosed: {
-    backgroundColor: "#0ff",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "45vw",
     height: "20vh",
     margin: "1rem",
+    "@media (max-width: 639px)": {
+      width: "100vw",
+    },
   },
   boxVendasSemanaWAMOpened: {
-    backgroundColor: "#0ff",
+    border: "1px solid #000",
     borderRadius: "1rem",
     width: "39vw",
     height: "20vh",
@@ -208,9 +210,6 @@ const Dashboard = () => {
     setOpen(false);
   };
 
-  // DATA E HORA:
-  let moment = DateTimeMoment();
-
   // MOSTRAR/ESCONDER ASIDEMENU:
   const [hide, setHide] = useState(false);
   const containerRef = useRef(null); //O QUE USEREF FAZ???
@@ -230,7 +229,7 @@ const Dashboard = () => {
 
   // STYLES:
   const classes = useStyles(hide);
-  // console.log(classes.asideHeaderButton.top);
+  // console.log(classes);
 
   return (
     <>
@@ -245,35 +244,11 @@ const Dashboard = () => {
         </Alert>
       </Snackbar>
 
-      <AppBar className={classes.topHeader}>
-        <Box>
-          <figure>
-            <img
-              // src={}
-              alt="Vestcasa"
-            />
-            <figcaption>Vestcasa</figcaption>
-          </figure>
-        </Box>
-        <Box className={classes.userHeaderBox}>
-          <p>{moment}</p>
-
-          <Button
-            className={classes.button}
-            color="primary"
-            variant="contained"
-          >
-            <Link to="/">
-              <A>Sair</A>
-            </Link>
-          </Button>
-        </Box>
-      </AppBar>
+      <HeaderTop />
 
       <Box sx={{ display: "flex", width: "100vw" }}>
         {!!hide ? (
           <>
-            {/* <Box> */}
             <Box>
               <Slide
                 direction="right"
@@ -291,6 +266,7 @@ const Dashboard = () => {
                 container={containerRef.current}
               >
                 <AppBar className={classes.asideHeaderOpened}>
+                  {/* <AppBar className={classes.asideHeader}> */}
                   <Tabs
                     orientation="vertical"
                     value={value}
@@ -360,7 +336,6 @@ const Dashboard = () => {
                 </AppBar>
               </Slide>
             </Box>
-            {/* </Box> */}
             {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
             <Box className={classes.boxDocumentsWithAsideOpened}>
               <Box className={classes.boxMenuWAMOpened}>1</Box>
@@ -375,17 +350,23 @@ const Dashboard = () => {
           <>
             <Box>
               {/* ELABORAR UM FOR QUE REDUZA O NÚMERO DA LARGURA QUE NEM NO EXERCÍCIO DO CHATBOT*/}
+              {/* <Slide
+                direction="left"
+                in={hide}
+                container={containerRef.current}
+              > */}
               <ArrowCircleRightIcon
                 className={classes.asideHeaderButtonClosed}
                 onClick={handleMenu}
               />
-
+              {/* </Slide> */}
               <Slide
                 direction="right"
                 in={hide}
                 container={containerRef.current}
               >
                 <AppBar className={classes.asideHeaderClosed} sx={{ width: 0 }}>
+                  {/* <AppBar className={classes.asideHeader} sx={{ width: 0 }}> */}
                   <Tabs orientation="vertical" value={value}>
                     <Tab
                       className={classes.tab}
