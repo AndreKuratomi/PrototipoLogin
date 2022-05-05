@@ -51,7 +51,6 @@
     -->
   </body>
   <script>
-    // if (DESCOBRIR COMO CONDICIONAR APENAS PARA A PÁGINA DE LOGIN E DE ALTERAÇÃO DE SENHA) {}
     window.onload = () => {
       window.document.oncontextmenu = () => {
         return false;
@@ -61,16 +60,16 @@
     window.document.onkeydown = (evt) => {
       // bloqueio tecla F12
       // if (evt.keyCode === 123) {
-      //   // alert("Pode não, bixo...");
       //   return false;
-      //   // bloqueio comandos Ctrl + C
+      //   // bloqueio comandos Ctrl + U
       // } else
       if (evt.ctrlKey && evt.keyCode === 85) {
-        // alert("Pode não, bixo...");
+        return false;
+        // bloqueio comandos Ctrl + Shift + I
+      } else if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 73) {
         return false;
         // bloqueio comandos Ctrl + C
       } else if (evt.ctrlKey && evt.keyCode === 67) {
-        // alert("Pode não, bixo...");
         return false;
       }
     };
