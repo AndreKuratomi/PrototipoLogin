@@ -1,9 +1,9 @@
-import { FormSignUp } from "../../components/FormSignUp";
+import { FormChangePassword } from "../../components/FormChangePassword";
 
 const ChangePassword = () => {
   return (
     <section>
-      <FormSignUp />
+      <FormChangePassword />
 
       <figure>
         <img

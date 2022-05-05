@@ -1,12 +1,17 @@
+import { useState } from "react";
+
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useState } from "react";
+
+import { useTextInput } from "../../providers/TextInput";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
 export const SnackBarWelcome = () => {
+  const { text } = useTextInput();
+
   const [open, setOpen] = useState({
     open: false,
     vertical: "top",
@@ -33,7 +38,7 @@ export const SnackBarWelcome = () => {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success">
-          Seja bem-vindo, X!
+          Seja bem-vindo, {text}!
         </Alert>
       </Snackbar>
     </>

@@ -1,7 +1,8 @@
-import { Box, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+import { Box, Typography } from "@material-ui/core";
+
 import { FormLogin } from "../../components/FormLogin";
-// import { blockRightButton } from "../../utils";
 
 const Login = () => {
   return (

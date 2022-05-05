@@ -1,7 +1,12 @@
 import { AuthProvider } from "./Auth";
+import { TextInputProvider } from "./TextInput";
 
 const Providers = ({ children }) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <TextInputProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </TextInputProvider>
+  );
 };
 
 export default Providers;
