@@ -6,6 +6,8 @@ import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useTextInput } from "../../providers/TextInput";
+
 import { A } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const FormChangePassword = () => {
+  const { text, setUsername } = useTextInput();
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     currentPassword: yup.string().required("Senha atual obrigatória!"),
@@ -79,6 +83,8 @@ export const FormChangePassword = () => {
             {...register("username")}
             error={!!errors.username}
             helperText={errors.username?.message}
+            onChange={setUsername}
+            value={text}
           />
         </Box>
         <Box>

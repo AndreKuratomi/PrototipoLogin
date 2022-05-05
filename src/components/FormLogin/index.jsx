@@ -251,6 +251,12 @@ export const FormLogin = () => {
                 aqui
               </A>
             </Typography>
+            <Typography>
+              Ou{" "}
+              <Link to="/email">
+                <A>aqui</A>
+              </Link>
+            </Typography>
           </Box>
         </form>
       </article>
