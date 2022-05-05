@@ -4,8 +4,6 @@ import { Box, Typography } from "@material-ui/core";
 
 import { FormLogin } from "../../components/FormLogin";
 
-import { useKeysBlock } from "../../providers/KeysBlock";
-
 const Login = () => {
   return (
     <section>

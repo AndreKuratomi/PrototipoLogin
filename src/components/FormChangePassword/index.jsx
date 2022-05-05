@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { A } from "./styles";
 
@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FormSignUp = () => {
+export const FormChangePassword = () => {
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
-    email: yup.string().email().required("Email obrigatório!"),
+    currentPassword: yup.string().required("Senha atual obrigatória!"),
     // username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
     repeatPassword: yup.string().required("Repetir senha obrigatória!"),
@@ -54,9 +54,12 @@ export const FormSignUp = () => {
     resolver: yupResolver(formSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmitFunction = (data) => {
     //aqui virá a requisição
     console.log(data);
+    navigate("/login");
   };
 
   const classes = useStyles();
@@ -67,7 +70,7 @@ export const FormSignUp = () => {
         onSubmit={handleSubmit(onSubmitFunction)}
         className={classes.formControl}
       >
-        <div>
+        <Box>
           <TextField
             className={classes.textField}
             label="Usuário"
@@ -77,19 +80,19 @@ export const FormSignUp = () => {
             error={!!errors.username}
             helperText={errors.username?.message}
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <TextField
             className={classes.textField}
-            label="Email"
+            label="Senha atual"
             margin="normal"
             variant="standard"
             {...register("email")}
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            error={!!errors.currentPassword}
+            helperText={errors.currentPassword?.message}
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <TextField
             className={classes.textField}
             label="Senha"
@@ -100,8 +103,8 @@ export const FormSignUp = () => {
             error={!!errors.password}
             helperText={errors.password?.message}
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <TextField
             className={classes.textField}
             label="Repetir senha"
@@ -112,8 +115,13 @@ export const FormSignUp = () => {
             error={!!errors.repeatPassword}
             helperText={errors.repeatPassword?.message}
           />
-        </div>
-
+        </Box>
+        <Box className={classes.box}>
+          <Typography color={"#fff"}>
+            Sugestão: usar caracteres especiais/letras maiúsculas/letras
+            minúsculas e números
+          </Typography>
+        </Box>
         <Button
           type="submit"
           variant="contained"
@@ -125,7 +133,6 @@ export const FormSignUp = () => {
         </Button>
         <Box className={classes.box}>
           <Typography>Já possui conta?</Typography>
-          {/* //{" "} */}
           <Typography>
             Então vamos para o{" "}
             <Link to="/login" style={{ textDecoration: "none" }}>

@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { A } from "./styles";
+import { useTextInput } from "../../providers/TextInput";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -72,6 +73,8 @@ export const FormLogin = () => {
     setOpen(false);
   };
 
+  const { text, setUsername } = useTextInput();
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -88,17 +91,7 @@ export const FormLogin = () => {
   const navigate = useNavigate();
 
   const onSubmitFunction = (data) => {
-    console.log(data);
-    // <Snackbar
-    //   open={open}
-    //   anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //   autoHideDuration={3000}
-    //   onClose={handleClose}
-    // >
-    //   <Alert onClose={handleClose} severity="success">
-    //     Seja bem-vindo, X! //
-    //   </Alert>
-    // </Snackbar>;
+    console.log(text);
 
     navigate("/dashboard");
 
@@ -195,55 +188,72 @@ export const FormLogin = () => {
   const classes = useStyles();
 
   return (
-    <article>
-      <form
-        onSubmit={handleSubmit(onSubmitFunction)}
-        className={classes.formControl}
+    <>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        // props={data.username}
       >
-        <div>
-          <TextField
-            className={classes.textField}
-            label="Usuário"
-            margin="normal"
-            variant="standard"
-            {...register("username")}
-            error={!!errors.username}
-            helperText={errors.username?.message}
-          />
-        </div>
-        <div>
-          <TextField
-            className={classes.textField}
-            label="Senha"
-            type="password"
-            margin="normal"
-            variant="standard"
-            {...register("password")}
-            error={!!errors.password}
-            helperText={errors.password?.message}
-          />
-        </div>
+        <Alert onClose={handleClose} severity="success">
+          Senha alterada com sucesso,
+          {/* {data.username} */}!
+        </Alert>
+      </Snackbar>
 
-        <Button
-          type="submit"
-          variant="contained"
-          className={classes.button}
-          color="primary"
-          size="large"
-          onClick={handleClick}
+      <article>
+        <form
+          onSubmit={handleSubmit(onSubmitFunction)}
+          className={classes.formControl}
         >
-          Entrar
-        </Button>
-        <Box className={classes.box}>
-          <Typography>Esqueceu a senha?</Typography>
-          <Typography>
-            Clique{" "}
-            <A target="_blanck" href="https://suporte.vestcasa.com.br">
-              aqui
-            </A>
-          </Typography>
-        </Box>
-      </form>
-    </article>
+          <div>
+            <TextField
+              className={classes.textField}
+              label="Usuário"
+              margin="normal"
+              variant="standard"
+              {...register("username")}
+              error={!!errors.username}
+              helperText={errors.username?.message}
+              onChange={setUsername}
+              value={text}
+            />
+          </div>
+          <div>
+            <TextField
+              className={classes.textField}
+              label="Senha"
+              type="password"
+              margin="normal"
+              variant="standard"
+              {...register("password")}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          </div>
+
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+            onClick={handleClick}
+          >
+            Entrar
+          </Button>
+          <Box className={classes.box}>
+            <Typography>Esqueceu a senha?</Typography>
+            <Typography>
+              Clique{" "}
+              <A target="_blanck" href="https://suporte.vestcasa.com.br">
+                aqui
+              </A>
+            </Typography>
+          </Box>
+        </form>
+      </article>
+    </>
   );
 };

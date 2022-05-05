@@ -1,11 +1,11 @@
 import { AuthProvider } from "./Auth";
-import { KeysBlockProvider } from "./KeysBlock";
+import { TextInputProvider } from "./TextInput";
 
 const Providers = ({ children }) => {
   return (
-    <KeysBlockProvider>
+    <TextInputProvider>
       <AuthProvider>{children}</AuthProvider>
-    </KeysBlockProvider>
+    </TextInputProvider>
   );
 };
 
