@@ -47,7 +47,10 @@ export const FormChangePassword = () => {
     currentPassword: yup.string().required("Senha atual obrigatória!"),
     // username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
-    repeatPassword: yup.string().required("Repetir senha obrigatória!"),
+    repeatPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "As senhas devem ser iguais!")
+      .required("Repetir senha obrigatória!"),
   });
 
   const {
@@ -93,7 +96,8 @@ export const FormChangePassword = () => {
             label="Senha atual"
             margin="normal"
             variant="standard"
-            {...register("email")}
+            type="password"
+            {...register("currentPassword")}
             error={!!errors.currentPassword}
             helperText={errors.currentPassword?.message}
           />

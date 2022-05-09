@@ -197,8 +197,7 @@ export const FormLogin = () => {
         // props={data.username}
       >
         <Alert onClose={handleClose} severity="success">
-          Senha alterada com sucesso,
-          {/* {data.username} */}!
+          Senha alterada com sucesso, {text}!
         </Alert>
       </Snackbar>
 

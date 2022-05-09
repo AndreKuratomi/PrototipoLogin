@@ -41,6 +41,22 @@ export const SnackBarWelcome = () => {
           Seja bem-vindo, {text}!
         </Alert>
       </Snackbar>
+      {/* {value}
+      if (value==={error}) {
+            //     // ERROR
+        <Snackbar
+          open={open}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error">
+            AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
+            digitados!
+          </Alert>
+        </Snackbar>
+      }
+      } */}
     </>
   );
 };
