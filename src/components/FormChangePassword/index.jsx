@@ -6,7 +6,8 @@ import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useTextInput } from "../../providers/TextInput";
+import { usePasswordConfirm } from "../../providers/PasswordConfirm";
+// import { useTextInput } from "../../providers/TextInput";
 
 import { A } from "./styles";
 
@@ -33,24 +34,40 @@ const useStyles = makeStyles((theme) => ({
   },
   box: {
     color: "#FFF",
-    textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
+    textDecoration: "none",
+  },
+  boxSuggestion: {
+    color: "#FFF",
+    // marginTop: "1rem",
+    textAlign: "center",
+    textDecoration: "none",
+    "& .MuiTypography-body1": {
+      fontSize: "0.75rem",
+    },
   },
 }));
 
 export const FormChangePassword = () => {
-  const { text, setUsername } = useTextInput();
+  // const { text, setUsername } = useTextInput();
+  const { handleChange, onSubmit, toSend } = usePasswordConfirm();
 
   const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório!"),
-    currentPassword: yup.string().required("Senha atual obrigatória!"),
-    // username: yup.string().required("Usuário obrigatório!"),
-    password: yup.string().required("Senha obrigatória!"),
-    repeatPassword: yup
+    user: yup.string().required("Usuário obrigatório!"),
+    email: yup.string().email().required("Email obrigatório!"),
+    currentPassword: yup.string().required("Senha provisória obrigatória!"),
+    newPassword: yup
       .string()
-      .oneOf([yup.ref("password")], "As senhas devem ser iguais!")
-      .required("Repetir senha obrigatória!"),
+      .notOneOf(
+        [yup.ref("currentPassword")],
+        "A nova senha não deve ser igual à provisória!"
+      )
+      .required("Nova senha obrigatória!"),
+    repeatNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword")], "As senhas devem ser iguais!")
+      .required("Repetir nova senha obrigatória!"),
   });
 
   const {
@@ -63,39 +80,56 @@ export const FormChangePassword = () => {
 
   const navigate = useNavigate();
 
-  const onSubmitFunction = (data) => {
-    //aqui virá a requisição
-    console.log(data);
-    navigate("/login");
-  };
+  // const onSubmitFunction = (data) => {
+  //   if (data) {
+  //     navigate("/login");
+  //   }
+  // };
 
   const classes = useStyles();
 
   return (
     <article>
-      <form
-        onSubmit={handleSubmit(onSubmitFunction)}
-        className={classes.formControl}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box>
           <TextField
-            className={classes.textField}
-            label="Usuário"
             margin="normal"
             variant="standard"
-            {...register("username")}
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            onChange={setUsername}
-            value={text}
+            className={classes.textField}
+            type="text"
+            // name="user"
+            label="Digite aqui seu usuário"
+            placeholder="user"
+            {...register("user")}
+            value={toSend.user}
+            onChange={handleChange}
+            error={!!errors.user}
+            helperText={errors.user?.message}
+          />
+        </Box>
+        <Box>
+          <TextField
+            margin="normal"
+            variant="standard"
+            className={classes.textField}
+            type="text"
+            // name="email"
+            label="Digite aqui seu email"
+            placeholder="email"
+            {...register("email")}
+            value={toSend.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
         </Box>
         <Box>
           <TextField
             className={classes.textField}
-            label="Senha atual"
+            label="Senha provisória"
             margin="normal"
             variant="standard"
+            placeholder="current_password"
             type="password"
             {...register("currentPassword")}
             error={!!errors.currentPassword}
@@ -109,10 +143,17 @@ export const FormChangePassword = () => {
             type="password"
             margin="normal"
             variant="standard"
-            {...register("password")}
-            error={!!errors.password}
-            helperText={errors.password?.message}
+            placeholder="new_password"
+            {...register("newPassword")}
+            error={!!errors.newPassword}
+            helperText={errors.newPassword?.message}
           />
+        </Box>
+        <Box className={classes.boxSuggestion}>
+          <Typography color={"#fff"}>
+            Sugestão: usar caracteres especiais/letras maiúsculas/letras
+            minúsculas e números
+          </Typography>
         </Box>
         <Box>
           <TextField
@@ -121,16 +162,14 @@ export const FormChangePassword = () => {
             type="password"
             margin="normal"
             variant="standard"
-            {...register("repeatPassword")}
-            error={!!errors.repeatPassword}
-            helperText={errors.repeatPassword?.message}
+            // name="new_password"
+            placeholder="new_password"
+            {...register("repeatNewPassword")}
+            value={toSend.new_password}
+            onChange={handleChange}
+            error={!!errors.repeatNewPassword}
+            helperText={errors.repeatNewPassword?.message}
           />
-        </Box>
-        <Box className={classes.box}>
-          <Typography color={"#fff"}>
-            Sugestão: usar caracteres especiais/letras maiúsculas/letras
-            minúsculas e números
-          </Typography>
         </Box>
         <Button
           type="submit"

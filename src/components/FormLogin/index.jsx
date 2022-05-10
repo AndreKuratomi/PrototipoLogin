@@ -245,13 +245,13 @@ export const FormLogin = () => {
           <Box className={classes.box}>
             <Typography>Esqueceu a senha?</Typography>
             <Typography>
-              Clique{" "}
+              Contate a central de suporte clicando{" "}
               <A target="_blanck" href="https://suporte.vestcasa.com.br">
                 aqui
               </A>
             </Typography>
             <Typography>
-              Ou{" "}
+              Ou solicite a alteração de senha por{" "}
               <Link to="/email">
                 <A>aqui</A>
               </Link>
