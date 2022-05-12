@@ -2,14 +2,22 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import {
+  v1 as uuidv1,
+  v2 as uuidv2,
+  v3 as uuidv3,
+  v4 as uuidv4,
+  v5 as uuidv5,
+} from "uuid";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 import { usePasswordAsk } from "../../providers/PasswordAsk";
-import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
   formControl: {
@@ -40,10 +48,19 @@ const useStyles = makeStyles({
   },
 });
 
+// import { useTextInput } from "../../providers/TextInput";
+
 const Email = () => {
   // const { text } = useTextInput();
-  const { handleChange, onSubmit, toSend } = usePasswordAsk();
-  //   // https://medium.com/geekculture/how-to-send-emails-from-a-form-in-react-emailjs-6cdd21bb4190
+  const { handleChange, onSubmit, toSend, handleClick } = usePasswordAsk();
+
+  //   //
+
+  // const [open, setOpen] = useState(false);
+
+  // const openSnack = () => {
+  //   setOpen(true);
+  // };
 
   const formSchema = yup.object().shape({
     user: yup.string().required("Usuário obrigatório!"),
@@ -58,18 +75,14 @@ const Email = () => {
     resolver: yupResolver(formSchema),
   });
 
-  // const navigate = useNavigate();
-
-  // const onSubmitFunction = (data) => {
-  //   //aqui virá a requisição
-  //   console.log(data);
-  //   navigate("/login");
-  // };
+  // if (auth) {
+  // }
 
   const classes = useStyles();
 
   return (
     <article>
+      {/* {!email && <SnackBarComponent duration={5000} severity={"error"} text={"Algo deu errado! Confira os dados digitados e/ou se o usuaŕio está cadastrado."}/>} */}
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box>
           <TextField

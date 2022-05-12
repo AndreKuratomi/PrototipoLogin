@@ -1,15 +1,28 @@
+import { Link, Navigate } from "react-router-dom";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
+import { useToast } from "@chakra-ui/react";
+
+import { useAuth } from "../../providers/Auth";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 // import { useTextInput } from "../../providers/TextInput";
 
 import { A } from "./styles";
+import { useEffect } from "react";
+
+// import { useTextInput } from "../../providers/TextInput";
+
+// const Alert = (props) => {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// };
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -50,8 +63,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const FormChangePassword = () => {
-  // const { text, setUsername } = useTextInput();
   const { handleChange, onSubmit, toSend } = usePasswordConfirm();
+  // TOASTS:
+  const toast = useToast();
+
+  const notAskedToast = () => {
+    toast({
+      description: "O usuário não fez pedido e alteração de senha.",
+      duration: 5000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
+  };
+  // const [open, setOpen] = useState({
+  //   open: false,
+  //   vertical: "top",
+  //   horizontal: "right",
+  // });
+
+  // const handleClick = (newState) => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
+  // const { text, setUsername } = useTextInput();
 
   const formSchema = yup.object().shape({
     user: yup.string().required("Usuário obrigatório!"),
@@ -78,15 +119,26 @@ export const FormChangePassword = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const navigate = useNavigate();
-
-  // const onSubmitFunction = (data) => {
-  //   if (data) {
-  //     navigate("/login");
-  //   }
-  // };
-
   const classes = useStyles();
+
+  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO
+  const { auth, setAuth } = useAuth();
+
+  const token = JSON.parse(
+    localStorage.getItem("@token: NewEmailToken") || "null"
+  );
+  // useEffect(() => {
+  //   token;
+  //   auth;
+  // }, [auth]);
+  if (token) {
+    setAuth(true);
+    console.log(auth);
+  } else {
+    console.log(auth);
+    notAskedToast();
+    return <Navigate to="/login" />;
+  }
 
   return (
     <article>

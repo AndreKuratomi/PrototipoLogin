@@ -16,7 +16,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import MuiAlert from "@material-ui/lab/Alert";
+
+import { useToast } from "@chakra-ui/react";
 
 import { A } from "./styles";
 import { useTextInput } from "../../providers/TextInput";
@@ -50,30 +51,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
+// const Alert = (props) => {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// };
 
 export const FormLogin = () => {
-  const [open, setOpen] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "right",
-  });
-
-  const handleClick = (newState) => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   const { text, setUsername } = useTextInput();
+
+  const toast = useToast();
+
+  const addSuccessToast = (person) => {
+    toast({
+      description: "Seja bem-vindo, " + person.target[0].value + "!",
+      duration: 2000,
+      position: "top",
+      status: "success",
+      title: "Login feito com sucesso!",
+    });
+  };
+  const addFailToast = () => {
+    toast({
+      description:
+        "Algo deu errado! Verifique se os dados preenchidos estão corretos.",
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Falha no login!",
+    });
+  };
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
@@ -90,11 +95,12 @@ export const FormLogin = () => {
 
   const navigate = useNavigate();
 
-  const onSubmitFunction = (data) => {
-    console.log(text);
+  const onSubmitFunction = (data, text) => {
+    console.log(text.target[0].value);
 
     navigate("/dashboard");
 
+    addSuccessToast(text);
     // api
     //   .post("/login", data)
     //   .then((response) => {
@@ -104,109 +110,25 @@ export const FormLogin = () => {
 
     //     const now = Date.now();
     //     let delta = user.signature.deadline - now;
+    //    if () {}
 
-    //     // WARNING
-    //     if (delta <= 15) {
-    //       <Snackbar
-    //         open={open}
-    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //         autoHideDuration={6000}
-    //         onClose={handleClose}
-    //       >
-    //         <Alert onClose={handleClose} severity="warning">
-    //           AVISO: Sua assinatura vence em {delta} dias! Fique atento!
-    //         </Alert>
-    //       </Snackbar>;
-    //     }
-
-    //     if (delta < 0) {
-    //       <Snackbar
-    //         open={open}
-    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //         autoHideDuration={6000}
-    //         onClose={handleClose}
-    //       >
-    //         <Alert onClose={handleClose} severity="error">
-    //           AVISO: Sua assinatura está vencida desde {user.signature.deadline}
-    //           ! Contate setor responsável!
-    //         </Alert>
-    //       </Snackbar>;
-    //     }
-
-    //     // SUCCESS
-    //     if (user.sex === "female") {
-    //       <Snackbar
-    //         open={open}
-    //         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //         autoHideDuration={3000}
-    //         onClose={handleClose}
-    //       >
-    //         <Alert onClose={handleClose} severity="success">
-    //           Seja bem-vinda, {user.name}! //
-    //         </Alert>
-    //       </Snackbar>;
-    //     }
-    //     <Snackbar
-    //       open={open}
-    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //       autoHideDuration={3000}
-    //       onClose={handleClose}
-    //     >
-    //       <Alert onClose={handleClose} severity="success">
-    //         Seja bem-vindo, {user.name}! //
-    //       </Alert>
-    //     </Snackbar>;
     //   })
     //   .catch((err) => {
-    //     // ERROR
-    //     <Snackbar
-    //       open={open}
-    //       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //       autoHideDuration={3000}
-    //       onClose={handleClose}
-    //     >
-    //       <Alert onClose={handleClose} severity="error">
-    //         AVISO: Dados incorretos ou Usuário não cadastrado! Verificar dados
-    //         digitados!
-    //       </Alert>
-    //     </Snackbar>;
-    //     // if (usuário não cadastrado) { PRECISA OU ESTÁ SUBENTENDIDO NO DE CIMA?
-    //     //   <Snackbar
-    //     //     open={open}
-    //     //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    //     //     autoHideDuration={3000}
-    //     //     onClose={handleClose}
-    //     //   >
-    //     //     <Alert onClose={handleClose} severity="error">
-    //     //       AVISO: Usuário não cadastrado! Verificar dados digitados!
-    //     //     </Alert>
-    //     //   </Snackbar>
-    //     // }
+    // addFailToast();
     //   });
   };
+  // addSuccessToast(text);
 
   const classes = useStyles();
 
   return (
     <>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        // props={data.username}
-      >
-        <Alert onClose={handleClose} severity="success">
-          Senha alterada com sucesso, {text}!
-        </Alert>
-      </Snackbar>
-
       <article>
         <form
           onSubmit={handleSubmit(onSubmitFunction)}
           className={classes.formControl}
         >
-          <div>
+          <Box>
             <TextField
               className={classes.textField}
               label="Usuário"
@@ -218,8 +140,8 @@ export const FormLogin = () => {
               onChange={setUsername}
               value={text}
             />
-          </div>
-          <div>
+          </Box>
+          <Box>
             <TextField
               className={classes.textField}
               label="Senha"
@@ -230,7 +152,7 @@ export const FormLogin = () => {
               error={!!errors.password}
               helperText={errors.password?.message}
             />
-          </div>
+          </Box>
 
           <Button
             type="submit"
@@ -238,7 +160,7 @@ export const FormLogin = () => {
             className={classes.button}
             color="primary"
             size="large"
-            onClick={handleClick}
+            // onClick={handleClick}
           >
             Entrar
           </Button>
