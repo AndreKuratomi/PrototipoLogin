@@ -15,6 +15,7 @@ import { useToast } from "@chakra-ui/react";
 export const PasswordAskContext = createContext();
 
 export const PasswordAskProvider = ({ children }) => {
+  // TOASTS:
   const toast = useToast();
 
   const addSuccessToast = () => {
@@ -37,12 +38,20 @@ export const PasswordAskProvider = ({ children }) => {
     });
   };
 
+  // STATE PARA CARREGAMENTO:
+  const [loading, setLoading] = useState(false);
+  const LoadPage = () => {
+    setLoading(true);
+  };
+
+  // GERAÇÂO DE 'TOKEN':
   const createAuth = () => {
     // let token = uuidv4();
     const cryptoken = bcrypt.genSaltSync(10);
     localStorage.setItem("@token: NewEmailToken", JSON.stringify(cryptoken));
   };
 
+  // ENVIO DE EMAIL:
   const [toSend, setToSend] = useState({
     user: "",
     email: "",
@@ -53,18 +62,28 @@ export const PasswordAskProvider = ({ children }) => {
     new_password: "",
   });
 
-  const onSubmit = (form, e) => {
+  const onSubmit = async (form, e) => {
+    console.log(form);
+    LoadPage();
     e.preventDefault();
-    send("service_rvorkr9", "template_i12spvo", toSend, "s0HlgmnHFp7vXdTbJ")
+    await send(
+      "service_rvorkr9",
+      "template_i12spvo",
+      toSend,
+      "s0HlgmnHFp7vXdTbJ"
+    )
       .then((response) => {
         addSuccessToast();
         createAuth();
+        setLoading(false);
         console.log("Email enviado!", response.status, response.text);
       })
       .catch((err) => {
         addFailToast();
+        setLoading(false);
         console.log("Algo deu errado!", err);
       });
+    // }
   };
 
   const handleChange = (e) => {
@@ -72,7 +91,9 @@ export const PasswordAskProvider = ({ children }) => {
   };
 
   return (
-    <PasswordAskContext.Provider value={{ toSend, onSubmit, handleChange }}>
+    <PasswordAskContext.Provider
+      value={{ toSend, onSubmit, handleChange, loading, LoadPage }}
+    >
       {children}
     </PasswordAskContext.Provider>
   );

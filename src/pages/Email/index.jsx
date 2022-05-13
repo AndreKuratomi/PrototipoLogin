@@ -51,8 +51,7 @@ const useStyles = makeStyles({
 // import { useTextInput } from "../../providers/TextInput";
 
 const Email = () => {
-  // const { text } = useTextInput();
-  const { handleChange, onSubmit, toSend, handleClick } = usePasswordAsk();
+  const { handleChange, onSubmit, toSend, loading } = usePasswordAsk();
 
   //   //
 
@@ -116,15 +115,28 @@ const Email = () => {
             helperText={errors.email?.message}
           />
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          className={classes.button}
-          color="primary"
-          size="large"
-        >
-          Enviar
-        </Button>
+        {loading ? (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+            disabled="true"
+          >
+            Enviando...
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+          >
+            Enviar
+          </Button>
+        )}
       </form>
     </article>
   );
