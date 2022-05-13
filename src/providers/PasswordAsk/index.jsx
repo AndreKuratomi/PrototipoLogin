@@ -52,10 +52,11 @@ export const PasswordAskProvider = ({ children }) => {
   };
 
   // ENVIO DE EMAIL:
+  const reducedUUID = uuidv4().substring(0, 13);
   const [toSend, setToSend] = useState({
     user: "",
     email: "",
-    random_password: uuidv4(),
+    random_password: reducedUUID,
     link: "http://localhost:3000/changepassword",
     reply_to: "suporte.vestcasa@gmail.com",
     date: new Date(),
@@ -63,7 +64,6 @@ export const PasswordAskProvider = ({ children }) => {
   });
 
   const onSubmit = async (form, e) => {
-    console.log(form);
     LoadPage();
     e.preventDefault();
     await send(

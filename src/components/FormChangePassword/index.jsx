@@ -13,16 +13,8 @@ import { useToast } from "@chakra-ui/react";
 
 import { useAuth } from "../../providers/Auth";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
-// import { useTextInput } from "../../providers/TextInput";
 
 import { A } from "./styles";
-import { useEffect } from "react";
-
-// import { useTextInput } from "../../providers/TextInput";
-
-// const Alert = (props) => {
-//   return <MuiAlert elevation={6} variant="filled" {...props} />;
-// };
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -69,30 +61,13 @@ export const FormChangePassword = () => {
 
   const notAskedToast = () => {
     toast({
-      description: "O usuário não fez pedido e alteração de senha.",
+      description: "O usuário não fez pedido de alteração de senha.",
       duration: 5000,
       position: "top",
       status: "error",
       title: "Não autorizado",
     });
   };
-  // const [open, setOpen] = useState({
-  //   open: false,
-  //   vertical: "top",
-  //   horizontal: "right",
-  // });
-
-  // const handleClick = (newState) => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-  //   setOpen(false);
-  // };
-  // const { text, setUsername } = useTextInput();
 
   const formSchema = yup.object().shape({
     user: yup.string().required("Usuário obrigatório!"),
@@ -118,26 +93,22 @@ export const FormChangePassword = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
+  // console.log(data);
 
   const classes = useStyles();
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const token = JSON.parse(
     localStorage.getItem("@token: NewEmailToken") || "null"
   );
-  // useEffect(() => {
-  //   token;
-  //   auth;
-  // }, [auth]);
+
   if (token) {
     setAuth(true);
-    console.log(auth);
   } else {
-    console.log(auth);
-    notAskedToast();
-    return <Navigate to="/login" />;
+    // notAskedToast();
+    // return <Navigate to="/login" />;
   }
 
   return (
@@ -149,12 +120,12 @@ export const FormChangePassword = () => {
             variant="standard"
             className={classes.textField}
             type="text"
-            // name="user"
             label="Digite aqui seu usuário"
             placeholder="user"
             {...register("user")}
-            value={toSend.user}
-            onChange={handleChange}
+            // value={toSend.user}
+            // onChange={}
+            onInputChange={handleChange}
             error={!!errors.user}
             helperText={errors.user?.message}
           />
@@ -165,12 +136,12 @@ export const FormChangePassword = () => {
             variant="standard"
             className={classes.textField}
             type="text"
-            // name="email"
             label="Digite aqui seu email"
             placeholder="email"
             {...register("email")}
-            value={toSend.email}
-            onChange={handleChange}
+            // value={toSend.email}
+            // onChange={handleChange}
+            onInputChange={handleChange}
             error={!!errors.email}
             helperText={errors.email?.message}
           />
@@ -214,11 +185,11 @@ export const FormChangePassword = () => {
             type="password"
             margin="normal"
             variant="standard"
-            // name="new_password"
             placeholder="new_password"
             {...register("repeatNewPassword")}
-            value={toSend.new_password}
-            onChange={handleChange}
+            // value={toSend.new_password}
+            // onChange={handleChange}
+            onInputChange={handleChange}
             error={!!errors.repeatNewPassword}
             helperText={errors.repeatNewPassword?.message}
           />

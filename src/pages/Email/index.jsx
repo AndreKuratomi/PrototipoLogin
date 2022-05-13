@@ -1,15 +1,3 @@
-import { useState } from "react";
-
-import { Link, useNavigate } from "react-router-dom";
-
-import {
-  v1 as uuidv1,
-  v2 as uuidv2,
-  v3 as uuidv3,
-  v4 as uuidv4,
-  v5 as uuidv5,
-} from "uuid";
-
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -53,14 +41,6 @@ const useStyles = makeStyles({
 const Email = () => {
   const { handleChange, onSubmit, toSend, loading } = usePasswordAsk();
 
-  //   //
-
-  // const [open, setOpen] = useState(false);
-
-  // const openSnack = () => {
-  //   setOpen(true);
-  // };
-
   const formSchema = yup.object().shape({
     user: yup.string().required("Usuário obrigatório!"),
     email: yup.string().email().required("Email obrigatório!"),
@@ -74,14 +54,10 @@ const Email = () => {
     resolver: yupResolver(formSchema),
   });
 
-  // if (auth) {
-  // }
-
   const classes = useStyles();
 
   return (
     <article>
-      {/* {!email && <SnackBarComponent duration={5000} severity={"error"} text={"Algo deu errado! Confira os dados digitados e/ou se o usuaŕio está cadastrado."}/>} */}
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box>
           <TextField
