@@ -102,7 +102,6 @@ export const PasswordConfirmProvider = ({ children }) => {
     // setToSend({ ...toSend, [e.target.placeholder]: e.target.value });
     // setToSend({ ...toSend, ...selectForm });
   };
-  console.log(qwerty);
 
   return (
     <PasswordConfirmContext.Provider

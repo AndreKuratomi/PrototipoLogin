@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export const FormChangePassword = () => {
   // const { loading } = useLoading();
   const { handleChange, onSubmit, loading } = usePasswordConfirm();
+
   // TOASTS:
   const toast = useToast();
 
@@ -109,7 +110,7 @@ export const FormChangePassword = () => {
   if (token) {
     setAuth(true);
   } else {
-    // notAskedToast();
+    notAskedToast();
     // return <Navigate to="/login" />;
   }
 

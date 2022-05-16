@@ -74,8 +74,6 @@ export const PasswordAskProvider = ({ children }) => {
     date1: date1,
     nova_senha: "",
   };
-  console.log(qwerty.date0);
-  console.log(qwerty.date1);
 
   const onSubmit = async (form, e) => {
     LoadPage();
