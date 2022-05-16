@@ -8,7 +8,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 import { HeaderTop } from "../../components/HeaderTop";
-import { SnackBarWelcome } from "../../components/SnackBarWelcome";
+// import { SnackBarWelcome } from "../../components/SnackBarWelcome";
 import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
 
 const useStyles = makeStyles((hide) => ({
@@ -175,7 +175,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <SnackBarWelcome />
+      {/* <SnackBarWelcome /> */}
 
       <HeaderTop />
 

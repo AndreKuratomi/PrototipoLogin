@@ -1,12 +1,19 @@
+import { Link, Navigate } from "react-router-dom";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
-import { useTextInput } from "../../providers/TextInput";
+import { useToast } from "@chakra-ui/react";
+
+import { useAuth } from "../../providers/Auth";
+import { useLoading } from "../../providers/Loading";
+import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 
 import { A } from "./styles";
 
@@ -33,21 +40,53 @@ const useStyles = makeStyles((theme) => ({
   },
   box: {
     color: "#FFF",
-    textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
+    textDecoration: "none",
+  },
+  boxSuggestion: {
+    color: "#FFF",
+    // marginTop: "1rem",
+    textAlign: "center",
+    textDecoration: "none",
+    "& .MuiTypography-body1": {
+      fontSize: "0.75rem",
+    },
   },
 }));
 
 export const FormChangePassword = () => {
-  const { text, setUsername } = useTextInput();
+  // const { loading } = useLoading();
+  const { handleChange, onSubmit, loading } = usePasswordConfirm();
+
+  // TOASTS:
+  const toast = useToast();
+
+  const notAskedToast = () => {
+    toast({
+      description: "O usuário não fez pedido de alteração de senha.",
+      duration: 5000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
+  };
 
   const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório!"),
-    currentPassword: yup.string().required("Senha atual obrigatória!"),
-    // username: yup.string().required("Usuário obrigatório!"),
-    password: yup.string().required("Senha obrigatória!"),
-    repeatPassword: yup.string().required("Repetir senha obrigatória!"),
+    usuario: yup.string().required("Usuário obrigatório!"),
+    email: yup.string().email().required("Email obrigatório!"),
+    currentPassword: yup.string().required("Senha provisória obrigatória!"),
+    nova_senha: yup
+      .string()
+      .notOneOf(
+        [yup.ref("currentPassword")],
+        "A nova senha não deve ser igual à provisória!"
+      )
+      .required("Nova senha obrigatória!"),
+    repetir_nova_senha: yup
+      .string()
+      .oneOf([yup.ref("nova_senha")], "As senhas devem ser iguais!")
+      .required("Repetir nova senha obrigatória!"),
   });
 
   const {
@@ -57,43 +96,68 @@ export const FormChangePassword = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  const navigate = useNavigate();
-
-  const onSubmitFunction = (data) => {
-    //aqui virá a requisição
-    console.log(data);
-    navigate("/login");
-  };
+  // console.log(data);
 
   const classes = useStyles();
 
+  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO
+  const { setAuth } = useAuth();
+
+  const token = JSON.parse(
+    localStorage.getItem("@token: NewEmailToken") || "null"
+  );
+
+  if (token) {
+    setAuth(true);
+  } else {
+    notAskedToast();
+    // return <Navigate to="/login" />;
+  }
+
   return (
     <article>
-      <form
-        onSubmit={handleSubmit(onSubmitFunction)}
-        className={classes.formControl}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box>
           <TextField
-            className={classes.textField}
-            label="Usuário"
             margin="normal"
             variant="standard"
-            {...register("username")}
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            onChange={setUsername}
-            value={text}
+            className={classes.textField}
+            type="text"
+            label="Digite aqui seu usuário"
+            placeholder="usuario"
+            {...register("usuario")}
+            // value={toSend.usuario}
+            // onChange={}
+            onInputChange={handleChange}
+            error={!!errors.usuario}
+            helperText={errors.usuario?.message}
+          />
+        </Box>
+        <Box>
+          <TextField
+            margin="normal"
+            variant="standard"
+            className={classes.textField}
+            type="text"
+            label="Digite aqui seu email"
+            placeholder="email"
+            {...register("email")}
+            // value={toSend.email}
+            // onChange={handleChange}
+            onInputChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
         </Box>
         <Box>
           <TextField
             className={classes.textField}
-            label="Senha atual"
+            label="Senha provisória"
             margin="normal"
             variant="standard"
-            {...register("email")}
+            placeholder="senha provisória"
+            type="password"
+            {...register("currentPassword")}
             error={!!errors.currentPassword}
             helperText={errors.currentPassword?.message}
           />
@@ -101,42 +165,60 @@ export const FormChangePassword = () => {
         <Box>
           <TextField
             className={classes.textField}
-            label="Senha"
+            label="Nova senha"
             type="password"
             margin="normal"
             variant="standard"
-            {...register("password")}
-            error={!!errors.password}
-            helperText={errors.password?.message}
+            placeholder="nova senha"
+            {...register("nova_senha")}
+            error={!!errors.nova_senha}
+            helperText={errors.nova_senha?.message}
           />
         </Box>
-        <Box>
-          <TextField
-            className={classes.textField}
-            label="Repetir senha"
-            type="password"
-            margin="normal"
-            variant="standard"
-            {...register("repeatPassword")}
-            error={!!errors.repeatPassword}
-            helperText={errors.repeatPassword?.message}
-          />
-        </Box>
-        <Box className={classes.box}>
+        <Box className={classes.boxSuggestion}>
           <Typography color={"#fff"}>
             Sugestão: usar caracteres especiais/letras maiúsculas/letras
             minúsculas e números
           </Typography>
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          className={classes.button}
-          color="primary"
-          size="large"
-        >
-          Cadastrar
-        </Button>
+        <Box>
+          <TextField
+            className={classes.textField}
+            label="Repetir nova senha"
+            type="password"
+            margin="normal"
+            variant="standard"
+            placeholder="repetir nova senha"
+            {...register("repetir_nova_senha")}
+            // value={toSend.nova_senha}
+            // onChange={handleChange}
+            onInputChange={handleChange}
+            error={!!errors.repetir_nova_senha}
+            helperText={errors.repetir_nova_senha?.message}
+          />
+        </Box>
+        {loading ? (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+            disabled="true"
+          >
+            Enviando...
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+          >
+            Enviar
+          </Button>
+        )}
         <Box className={classes.box}>
           <Typography>Já possui conta?</Typography>
           <Typography>
