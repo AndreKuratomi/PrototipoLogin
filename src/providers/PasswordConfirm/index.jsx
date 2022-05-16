@@ -11,11 +11,20 @@ import {
 import { send } from "emailjs-com";
 
 import { useToast } from "@chakra-ui/react";
+
 import { useAuth } from "../Auth";
+import { useLoading } from "../Loading";
 
 export const PasswordConfirmContext = createContext();
 
 export const PasswordConfirmProvider = ({ children }) => {
+  // const { setLoading, LoadPage } = useLoading();
+  const [loading, setLoading] = useState(false);
+
+  const LoadPage = () => {
+    setLoading(true);
+  };
+
   // TOASTS:
   const toast = useToast();
 
@@ -43,39 +52,38 @@ export const PasswordConfirmProvider = ({ children }) => {
 
   // ENVIO DE EMAIL:
   const reducedUUID = uuidv4().substring(0, 13);
-  const [toSend, setToSend] = useState({
-    user: "",
-    email: "",
-    random_password: reducedUUID,
-    link: "http://localhost:3000/changepassword",
-    reply_to: "suporte.vestcasa@gmail.com",
-    date: new Date(),
-    new_password: "",
-  });
+
+  const rawDate = new Date();
+  const date0 = rawDate.toLocaleString("pt-BR").split(" ")[0]; // dd/mm/aaaa
+  const date1 = rawDate.toLocaleString("pt-BR").split(" ")[1]; // hh:mm:ss
+
   let qwerty = {
-    user: "",
+    usuario: "",
     email: "",
     random_password: reducedUUID,
     link: "http://localhost:3000/changepassword",
     reply_to: "suporte.vestcasa@gmail.com",
-    date: new Date(),
-    new_password: "",
+    date0: date0,
+    date1: date1,
+    repetir_nova_senha: "",
   };
-  console.log(toSend);
-  // const
-  // let selectForm = { ...toSend };
+  console.log(qwerty.date0);
+  console.log(qwerty.date1);
+
   const onSubmit = (form, e) => {
+    LoadPage();
+
     console.log(form);
-    // console.log(selectForm);
-    qwerty.user = form.user;
+    qwerty.usuario = form.usuario;
     qwerty.email = form.email;
-    qwerty.new_password = form.repeatNewPassword;
+    qwerty.repetir_nova_senha = form.repetir_nova_senha;
     // setToSend({ ...toSend, ...qwerty });
     e.preventDefault();
-    send("service_rvorkr9", "template_jnw65yk", qwerty, "s0HlgmnHFp7vXdTbJ")
+    send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
       // send("service_rvorkr9", "template_jnw65yk", toSend, "s0HlgmnHFp7vXdTbJ")
       .then((response) => {
         addSuccessToast();
+        setLoading(false);
         console.log("Email enviado!", response.status, response.text);
         localStorage.clear();
         navigate("/login");
@@ -84,26 +92,11 @@ export const PasswordConfirmProvider = ({ children }) => {
         console.log(qwerty);
         // console.log(toSend);
         addFailToast();
+        setLoading(false);
         console.log("Algo deu errado!", err);
       });
   };
-  // console.log(selectForm);
-  // // const {user: 'cvbn', email: 'c@c.c', currentPassword: 'cvbn', newPassword: 'zxcv', repeatNewPassword: 'zxcv'}
 
-  // for (let elem in toSend) {
-  //   if (toSend[elem] === toSend["user"]) {
-  //     toSend["user"] = selectForm["user"];
-  //     // elem = v.user
-  //   }
-  //   if (toSend[elem] === toSend["email"]) {
-  //     toSend["email"] = selectForm["email"];
-  //     // elem = v.user
-  //   }
-  //   if (toSend[elem] === toSend["new_password"]) {
-  //     toSend["new_password"] = selectForm["repeatNewPassword"];
-  //     // elem = v.user
-  //   }
-  // }
   const handleChange = (e) => {
     console.log(e);
     // setToSend({ ...toSend, [e.target.placeholder]: e.target.value });
@@ -112,7 +105,9 @@ export const PasswordConfirmProvider = ({ children }) => {
   console.log(qwerty);
 
   return (
-    <PasswordConfirmContext.Provider value={{ toSend, onSubmit, handleChange }}>
+    <PasswordConfirmContext.Provider
+      value={{ onSubmit, handleChange, loading }}
+    >
       {children}
     </PasswordConfirmContext.Provider>
   );

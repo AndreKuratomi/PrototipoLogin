@@ -12,6 +12,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { useToast } from "@chakra-ui/react";
 
 import { useAuth } from "../../providers/Auth";
+import { useLoading } from "../../providers/Loading";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 
 import { A } from "./styles";
@@ -55,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const FormChangePassword = () => {
-  const { handleChange, onSubmit, toSend } = usePasswordConfirm();
+  // const { loading } = useLoading();
+  const { handleChange, onSubmit, loading } = usePasswordConfirm();
   // TOASTS:
   const toast = useToast();
 
@@ -70,19 +72,19 @@ export const FormChangePassword = () => {
   };
 
   const formSchema = yup.object().shape({
-    user: yup.string().required("Usuário obrigatório!"),
+    usuario: yup.string().required("Usuário obrigatório!"),
     email: yup.string().email().required("Email obrigatório!"),
     currentPassword: yup.string().required("Senha provisória obrigatória!"),
-    newPassword: yup
+    nova_senha: yup
       .string()
       .notOneOf(
         [yup.ref("currentPassword")],
         "A nova senha não deve ser igual à provisória!"
       )
       .required("Nova senha obrigatória!"),
-    repeatNewPassword: yup
+    repetir_nova_senha: yup
       .string()
-      .oneOf([yup.ref("newPassword")], "As senhas devem ser iguais!")
+      .oneOf([yup.ref("nova_senha")], "As senhas devem ser iguais!")
       .required("Repetir nova senha obrigatória!"),
   });
 
@@ -121,13 +123,13 @@ export const FormChangePassword = () => {
             className={classes.textField}
             type="text"
             label="Digite aqui seu usuário"
-            placeholder="user"
-            {...register("user")}
-            // value={toSend.user}
+            placeholder="usuario"
+            {...register("usuario")}
+            // value={toSend.usuario}
             // onChange={}
             onInputChange={handleChange}
-            error={!!errors.user}
-            helperText={errors.user?.message}
+            error={!!errors.usuario}
+            helperText={errors.usuario?.message}
           />
         </Box>
         <Box>
@@ -152,7 +154,7 @@ export const FormChangePassword = () => {
             label="Senha provisória"
             margin="normal"
             variant="standard"
-            placeholder="current_password"
+            placeholder="senha provisória"
             type="password"
             {...register("currentPassword")}
             error={!!errors.currentPassword}
@@ -162,14 +164,14 @@ export const FormChangePassword = () => {
         <Box>
           <TextField
             className={classes.textField}
-            label="Senha"
+            label="Nova senha"
             type="password"
             margin="normal"
             variant="standard"
-            placeholder="new_password"
-            {...register("newPassword")}
-            error={!!errors.newPassword}
-            helperText={errors.newPassword?.message}
+            placeholder="nova senha"
+            {...register("nova_senha")}
+            error={!!errors.nova_senha}
+            helperText={errors.nova_senha?.message}
           />
         </Box>
         <Box className={classes.boxSuggestion}>
@@ -181,28 +183,41 @@ export const FormChangePassword = () => {
         <Box>
           <TextField
             className={classes.textField}
-            label="Repetir senha"
+            label="Repetir nova senha"
             type="password"
             margin="normal"
             variant="standard"
-            placeholder="new_password"
-            {...register("repeatNewPassword")}
-            // value={toSend.new_password}
+            placeholder="repetir nova senha"
+            {...register("repetir_nova_senha")}
+            // value={toSend.nova_senha}
             // onChange={handleChange}
             onInputChange={handleChange}
-            error={!!errors.repeatNewPassword}
-            helperText={errors.repeatNewPassword?.message}
+            error={!!errors.repetir_nova_senha}
+            helperText={errors.repetir_nova_senha?.message}
           />
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          className={classes.button}
-          color="primary"
-          size="large"
-        >
-          Cadastrar
-        </Button>
+        {loading ? (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+            disabled="true"
+          >
+            Enviando...
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            size="large"
+          >
+            Enviar
+          </Button>
+        )}
         <Box className={classes.box}>
           <Typography>Já possui conta?</Typography>
           <Typography>

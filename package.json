@@ -47,6 +47,7 @@
     ]
   },
   "browserslist": {
+    "crypto": false,
     "production": [
       ">0.2%",
       "not dead",
