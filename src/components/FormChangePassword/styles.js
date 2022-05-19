@@ -6,6 +6,6 @@ export const A = styled.a`
 
   &:hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
   }
 `;

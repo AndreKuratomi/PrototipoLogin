@@ -8,18 +8,26 @@ import { makeStyles } from "@material-ui/styles";
 import { usePasswordAsk } from "../../providers/PasswordAsk";
 import { useLoading } from "../../providers/Loading";
 
+import Form from "../../assets/figma_imgs/Form.png";
+import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
+import Input from "../../assets/figma_imgs/Input.png";
+
 const useStyles = makeStyles({
   formControl: {
-    backgroundColor: "#009E4F",
-    borderRadius: "5%",
+    // backgroundColor: "#009E4F",
+    backgroundImage: `url(${Form})`,
+    // borderRadius: "5%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
-    width: "15rem",
+    width: "17rem",
+    height: "23.55rem",
   },
   textField: {
-    backgroundColor: "#FFF",
+    // backgroundColor: "#FFF",
+    backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
+    width: "12.5rem",
     padding: "1rem",
     "& .MuiInputLabel-formControl": {
       left: "1rem",
@@ -27,7 +35,9 @@ const useStyles = makeStyles({
     },
   },
   button: {
+    backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
+    width: "12.5rem",
   },
   box: {
     color: "#FFF",
