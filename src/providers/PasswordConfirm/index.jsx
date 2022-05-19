@@ -72,13 +72,30 @@ export const PasswordConfirmProvider = ({ children }) => {
 
   const onSubmit = (form, e) => {
     LoadPage();
-
+    console.log(e);
     console.log(form);
     qwerty.usuario = form.usuario;
     qwerty.email = form.email;
     qwerty.repetir_nova_senha = form.repetir_nova_senha;
     // setToSend({ ...toSend, ...qwerty });
     e.preventDefault();
+
+    // Lógica para toasts erro formulário:
+    // if (
+    //   errors.nova_senha &&
+    //   errors.nova_senha?.message ===
+    //     "A nova senha não deve ser igual à provisória!"
+    // ) {
+    //   f1(errors.nova_senha?.message);
+    // }
+
+    // if (
+    //   errors.repetir_nova_senha &&
+    //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
+    // ) {
+    //   f2(errors.repetir_nova_senha?.message);
+    // }
+
     send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
       // send("service_rvorkr9", "template_jnw65yk", toSend, "s0HlgmnHFp7vXdTbJ")
       .then((response) => {
@@ -89,7 +106,7 @@ export const PasswordConfirmProvider = ({ children }) => {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(qwerty);
+        console.log(err);
         // console.log(toSend);
         addFailToast();
         setLoading(false);

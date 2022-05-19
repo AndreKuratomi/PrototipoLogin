@@ -17,6 +17,7 @@ import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../../providers/Auth";
 import { useLoading } from "../../providers/Loading";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
+import { useTextInput } from "../../providers/TextInput";
 
 import { A } from "./styles";
 
@@ -107,9 +108,31 @@ export const FormChangePassword = () => {
     });
   };
 
+  const protoConflictToast = (algo) => {
+    // console.log(algo);
+    toast({
+      description: algo,
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Algo deu errado!",
+    });
+  };
+
+  const repeatPasswordToast = (algo) => {
+    // console.log(algo);
+    toast({
+      description: algo,
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Algo deu errado!",
+    });
+  };
+
   const formSchema = yup.object().shape({
     usuario: yup.string().required("Usuário obrigatório!"),
-    email: yup.string().email().required("Email obrigatório!"),
+    // email: yup.string().email().required("Email obrigatório!"),
     currentPassword: yup.string().required("Senha provisória obrigatória!"),
     nova_senha: yup
       .string()
@@ -132,6 +155,20 @@ export const FormChangePassword = () => {
     resolver: yupResolver(formSchema),
   });
   // console.log(data);
+  if (
+    errors.nova_senha &&
+    errors.nova_senha?.message ===
+      "A nova senha não deve ser igual à provisória!"
+  ) {
+    protoConflictToast(errors.nova_senha?.message);
+  }
+
+  if (
+    errors.repetir_nova_senha &&
+    errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
+  ) {
+    repeatPasswordToast(errors.repetir_nova_senha?.message);
+  }
 
   const classes = useStyles();
 
@@ -142,15 +179,18 @@ export const FormChangePassword = () => {
     localStorage.getItem("@token: NewEmailToken") || "null"
   );
 
-  if (token) {
-    setAuth(true);
-  } else {
-    notAskedToast();
-    // return <Navigate to="/login" />;
-  }
+  // if (token) {
+  //   setAuth(true);
+  // } else {
+  //   // notAskedToast();
+  //   // return <Navigate to="/login" />;
+  // }
+
+  const onSubmitFunction = (data) => {};
 
   return (
     <article>
+      {console.log(errors)}
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box className={classes.boxForm}>
           <Box>
@@ -162,9 +202,9 @@ export const FormChangePassword = () => {
               label="Digite aqui seu usuário"
               placeholder="usuario"
               {...register("usuario")}
-              onInputChange={handleChange}
+              // onInputChange={handleChange}
               error={!!errors.usuario}
-              // helperText={errors.usuario?.message}
+              // helperText={notAskedToast(errors.usuario?.message)}
             />
           </Box>
           {/* <Box>
@@ -204,7 +244,7 @@ export const FormChangePassword = () => {
               placeholder="nova senha"
               {...register("nova_senha")}
               error={!!errors.nova_senha}
-              // helperText={errors.nova_senha?.message}
+              // helperText={protoConflictToast(errors.nova_senha?.message)}
             />
             {/* <Box className={classes.boxSuggestion}>
               <Typography color={"#fff"}>
@@ -222,7 +262,7 @@ export const FormChangePassword = () => {
               variant="standard"
               placeholder="repetir nova senha"
               {...register("repetir_nova_senha")}
-              onInputChange={handleChange}
+              // onInputChange={handleChange}
               error={!!errors.repetir_nova_senha}
               // helperText={errors.repetir_nova_senha?.message}
             />
