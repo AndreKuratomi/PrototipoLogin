@@ -6,6 +6,12 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+// import FormLogin from "../../assets/figma_imgs/FormLogin.png";
+import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
+import InputLogin from "../../assets/figma_imgs/InputLogin.png";
+import Input from "../../assets/figma_imgs/Input.png";
+import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
+
 import { api } from "../../service/api";
 
 import {
@@ -22,17 +28,23 @@ import { useToast } from "@chakra-ui/react";
 import { A } from "./styles";
 import { useTextInput } from "../../providers/TextInput";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   formControl: {
-    backgroundColor: "#009E4F",
-    borderRadius: "10%",
+    // backgroundImage: (props) =>
+    //   props.errors ? `url(${formLoginError})` : `url(${formLogin})`,
+    backgroundImage: `url(${FormLoginError})`,
+    // backgroundImage: `url(${formLogin})`,
+    // backgroundColor: (props) => props.color,
+    // borderRadius: "10%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
     width: "15rem",
+    height: "30.5rem",
   },
   textField: {
-    backgroundColor: "#FFF",
+    // backgroundColor: "#FFF",
+    backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     padding: "1rem",
     "& .MuiInputLabel-formControl": {
@@ -41,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button: {
+    backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
   },
   box: {
@@ -49,13 +62,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem",
     textAlign: "center",
   },
-}));
+  textBox: {
+    fontSize: "0.8rem",
+  },
+});
 
 // const Alert = (props) => {
 //   return <MuiAlert elevation={6} variant="filled" {...props} />;
 // };
 
-export const FormLogin = () => {
+export const FormLogin = ({ ...props }) => {
+  // console.log(props);
+  const classes = useStyles(props);
+  // const formControl = useStyles(props);
+  // console.log(formControl);
+
   const { text, setUsername } = useTextInput();
 
   const toast = useToast();
@@ -118,15 +139,19 @@ export const FormLogin = () => {
     //   });
   };
   // addSuccessToast(text);
-
-  const classes = useStyles();
-
+  console.log(errors);
+  console.log(errors !== {});
   return (
     <>
+      {/* {errors ? <h1>Eita!</h1> : <h3>Churros!</h3>} */}
       <article>
         <form
-          onSubmit={handleSubmit(onSubmitFunction)}
           className={classes.formControl}
+          // className={`${formControl}`}
+          onSubmit={handleSubmit(onSubmitFunction)}
+          // error={!!errors}
+          // color="red"
+          // color={"#009E4F"}
         >
           <Box>
             <TextField
@@ -165,18 +190,20 @@ export const FormLogin = () => {
             Entrar
           </Button>
           <Box className={classes.box}>
-            <Typography>Esqueceu a senha?</Typography>
-            <Typography>
-              Contate a central de suporte clicando{" "}
-              <A target="_blanck" href="https://suporte.vestcasa.com.br">
-                aqui
-              </A>
+            <Typography className={classes.textBox}>
+              Esqueceu a senha?
             </Typography>
-            <Typography>
-              Ou solicite a alteração de senha por{" "}
+            <Typography className={classes.textBox}>
+              Solicite a alteração de senha por{" "}
               <Link to="/email">
                 <A>aqui</A>
               </Link>
+            </Typography>
+            <Typography className={classes.textBox}>
+              Ou contate a central de suporte clicando{" "}
+              <A target="_blanck" href="https://suporte.vestcasa.com.br">
+                aqui
+              </A>
             </Typography>
           </Box>
         </form>
