@@ -50,7 +50,7 @@ const useStyles = makeStyles((hide) => ({
     // transition: "all .4s ease-in-out",
     zIndex: 3,
     "@media (min-width: 383px)": {
-      top: "3.5rem",
+      top: "2.5rem",
     },
   },
   asideHeaderButtonOpened: {
@@ -59,12 +59,12 @@ const useStyles = makeStyles((hide) => ({
     borderRadius: "1rem",
     position: "absolute",
     // left: hide ? 0 : "3.4rem",
-    left: "3.4rem",
-    top: "4.65rem",
+    left: "3.7rem",
+    top: "2.5rem",
     // transition: "all .4s ease-in-out",
     zIndex: 3,
     "@media (min-width: 383px)": {
-      top: "3.5rem",
+      top: "2.5rem",
     },
   },
 
@@ -139,7 +139,7 @@ const useStyles = makeStyles((hide) => ({
   boxTopWAMOpened: {
     border: "1px solid #000",
     borderRadius: "1rem",
-    width: "39vw",
+    width: "35vw",
     height: "20vh",
     margin: "1rem",
   },
@@ -156,7 +156,7 @@ const useStyles = makeStyles((hide) => ({
   boxVendasSemanaWAMOpened: {
     border: "1px solid #000",
     borderRadius: "1rem",
-    width: "39vw",
+    width: "35vw",
     height: "20vh",
     margin: "1rem",
   },
