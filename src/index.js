@@ -15,15 +15,15 @@ const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 // const root = createRoot(container);
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <ChakraProvider>
-        <Providers>
-          <App />
-        </Providers>
-      </ChakraProvider>
-    </BrowserRouter>
-  </StrictMode>
+  // <StrictMode>
+  <BrowserRouter>
+    <ChakraProvider>
+      <Providers>
+        <App />
+      </Providers>
+    </ChakraProvider>
+  </BrowserRouter>
+  // </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

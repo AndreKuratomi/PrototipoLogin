@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       padding: "2rem",
       width: "38rem",
-      height: "28rem",
+      height: "28rem", //sem input email
+      // height: "35rem",
     },
   },
   textField: {
@@ -108,6 +109,17 @@ export const FormChangePassword = () => {
     });
   };
 
+  const emailErrorToast = (algo) => {
+    // console.log(algo);
+    toast({
+      description: algo,
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Erro!",
+    });
+  };
+
   const protoConflictToast = (algo) => {
     // console.log(algo);
     toast({
@@ -115,7 +127,7 @@ export const FormChangePassword = () => {
       duration: 3000,
       position: "top",
       status: "error",
-      title: "Algo deu errado!",
+      title: "Erro!",
     });
   };
 
@@ -126,7 +138,7 @@ export const FormChangePassword = () => {
       duration: 3000,
       position: "top",
       status: "error",
-      title: "Algo deu errado!",
+      title: "Erro!",
     });
   };
 
@@ -155,6 +167,10 @@ export const FormChangePassword = () => {
     resolver: yupResolver(formSchema),
   });
   // console.log(data);
+  if (errors.email && errors.email?.message === "email must be a valid email") {
+    emailErrorToast("Email inválido! Favor verificar.");
+  }
+
   if (
     errors.nova_senha &&
     errors.nova_senha?.message ===
@@ -190,7 +206,6 @@ export const FormChangePassword = () => {
 
   return (
     <article>
-      {console.log(errors)}
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box className={classes.boxForm}>
           <Box>
@@ -207,20 +222,6 @@ export const FormChangePassword = () => {
               // helperText={notAskedToast(errors.usuario?.message)}
             />
           </Box>
-          {/* <Box>
-          <TextField
-            margin="normal"
-            variant="standard"
-            className={classes.textField}
-            type="text"
-            label="Digite aqui seu email"
-            placeholder="email"
-            {...register("email")}
-            onInputChange={handleChange}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-        </Box> */}
           <Box>
             <TextField
               className={classes.textField}
@@ -277,6 +278,7 @@ export const FormChangePassword = () => {
           </Box>
           <Box>
             {loading ? (
+              // console.log(loading)
               <Button
                 type="submit"
                 variant="contained"

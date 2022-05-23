@@ -41,7 +41,7 @@ export const HeaderTop = () => {
 
   // DATA E HORA:
   let moment = DateTimeMoment();
-  let moment0 = DateTimeMoment0();
+  // let moment0 = DateTimeMoment0();
 
   return (
     <AppBar className={classes.topHeader}>
