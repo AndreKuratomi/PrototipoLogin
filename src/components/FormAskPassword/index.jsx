@@ -11,6 +11,7 @@ import { useLoading } from "../../providers/Loading";
 import Form from "../../assets/figma_imgs/Form.png";
 import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
 import Input from "../../assets/figma_imgs/Input.png";
+import { useToast } from "@chakra-ui/react";
 
 const useStyles = makeStyles({
   formControl: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
     },
   },
   button: {
-    backgroundImage: `url(${ButtonFigma})`,
+    // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
     width: "12.5rem",
   },
@@ -51,6 +52,20 @@ export const FormAskPassword = () => {
   // const { loading } = useLoading();
   const { handleChange, onSubmit, loading } = usePasswordAsk();
 
+  // TOASTS:
+  const toast = useToast();
+
+  const emailErrorToast = (algo) => {
+    toast({
+      description: algo,
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Erro!",
+    });
+  };
+
+  // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
     usuario: yup.string().required("Usuario obrigatório!"),
     email: yup.string().email().required("Email obrigatório!"),
@@ -64,7 +79,14 @@ export const FormAskPassword = () => {
     resolver: yupResolver(formSchema),
   });
 
+  // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
+  if (errors.email && errors.email?.message === "email must be a valid email") {
+    emailErrorToast("Email inválido! Favor verificar.");
+  }
+
+  // STYLES:
   const classes = useStyles();
+
   return (
     <article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
@@ -82,7 +104,7 @@ export const FormAskPassword = () => {
             // onChange={handleChange}
             onInputChange={handleChange}
             error={!!errors.usuario}
-            helperText={errors.usuario?.message}
+            // helperText={errors.usuario?.message}
           />
         </Box>
         <Box>
@@ -99,7 +121,7 @@ export const FormAskPassword = () => {
             // onChange={handleChange}
             onInputChange={handleChange}
             error={!!errors.email}
-            helperText={errors.email?.message}
+            // helperText={errors.email?.message}
           />
         </Box>
         {loading ? (

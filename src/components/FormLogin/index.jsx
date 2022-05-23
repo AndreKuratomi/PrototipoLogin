@@ -8,8 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 // import FormLogin from "../../assets/figma_imgs/FormLogin.png";
 import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
-import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 import Input from "../../assets/figma_imgs/Input.png";
+import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
 
 import { api } from "../../service/api";
@@ -25,9 +25,10 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useToast } from "@chakra-ui/react";
 
-import { A } from "./styles";
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
+
+import { A } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
@@ -54,7 +55,7 @@ const useStyles = makeStyles({
     },
   },
   button: {
-    backgroundImage: `url(${ButtonFigma})`,
+    // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
   },
   box: {
@@ -73,7 +74,7 @@ const useStyles = makeStyles({
 // };
 
 export const FormLogin = ({ ...props }) => {
-  // console.log(props);
+  // STYLES:
   const classes = useStyles(props);
   // const formControl = useStyles(props);
   // console.log(formControl);
@@ -81,6 +82,7 @@ export const FormLogin = ({ ...props }) => {
   const { text, setUsername } = useTextInput();
   const { logged, userLogged, createUserToken } = useUserLogin();
 
+  // TOASTS:
   const toast = useToast();
 
   const addSuccessToast = (person) => {
@@ -92,6 +94,7 @@ export const FormLogin = ({ ...props }) => {
       title: "Login feito com sucesso!",
     });
   };
+
   const addFailToast = () => {
     toast({
       description:
@@ -103,6 +106,7 @@ export const FormLogin = ({ ...props }) => {
     });
   };
 
+  // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -143,12 +147,9 @@ export const FormLogin = ({ ...props }) => {
     // addFailToast();
     //   });
   };
-  // addSuccessToast(text);
-  console.log(errors);
-  console.log(errors !== {});
+
   return (
     <>
-      {/* {errors ? <h1>Eita!</h1> : <h3>Churros!</h3>} */}
       <article>
         <form
           className={classes.formControl}
@@ -166,7 +167,7 @@ export const FormLogin = ({ ...props }) => {
               variant="standard"
               {...register("username")}
               error={!!errors.username}
-              helperText={errors.username?.message}
+              // helperText={errors.username?.message}
               onChange={setUsername}
               value={text}
             />
@@ -180,7 +181,7 @@ export const FormLogin = ({ ...props }) => {
               variant="standard"
               {...register("password")}
               error={!!errors.password}
-              helperText={errors.password?.message}
+              // helperText={errors.password?.message}
             />
           </Box>
 

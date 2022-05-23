@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const FormChangePassword = () => {
   // const { loading } = useLoading();
-  const { handleChange, onSubmit, loading } = usePasswordConfirm();
+  const { onSubmit, loading } = usePasswordConfirm();
 
   // TOASTS:
   const toast = useToast();
@@ -110,7 +110,6 @@ export const FormChangePassword = () => {
   };
 
   const emailErrorToast = (algo) => {
-    // console.log(algo);
     toast({
       description: algo,
       duration: 3000,
@@ -121,7 +120,6 @@ export const FormChangePassword = () => {
   };
 
   const protoConflictToast = (algo) => {
-    // console.log(algo);
     toast({
       description: algo,
       duration: 3000,
@@ -142,6 +140,7 @@ export const FormChangePassword = () => {
     });
   };
 
+  // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
     usuario: yup.string().required("Usuário obrigatório!"),
     email: yup.string().email().required("Email obrigatório!"),
@@ -166,7 +165,8 @@ export const FormChangePassword = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  // console.log(data);
+
+  // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
   if (errors.email && errors.email?.message === "email must be a valid email") {
     emailErrorToast("Email inválido! Favor verificar.");
   }
@@ -186,9 +186,10 @@ export const FormChangePassword = () => {
     repeatPasswordToast(errors.repetir_nova_senha?.message);
   }
 
+  // STYLES:
   const classes = useStyles();
 
-  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO
+  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
   const { setAuth } = useAuth();
 
   const token = JSON.parse(
@@ -201,8 +202,6 @@ export const FormChangePassword = () => {
     notAskedToast();
     return <Navigate to="/login" />;
   }
-
-  // const onSubmitFunction = (data) => {};
 
   return (
     <article>
