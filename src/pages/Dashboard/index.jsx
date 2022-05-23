@@ -46,11 +46,17 @@ const useStyles = makeStyles((hide) => ({
     position: "absolute",
     // left: hide ? 0 : "3.4rem",
     left: 0,
-    top: "4.65rem",
+    top: "1.7rem",
     // transition: "all .4s ease-in-out",
     zIndex: 3,
-    "@media (min-width: 383px)": {
-      top: "2.5rem",
+    // "@media (min-width: 383px)": {
+    //   top: "2.5rem",
+    // },
+    "@media (min-width: 426px)": {
+      top: "2.6rem",
+    },
+    "@media (max-width: 320px)": {
+      top: "2.8rem",
     },
   },
   asideHeaderButtonOpened: {
@@ -60,11 +66,14 @@ const useStyles = makeStyles((hide) => ({
     position: "absolute",
     // left: hide ? 0 : "3.4rem",
     left: "3.7rem",
-    top: "2.5rem",
+    top: "1.7rem",
     // transition: "all .4s ease-in-out",
     zIndex: 3,
-    "@media (min-width: 383px)": {
-      top: "2.5rem",
+    "@media (min-width: 426px)": {
+      top: "2.6rem",
+    },
+    "@media (max-width: 320px)": {
+      top: "2.8rem",
     },
   },
 
