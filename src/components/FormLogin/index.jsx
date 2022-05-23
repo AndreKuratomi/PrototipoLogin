@@ -27,6 +27,7 @@ import { useToast } from "@chakra-ui/react";
 
 import { A } from "./styles";
 import { useTextInput } from "../../providers/TextInput";
+import { useUserLogin } from "../../providers/UserLogin";
 
 const useStyles = makeStyles({
   formControl: {
@@ -78,6 +79,7 @@ export const FormLogin = ({ ...props }) => {
   // console.log(formControl);
 
   const { text, setUsername } = useTextInput();
+  const { logged, userLogged, createUserToken } = useUserLogin();
 
   const toast = useToast();
 
@@ -118,6 +120,9 @@ export const FormLogin = ({ ...props }) => {
 
   const onSubmitFunction = (data, text) => {
     console.log(text.target[0].value);
+
+    userLogged();
+    createUserToken();
 
     navigate("/dashboard");
 

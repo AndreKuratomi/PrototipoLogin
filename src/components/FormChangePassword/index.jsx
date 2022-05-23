@@ -202,7 +202,7 @@ export const FormChangePassword = () => {
     return <Navigate to="/login" />;
   }
 
-  const onSubmitFunction = (data) => {};
+  // const onSubmitFunction = (data) => {};
 
   return (
     <article>

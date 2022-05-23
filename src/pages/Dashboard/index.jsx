@@ -1,4 +1,7 @@
 import { useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+
+import { useUserLogin } from "../../providers/UserLogin";
 
 import { AppBar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -10,6 +13,8 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { HeaderTop } from "../../components/HeaderTop";
 // import { SnackBarWelcome } from "../../components/SnackBarWelcome";
 import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
+
+import { useToast } from "@chakra-ui/react";
 
 const useStyles = makeStyles((hide) => ({
   // console.log()
@@ -86,7 +91,7 @@ const useStyles = makeStyles((hide) => ({
     position: "relative",
     zIndex: 1,
     "@media (max-width: 768px)": {
-      maxWidth: "80vw",
+      maxWidth: "90vw",
     },
   },
   boxDocumentsWithAsideClosed: {
@@ -181,6 +186,31 @@ const Dashboard = () => {
 
   // STYLES:
   const classes = useStyles(hide);
+
+  // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
+  const { logged, setLogged } = useUserLogin();
+
+  const toast = useToast();
+
+  const notLoggedToast = () => {
+    toast({
+      description: "Usuário não logado!",
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
+  };
+
+  // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
+  const token = localStorage.getItem("@token: UserLoggedToken");
+
+  if (token) {
+    setLogged(true);
+  } else {
+    notLoggedToast();
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
