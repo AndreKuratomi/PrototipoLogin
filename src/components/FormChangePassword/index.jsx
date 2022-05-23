@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       padding: "2rem",
       width: "38rem",
-      height: "28rem", //sem input email
-      // height: "35rem",
+      // height: "28rem", //sem input email
+      height: "35rem",
     },
   },
   textField: {
@@ -144,7 +144,7 @@ export const FormChangePassword = () => {
 
   const formSchema = yup.object().shape({
     usuario: yup.string().required("Usuário obrigatório!"),
-    // email: yup.string().email().required("Email obrigatório!"),
+    email: yup.string().email().required("Email obrigatório!"),
     currentPassword: yup.string().required("Senha provisória obrigatória!"),
     nova_senha: yup
       .string()
@@ -195,12 +195,12 @@ export const FormChangePassword = () => {
     localStorage.getItem("@token: NewEmailToken") || "null"
   );
 
-  // if (token) {
-  //   setAuth(true);
-  // } else {
-  //   // notAskedToast();
-  //   // return <Navigate to="/login" />;
-  // }
+  if (token) {
+    setAuth(true);
+  } else {
+    notAskedToast();
+    return <Navigate to="/login" />;
+  }
 
   const onSubmitFunction = (data) => {};
 
@@ -220,6 +220,20 @@ export const FormChangePassword = () => {
               // onInputChange={handleChange}
               error={!!errors.usuario}
               // helperText={notAskedToast(errors.usuario?.message)}
+            />
+          </Box>
+          <Box>
+            <TextField
+              margin="normal"
+              variant="standard"
+              className={classes.textField}
+              type="text"
+              label="Digite aqui seu email"
+              placeholder="email"
+              {...register("email")}
+              // onInputChange={handleChange}
+              error={!!errors.email}
+              // helperText={errors.email?.message}
             />
           </Box>
           <Box>

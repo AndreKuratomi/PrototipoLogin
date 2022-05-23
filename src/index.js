@@ -15,7 +15,7 @@ const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 // const root = createRoot(container);
 root.render(
-  // <StrictMode>
+  // <StrictMode> duplicava renderização
   <BrowserRouter>
     <ChakraProvider>
       <Providers>
