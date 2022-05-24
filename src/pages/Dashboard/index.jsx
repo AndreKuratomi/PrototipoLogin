@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import { useUserLogin } from "../../providers/UserLogin";
 
 import { AppBar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Box, Slide } from "@mui/material";
+import { Box, Button, Slide } from "@mui/material";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -15,6 +15,9 @@ import { HeaderTop } from "../../components/HeaderTop";
 import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
 
 import { useToast } from "@chakra-ui/react";
+import { A, Main, P } from "./styles";
+import { disableBodyScroll } from "body-scroll-lock";
+import { DateTimeMoment } from "../../utils";
 
 const useStyles = makeStyles((hide) => ({
   // console.log()
@@ -212,80 +215,48 @@ const Dashboard = () => {
     return <Navigate to="/login" />;
   }
 
+  // LÓGICA PARA EVITAR SCROLL:
+  const deb = window.document.getElementById("scroll");
+  // console.log(deb);
+  disableBodyScroll(deb);
+
+  // LOGOUT:
+  const clearLocalStorage = () => {
+    localStorage.clear();
+  };
+
+  // DATA E HORA:
+  let moment = DateTimeMoment();
+
   return (
     <>
-      {/* <SnackBarWelcome /> */}
+      <Main id="scroll">
+        <iframe
+          allowFullScreen="true"
+          frameborder="0"
+          title="Comercial_AMADEU"
+          id="my_frame"
+          // ref={gridIframe}
+          src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+          width="100%"
+          height="700"
+          // onLoad={handleIframe}
+        />
+        {/* <Box className={classes.userHeaderBox}> */}
+        <P>{moment}</P>
 
-      <HeaderTop />
-
-      <Box sx={{ display: "flex", width: "100vw" }}>
-        {!!hide ? (
-          <>
-            <Box>
-              <Slide
-                direction="right"
-                in={hide}
-                container={containerRef.current}
-              >
-                <ArrowCircleLeftIcon
-                  className={classes.asideHeaderButtonOpened}
-                  onClick={handleMenu}
-                />
-              </Slide>
-              <Slide
-                direction="right"
-                in={hide}
-                container={containerRef.current}
-              >
-                <AppBar className={classes.asideHeaderOpened}>
-                  {/* <AppBar className={classes.asideHeader}> */}
-                  <HeaderAsideTabs />
-                </AppBar>
-              </Slide>
-            </Box>
-            <Box className={classes.boxDocumentsWithAsideOpened}>
-              <Box className={classes.boxMenuWAMOpened}>1</Box>
-              <Box className={classes.boxGraphicWAMOpened}>2</Box>
-              <Box className={classes.boxTopWAMOpened}>3</Box>
-              <Box className={classes.boxVendasSemanaWAMOpened}>4</Box>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box>
-              {/* ELABORAR UM FOR QUE REDUZA O NÚMERO DA LARGURA QUE NEM NO EXERCÍCIO DO CHATBOT*/}
-              {/* <Slide
-                direction="right"
-                in={!hide}
-                container={containerRef.current}
-              > */}
-              <ArrowCircleRightIcon
-                className={classes.asideHeaderButtonClosed}
-                onClick={handleMenu}
-              />
-              {/* </Slide> */}
-              <Slide
-                direction="right"
-                in={hide}
-                container={containerRef.current}
-              >
-                <AppBar className={classes.asideHeaderClosed}>
-                  {/* <AppBar className={classes.asideHeader}> */}
-                  <HeaderAsideTabs />
-                </AppBar>
-              </Slide>
-              {/* <Slide direction="left" in={hide} container={containerRef.current}> */}
-              <Box className={classes.boxDocumentsWithAsideClosed}>
-                <Box className={classes.boxMenuWAMClosed}>1</Box>
-                <Box className={classes.boxGraphicWAMClosed}>2</Box>
-                <Box className={classes.boxTopWAMClosed}>3</Box>
-                <Box className={classes.boxVendasSemanaWAMClosed}>4</Box>
-              </Box>
-              {/* </Slide> */}
-            </Box>
-          </>
-        )}
-      </Box>
+        <button
+          // className={classes.button}
+          // color="primary"
+          // variant="contained"
+          onClick={clearLocalStorage}
+        >
+          <Link to="/">
+            <A>Sair</A>
+          </Link>
+        </button>
+        {/* </Box> */}
+      </Main>
     </>
   );
 };
