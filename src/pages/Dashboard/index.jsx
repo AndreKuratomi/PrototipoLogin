@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, Redirect, useNavigate } from "react-router-dom";
 
 import { useUserLogin } from "../../providers/UserLogin";
 
@@ -15,9 +15,9 @@ import { HeaderTop } from "../../components/HeaderTop";
 import { HeaderAsideTabs } from "../../components/HeaderAsideTabs";
 
 import { useToast } from "@chakra-ui/react";
-import { A, Main, P } from "./styles";
+import { A, Main, P1, P2 } from "./styles";
 import { disableBodyScroll } from "body-scroll-lock";
-import { DateTimeMoment } from "../../utils";
+import { Asdf, DateTimeMoment, TimeOut } from "../../utils";
 
 const useStyles = makeStyles((hide) => ({
   // console.log()
@@ -193,6 +193,7 @@ const Dashboard = () => {
   // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
   const { logged, setLogged } = useUserLogin();
 
+  // TOASTS:
   const toast = useToast();
 
   const notLoggedToast = () => {
@@ -205,6 +206,16 @@ const Dashboard = () => {
     });
   };
 
+  const timeoutToast = () => {
+    toast({
+      description: "Faça o login novamente.",
+      duration: 10000,
+      position: "top",
+      status: "warning",
+      title: "Tempo esgotado!",
+    });
+  };
+  const navigate = useNavigate();
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
   const token = localStorage.getItem("@token: UserLoggedToken");
 
@@ -220,42 +231,99 @@ const Dashboard = () => {
   // console.log(deb);
   disableBodyScroll(deb);
 
+  // DATA E HORA:
+  let moment = DateTimeMoment();
+
+  // const leave = () => {
+  //   return <Navigate to="/login" />;
+  // };
+  const leaveAfter30minutes = (seconds) => {
+    return new Promise((_) =>
+      setTimeout(() => {
+        // <Redirect to="login" />;
+        window.location.href = "/login";
+        // navigate("/login");
+        clearLocalStorage();
+        // setInterval(() => {
+      }, seconds)
+    );
+  };
+  // setTimeout(() => {
+  //   timeoutToast();
+  //   clearTimeout();
+  // }, 2000);
+  const action = async () => {
+    setTimeout(() => {
+      timeoutToast();
+      leaveAfter30minutes(800);
+    }, 6000);
+  };
+  action();
+
   // LOGOUT:
   const clearLocalStorage = () => {
     localStorage.clear();
+    clearTimeout(leaveAfter30minutes);
+    // return <Navigate to="/login" />;
   };
+  // Asdf();
+  // const TimeOut = () => {
+  // let time = window.document.querySelector("h3");
 
-  // DATA E HORA:
-  let moment = DateTimeMoment();
+  // const toast = useToast();
+
+  // const [timeout, setTimeout] = useState(1800);
+  // const displayTimeout = (second) => {
+  //   const min = Math.floor(second / 60);
+  //   const sec = Math.floor(second % 60);
+  //   time.innerHTML = `
+  //       ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
+  //       `;
+  // };
+
+  // const countDown = setInterval(() => {
+  //   setTimeout(timeout - 1);
+  //   displayTimeout(timeout);
+  //   // console.log(displayTimeout(timeout));
+  //   if (timeout === 0 || timeout < 1) {
+  //     endCount();
+  //     clearInterval(countDown);
+  //     timeoutToast();
+  //     clearLocalStorage();
+  //     return <Navigate to="/login" />;
+  //   }
+  // }, 1000);
+  // // console.log(timeout);
+
+  // const endCount = () => {
+  //   time.innerHTML = "!";
+  // };
+
+  // return <Article>{time}</Article>;
+  // };
+  // // let timeout = TimeOut();
 
   return (
     <>
       <Main id="scroll">
         <iframe
-          allowFullScreen="true"
-          frameborder="0"
+          allowFullScreen={true}
+          frameBorder="0"
           title="Comercial_AMADEU"
           id="my_frame"
-          // ref={gridIframe}
           src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
           width="100%"
           height="700"
-          // onLoad={handleIframe}
         />
-        {/* <Box className={classes.userHeaderBox}> */}
-        <P>{moment}</P>
 
-        <button
-          // className={classes.button}
-          // color="primary"
-          // variant="contained"
-          onClick={clearLocalStorage}
-        >
+        <P1>{moment}</P1>
+        {/* <P2>00:00</P2> */}
+
+        <button onClick={clearLocalStorage}>
           <Link to="/">
             <A>Sair</A>
           </Link>
         </button>
-        {/* </Box> */}
       </Main>
     </>
   );

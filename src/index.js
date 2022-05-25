@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
-// import { createRoot } from "react-dom/client";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
+// import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import App from "./App";
@@ -12,10 +12,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 // import reportWebVitals from "./reportWebVitals";
 
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
-// const root = createRoot(container);
+// const root = ReactDOM.createRoot(container);
+const root = createRoot(container);
 root.render(
-  // <StrictMode> duplicava renderização
+  // <StrictMode> //duplicava renderização
   <BrowserRouter>
     <ChakraProvider>
       <Providers>
