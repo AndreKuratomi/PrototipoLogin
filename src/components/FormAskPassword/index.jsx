@@ -12,6 +12,7 @@ import Form from "../../assets/figma_imgs/Form.png";
 import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import { useToast } from "@chakra-ui/react";
+import { Article } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
@@ -88,7 +89,7 @@ export const FormAskPassword = () => {
   const classes = useStyles();
 
   return (
-    <article>
+    <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box>
           <TextField
@@ -147,6 +148,6 @@ export const FormAskPassword = () => {
           </Button>
         )}
       </form>
-    </article>
+    </Article>
   );
 };

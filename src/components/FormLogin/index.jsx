@@ -28,7 +28,7 @@ import { useToast } from "@chakra-ui/react";
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { A } from "./styles";
+import { A, Article } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
@@ -150,7 +150,7 @@ export const FormLogin = ({ ...props }) => {
 
   return (
     <>
-      <article>
+      <Article>
         <form
           className={classes.formControl}
           // className={`${formControl}`}
@@ -213,7 +213,7 @@ export const FormLogin = ({ ...props }) => {
             </Typography>
           </Box>
         </form>
-      </article>
+      </Article>
     </>
   );
 };

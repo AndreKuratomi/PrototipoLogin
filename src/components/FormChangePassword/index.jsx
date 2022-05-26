@@ -19,7 +19,7 @@ import { useLoading } from "../../providers/Loading";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 import { useTextInput } from "../../providers/TextInput";
 
-import { A } from "./styles";
+import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -204,7 +204,7 @@ export const FormChangePassword = () => {
   }
 
   return (
-    <article>
+    <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box className={classes.boxForm}>
           <Box>
@@ -334,6 +334,6 @@ export const FormChangePassword = () => {
           </Box>
         </Box>
       </form>
-    </article>
+    </Article>
   );
 };

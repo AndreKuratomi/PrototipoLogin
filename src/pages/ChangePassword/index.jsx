@@ -5,13 +5,13 @@ const ChangePassword = () => {
     <section>
       <FormChangePassword />
 
-      <figure>
+      {/* <figure>
         <img
           // src={}
           alt="Logo VestCasa"
         />
         <figcaption>Logo VestCasa</figcaption>
-      </figure>
+      </figure> */}
     </section>
   );
 };

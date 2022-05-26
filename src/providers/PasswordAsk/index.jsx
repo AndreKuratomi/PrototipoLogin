@@ -101,7 +101,7 @@ export const PasswordAskProvider = ({ children }) => {
         addSuccessToast();
         createAuth();
         setLoading(false);
-        navigate("/");
+        navigate("/login");
         console.log("Email enviado!", response.status, response.text);
       })
       .catch((err) => {
