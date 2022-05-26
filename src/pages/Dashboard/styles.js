@@ -12,8 +12,8 @@ export const P1 = styled.p`
   display: flex;
   position: absolute;
   z-index: 1;
-  top: 1rem;
-  right: 45rem;
+  bottom: 4rem;
+  left: 7rem;
   color: #fff;
   font-weight: 800;
 `;
@@ -29,12 +29,13 @@ export const P2 = styled.h3`
 `;
 
 export const A = styled.a`
-  position: absolute;
-  z-index: 1;
-  top: 1.5rem;
-  right: 40rem;  
-  color: #fff;
-  font-weight: 800;
+    position: absolute;
+    z-index: 1;
+    top: 0.5rem;
+    right: 6rem;
+    color: #fff0;
+    font-weight: 800;
+    font-size: xx-large;
 
   &:hover {
     background-color: #00f

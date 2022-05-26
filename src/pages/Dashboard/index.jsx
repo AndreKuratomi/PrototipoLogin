@@ -180,6 +180,9 @@ const useStyles = makeStyles((hide) => ({
 }));
 
 const Dashboard = () => {
+  // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
+  const { logged, setLogged } = useUserLogin();
+
   // MOSTRAR/ESCONDER ASIDEMENU:
   const [hide, setHide] = useState(false);
   const containerRef = useRef(null); //O QUE USEREF FAZ???
@@ -189,9 +192,6 @@ const Dashboard = () => {
 
   // STYLES:
   const classes = useStyles(hide);
-
-  // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
-  const { logged, setLogged } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
@@ -215,7 +215,7 @@ const Dashboard = () => {
       title: "Tempo esgotado!",
     });
   };
-  const navigate = useNavigate();
+
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
   const token = localStorage.getItem("@token: UserLoggedToken");
 
@@ -228,80 +228,31 @@ const Dashboard = () => {
 
   // LÓGICA PARA EVITAR SCROLL:
   const deb = window.document.getElementById("scroll");
-  // console.log(deb);
   disableBodyScroll(deb);
 
   // DATA E HORA:
   let moment = DateTimeMoment();
 
-  // const leave = () => {
-  //   return <Navigate to="/login" />;
-  // };
+  // LOGOUT DEPOIS DE 30 MINUTOS:
   const leaveAfter30minutes = (seconds) => {
     return new Promise((_) =>
       setTimeout(() => {
-        // <Redirect to="login" />;
-        window.location.href = "/login";
-        // navigate("/login");
         clearLocalStorage();
-        // setInterval(() => {
       }, seconds)
     );
   };
-  // setTimeout(() => {
-  //   timeoutToast();
-  //   clearTimeout();
-  // }, 2000);
-  const action = async () => {
-    setTimeout(() => {
-      timeoutToast();
-      leaveAfter30minutes(800);
-    }, 6000);
-  };
-  action();
+
+  let action = setTimeout(() => {
+    timeoutToast();
+    leaveAfter30minutes(800);
+  }, 10000);
 
   // LOGOUT:
   const clearLocalStorage = () => {
+    clearTimeout(action);
     localStorage.clear();
-    clearTimeout(leaveAfter30minutes);
-    // return <Navigate to="/login" />;
+    window.location.href = "/login";
   };
-  // Asdf();
-  // const TimeOut = () => {
-  // let time = window.document.querySelector("h3");
-
-  // const toast = useToast();
-
-  // const [timeout, setTimeout] = useState(1800);
-  // const displayTimeout = (second) => {
-  //   const min = Math.floor(second / 60);
-  //   const sec = Math.floor(second % 60);
-  //   time.innerHTML = `
-  //       ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
-  //       `;
-  // };
-
-  // const countDown = setInterval(() => {
-  //   setTimeout(timeout - 1);
-  //   displayTimeout(timeout);
-  //   // console.log(displayTimeout(timeout));
-  //   if (timeout === 0 || timeout < 1) {
-  //     endCount();
-  //     clearInterval(countDown);
-  //     timeoutToast();
-  //     clearLocalStorage();
-  //     return <Navigate to="/login" />;
-  //   }
-  // }, 1000);
-  // // console.log(timeout);
-
-  // const endCount = () => {
-  //   time.innerHTML = "!";
-  // };
-
-  // return <Article>{time}</Article>;
-  // };
-  // // let timeout = TimeOut();
 
   return (
     <>
@@ -317,12 +268,11 @@ const Dashboard = () => {
         />
 
         <P1>{moment}</P1>
-        {/* <P2>00:00</P2> */}
 
         <button onClick={clearLocalStorage}>
-          <Link to="/">
-            <A>Sair</A>
-          </Link>
+          {/* <Link to="/"> */}
+          <A>Sair</A>
+          {/* </Link> */}
         </button>
       </Main>
     </>

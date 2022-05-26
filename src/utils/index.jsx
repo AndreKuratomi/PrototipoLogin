@@ -90,9 +90,8 @@ export const DateTimeMoment = () => {
   return (
     <Article>
       <p>
-        {weekDay}, {date}
+        {weekDay}, {date} {time}
       </p>
-      <p>{time}</p>
     </Article>
   );
 };
