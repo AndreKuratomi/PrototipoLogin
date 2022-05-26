@@ -1,16 +1,41 @@
-import { useRef, useState } from "react";
-import { Link, Navigate, Redirect, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 
 import { useUserLogin } from "../../providers/UserLogin";
 
 import { makeStyles } from "@material-ui/styles";
-
 import { useToast } from "@chakra-ui/react";
 import { A, Main, P1 } from "./styles";
-import { disableBodyScroll } from "body-scroll-lock";
-import { DateTimeMoment } from "../../utils";
 
-const useStyles = makeStyles((hide) => ({}));
+import { disableBodyScroll } from "body-scroll-lock";
+
+import { DateTimeMoment } from "../../utils";
+import { Typography } from "@mui/material";
+
+const useStyles = makeStyles(() => ({
+  icon: {
+    color: "#fff",
+    fontSize: "3.5rem",
+    position: "absolute",
+    // right: "6.25rem",
+    right: "9.25rem",
+    // top: "0.5rem",
+    top: "1.5rem",
+    "&:hover": {
+      cursor: "pointer",
+      color: "#fff6",
+    },
+  },
+  date: {
+    display: "flex",
+    position: "absolute",
+    zIndex: "1",
+    top: "1.5rem",
+    right: "34rem",
+    color: "#fff",
+    fontWeight: "800",
+  },
+}));
 
 const Dashboard = () => {
   // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
@@ -95,10 +120,15 @@ const Dashboard = () => {
         />
 
         <P1>{moment}</P1>
+        {/* <Typography className={classes.date}>{moment}</Typography> */}
 
-        <button onClick={clearLocalStorage}>
+        <ExitToAppRoundedIcon
+          className={classes.icon}
+          onClick={clearLocalStorage}
+        />
+        {/* <button>
           <A>Sair</A>
-        </button>
+        </button> */}
       </Main>
     </>
   );
