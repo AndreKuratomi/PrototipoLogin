@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
@@ -10,17 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import InputLogin from "../../assets/figma_imgs/InputLogin.png";
-import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
 
 import { api } from "../../service/api";
 
-import {
-  Box,
-  Button,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useToast } from "@chakra-ui/react";
@@ -35,9 +26,6 @@ const useStyles = makeStyles({
     // backgroundImage: (props) =>
     //   props.errors ? `url(${formLoginError})` : `url(${formLogin})`,
     backgroundImage: `url(${FormLoginError})`,
-    // backgroundImage: `url(${formLogin})`,
-    // backgroundColor: (props) => props.color,
-    // borderRadius: "10%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
@@ -45,7 +33,6 @@ const useStyles = makeStyles({
     height: "30.5rem",
   },
   textField: {
-    // backgroundColor: "#FFF",
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     padding: "1rem",
@@ -153,11 +140,7 @@ export const FormLogin = ({ ...props }) => {
       <Article>
         <form
           className={classes.formControl}
-          // className={`${formControl}`}
           onSubmit={handleSubmit(onSubmitFunction)}
-          // error={!!errors}
-          // color="red"
-          // color={"#009E4F"}
         >
           <Box>
             <TextField

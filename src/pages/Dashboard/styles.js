@@ -4,16 +4,12 @@ export const Main = styled.main`
   overflow: hidden;
 `;
 
-export const LeftBar = styled.header`
-  display: ${(props) => (props.hide ? "none" : "block")};
-`;
-
 export const P1 = styled.p`
   display: flex;
   position: absolute;
   z-index: 1;
-  bottom: 4rem;
-  left: 7rem;
+  bottom: 3rem;
+  left: 7.5rem;
   color: #fff;
   font-weight: 800;
 `;

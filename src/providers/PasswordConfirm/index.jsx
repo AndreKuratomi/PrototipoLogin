@@ -101,7 +101,7 @@ export const PasswordConfirmProvider = ({ children }) => {
         setLoading(false);
         console.log("Email enviado!", response.status, response.text);
         localStorage.clear();
-        navigate("/login");
+        navigate("/");
       })
       .catch((err) => {
         // console.log(err);

@@ -11,16 +11,18 @@ import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
 import { Typography } from "@mui/material";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#fff",
-    fontSize: "3.5rem",
     position: "absolute",
-    // right: "6.25rem",
-    right: "9.25rem",
-    // top: "0.5rem",
     top: "1.5rem",
+    right: "6.25rem",
+    // "& .css-1696fkf-MuiSvgIcon-root": {
+    //   fontSize: "7rem",
+    //   color: "#f00",
+    // },
     "&:hover": {
       cursor: "pointer",
       color: "#fff6",
@@ -30,17 +32,14 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     position: "absolute",
     zIndex: "1",
-    top: "1.5rem",
-    right: "34rem",
+    bottom: "3rem",
+    left: "7.5rem",
     color: "#fff",
     fontWeight: "800",
   },
 }));
 
 const Dashboard = () => {
-  // LÓGICA PARA CHECAR SE USUÁRIO ESTÁ LOGADO:
-  const { logged, setLogged } = useUserLogin();
-
   // STYLES:
   const classes = useStyles();
 
@@ -60,7 +59,7 @@ const Dashboard = () => {
   const timeoutToast = () => {
     toast({
       description: "Faça o login novamente.",
-      duration: 10000,
+      duration: 3000,
       position: "top",
       status: "warning",
       title: "Tempo esgotado!",
@@ -68,6 +67,7 @@ const Dashboard = () => {
   };
 
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
+  const { logged, setLogged } = useUserLogin();
   const token = localStorage.getItem("@token: UserLoggedToken");
 
   if (token) {
@@ -103,7 +103,7 @@ const Dashboard = () => {
   const clearLocalStorage = () => {
     clearTimeout(action);
     localStorage.clear();
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (
@@ -126,9 +126,6 @@ const Dashboard = () => {
           className={classes.icon}
           onClick={clearLocalStorage}
         />
-        {/* <button>
-          <A>Sair</A>
-        </button> */}
       </Main>
     </>
   );
