@@ -1,229 +1,132 @@
-import { useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 
-import { Link } from "react-router-dom";
+import { useUserLogin } from "../../providers/UserLogin";
+
+import { makeStyles } from "@material-ui/styles";
+import { useToast } from "@chakra-ui/react";
+import { A, Main, P1 } from "./styles";
+
+import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
+import { Typography } from "@mui/material";
+import { useEffect } from "react";
 
-import {
-  AppBar,
-  Button,
-  Snackbar,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import MuiAlert from "@material-ui/lab/Alert";
-import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
-
-import { A, LeftBar } from "./styles";
-
-const useStyles = makeStyles((hide) => ({
-  topHeader: {
+const useStyles = makeStyles(() => ({
+  icon: {
+    color: "#fff",
+    position: "absolute",
+    top: "1.5rem",
+    right: "6.25rem",
+    // "& .css-1696fkf-MuiSvgIcon-root": {
+    //   fontSize: "7rem",
+    //   color: "#f00",
+    // },
+    "&:hover": {
+      cursor: "pointer",
+      color: "#fff6",
+    },
+  },
+  date: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0 1rem",
-    // paddingLeft: hide ? "11rem" : "1rem",
-  },
-  asideHeader: {
-    backgroundColor: "#009E4F",
-    marginTop: "4.3rem",
-    right: "auto",
     position: "absolute",
-    zIndex: 0,
-    width: "fit-content",
-    transition: "all .5s ease-in-out",
-  },
-  asideHeaderButton1: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "120px",
-    top: "45px",
-    zIndex: 1,
-  },
-  asideHeaderButton2: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
-    position: "absolute",
-    left: "-10px",
-    top: "45px",
-    zIndex: 1,
-  },
-  textField: {
-    backgroundColor: "#FFF",
-    padding: "0.35rem",
-    width: "9.5rem",
-    // height: "", USAR PROP DA IMAGE DO LOGO PARA SEMPRE ACOMPANHÁ-LA
-    "& .MuiFormControl-marginNormal": {
-      margin: 0,
-    },
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      top: ".25rem",
-    },
-  },
-  tab: {
-    "& .MuiTab-wrapper": {
-      alignItems: "start",
-      marginLeft: "1rem",
-    },
-  },
-  userHeaderBox: {
-    display: "flex",
-  },
-  button: {
-    backgroundColor: "#00f",
-    margin: "0.5rem",
+    zIndex: "1",
+    bottom: "3rem",
+    left: "7.5rem",
+    color: "#fff",
+    fontWeight: "800",
   },
 }));
 
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
-
 const Dashboard = () => {
-  // CARD BOAS-VINDAS:
-  const [open, setOpen] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "right",
-  });
+  // STYLES:
+  const classes = useStyles();
 
-  const handleClick = (newState) => {
-    setOpen(true);
+  // TOASTS:
+  const toast = useToast();
+
+  const notLoggedToast = () => {
+    toast({
+      description: "Usuário não logado!",
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
+  const timeoutToast = () => {
+    toast({
+      description: "Faça o login novamente.",
+      duration: 3000,
+      position: "top",
+      status: "warning",
+      title: "Tempo esgotado!",
+    });
   };
+
+  // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
+  const { logged, setLogged } = useUserLogin();
+  const token = localStorage.getItem("@token: UserLoggedToken");
+
+  if (token) {
+    setLogged(true);
+  } else {
+    notLoggedToast();
+    return <Navigate to="/login" />;
+  }
+
+  // LÓGICA PARA EVITAR SCROLL:
+  const deb = window.document.getElementById("scroll");
+  disableBodyScroll(deb);
 
   // DATA E HORA:
   let moment = DateTimeMoment();
 
-  // MOSTRAR/ESCONDER ASIDEMENU:
-  const [hide, setHide] = useState(false);
-  const containerRef = useRef(null); //O QUE USEREF FAZ???
-  const handleMenu = () => {
-    setHide((prev) => !prev);
+  // LOGOUT DEPOIS DE 30 MINUTOS:
+  const leaveAfter30minutes = (seconds) => {
+    return new Promise((_) =>
+      setTimeout(() => {
+        clearLocalStorage();
+      }, seconds)
+    );
   };
 
-  // STYLES:
-  const classes = useStyles(hide);
+  const THIRTY_MINUTES = 1800000;
+  let action = setTimeout(() => {
+    timeoutToast();
+    leaveAfter30minutes(800);
+  }, THIRTY_MINUTES);
+
+  // LOGOUT:
+  const clearLocalStorage = () => {
+    clearTimeout(action);
+    localStorage.clear();
+    window.location.href = "/";
+  };
 
   return (
     <>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={2000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="success">
-          Seja bem-vindo, X!
-        </Alert>
-      </Snackbar>
+      <Main id="scroll">
+        <iframe
+          allowFullScreen={true}
+          frameBorder="0"
+          title="Comercial_AMADEU"
+          id="my_frame"
+          src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+          width="100%"
+          height="672"
+        />
 
-      <AppBar className={classes.topHeader}>
-        <Box>
-          <figure>
-            <img
-              // src={}
-              alt="Vestcasa"
-            />
-            <figcaption>Vestcasa</figcaption>
-          </figure>
-        </Box>
-        {/* {hide === true ? (
-          <Button
-            className={classes.asideHeaderButton2}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Menu</A>
-          </Button>
-        ) : (
-          <Button
-            className={classes.asideHeaderButton1}
-            color="primary"
-            variant="contained"
-            onClick={handleMenu}
-          >
-            <A>Hide</A>
-          </Button>
-        )} */}
-        <Box className={classes.userHeaderBox}>
-          <p>{moment}</p>
-          {/* <p>Quarta-feira, 27/04/2022 - 16:48:00</p> */}
-          {/* <DateTimePicker autoOk ampm={false} value={date} onChange={setDate} /> */}
+        <P1>{moment}</P1>
+        {/* <Typography className={classes.date}>{moment}</Typography> */}
 
-          <Button
-            className={classes.button}
-            color="primary"
-            variant="contained"
-          >
-            <Link to="/">
-              <A>Sair</A>
-            </Link>
-          </Button>
-        </Box>
-      </AppBar>
-      <Box
-        sx={{
-          // height: 180,
-          // width: 240,
-          // display: "flex",
-          // padding: 2,
-          // borderRadius: 1,
-          // bgcolor: (theme) =>
-          //   theme.palette.mode === "light" ? "grey.100" : "grey.900",
-          marginTop: "5rem",
-          overflow: "hidden",
-        }}
-        ref={containerRef}
-      >
-        <Box
-        //  sx={{ width: 200 }}
-        >
-          {/* <FormControlLabel
-            control={<Switch checked={hide} onChange={handleMenu} />}
-            label="Show from target"
-          // /> */}
-          <LeftBar
-            hide={hide}
-            // control={}
-          >
-            <Slide direction="right" in={hide} container={containerRef.current}>
-              {/* {icon} */}
-              <AppBar className={classes.asideHeader}>
-                <Tabs orientation="vertical" value={""}>
-                  {/* VERIFICAR CONSOLE.LOG! children?*/}
-                  <Tab className={classes.tab} label="Item 1" />
-                  <Tab className={classes.tab} label="Item 2" />
-                  <Tab className={classes.tab} label="Item 3" />
-                  <Tab className={classes.tab} label="Item 4" />
-                  <Tab className={classes.tab} label="Item 5" />
-                  <Tab className={classes.tab} label="Item 6" />
-                  <Tab className={classes.tab} label="Item 7" />
-                  <Tab className={classes.tab} label="Item 8" />
-                  <Tab className={classes.tab} label="Item 9" />
-                  <Tab className={classes.tab} label="Item 10" />
-                  <Tab className={classes.tab} label="Item 11" />
-                  <Tab className={classes.tab} label="Item 12" />
-                </Tabs>
-              </AppBar>
-            </Slide>
-          </LeftBar>
-        </Box>
-      </Box>
+        <ExitToAppRoundedIcon
+          className={classes.icon}
+          onClick={clearLocalStorage}
+        />
+      </Main>
     </>
   );
 };

@@ -1,17 +1,17 @@
-import { FormSignUp } from "../../components/FormSignUp";
+import { FormChangePassword } from "../../components/FormChangePassword";
 
 const ChangePassword = () => {
   return (
     <section>
-      <FormSignUp />
+      <FormChangePassword />
 
-      <figure>
+      {/* <figure>
         <img
           // src={}
           alt="Logo VestCasa"
         />
         <figcaption>Logo VestCasa</figcaption>
-      </figure>
+      </figure> */}
     </section>
   );
 };
