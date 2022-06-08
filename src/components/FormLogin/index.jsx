@@ -7,11 +7,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // import FormLogin from "../../assets/figma_imgs/FormLogin.png";
 import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
 import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 
 import { api } from "../../service/api";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
+import LockIcon from "@mui/icons-material/Lock";
 import { makeStyles } from "@material-ui/styles";
 
 import { useToast } from "@chakra-ui/react";
@@ -32,12 +34,17 @@ const useStyles = makeStyles({
     width: "15rem",
     height: "30.5rem",
   },
+  image: {
+    marginBottom: "1rem",
+  },
   textField: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
+    // marginLeft: "1.5rem",
     padding: "1rem",
     "& .MuiInputLabel-formControl": {
       left: "1rem",
+      // left: "3rem",
       top: ".25rem",
     },
   },
@@ -53,7 +60,23 @@ const useStyles = makeStyles({
   },
   textBox: {
     fontSize: "0.8rem",
+    display: "flex",
+    flexDirection: "column",
   },
+  // userIcon: {
+  //   position: "absolute",
+  //   zIndex: "1",
+  //   left: "38rem",
+  //   top: "15rem",
+  //   color: "#178E50",
+  // },
+  // lockIcon: {
+  //   position: "absolute",
+  //   zIndex: "1",
+  //   left: "38rem",
+  //   top: "15rem",
+  //   color: "#178E50",
+  // },
 });
 
 // const Alert = (props) => {
@@ -110,7 +133,7 @@ export const FormLogin = ({ ...props }) => {
   const navigate = useNavigate();
 
   const onSubmitFunction = (data, text) => {
-    console.log(text.target[0].value);
+    // console.log(text.target[0].value);
 
     userLogged();
     createUserToken();
@@ -142,6 +165,10 @@ export const FormLogin = ({ ...props }) => {
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
         >
+          <Box className={classes.image}>
+            <img src={LogoVestcasa} alt="Logo Vestcasa" />
+          </Box>
+
           <Box>
             <TextField
               className={classes.textField}
@@ -156,6 +183,7 @@ export const FormLogin = ({ ...props }) => {
             />
           </Box>
           <Box>
+            {/* <LockIcon /> */}
             <TextField
               className={classes.textField}
               label="Senha"
@@ -180,18 +208,12 @@ export const FormLogin = ({ ...props }) => {
           </Button>
           <Box className={classes.box}>
             <Typography className={classes.textBox}>
-              Esqueceu a senha?
-            </Typography>
-            <Typography className={classes.textBox}>
-              Solicite a alteração de senha por{" "}
               <Link to="/email">
-                <A>aqui</A>
+                <A>Esqueci minha senha</A>
               </Link>
-            </Typography>
-            <Typography className={classes.textBox}>
-              Ou contate a central de suporte clicando{" "}
+              ou
               <A target="_blanck" href="https://suporte.vestcasa.com.br">
-                aqui
+                Abra um chamado conosco
               </A>
             </Typography>
           </Box>

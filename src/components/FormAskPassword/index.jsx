@@ -2,31 +2,30 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-
 import { usePasswordAsk } from "../../providers/PasswordAsk";
 import { useLoading } from "../../providers/Loading";
 
-import Form from "../../assets/figma_imgs/Form.png";
-import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
+import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
+import FormAskPW from "../../assets/figma_imgs/FormAskPW.png";
 import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
+
 import { useToast } from "@chakra-ui/react";
 import { Article } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
-    // backgroundColor: "#009E4F",
-    backgroundImage: `url(${Form})`,
-    // borderRadius: "5%",
+    backgroundImage: `url(${FormAskPW})`,
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     padding: "2rem",
     width: "17rem",
-    height: "23.55rem",
+    height: "25.55rem",
   },
   textField: {
-    // backgroundColor: "#FFF",
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     width: "12.5rem",
@@ -37,7 +36,6 @@ const useStyles = makeStyles({
     },
   },
   button: {
-    // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
     width: "12.5rem",
   },
@@ -46,6 +44,9 @@ const useStyles = makeStyles({
     textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
+  },
+  image: {
+    marginBottom: "1rem",
   },
 });
 
@@ -91,6 +92,9 @@ export const FormAskPassword = () => {
   return (
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
+        <Box className={classes.image}>
+          <img src={LogoVestcasa} alt="Logo Vestcasa" />
+        </Box>
         <Box>
           <TextField
             margin="normal"
