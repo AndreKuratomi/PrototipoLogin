@@ -1,10 +1,12 @@
+import { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import FormLogin from "../../assets/figma_imgs/FormLogin.png";
+// import FormLogin from "../../assets/figma_imgurl(${UserError})s/FormLogin.png";
 import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
@@ -13,15 +15,19 @@ import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 import { api } from "../../service/api";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import LockIcon from "@mui/icons-material/Lock";
+import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
+
+import { AiOutlineUser } from "react-icons/ai";
 
 import { useToast } from "@chakra-ui/react";
 
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { A, Article } from "./styles";
+import { A, Article, Image, ImageError } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
@@ -48,6 +54,17 @@ const useStyles = makeStyles({
       top: ".25rem",
     },
   },
+  textFieldTest: {
+    backgroundImage: `url(${Input})`,
+    borderRadius: "1rem",
+    // marginLeft: "1.5rem",
+    padding: "0.5rem",
+    "& .MuiInputLabel-formControl": {
+      left: "0.25rem",
+      // left: "3rem",
+      top: "-0.3rem",
+    },
+  },
   button: {
     // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
@@ -63,31 +80,19 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
-  // userIcon: {
-  //   position: "absolute",
-  //   zIndex: "1",
-  //   left: "38rem",
-  //   top: "15rem",
-  //   color: "#178E50",
-  // },
-  // lockIcon: {
-  //   position: "absolute",
-  //   zIndex: "1",
-  //   left: "38rem",
-  //   top: "15rem",
-  //   color: "#178E50",
-  // },
+  oi: {
+    "& .MuiInputBase-input": {
+      marginBottom: "0.5rem",
+    },
+    "& .MuiFormControl-root": {
+      margin: "3px",
+    },
+  },
 });
 
-// const Alert = (props) => {
-//   return <MuiAlert elevation={6} variant="filled" {...props} />;
-// };
-
-export const FormLogin = ({ ...props }) => {
+export const FormLogin = ({ error, ...rest }) => {
   // STYLES:
-  const classes = useStyles(props);
-  // const formControl = useStyles(props);
-  // console.log(formControl);
+  const classes = useStyles();
 
   const { text, setUsername } = useTextInput();
   const { logged, userLogged, createUserToken } = useUserLogin();
@@ -160,7 +165,8 @@ export const FormLogin = ({ ...props }) => {
 
   return (
     <>
-      <Article>
+      {/* {errors && algo(!!errors)} */}
+      <Article isErrored={!!error}>
         <form
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
@@ -169,30 +175,67 @@ export const FormLogin = ({ ...props }) => {
             <img src={LogoVestcasa} alt="Logo Vestcasa" />
           </Box>
 
-          <Box>
+          <Box
+            className={classes.textFieldTest}
+            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
+          >
+            {Object.keys(errors).some((elt) => elt === "username") ? (
+              <AccountCircle htmlColor="red" />
+            ) : (
+              <AccountCircle htmlColor="gray" />
+            )}
             <TextField
-              className={classes.textField}
               label="Usuário"
-              margin="normal"
-              variant="standard"
               {...register("username")}
               error={!!errors.username}
-              // helperText={errors.username?.message}
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       {Object.keys(errors).some((elt) => elt === "username") ? (
+              //         <AccountCircle htmlColor="red" />
+              //       ) : (
+              //         <AccountCircle htmlColor="gray" />
+              //       )}
+              //     </InputAdornment>
+              //   ),
+              // }}
+              variant="standard"
               onChange={setUsername}
               value={text}
+              // margin="3px"
+              className={classes.oi}
             />
           </Box>
-          <Box>
-            {/* <LockIcon /> */}
+
+          <Box
+            className={classes.textFieldTest}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            {Object.keys(errors).some((elt) => elt === "password") ? (
+              <LockIcon htmlColor="red" />
+            ) : (
+              <LockIcon htmlColor="gray" />
+            )}
             <TextField
-              className={classes.textField}
               label="Senha"
               type="password"
-              margin="normal"
+              // margin="normal"
               variant="standard"
               {...register("password")}
               error={!!errors.password}
-              // helperText={errors.password?.message}
+              // margin="3px"
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       {Object.keys(errors).some((elt) => elt === "password") ? (
+              //         <LockIcon htmlColor="red" />
+              //       ) : (
+              //         <LockIcon htmlColor="blue" />
+              //       )}
+              //     </InputAdornment>
+              //   ),
+              // }}
+              className={classes.oi}
             />
           </Box>
 
@@ -202,7 +245,6 @@ export const FormLogin = ({ ...props }) => {
             className={classes.button}
             color="primary"
             size="large"
-            // onClick={handleClick}
           >
             Entrar
           </Button>
