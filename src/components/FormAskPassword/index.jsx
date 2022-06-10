@@ -12,6 +12,11 @@ import FormAskPW from "../../assets/figma_imgs/FormAskPW.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
+import IconUser from "../../assets/figma_imgs/IconUser.png";
+import IconUserError from "../../assets/figma_imgs/IconUserError.png";
+import IconEmail from "../../assets/figma_imgs/IconEmail.png";
+import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
+
 import { useToast } from "@chakra-ui/react";
 import { Article } from "./styles";
 
@@ -33,6 +38,26 @@ const useStyles = makeStyles({
     "& .MuiInputLabel-formControl": {
       left: "1rem",
       top: ".25rem",
+    },
+  },
+  textFieldTest: {
+    backgroundImage: `url(${Input})`,
+    borderRadius: "1rem",
+    // marginLeft: "1.5rem",
+    padding: "0.5rem",
+    "& .MuiInputLabel-formControl": {
+      left: "0.25rem",
+      // left: "3rem",
+      top: "-0.3rem",
+    },
+  },
+  oi: {
+    "& .MuiInputBase-input": {
+      marginBottom: "0.5rem",
+      paddingLeft: "0.4rem",
+    },
+    "& .MuiFormControl-root": {
+      margin: "3px",
     },
   },
   button: {
@@ -95,38 +120,47 @@ export const FormAskPassword = () => {
         <Box className={classes.image}>
           <img src={LogoVestcasa} alt="Logo Vestcasa" />
         </Box>
-        <Box>
+
+        <Box
+          className={classes.textFieldTest}
+          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
+        >
+          {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            <img src={IconUserError} alt="UserError" />
+          ) : (
+            <img src={IconUser} alt="User" />
+          )}
           <TextField
             margin="normal"
             variant="standard"
-            className={classes.textField}
+            className={classes.oi}
             type="text"
-            // name="usuario"
-            label="Digite aqui seu usuário"
+            label="Digite seu usuário"
             placeholder="usuario"
             {...register("usuario")}
-            // value={toSend.usuario}
-            // onChange={handleChange}
             onInputChange={handleChange}
             error={!!errors.usuario}
-            // helperText={errors.usuario?.message}
           />
         </Box>
-        <Box>
+        <Box
+          className={classes.textFieldTest}
+          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
+        >
+          {Object.keys(errors).some((elt) => elt === "email") ? (
+            <img src={IconEmailError} alt="EmailError" />
+          ) : (
+            <img src={IconEmail} alt="Email" />
+          )}
           <TextField
             margin="normal"
             variant="standard"
-            className={classes.textField}
+            className={classes.oi}
             type="text"
-            // name="email"
-            label="Digite aqui seu email"
+            label="Digite seu email"
             placeholder="email"
             {...register("email")}
-            // value={toSend.email}
-            // onChange={handleChange}
             onInputChange={handleChange}
             error={!!errors.email}
-            // helperText={errors.email?.message}
           />
         </Box>
         {loading ? (

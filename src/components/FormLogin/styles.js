@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-import User from "../../assets/figma_imgs/User.png";
-import UserError from "../../assets/figma_imgs/UserError.png";
+import IconUser from "../../assets/figma_imgs/IconUser.png";
+import IconUserError from "../../assets/figma_imgs/IconUserError.png";
 
 export const Article = styled.article`
   justify-content: center;
@@ -12,14 +12,14 @@ export const Article = styled.article`
     width: 2rem;
     height: 2rem;
     // color: green;
-    // background-image: url(${UserError});
+    // background-image: url(${IconUserError});
   }
 
   ${(props) =>
     props.isErrored &&
     css`
       svg {
-        // background-image: url(${UserError});
+        // background-image: url(${IconUserError});
         // color: red;
       }
     `}

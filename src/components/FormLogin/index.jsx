@@ -12,6 +12,11 @@ import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 
+import IconUser from "../../assets/figma_imgs/IconUser.png";
+import IconUserError from "../../assets/figma_imgs/IconUserError.png";
+import IconPassword from "../../assets/figma_imgs/IconPassword.png";
+import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
+
 import { api } from "../../service/api";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
@@ -83,6 +88,7 @@ const useStyles = makeStyles({
   oi: {
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
+      paddingLeft: "0.4rem",
     },
     "& .MuiFormControl-root": {
       margin: "3px",
@@ -180,10 +186,15 @@ export const FormLogin = ({ error, ...rest }) => {
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
             {Object.keys(errors).some((elt) => elt === "username") ? (
+              <img src={IconUserError} alt="UserError" />
+            ) : (
+              <img src={IconUser} alt="User" />
+            )}
+            {/* {Object.keys(errors).some((elt) => elt === "username") ? (
               <AccountCircle htmlColor="red" />
             ) : (
               <AccountCircle htmlColor="gray" />
-            )}
+            )} */}
             <TextField
               label="Usuário"
               {...register("username")}
@@ -212,10 +223,15 @@ export const FormLogin = ({ error, ...rest }) => {
             sx={{ display: "flex", alignItems: "center" }}
           >
             {Object.keys(errors).some((elt) => elt === "password") ? (
+              <img src={IconPasswordError} alt="PasswordError" />
+            ) : (
+              <img src={IconPassword} alt="Password" />
+            )}
+            {/* {Object.keys(errors).some((elt) => elt === "password") ? (
               <LockIcon htmlColor="red" />
             ) : (
               <LockIcon htmlColor="gray" />
-            )}
+            )} */}
             <TextField
               label="Senha"
               type="password"
