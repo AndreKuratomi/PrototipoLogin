@@ -11,6 +11,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 import Input from "../../assets/figma_imgs/Input.png";
 import FormChangePasswordFigma from "../../assets/figma_imgs/FormChangePasswordFigma.png";
+import FormChangePasswordFigmaDesktop from "../../assets/figma_imgs/FormChangePasswordFigmaDesktop.png";
 
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
@@ -33,8 +34,7 @@ import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    backgroundColor: "#009E4F",
-    // backgroundImage: `url(${FormChangePasswordFigma})`,
+    backgroundImage: `url(${FormChangePasswordFigma})`,
     borderRadius: "5%",
     display: "flex",
     flexWrap: "nowrap",
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     width: "20rem",
     "@media (min-width: 768px)": {
+      backgroundImage: `url(${FormChangePasswordFigmaDesktop})`,
       flexWrap: "wrap",
       justifyContent: "space-between",
       alignItems: "center",
@@ -56,26 +57,13 @@ const useStyles = makeStyles((theme) => ({
   image: {
     marginBottom: "1rem",
   },
-  textField: {
-    backgroundColor: "#FFF",
-    // backgroundImage: `url(${Input})`,
-    borderRadius: "1rem",
-    margin: "1rem",
-    padding: "1rem",
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      top: ".25rem",
-    },
-    width: "15rem",
-  },
+
   textFieldTest: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
-    // marginLeft: "1.5rem",
     padding: "0.5rem",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
-      // left: "3rem",
       top: "-0.3rem",
     },
     width: "13rem",
