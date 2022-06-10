@@ -5,7 +5,7 @@ export const Article = styled.article`
   display: flex;
   margin-top: 1rem;
   @media (min-width: 787px) {
-    margin-top: 5rem;
+    // margin-top: 5rem;
   }
 `;
 
