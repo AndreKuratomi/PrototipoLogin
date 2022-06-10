@@ -6,54 +6,72 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import FormLogin from "../../assets/figma_imgs/FormLogin.png";
+// import FormLogin from "../../assets/figma_imgurl(${UserError})s/FormLogin.png";
 import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
-import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 import Input from "../../assets/figma_imgs/Input.png";
-import ButtonFigma from "../../assets/figma_imgs/ButtonFigma.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
+import InputLogin from "../../assets/figma_imgs/InputLogin.png";
+
+import IconUser from "../../assets/figma_imgs/IconUser.png";
+import IconUserError from "../../assets/figma_imgs/IconUserError.png";
+import IconPassword from "../../assets/figma_imgs/IconPassword.png";
+import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
 
 import { api } from "../../service/api";
 
-import {
-  Box,
-  Button,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, TextField, Typography } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import LockIcon from "@mui/icons-material/Lock";
+import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
+
+import { AiOutlineUser } from "react-icons/ai";
 
 import { useToast } from "@chakra-ui/react";
 
-import { A } from "./styles";
 import { useTextInput } from "../../providers/TextInput";
+import { useUserLogin } from "../../providers/UserLogin";
+
+import { A, Article, Image, ImageError } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
     // backgroundImage: (props) =>
     //   props.errors ? `url(${formLoginError})` : `url(${formLogin})`,
     backgroundImage: `url(${FormLoginError})`,
-    // backgroundImage: `url(${formLogin})`,
-    // backgroundColor: (props) => props.color,
-    // borderRadius: "10%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
     width: "15rem",
     height: "30.5rem",
   },
+  image: {
+    marginBottom: "1rem",
+  },
   textField: {
-    // backgroundColor: "#FFF",
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
+    // marginLeft: "1.5rem",
     padding: "1rem",
     "& .MuiInputLabel-formControl": {
       left: "1rem",
+      // left: "3rem",
       top: ".25rem",
     },
   },
+  textFieldTest: {
+    backgroundImage: `url(${Input})`,
+    borderRadius: "1rem",
+    // marginLeft: "1.5rem",
+    padding: "0.5rem",
+    "& .MuiInputLabel-formControl": {
+      left: "0.25rem",
+      // left: "3rem",
+      top: "-0.3rem",
+    },
+  },
   button: {
-    backgroundImage: `url(${ButtonFigma})`,
+    // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
   },
   box: {
@@ -64,21 +82,28 @@ const useStyles = makeStyles({
   },
   textBox: {
     fontSize: "0.8rem",
+    display: "flex",
+    flexDirection: "column",
+  },
+  oi: {
+    "& .MuiInputBase-input": {
+      marginBottom: "0.5rem",
+      paddingLeft: "0.4rem",
+    },
+    "& .MuiFormControl-root": {
+      margin: "3px",
+    },
   },
 });
 
-// const Alert = (props) => {
-//   return <MuiAlert elevation={6} variant="filled" {...props} />;
-// };
-
-export const FormLogin = ({ ...props }) => {
-  // console.log(props);
-  const classes = useStyles(props);
-  // const formControl = useStyles(props);
-  // console.log(formControl);
+export const FormLogin = ({ error, ...rest }) => {
+  // STYLES:
+  const classes = useStyles();
 
   const { text, setUsername } = useTextInput();
+  const { logged, userLogged, createUserToken } = useUserLogin();
 
+  // TOASTS:
   const toast = useToast();
 
   const addSuccessToast = (person) => {
@@ -90,6 +115,7 @@ export const FormLogin = ({ ...props }) => {
       title: "Login feito com sucesso!",
     });
   };
+
   const addFailToast = () => {
     toast({
       description:
@@ -101,6 +127,7 @@ export const FormLogin = ({ ...props }) => {
     });
   };
 
+  // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
@@ -117,7 +144,10 @@ export const FormLogin = ({ ...props }) => {
   const navigate = useNavigate();
 
   const onSubmitFunction = (data, text) => {
-    console.log(text.target[0].value);
+    // console.log(text.target[0].value);
+
+    userLogged();
+    createUserToken();
 
     navigate("/dashboard");
 
@@ -138,44 +168,90 @@ export const FormLogin = ({ ...props }) => {
     // addFailToast();
     //   });
   };
-  // addSuccessToast(text);
-  console.log(errors);
-  console.log(errors !== {});
+
   return (
     <>
-      {/* {errors ? <h1>Eita!</h1> : <h3>Churros!</h3>} */}
-      <article>
+      {/* {errors && algo(!!errors)} */}
+      <Article isErrored={!!error}>
         <form
           className={classes.formControl}
-          // className={`${formControl}`}
           onSubmit={handleSubmit(onSubmitFunction)}
-          // error={!!errors}
-          // color="red"
-          // color={"#009E4F"}
         >
-          <Box>
+          <Box className={classes.image}>
+            <img src={LogoVestcasa} alt="Logo Vestcasa" />
+          </Box>
+
+          <Box
+            className={classes.textFieldTest}
+            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
+          >
+            {Object.keys(errors).some((elt) => elt === "username") ? (
+              <img src={IconUserError} alt="UserError" />
+            ) : (
+              <img src={IconUser} alt="User" />
+            )}
+            {/* {Object.keys(errors).some((elt) => elt === "username") ? (
+              <AccountCircle htmlColor="red" />
+            ) : (
+              <AccountCircle htmlColor="gray" />
+            )} */}
             <TextField
-              className={classes.textField}
               label="Usuário"
-              margin="normal"
-              variant="standard"
               {...register("username")}
               error={!!errors.username}
-              helperText={errors.username?.message}
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       {Object.keys(errors).some((elt) => elt === "username") ? (
+              //         <AccountCircle htmlColor="red" />
+              //       ) : (
+              //         <AccountCircle htmlColor="gray" />
+              //       )}
+              //     </InputAdornment>
+              //   ),
+              // }}
+              variant="standard"
               onChange={setUsername}
               value={text}
+              // margin="3px"
+              className={classes.oi}
             />
           </Box>
-          <Box>
+
+          <Box
+            className={classes.textFieldTest}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            {Object.keys(errors).some((elt) => elt === "password") ? (
+              <img src={IconPasswordError} alt="PasswordError" />
+            ) : (
+              <img src={IconPassword} alt="Password" />
+            )}
+            {/* {Object.keys(errors).some((elt) => elt === "password") ? (
+              <LockIcon htmlColor="red" />
+            ) : (
+              <LockIcon htmlColor="gray" />
+            )} */}
             <TextField
-              className={classes.textField}
               label="Senha"
               type="password"
-              margin="normal"
+              // margin="normal"
               variant="standard"
               {...register("password")}
               error={!!errors.password}
-              helperText={errors.password?.message}
+              // margin="3px"
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       {Object.keys(errors).some((elt) => elt === "password") ? (
+              //         <LockIcon htmlColor="red" />
+              //       ) : (
+              //         <LockIcon htmlColor="blue" />
+              //       )}
+              //     </InputAdornment>
+              //   ),
+              // }}
+              className={classes.oi}
             />
           </Box>
 
@@ -185,29 +261,22 @@ export const FormLogin = ({ ...props }) => {
             className={classes.button}
             color="primary"
             size="large"
-            // onClick={handleClick}
           >
             Entrar
           </Button>
           <Box className={classes.box}>
             <Typography className={classes.textBox}>
-              Esqueceu a senha?
-            </Typography>
-            <Typography className={classes.textBox}>
-              Solicite a alteração de senha por{" "}
               <Link to="/email">
-                <A>aqui</A>
+                <A>Esqueci minha senha</A>
               </Link>
-            </Typography>
-            <Typography className={classes.textBox}>
-              Ou contate a central de suporte clicando{" "}
+              ou
               <A target="_blanck" href="https://suporte.vestcasa.com.br">
-                aqui
+                Abra um chamado conosco
               </A>
             </Typography>
           </Box>
         </form>
-      </article>
+      </Article>
     </>
   );
 };

@@ -67,13 +67,11 @@ export const PasswordConfirmProvider = ({ children }) => {
     date1: date1,
     repetir_nova_senha: "",
   };
-  console.log(qwerty.date0);
-  console.log(qwerty.date1);
 
   const onSubmit = (form, e) => {
     LoadPage();
-    console.log(e);
-    console.log(form);
+    // console.log(e);
+    // console.log(form);
     qwerty.usuario = form.usuario;
     qwerty.email = form.email;
     qwerty.repetir_nova_senha = form.repetir_nova_senha;
@@ -103,10 +101,10 @@ export const PasswordConfirmProvider = ({ children }) => {
         setLoading(false);
         console.log("Email enviado!", response.status, response.text);
         localStorage.clear();
-        navigate("/login");
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         // console.log(toSend);
         addFailToast();
         setLoading(false);

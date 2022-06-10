@@ -5,16 +5,6 @@ export const Article = styled.article`
   display: flex;
   margin-top: 1rem;
   @media (min-width: 787px) {
-    // margin-top: 5rem;
-  }
-`;
-
-export const A = styled.a`
-  color: #fff;
-  font-weight: 500;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: none;
+    margin-top: 5rem;
   }
 `;

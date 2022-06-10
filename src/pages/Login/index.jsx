@@ -9,19 +9,19 @@ const Login = () => {
     <section>
       <FormLogin />
 
-      <figure>
+      {/* <figure>
         <img
           // src={}
           alt="Logo VestCasa"
         />
         <figcaption>Logo VestCasa</figcaption>
-      </figure>
-      <Typography>
+      </figure> */}
+      {/* <Typography>
         Vamos para{" "}
         <Link to="/" style={{ textDecoration: "none" }}>
           Home
         </Link>
-      </Typography>
+      </Typography> */}
     </section>
   );
 };
