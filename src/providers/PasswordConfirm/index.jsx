@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   v1 as uuidv1,
@@ -8,17 +8,15 @@ import {
   v4 as uuidv4,
   v5 as uuidv5,
 } from "uuid";
+
 import { send } from "emailjs-com";
 
 import { useToast } from "@chakra-ui/react";
 
-import { useAuth } from "../Auth";
-import { useLoading } from "../Loading";
-
 export const PasswordConfirmContext = createContext();
 
 export const PasswordConfirmProvider = ({ children }) => {
-  // const { setLoading, LoadPage } = useLoading();
+  // STATE PARA PROCESSAMENTO INFORMAÇÕES FORMULÁRIO:
   const [loading, setLoading] = useState(false);
 
   const LoadPage = () => {
@@ -48,15 +46,18 @@ export const PasswordConfirmProvider = ({ children }) => {
     });
   };
 
+  // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
-  // ENVIO DE EMAIL:
+  // VARIÁVEL SENHA PROVISÓRIA:
   const reducedUUID = uuidv4().substring(0, 13);
 
+  // FORMATAÇÃO DE DATA:
   const rawDate = new Date();
   const date0 = rawDate.toLocaleString("pt-BR").split(" ")[0]; // dd/mm/aaaa
   const date1 = rawDate.toLocaleString("pt-BR").split(" ")[1]; // hh:mm:ss
 
+  // ENVIO DE EMAIL:
   let qwerty = {
     usuario: "",
     email: "",
@@ -68,34 +69,17 @@ export const PasswordConfirmProvider = ({ children }) => {
     repetir_nova_senha: "",
   };
 
+  // LÓGICA SUBMISSÃO PARA ENVIO EMAIL:
   const onSubmit = (form, e) => {
     LoadPage();
-    // console.log(e);
-    // console.log(form);
+
     qwerty.usuario = form.usuario;
     qwerty.email = form.email;
     qwerty.repetir_nova_senha = form.repetir_nova_senha;
-    // setToSend({ ...toSend, ...qwerty });
+
     e.preventDefault();
 
-    // Lógica para toasts erro formulário:
-    // if (
-    //   errors.nova_senha &&
-    //   errors.nova_senha?.message ===
-    //     "A nova senha não deve ser igual à provisória!"
-    // ) {
-    //   f1(errors.nova_senha?.message);
-    // }
-
-    // if (
-    //   errors.repetir_nova_senha &&
-    //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
-    // ) {
-    //   f2(errors.repetir_nova_senha?.message);
-    // }
-
     send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
-      // send("service_rvorkr9", "template_jnw65yk", toSend, "s0HlgmnHFp7vXdTbJ")
       .then((response) => {
         addSuccessToast();
         setLoading(false);
@@ -104,8 +88,6 @@ export const PasswordConfirmProvider = ({ children }) => {
         navigate("/");
       })
       .catch((err) => {
-        // console.log(err);
-        // console.log(toSend);
         addFailToast();
         setLoading(false);
         console.log("Algo deu errado!", err);
@@ -114,8 +96,6 @@ export const PasswordConfirmProvider = ({ children }) => {
 
   const handleChange = (e) => {
     console.log(e);
-    // setToSend({ ...toSend, [e.target.placeholder]: e.target.value });
-    // setToSend({ ...toSend, ...selectForm });
   };
 
   return (

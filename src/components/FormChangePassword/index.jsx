@@ -26,7 +26,6 @@ import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
 import { useToast } from "@chakra-ui/react";
 
 import { useAuth } from "../../providers/Auth";
-import { useLoading } from "../../providers/Loading";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 import { useTextInput } from "../../providers/TextInput";
 
