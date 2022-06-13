@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
@@ -8,29 +6,24 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import Input from "../../assets/figma_imgs/Input.png";
-import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
 import IconUserError from "../../assets/figma_imgs/IconUserError.png";
 import IconPassword from "../../assets/figma_imgs/IconPassword.png";
 import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
+import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { api } from "../../service/api";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import LockIcon from "@mui/icons-material/Lock";
-import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
-
-import { AiOutlineUser } from "react-icons/ai";
 
 import { useToast } from "@chakra-ui/react";
 
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { A, Article, Image, ImageError } from "./styles";
+import { A, Article } from "./styles";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
