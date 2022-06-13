@@ -4,23 +4,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { usePasswordAsk } from "../../providers/PasswordAsk";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { Box, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import Input from "../../assets/figma_imgs/Input.png";
-import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
-
 import IconUser from "../../assets/figma_imgs/IconUser.png";
 import IconUserError from "../../assets/figma_imgs/IconUserError.png";
 import IconEmail from "../../assets/figma_imgs/IconEmail.png";
 import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
+import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
+
 import { Article } from "./styles";
 
 const useStyles = makeStyles({
+  button: {
+    marginTop: "1rem",
+    width: "12.5rem",
+  },
   formControl: {
     backgroundImage: `url(${Form})`,
     display: "flex",
@@ -34,49 +38,40 @@ const useStyles = makeStyles({
       width: "320px",
     },
   },
-  textFieldTest: {
+  image: {
+    marginBottom: "1rem",
+    width: "200px",
+  },
+  inputBox: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
-    // marginLeft: "1.5rem",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
-      // left: "3rem",
       top: "-0.3rem",
     },
     "@media (max-width: 424px)": {
       width: "280px",
     },
   },
-  oi: {
+  textFieldsContent: {
     width: "20rem",
+    "& .MuiFormControl-root": {
+      margin: "3px",
+    },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
     },
-    "& .MuiFormControl-root": {
-      margin: "3px",
-    },
-  },
-  button: {
-    marginTop: "1rem",
-    width: "12.5rem",
-  },
-  box: {
-    color: "#FFF",
-    textDecoration: "none",
-    marginTop: "1rem",
-    textAlign: "center",
-  },
-  image: {
-    marginBottom: "1rem",
-    width: "200px",
   },
 });
 
 export const FormAskPassword = () => {
-  // const { loading } = useLoading();
+  // STYLES:
+  const classes = useStyles();
+
+  // PROVIDERS:
   const { handleChange, onSubmit, loading } = usePasswordAsk();
 
   // TOASTS:
@@ -111,9 +106,6 @@ export const FormAskPassword = () => {
     emailErrorToast("Email inválido! Favor verificar.");
   }
 
-  // STYLES:
-  const classes = useStyles();
-
   return (
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
@@ -122,7 +114,7 @@ export const FormAskPassword = () => {
         </Box>
 
         <Box
-          className={classes.textFieldTest}
+          className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
         >
           {Object.keys(errors).some((elt) => elt === "usuario") ? (
@@ -131,19 +123,19 @@ export const FormAskPassword = () => {
             <img src={IconUser} alt="User" />
           )}
           <TextField
-            margin="normal"
-            variant="standard"
-            className={classes.oi}
-            type="text"
-            label="Digite seu usuário"
-            placeholder="usuario"
-            {...register("usuario")}
-            onInputChange={handleChange}
+            className={classes.textFieldsContent}
             error={!!errors.usuario}
+            label="Digite seu usuário"
+            margin="normal"
+            placeholder="usuario"
+            onInputChange={handleChange}
+            variant="standard"
+            type="text"
+            {...register("usuario")}
           />
         </Box>
         <Box
-          className={classes.textFieldTest}
+          className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
         >
           {Object.keys(errors).some((elt) => elt === "email") ? (
@@ -152,35 +144,35 @@ export const FormAskPassword = () => {
             <img src={IconEmail} alt="Email" />
           )}
           <TextField
-            margin="normal"
-            variant="standard"
-            className={classes.oi}
-            type="text"
-            label="Digite seu email"
-            placeholder="email"
-            {...register("email")}
-            onInputChange={handleChange}
+            className={classes.textFieldsContent}
             error={!!errors.email}
+            label="Digite seu email"
+            margin="normal"
+            onInputChange={handleChange}
+            placeholder="email"
+            variant="standard"
+            type="text"
+            {...register("email")}
           />
         </Box>
         {loading ? (
           <Button
-            type="submit"
-            variant="contained"
             className={classes.button}
             color="primary"
-            size="large"
             disabled="true"
+            size="large"
+            type="submit"
+            variant="contained"
           >
             Enviando...
           </Button>
         ) : (
           <Button
-            type="submit"
-            variant="contained"
             className={classes.button}
             color="primary"
             size="large"
+            type="submit"
+            variant="contained"
           >
             Enviar
           </Button>
