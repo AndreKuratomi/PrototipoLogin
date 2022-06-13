@@ -128,7 +128,7 @@ export const FormAskPassword = () => {
             label="Digite seu usuário"
             margin="normal"
             placeholder="usuario"
-            onInputChange={handleChange}
+            // onInputChange={handleChange}
             variant="standard"
             type="text"
             {...register("usuario")}
@@ -148,7 +148,7 @@ export const FormAskPassword = () => {
             error={!!errors.email}
             label="Digite seu email"
             margin="normal"
-            onInputChange={handleChange}
+            // onInputChange={handleChange}
             placeholder="email"
             variant="standard"
             type="text"
