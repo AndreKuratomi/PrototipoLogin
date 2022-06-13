@@ -93,10 +93,10 @@ const Dashboard = () => {
     );
   };
 
-  const THIRTY_MINUTES = 1800000;
+  const THIRTY_MINUTES = 30000;
   let action = setTimeout(() => {
     timeoutToast();
-    leaveAfter30minutes(800);
+    leaveAfter30minutes(700);
   }, THIRTY_MINUTES);
 
   // LOGOUT:

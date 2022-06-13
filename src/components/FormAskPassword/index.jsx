@@ -8,7 +8,8 @@ import { useLoading } from "../../providers/Loading";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-import FormAskPW from "../../assets/figma_imgs/FormAskPW.png";
+import Form from "../../assets/figma_imgs/Form.png";
+import FormMobile from "../../assets/figma_imgs/FormMobile.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
@@ -22,22 +23,16 @@ import { Article } from "./styles";
 
 const useStyles = makeStyles({
   formControl: {
-    backgroundImage: `url(${FormAskPW})`,
+    backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: "2rem",
-    width: "17rem",
-    height: "25.55rem",
-  },
-  textField: {
-    backgroundImage: `url(${Input})`,
-    borderRadius: "1rem",
-    width: "12.5rem",
-    padding: "1rem",
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      top: ".25rem",
+    width: "385px",
+    height: "420px",
+    "@media (max-width: 424px)": {
+      backgroundImage: `url(${FormMobile})`,
+      width: "320px",
     },
   },
   textFieldTest: {
@@ -45,13 +40,18 @@ const useStyles = makeStyles({
     borderRadius: "1rem",
     // marginLeft: "1.5rem",
     padding: "0.5rem",
+    width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       // left: "3rem",
       top: "-0.3rem",
     },
+    "@media (max-width: 424px)": {
+      width: "280px",
+    },
   },
   oi: {
+    width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
@@ -72,6 +72,7 @@ const useStyles = makeStyles({
   },
   image: {
     marginBottom: "1rem",
+    width: "200px",
   },
 });
 

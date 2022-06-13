@@ -10,8 +10,8 @@ import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import Input from "../../assets/figma_imgs/Input.png";
-import FormChangePasswordFigma from "../../assets/figma_imgs/FormChangePasswordFigma.png";
-import FormChangePasswordFigmaDesktop from "../../assets/figma_imgs/FormChangePasswordFigmaDesktop.png";
+import FormChangePasswordMobile from "../../assets/figma_imgs/FormChangePasswordMobile.png";
+import FormChangePasswordDesktop from "../../assets/figma_imgs/FormChangePasswordDesktop.png";
 
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
@@ -34,7 +34,7 @@ import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    backgroundImage: `url(${FormChangePasswordFigma})`,
+    backgroundImage: `url(${FormChangePasswordMobile})`,
     borderRadius: "5%",
     display: "flex",
     flexWrap: "nowrap",
@@ -44,14 +44,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     width: "20rem",
     "@media (min-width: 768px)": {
-      backgroundImage: `url(${FormChangePasswordFigmaDesktop})`,
+      backgroundImage: `url(${FormChangePasswordDesktop})`,
       flexWrap: "wrap",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "2rem",
-      width: "38rem",
+      width: "47rem",
       // height: "28rem", //sem input email
-      height: "40rem",
+      height: "36rem",
     },
   },
   image: {
@@ -62,18 +59,24 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     padding: "0.5rem",
+    width: "280px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       top: "-0.3rem",
     },
-    width: "13rem",
+    // width: "13rem",
     "@media (min-width: 768px)": {
       margin: "0.5rem 1rem",
+      width: "312px",
     },
   },
   button: {
-    marginTop: "1rem",
-    width: "15rem",
+    margin: "0.5rem 0",
+    width: "16rem",
+    "@media (min-width: 768px)": {
+      margin: "1rem 1rem 0 1rem",
+      width: "15rem",
+    },
   },
   box: {
     display: "flex",
@@ -93,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "space-around",
-      width: "35rem",
+      width: "43rem",
       height: "22rem",
     },
   },
@@ -105,9 +108,23 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTypography-body1": {
       fontSize: "0.75rem",
     },
-    width: "15rem",
+    "@media (min-width: 768px)": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "30rem",
+    },
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "column",
+    "@media (min-width: 768px)": {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
   },
   oi: {
+    width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
@@ -269,7 +286,7 @@ export const FormChangePassword = () => {
             className={classes.textFieldTest}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "email") ? (
               <img src={IconEmailError} alt="EmailError" />
             ) : (
               <img src={IconEmail} alt="Email" />
@@ -291,7 +308,7 @@ export const FormChangePassword = () => {
             className={classes.textFieldTest}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
               <img
                 src={IconTemporaryPasswordError}
                 alt="TemporaryPasswordError"
@@ -315,7 +332,7 @@ export const FormChangePassword = () => {
             className={classes.textFieldTest}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "nova_senha") ? (
               <img src={IconPasswordError} alt="PasswordError" />
             ) : (
               <img src={IconPassword} alt="Password" />
@@ -342,7 +359,7 @@ export const FormChangePassword = () => {
             className={classes.textFieldTest}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "repetir_nova_senha") ? (
               <img src={IconPasswordError} alt="PasswordError" />
             ) : (
               <img src={IconPassword} alt="Password" />
@@ -362,13 +379,13 @@ export const FormChangePassword = () => {
           </Box>
         </Box>
         <Box className={classes.boxSuggestion}>
-          <Box className={classes.boxSuggestion}>
+          <Box>
             <Typography color={"#fff"}>
               Sugestão: usar caracteres especiais/letras maiúsculas/letras
               minúsculas e números
             </Typography>
           </Box>
-          <Box>
+          <Box className={classes.buttons}>
             {loading ? (
               // console.log(loading)
               <Button

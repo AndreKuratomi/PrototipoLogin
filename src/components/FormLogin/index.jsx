@@ -7,10 +7,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // import FormLogin from "../../assets/figma_imgurl(${UserError})s/FormLogin.png";
-import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
+import Form from "../../assets/figma_imgs/Form.png";
+import FormMobile from "../../assets/figma_imgs/FormMobile.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
-import InputLogin from "../../assets/figma_imgs/InputLogin.png";
 
 import IconUser from "../../assets/figma_imgs/IconUser.png";
 import IconUserError from "../../assets/figma_imgs/IconUserError.png";
@@ -37,41 +37,39 @@ import { A, Article, Image, ImageError } from "./styles";
 const useStyles = makeStyles({
   formControl: {
     // backgroundImage: (props) =>
-    //   props.errors ? `url(${formLoginError})` : `url(${formLogin})`,
-    backgroundImage: `url(${FormLoginError})`,
+    //   props.errors ? `url(${formMobileError})` : `url(${formMobile})`,
+    backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     padding: "2rem",
-    width: "15rem",
-    height: "30.5rem",
+    width: "385px",
+    height: "420px",
+    "@media (max-width: 424px)": {
+      backgroundImage: `url(${FormMobile})`,
+      width: "320px",
+    },
   },
   image: {
     marginBottom: "1rem",
-  },
-  textField: {
-    backgroundImage: `url(${Input})`,
-    borderRadius: "1rem",
-    // marginLeft: "1.5rem",
-    padding: "1rem",
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      // left: "3rem",
-      top: ".25rem",
-    },
+    width: "200px",
   },
   textFieldTest: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     // marginLeft: "1.5rem",
     padding: "0.5rem",
+    width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       // left: "3rem",
       top: "-0.3rem",
     },
+    "@media (max-width: 424px)": {
+      width: "280px",
+    },
   },
   button: {
-    // backgroundImage: `url(${ButtonFigma})`,
     marginTop: "1rem",
   },
   box: {
@@ -86,6 +84,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   oi: {
+    width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
