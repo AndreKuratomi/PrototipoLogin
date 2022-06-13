@@ -1,5 +1,3 @@
-// import { useTextInput } from "../../providers/TextInput";
-
 import { FormAskPassword } from "../../components/FormAskPassword";
 
 const Email = () => {

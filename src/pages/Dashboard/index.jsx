@@ -1,41 +1,37 @@
 import { Navigate } from "react-router-dom";
-import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 
 import { useUserLogin } from "../../providers/UserLogin";
-
-import { makeStyles } from "@material-ui/styles";
-import { useToast } from "@chakra-ui/react";
-import { A, Main, P1 } from "./styles";
 
 import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
-import { Typography } from "@mui/material";
-import { useEffect } from "react";
+
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
+import { makeStyles } from "@material-ui/styles";
+
+import { useToast } from "@chakra-ui/react";
+
+import { Main, P1 } from "./styles";
 
 const useStyles = makeStyles(() => ({
+  date: {
+    color: "#fff",
+    display: "flex",
+    fontWeight: "800",
+    position: "absolute",
+    bottom: "3rem",
+    left: "7.5rem",
+    zIndex: "1",
+  },
   icon: {
     color: "#fff",
     position: "absolute",
-    top: "1.5rem",
     right: "6.25rem",
-    // "& .css-1696fkf-MuiSvgIcon-root": {
-    //   fontSize: "7rem",
-    //   color: "#f00",
-    // },
+    top: "1.5rem",
     "&:hover": {
-      cursor: "pointer",
       color: "#fff6",
+      cursor: "pointer",
     },
-  },
-  date: {
-    display: "flex",
-    position: "absolute",
-    zIndex: "1",
-    bottom: "3rem",
-    left: "7.5rem",
-    color: "#fff",
-    fontWeight: "800",
   },
 }));
 
@@ -55,7 +51,6 @@ const Dashboard = () => {
       title: "Não autorizado",
     });
   };
-
   const timeoutToast = () => {
     toast({
       description: "Faça o login novamente.",
@@ -120,7 +115,6 @@ const Dashboard = () => {
         />
 
         <P1>{moment}</P1>
-        {/* <Typography className={classes.date}>{moment}</Typography> */}
 
         <ExitToAppRoundedIcon
           className={classes.icon}
