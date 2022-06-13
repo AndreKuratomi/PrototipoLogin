@@ -6,12 +6,10 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import FormLogin from "../../assets/figma_imgurl(${UserError})s/FormLogin.png";
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
-
 import IconUser from "../../assets/figma_imgs/IconUser.png";
 import IconUserError from "../../assets/figma_imgs/IconUserError.png";
 import IconPassword from "../../assets/figma_imgs/IconPassword.png";
@@ -35,9 +33,18 @@ import { useUserLogin } from "../../providers/UserLogin";
 import { A, Article, Image, ImageError } from "./styles";
 
 const useStyles = makeStyles({
+  forgetPasswordBox: {
+    color: "#FFF",
+    textDecoration: "none",
+    marginTop: "1rem",
+    textAlign: "center",
+  },
+  forgetPasswordBoxContent: {
+    fontSize: "0.8rem",
+    display: "flex",
+    flexDirection: "column",
+  },
   formControl: {
-    // backgroundImage: (props) =>
-    //   props.errors ? `url(${formMobileError})` : `url(${formMobile})`,
     backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
@@ -54,36 +61,23 @@ const useStyles = makeStyles({
     marginBottom: "1rem",
     width: "200px",
   },
-  textFieldTest: {
+  inputBox: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
-    // marginLeft: "1.5rem",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
-      // left: "3rem",
       top: "-0.3rem",
     },
     "@media (max-width: 424px)": {
       width: "280px",
     },
   },
-  button: {
+  submitButton: {
     marginTop: "1rem",
   },
-  box: {
-    color: "#FFF",
-    textDecoration: "none",
-    marginTop: "1rem",
-    textAlign: "center",
-  },
-  textBox: {
-    fontSize: "0.8rem",
-    display: "flex",
-    flexDirection: "column",
-  },
-  oi: {
+  textFieldsContent: {
     width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
@@ -99,8 +93,9 @@ export const FormLogin = ({ error, ...rest }) => {
   // STYLES:
   const classes = useStyles();
 
+  // PROVIDERS:
   const { text, setUsername } = useTextInput();
-  const { logged, userLogged, createUserToken } = useUserLogin();
+  const { userLogged, createUserToken } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
@@ -112,17 +107,6 @@ export const FormLogin = ({ error, ...rest }) => {
       position: "top",
       status: "success",
       title: "Login feito com sucesso!",
-    });
-  };
-
-  const addFailToast = () => {
-    toast({
-      description:
-        "Algo deu errado! Verifique se os dados preenchidos estão corretos.",
-      duration: 3000,
-      position: "top",
-      status: "error",
-      title: "Falha no login!",
     });
   };
 
@@ -140,11 +124,11 @@ export const FormLogin = ({ error, ...rest }) => {
     resolver: yupResolver(formSchema),
   });
 
+  // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
+  // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data, text) => {
-    // console.log(text.target[0].value);
-
     userLogged();
     createUserToken();
 
@@ -170,8 +154,7 @@ export const FormLogin = ({ error, ...rest }) => {
 
   return (
     <>
-      {/* {errors && algo(!!errors)} */}
-      <Article isErrored={!!error}>
+      <Article>
         <form
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
@@ -181,7 +164,7 @@ export const FormLogin = ({ error, ...rest }) => {
           </Box>
 
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
             {Object.keys(errors).some((elt) => elt === "username") ? (
@@ -189,36 +172,19 @@ export const FormLogin = ({ error, ...rest }) => {
             ) : (
               <img src={IconUser} alt="User" />
             )}
-            {/* {Object.keys(errors).some((elt) => elt === "username") ? (
-              <AccountCircle htmlColor="red" />
-            ) : (
-              <AccountCircle htmlColor="gray" />
-            )} */}
             <TextField
               label="Usuário"
               {...register("username")}
               error={!!errors.username}
-              // InputProps={{
-              //   startAdornment: (
-              //     <InputAdornment position="start">
-              //       {Object.keys(errors).some((elt) => elt === "username") ? (
-              //         <AccountCircle htmlColor="red" />
-              //       ) : (
-              //         <AccountCircle htmlColor="gray" />
-              //       )}
-              //     </InputAdornment>
-              //   ),
-              // }}
               variant="standard"
               onChange={setUsername}
               value={text}
-              // margin="3px"
-              className={classes.oi}
+              className={classes.textFieldsContent}
             />
           </Box>
 
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center" }}
           >
             {Object.keys(errors).some((elt) => elt === "password") ? (
@@ -226,45 +192,27 @@ export const FormLogin = ({ error, ...rest }) => {
             ) : (
               <img src={IconPassword} alt="Password" />
             )}
-            {/* {Object.keys(errors).some((elt) => elt === "password") ? (
-              <LockIcon htmlColor="red" />
-            ) : (
-              <LockIcon htmlColor="gray" />
-            )} */}
             <TextField
               label="Senha"
               type="password"
-              // margin="normal"
               variant="standard"
               {...register("password")}
               error={!!errors.password}
-              // margin="3px"
-              // InputProps={{
-              //   startAdornment: (
-              //     <InputAdornment position="start">
-              //       {Object.keys(errors).some((elt) => elt === "password") ? (
-              //         <LockIcon htmlColor="red" />
-              //       ) : (
-              //         <LockIcon htmlColor="blue" />
-              //       )}
-              //     </InputAdornment>
-              //   ),
-              // }}
-              className={classes.oi}
+              className={classes.textFieldsContent}
             />
           </Box>
 
           <Button
             type="submit"
             variant="contained"
-            className={classes.button}
+            className={classes.submitButton}
             color="primary"
             size="large"
           >
             Entrar
           </Button>
-          <Box className={classes.box}>
-            <Typography className={classes.textBox}>
+          <Box className={classes.forgetPasswordBox}>
+            <Typography className={classes.forgetPasswordBoxContent}>
               <Link to="/email">
                 <A>Esqueci minha senha</A>
               </Link>
