@@ -4,6 +4,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { api } from "../../service/api";
+
+import { useTextInput } from "../../providers/TextInput";
+import { useUserLogin } from "../../providers/UserLogin";
+
+import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
@@ -13,15 +21,7 @@ import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
 import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
-import { api } from "../../service/api";
-
-import { Box, Button, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-
 import { useToast } from "@chakra-ui/react";
-
-import { useTextInput } from "../../providers/TextInput";
-import { useUserLogin } from "../../providers/UserLogin";
 
 import { A, Article } from "./styles";
 
@@ -166,13 +166,13 @@ export const FormLogin = ({ error, ...rest }) => {
               <img src={IconUser} alt="User" />
             )}
             <TextField
-              label="Usuário"
-              {...register("username")}
-              error={!!errors.username}
-              variant="standard"
-              onChange={setUsername}
-              value={text}
               className={classes.textFieldsContent}
+              error={!!errors.username}
+              label="Usuário"
+              variant="standard"
+              value={text}
+              {...register("username")}
+              onChange={setUsername}
             />
           </Box>
 
@@ -186,21 +186,21 @@ export const FormLogin = ({ error, ...rest }) => {
               <img src={IconPassword} alt="Password" />
             )}
             <TextField
+              className={classes.textFieldsContent}
+              error={!!errors.password}
               label="Senha"
               type="password"
               variant="standard"
               {...register("password")}
-              error={!!errors.password}
-              className={classes.textFieldsContent}
             />
           </Box>
 
           <Button
-            type="submit"
-            variant="contained"
             className={classes.submitButton}
             color="primary"
             size="large"
+            type="submit"
+            variant="contained"
           >
             Entrar
           </Button>
