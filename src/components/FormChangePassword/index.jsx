@@ -29,6 +29,7 @@ import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   buttonSingle: {
+    backgroundColor: "#3f51b5",
     margin: "0.5rem 0",
     width: "16rem",
     "@media (min-width: 768px)": {
@@ -121,6 +122,7 @@ export const FormChangePassword = () => {
 
   // PROVIDERS:
   const { onSubmit, loading } = usePasswordConfirm();
+  // const { loading } = useLoading();
 
   // TOASTS:
   const toast = useToast();
@@ -370,7 +372,7 @@ export const FormChangePassword = () => {
             )}
             <Link to="/" style={{ textDecoration: "none" }}>
               <Button
-                className={classes.button}
+                className={classes.buttonSingle}
                 size="large"
                 variant="contained"
               >

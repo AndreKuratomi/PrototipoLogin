@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 export const UserLoginContext = createContext();
 
 export const UserLoginProvider = ({ children }) => {
-  // STATE:
+  // STATE PARA VERIFICAR SE O USUÁRIO ESTÁ LOGADO:
   const [logged, setLogged] = useState(false);
 
   const userLogged = () => {

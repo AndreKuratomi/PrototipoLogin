@@ -18,6 +18,7 @@ import { useToast } from "@chakra-ui/react";
 export const PasswordAskContext = createContext();
 
 export const PasswordAskProvider = ({ children }) => {
+  // STATE PARA PROCESSAMENTO INFORMAÇÕES FORMULÁRIO:
   const [loading, setLoading] = useState(false);
 
   const LoadPage = () => {
@@ -103,16 +104,10 @@ export const PasswordAskProvider = ({ children }) => {
         setLoading(false);
         console.log("Algo deu errado!", err);
       });
-    // }
-  };
-
-  const handleChange = (e) => {
-    console.log(e);
-    // setToSend({ ...toSend, [e.target.placeholder]: e.target.value });
   };
 
   return (
-    <PasswordAskContext.Provider value={{ onSubmit, handleChange, loading }}>
+    <PasswordAskContext.Provider value={{ onSubmit, loading }}>
       {children}
     </PasswordAskContext.Provider>
   );

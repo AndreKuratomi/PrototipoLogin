@@ -94,14 +94,8 @@ export const PasswordConfirmProvider = ({ children }) => {
       });
   };
 
-  const handleChange = (e) => {
-    console.log(e);
-  };
-
   return (
-    <PasswordConfirmContext.Provider
-      value={{ onSubmit, handleChange, loading }}
-    >
+    <PasswordConfirmContext.Provider value={{ onSubmit, loading }}>
       {children}
     </PasswordConfirmContext.Provider>
   );

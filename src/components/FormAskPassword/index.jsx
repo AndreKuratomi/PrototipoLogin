@@ -72,7 +72,7 @@ export const FormAskPassword = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { handleChange, onSubmit, loading } = usePasswordAsk();
+  const { onSubmit, loading } = usePasswordAsk();
 
   // TOASTS:
   const toast = useToast();
@@ -128,7 +128,6 @@ export const FormAskPassword = () => {
             label="Digite seu usuário"
             margin="normal"
             placeholder="usuario"
-            // onInputChange={handleChange}
             variant="standard"
             type="text"
             {...register("usuario")}
@@ -148,7 +147,6 @@ export const FormAskPassword = () => {
             error={!!errors.email}
             label="Digite seu email"
             margin="normal"
-            // onInputChange={handleChange}
             placeholder="email"
             variant="standard"
             type="text"
