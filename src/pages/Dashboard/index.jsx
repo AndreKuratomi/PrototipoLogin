@@ -6,7 +6,8 @@ import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
 
-import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
+import { ExitToAppRoundedIcon } from "@mui/icons-material";
+import { Box } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 
 import { useToast } from "@chakra-ui/react";
@@ -31,6 +32,10 @@ const useStyles = makeStyles(() => ({
     "&:hover": {
       color: "#fff6",
       cursor: "pointer",
+    },
+    "@media (min-width: 1366px) and (min-height: 768px)": {
+      right: "0.75rem",
+      top: "2rem",
     },
   },
 }));
@@ -88,7 +93,7 @@ const Dashboard = () => {
     );
   };
 
-  const THIRTY_MINUTES = 30000;
+  const THIRTY_MINUTES = 3000000;
   let action = setTimeout(() => {
     timeoutToast();
     leaveAfter30minutes(700);
@@ -100,19 +105,21 @@ const Dashboard = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-
+  // console.log(Document);
   return (
     <>
       <Main id="scroll">
-        <iframe
-          allowFullScreen={true}
-          frameBorder="0"
-          title="Comercial_AMADEU"
-          id="my_frame"
-          src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-          width="100%"
-          height="700"
-        />
+        <Box>
+          <iframe
+            allowFullScreen={true}
+            frameBorder="0"
+            title="Comercial_AMADEU"
+            id="my_frame"
+            src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            width="100%"
+            height={Document.fullScreen ? "805" : "805"}
+          />
+        </Box>
 
         <P1>{moment}</P1>
 
