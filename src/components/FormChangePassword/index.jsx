@@ -219,7 +219,7 @@ export const FormChangePassword = () => {
     setAuth(true);
   } else {
     notAskedToast();
-    // return <Navigate to="/" />;
+    return <Navigate to="/" />;
   }
 
   return (
@@ -251,7 +251,6 @@ export const FormChangePassword = () => {
               type="text"
               variant="standard"
               {...register("usuario")}
-              // onInputChange={handleChange}
             />
           </Box>
           <Box
@@ -272,7 +271,6 @@ export const FormChangePassword = () => {
               type="text"
               variant="standard"
               {...register("email")}
-              // onInputChange={handleChange}
             />
           </Box>
           <Box
@@ -336,7 +334,6 @@ export const FormChangePassword = () => {
               type="password"
               variant="standard"
               {...register("repetir_nova_senha")}
-              // onInputChange={handleChange}
             />
           </Box>
         </Box>
