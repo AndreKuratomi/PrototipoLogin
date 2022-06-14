@@ -1,5 +1,4 @@
 import { AuthProvider } from "./Auth";
-
 import { PasswordAskProvider } from "./PasswordAsk";
 import { PasswordConfirmProvider } from "./PasswordConfirm";
 import { TextInputProvider } from "./TextInput";
