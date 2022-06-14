@@ -5,6 +5,7 @@ export const TextInputContext = createContext();
 export const TextInputProvider = ({ children }) => {
   const [text, setText] = useState("");
 
+  // ALTERAÇÃO STATE CONFORME USUÁRIO DIGITA:
   const setUsername = (event) => {
     setText(event.target.value);
   };

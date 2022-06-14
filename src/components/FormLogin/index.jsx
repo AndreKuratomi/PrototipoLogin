@@ -1,91 +1,77 @@
-import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import FormLogin from "../../assets/figma_imgurl(${UserError})s/FormLogin.png";
-import FormLoginError from "../../assets/figma_imgs/FormLoginError.png";
-import Input from "../../assets/figma_imgs/Input.png";
-import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
-import InputLogin from "../../assets/figma_imgs/InputLogin.png";
-
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconPassword from "../../assets/figma_imgs/IconPassword.png";
-import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
-
 import { api } from "../../service/api";
-
-import { Box, Button, TextField, Typography } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import LockIcon from "@mui/icons-material/Lock";
-import { AccountCircle } from "@mui/icons-material";
-import { makeStyles } from "@material-ui/styles";
-
-import { AiOutlineUser } from "react-icons/ai";
-
-import { useToast } from "@chakra-ui/react";
 
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { A, Article, Image, ImageError } from "./styles";
+import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
+import Form from "../../assets/figma_imgs/Form.png";
+import FormMobile from "../../assets/figma_imgs/FormMobile.png";
+import IconUser from "../../assets/figma_imgs/IconUser.png";
+import IconUserError from "../../assets/figma_imgs/IconUserError.png";
+import IconPassword from "../../assets/figma_imgs/IconPassword.png";
+import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
+import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
+
+import { useToast } from "@chakra-ui/react";
+
+import { A, Article } from "./styles";
 
 const useStyles = makeStyles({
-  formControl: {
-    // backgroundImage: (props) =>
-    //   props.errors ? `url(${formLoginError})` : `url(${formLogin})`,
-    backgroundImage: `url(${FormLoginError})`,
-    display: "flex",
-    flexDirection: "column",
-    padding: "2rem",
-    width: "15rem",
-    height: "30.5rem",
-  },
-  image: {
-    marginBottom: "1rem",
-  },
-  textField: {
-    backgroundImage: `url(${Input})`,
-    borderRadius: "1rem",
-    // marginLeft: "1.5rem",
-    padding: "1rem",
-    "& .MuiInputLabel-formControl": {
-      left: "1rem",
-      // left: "3rem",
-      top: ".25rem",
-    },
-  },
-  textFieldTest: {
-    backgroundImage: `url(${Input})`,
-    borderRadius: "1rem",
-    // marginLeft: "1.5rem",
-    padding: "0.5rem",
-    "& .MuiInputLabel-formControl": {
-      left: "0.25rem",
-      // left: "3rem",
-      top: "-0.3rem",
-    },
-  },
-  button: {
-    // backgroundImage: `url(${ButtonFigma})`,
-    marginTop: "1rem",
-  },
-  box: {
+  forgetPasswordBox: {
     color: "#FFF",
     textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
   },
-  textBox: {
+  forgetPasswordBoxContent: {
     fontSize: "0.8rem",
     display: "flex",
     flexDirection: "column",
   },
-  oi: {
+  formControl: {
+    backgroundImage: `url(${Form})`,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "2rem",
+    width: "385px",
+    height: "420px",
+    "@media (max-width: 424px)": {
+      backgroundImage: `url(${FormMobile})`,
+      width: "320px",
+    },
+  },
+  image: {
+    marginBottom: "1rem",
+    width: "200px",
+  },
+  inputBox: {
+    backgroundImage: `url(${Input})`,
+    borderRadius: "1rem",
+    padding: "0.5rem",
+    width: "312px",
+    "& .MuiInputLabel-formControl": {
+      left: "0.25rem",
+      top: "-0.3rem",
+    },
+    "@media (max-width: 424px)": {
+      width: "280px",
+    },
+  },
+  submitButton: {
+    marginTop: "1rem",
+  },
+  textFieldsContent: {
+    width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
@@ -100,8 +86,9 @@ export const FormLogin = ({ error, ...rest }) => {
   // STYLES:
   const classes = useStyles();
 
+  // PROVIDERS:
   const { text, setUsername } = useTextInput();
-  const { logged, userLogged, createUserToken } = useUserLogin();
+  const { userLogged, createUserToken } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
@@ -113,17 +100,6 @@ export const FormLogin = ({ error, ...rest }) => {
       position: "top",
       status: "success",
       title: "Login feito com sucesso!",
-    });
-  };
-
-  const addFailToast = () => {
-    toast({
-      description:
-        "Algo deu errado! Verifique se os dados preenchidos estão corretos.",
-      duration: 3000,
-      position: "top",
-      status: "error",
-      title: "Falha no login!",
     });
   };
 
@@ -141,11 +117,11 @@ export const FormLogin = ({ error, ...rest }) => {
     resolver: yupResolver(formSchema),
   });
 
+  // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
+  // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data, text) => {
-    // console.log(text.target[0].value);
-
     userLogged();
     createUserToken();
 
@@ -171,8 +147,7 @@ export const FormLogin = ({ error, ...rest }) => {
 
   return (
     <>
-      {/* {errors && algo(!!errors)} */}
-      <Article isErrored={!!error}>
+      <Article>
         <form
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
@@ -182,7 +157,7 @@ export const FormLogin = ({ error, ...rest }) => {
           </Box>
 
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
             {Object.keys(errors).some((elt) => elt === "username") ? (
@@ -190,36 +165,19 @@ export const FormLogin = ({ error, ...rest }) => {
             ) : (
               <img src={IconUser} alt="User" />
             )}
-            {/* {Object.keys(errors).some((elt) => elt === "username") ? (
-              <AccountCircle htmlColor="red" />
-            ) : (
-              <AccountCircle htmlColor="gray" />
-            )} */}
             <TextField
-              label="Usuário"
-              {...register("username")}
+              className={classes.textFieldsContent}
               error={!!errors.username}
-              // InputProps={{
-              //   startAdornment: (
-              //     <InputAdornment position="start">
-              //       {Object.keys(errors).some((elt) => elt === "username") ? (
-              //         <AccountCircle htmlColor="red" />
-              //       ) : (
-              //         <AccountCircle htmlColor="gray" />
-              //       )}
-              //     </InputAdornment>
-              //   ),
-              // }}
+              label="Usuário"
               variant="standard"
-              onChange={setUsername}
               value={text}
-              // margin="3px"
-              className={classes.oi}
+              {...register("username")}
+              onChange={setUsername}
             />
           </Box>
 
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center" }}
           >
             {Object.keys(errors).some((elt) => elt === "password") ? (
@@ -227,45 +185,27 @@ export const FormLogin = ({ error, ...rest }) => {
             ) : (
               <img src={IconPassword} alt="Password" />
             )}
-            {/* {Object.keys(errors).some((elt) => elt === "password") ? (
-              <LockIcon htmlColor="red" />
-            ) : (
-              <LockIcon htmlColor="gray" />
-            )} */}
             <TextField
+              className={classes.textFieldsContent}
+              error={!!errors.password}
               label="Senha"
               type="password"
-              // margin="normal"
               variant="standard"
               {...register("password")}
-              error={!!errors.password}
-              // margin="3px"
-              // InputProps={{
-              //   startAdornment: (
-              //     <InputAdornment position="start">
-              //       {Object.keys(errors).some((elt) => elt === "password") ? (
-              //         <LockIcon htmlColor="red" />
-              //       ) : (
-              //         <LockIcon htmlColor="blue" />
-              //       )}
-              //     </InputAdornment>
-              //   ),
-              // }}
-              className={classes.oi}
             />
           </Box>
 
           <Button
-            type="submit"
-            variant="contained"
-            className={classes.button}
+            className={classes.submitButton}
             color="primary"
             size="large"
+            type="submit"
+            variant="contained"
           >
             Entrar
           </Button>
-          <Box className={classes.box}>
-            <Typography className={classes.textBox}>
+          <Box className={classes.forgetPasswordBox}>
+            <Typography className={classes.forgetPasswordBoxContent}>
               <Link to="/email">
                 <A>Esqueci minha senha</A>
               </Link>

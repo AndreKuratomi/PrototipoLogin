@@ -70,6 +70,9 @@
         // bloqueio comandos Ctrl + C
       } else if (evt.ctrlKey && evt.keyCode === 67) {
         return false;
+        // bloqueio comandos Ctrl + X
+      } else if (evt.ctrlKey && evt.keyCode === 88) {
+        return false;
       }
     };
   </script>
