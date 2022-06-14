@@ -1,5 +1,5 @@
 import { AuthProvider } from "./Auth";
-import { LoadingProvider } from "./Loading";
+
 import { PasswordAskProvider } from "./PasswordAsk";
 import { PasswordConfirmProvider } from "./PasswordConfirm";
 import { TextInputProvider } from "./TextInput";
@@ -10,11 +10,9 @@ const Providers = ({ children }) => {
     <PasswordConfirmProvider>
       <PasswordAskProvider>
         <UserLoginProvider>
-          <LoadingProvider>
-            <TextInputProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </TextInputProvider>
-          </LoadingProvider>
+          <TextInputProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </TextInputProvider>
         </UserLoginProvider>
       </PasswordAskProvider>
     </PasswordConfirmProvider>

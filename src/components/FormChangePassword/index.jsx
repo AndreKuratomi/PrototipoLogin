@@ -4,16 +4,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useAuth } from "../../providers/Auth";
+import { usePasswordConfirm } from "../../providers/PasswordConfirm";
+
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Snackbar } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
 
-import Input from "../../assets/figma_imgs/Input.png";
-import FormChangePasswordFigma from "../../assets/figma_imgs/FormChangePasswordFigma.png";
-import FormChangePasswordFigmaDesktop from "../../assets/figma_imgs/FormChangePasswordFigmaDesktop.png";
-
-import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
+import FormChangePasswordMobile from "../../assets/figma_imgs/FormChangePasswordMobile.png";
+import FormChangePasswordDesktop from "../../assets/figma_imgs/FormChangePasswordDesktop.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
 import IconUserError from "../../assets/figma_imgs/IconUserError.png";
 import IconEmail from "../../assets/figma_imgs/IconEmail.png";
@@ -22,19 +20,33 @@ import IconTemporaryPassword from "../../assets/figma_imgs/IconTemporaryPassword
 import IconTemporaryPasswordError from "../../assets/figma_imgs/IconTemporaryPasswordError.png";
 import IconPassword from "../../assets/figma_imgs/IconPassword.png";
 import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
+import Input from "../../assets/figma_imgs/Input.png";
+import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
-
-import { useAuth } from "../../providers/Auth";
-import { useLoading } from "../../providers/Loading";
-import { usePasswordConfirm } from "../../providers/PasswordConfirm";
-import { useTextInput } from "../../providers/TextInput";
 
 import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
+  buttonSingle: {
+    backgroundColor: "#3f51b5",
+    margin: "0.5rem 0",
+    width: "16rem",
+    "@media (min-width: 768px)": {
+      margin: "1rem 1rem 0 1rem",
+      width: "15rem",
+    },
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "column",
+    "@media (min-width: 768px)": {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+  },
   formControl: {
-    backgroundImage: `url(${FormChangePasswordFigma})`,
+    backgroundImage: `url(${FormChangePasswordMobile})`,
     borderRadius: "5%",
     display: "flex",
     flexWrap: "nowrap",
@@ -44,70 +56,56 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     width: "20rem",
     "@media (min-width: 768px)": {
-      backgroundImage: `url(${FormChangePasswordFigmaDesktop})`,
+      backgroundImage: `url(${FormChangePasswordDesktop})`,
       flexWrap: "wrap",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "2rem",
-      width: "38rem",
-      // height: "28rem", //sem input email
-      height: "40rem",
+      width: "47rem",
+      height: "36rem",
     },
   },
   image: {
-    marginBottom: "1rem",
+    width: "10rem",
   },
-
-  textFieldTest: {
+  inputBox: {
     backgroundImage: `url(${Input})`,
     borderRadius: "1rem",
     padding: "0.5rem",
+    width: "280px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       top: "-0.3rem",
     },
-    width: "13rem",
     "@media (min-width: 768px)": {
       margin: "0.5rem 1rem",
+      width: "312px",
     },
   },
-  button: {
-    marginTop: "1rem",
-    width: "15rem",
-  },
-  box: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  boxAccount: {
-    color: "#FFF",
-    marginTop: "1rem",
-    textAlign: "center",
-    textDecoration: "none",
-    width: "15rem",
-  },
-  boxForm: {
+  inputsAllBox: {
     display: "flex",
     flexDirection: "column",
     "@media (min-width: 768px)": {
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "space-around",
-      width: "35rem",
+      width: "43rem",
       height: "22rem",
     },
   },
-  boxSuggestion: {
+  suggestionBox: {
     color: "#FFF",
-    // marginTop: "1rem",
     textAlign: "center",
     textDecoration: "none",
     "& .MuiTypography-body1": {
       fontSize: "0.75rem",
     },
-    width: "15rem",
+    "@media (min-width: 768px)": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "30rem",
+    },
   },
-  oi: {
+  textFieldsContent: {
+    width: "20rem",
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
@@ -116,14 +114,15 @@ const useStyles = makeStyles((theme) => ({
       margin: "3px",
     },
   },
-  imaged: {
-    width: "10rem",
-  },
 }));
 
 export const FormChangePassword = () => {
-  // const { loading } = useLoading();
+  // STYLES:
+  const classes = useStyles();
+
+  // PROVIDERS:
   const { onSubmit, loading } = usePasswordConfirm();
+  // const { loading } = useLoading();
 
   // TOASTS:
   const toast = useToast();
@@ -137,7 +136,6 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-
   const emailErrorToast = (algo) => {
     toast({
       description: algo,
@@ -147,7 +145,6 @@ export const FormChangePassword = () => {
       title: "Erro!",
     });
   };
-
   const protoConflictToast = (algo) => {
     toast({
       description: algo,
@@ -157,9 +154,7 @@ export const FormChangePassword = () => {
       title: "Erro!",
     });
   };
-
   const repeatPasswordToast = (algo) => {
-    // console.log(algo);
     toast({
       description: algo,
       duration: 3000,
@@ -199,7 +194,6 @@ export const FormChangePassword = () => {
   if (errors.email && errors.email?.message === "email must be a valid email") {
     emailErrorToast("Email inválido! Favor verificar.");
   }
-
   if (
     errors.nova_senha &&
     errors.nova_senha?.message ===
@@ -207,16 +201,12 @@ export const FormChangePassword = () => {
   ) {
     protoConflictToast(errors.nova_senha?.message);
   }
-
   if (
     errors.repetir_nova_senha &&
     errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
   ) {
     repeatPasswordToast(errors.repetir_nova_senha?.message);
   }
-
-  // STYLES:
-  const classes = useStyles();
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
   const { setAuth } = useAuth();
@@ -229,22 +219,22 @@ export const FormChangePassword = () => {
     setAuth(true);
   } else {
     notAskedToast();
-    return <Navigate to="/" />;
+    // return <Navigate to="/" />;
   }
 
   return (
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
-        <Box className={classes.image}>
+        <Box>
           <img
             src={LogoVestcasa}
             alt="Logo Vestcasa"
-            className={classes.imaged}
+            className={classes.image}
           />
         </Box>
-        <Box className={classes.boxForm}>
+        <Box className={classes.inputsAllBox}>
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
             {Object.keys(errors).some((elt) => elt === "usuario") ? (
@@ -253,45 +243,43 @@ export const FormChangePassword = () => {
               <img src={IconUser} alt="User" />
             )}
             <TextField
-              margin="normal"
-              variant="standard"
-              className={classes.oi}
-              type="text"
+              className={classes.textFieldsContent}
+              error={!!errors.usuario}
               label="Digite seu usuário"
+              margin="normal"
               placeholder="usuario"
+              type="text"
+              variant="standard"
               {...register("usuario")}
               // onInputChange={handleChange}
-              error={!!errors.usuario}
-              // helperText={notAskedToast(errors.usuario?.message)}
             />
           </Box>
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "email") ? (
               <img src={IconEmailError} alt="EmailError" />
             ) : (
               <img src={IconEmail} alt="Email" />
             )}
             <TextField
-              margin="normal"
-              variant="standard"
-              className={classes.oi}
-              type="text"
+              className={classes.textFieldsContent}
+              error={!!errors.email}
               label="Digite seu email"
+              margin="normal"
               placeholder="email"
+              type="text"
+              variant="standard"
               {...register("email")}
               // onInputChange={handleChange}
-              error={!!errors.email}
-              // helperText={errors.email?.message}
             />
           </Box>
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
               <img
                 src={IconTemporaryPasswordError}
                 alt="TemporaryPasswordError"
@@ -300,116 +288,97 @@ export const FormChangePassword = () => {
               <img src={IconTemporaryPassword} alt="TemporaryPassword" />
             )}
             <TextField
-              className={classes.oi}
-              label="Senha provisória"
-              margin="normal"
-              variant="standard"
-              placeholder="senha provisória"
-              type="password"
-              {...register("currentPassword")}
+              className={classes.textFieldsContent}
               error={!!errors.currentPassword}
-              // helperText={errors.currentPassword?.message}
+              label="Senha provisória"
+              placeholder="senha provisória"
+              margin="normal"
+              type="password"
+              variant="standard"
+              {...register("currentPassword")}
             />
           </Box>
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "nova_senha") ? (
               <img src={IconPasswordError} alt="PasswordError" />
             ) : (
               <img src={IconPassword} alt="Password" />
             )}
             <TextField
-              className={classes.oi}
-              label="Nova senha"
-              type="password"
-              margin="normal"
-              variant="standard"
-              placeholder="nova senha"
-              {...register("nova_senha")}
+              className={classes.textFieldsContent}
               error={!!errors.nova_senha}
-              // helperText={protoConflictToast(errors.nova_senha?.message)}
+              label="Nova senha"
+              margin="normal"
+              placeholder="nova senha"
+              variant="standard"
+              type="password"
+              {...register("nova_senha")}
             />
-            {/* <Box className={classes.boxSuggestion}>
-              <Typography color={"#fff"}>
-                Sugestão: usar caracteres especiais/letras maiúsculas/letras
-                minúsculas e números
-              </Typography>
-            </Box> */}
           </Box>
           <Box
-            className={classes.textFieldTest}
+            className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            {Object.keys(errors).some((elt) => elt === "repetir_nova_senha") ? (
               <img src={IconPasswordError} alt="PasswordError" />
             ) : (
               <img src={IconPassword} alt="Password" />
             )}
             <TextField
-              className={classes.oi}
+              className={classes.textFieldsContent}
+              error={!!errors.repetir_nova_senha}
               label="Repetir nova senha"
-              type="password"
               margin="normal"
-              variant="standard"
               placeholder="repetir nova senha"
+              type="password"
+              variant="standard"
               {...register("repetir_nova_senha")}
               // onInputChange={handleChange}
-              error={!!errors.repetir_nova_senha}
-              // helperText={errors.repetir_nova_senha?.message}
             />
           </Box>
         </Box>
-        <Box className={classes.boxSuggestion}>
-          <Box className={classes.boxSuggestion}>
+        <Box className={classes.suggestionBox}>
+          <Box>
             <Typography color={"#fff"}>
               Sugestão: usar caracteres especiais/letras maiúsculas/letras
               minúsculas e números
             </Typography>
           </Box>
-          <Box>
+          <Box className={classes.buttons}>
             {loading ? (
-              // console.log(loading)
               <Button
-                type="submit"
-                variant="contained"
-                className={classes.button}
+                className={classes.buttonSingle}
                 color="primary"
-                size="large"
                 disabled="true"
+                size="large"
+                variant="contained"
+                type="submit"
               >
                 Enviando...
               </Button>
             ) : (
               <Button
-                type="submit"
-                variant="contained"
-                className={classes.button}
+                className={classes.buttonSingle}
                 color="primary"
                 size="large"
+                variant="contained"
+                type="submit"
               >
                 Enviar
               </Button>
             )}
             <Link to="/" style={{ textDecoration: "none" }}>
               <Button
-                // type="submit"
-                variant="contained"
-                className={classes.button}
-                color="primary"
+                className={classes.buttonSingle}
                 size="large"
+                variant="contained"
               >
-                {/* Login */}
                 <A>Login</A>
               </Button>
             </Link>
-            {/* <Box className={classes.boxAccount}>
-            <Typography>Já possui conta?</Typography>
-            <Typography>
-              Então vamos para o{" "}
-            </Typography>
-          </Box> */}
           </Box>
         </Box>
       </form>

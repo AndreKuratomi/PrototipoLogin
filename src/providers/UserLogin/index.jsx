@@ -5,12 +5,14 @@ import bcrypt from "bcryptjs";
 export const UserLoginContext = createContext();
 
 export const UserLoginProvider = ({ children }) => {
+  // STATE PARA VERIFICAR SE O USUÁRIO ESTÁ LOGADO:
   const [logged, setLogged] = useState(false);
 
   const userLogged = () => {
     setLogged(true);
   };
 
+  // GERAÇÃO DE TOKEN E ALOCAÇÃO NO LOCALSTORAGE QUANDO USUÁRIO LOGA:
   const createUserToken = () => {
     const cryptoUserToken = bcrypt.genSaltSync(10);
     localStorage.setItem(
@@ -18,8 +20,6 @@ export const UserLoginProvider = ({ children }) => {
       JSON.stringify(cryptoUserToken)
     );
   };
-
-  //   const navigate = useNavigate();
 
   return (
     <UserLoginContext.Provider
