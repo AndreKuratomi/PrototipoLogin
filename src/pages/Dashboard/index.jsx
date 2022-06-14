@@ -1,12 +1,17 @@
 import { Navigate } from "react-router-dom";
 
+import { useFullScreen } from "../../providers/FullScreen";
 import { useUserLogin } from "../../providers/UserLogin";
 
 import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
 
-import { ExitToAppRoundedIcon } from "@mui/icons-material";
+import {
+  ExitToAppRounded,
+  FullscreenRounded,
+  FullscreenExitRounded,
+} from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 
@@ -24,7 +29,21 @@ const useStyles = makeStyles(() => ({
     left: "7.5rem",
     zIndex: "1",
   },
-  icon: {
+  fullScreenIcon: {
+    color: "#fff",
+    position: "absolute",
+    right: "6.25rem",
+    top: "3.5rem",
+    "&:hover": {
+      color: "#fff6",
+      cursor: "pointer",
+    },
+    "@media (min-width: 1366px) and (min-height: 768px)": {
+      right: "0.75rem",
+      top: "4rem",
+    },
+  },
+  leaveIcon: {
     color: "#fff",
     position: "absolute",
     right: "6.25rem",
@@ -37,6 +56,10 @@ const useStyles = makeStyles(() => ({
       right: "0.75rem",
       top: "2rem",
     },
+  },
+  main: {
+    width: "1366px",
+    minHeight: "768px",
   },
 }));
 
@@ -66,8 +89,27 @@ const Dashboard = () => {
     });
   };
 
+  // DOM:
+  const deb = window.document.getElementById("scroll");
+
+  // TELA CHEIA:
+  const { fullScreen, setFullScreen, openFullScreen, closeFullScreen } =
+    useFullScreen();
+
+  const openFullscreen = () => {
+    if (deb.requestFullscreen) {
+      deb.requestFullscreen();
+    } else if (deb.webkitRequestFullscreen) {
+      /* Safari */
+      deb.webkitRequestFullscreen();
+    } else if (deb.msRequestFullscreen) {
+      /* IE11 */
+      deb.msRequestFullscreen();
+    }
+  };
+
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
-  const { logged, setLogged } = useUserLogin();
+  const { setLogged } = useUserLogin();
   const token = localStorage.getItem("@token: UserLoggedToken");
 
   if (token) {
@@ -77,8 +119,7 @@ const Dashboard = () => {
     return <Navigate to="/" />;
   }
 
-  // LÓGICA PARA EVITAR SCROLL:
-  const deb = window.document.getElementById("scroll");
+  // DESABILITAR SCROLL:
   disableBodyScroll(deb);
 
   // DATA E HORA:
@@ -105,29 +146,61 @@ const Dashboard = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-  // console.log(Document);
+
   return (
     <>
-      <Main id="scroll">
-        <Box>
-          <iframe
-            allowFullScreen={true}
-            frameBorder="0"
-            title="Comercial_AMADEU"
-            id="my_frame"
-            src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            width="100%"
-            height={Document.fullScreen ? "805" : "805"}
+      {fullScreen ? (
+        <Main id="scroll" className={classes.main}>
+          <Box>
+            <iframe
+              allowFullScreen={true}
+              frameBorder="0"
+              title="Comercial_AMADEU"
+              id="my_frame"
+              src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+              width="100%"
+              height="805"
+            />
+          </Box>
+          <P1>{moment}</P1>
+          <ExitToAppRounded
+            className={classes.leaveIcon}
+            onClick={clearLocalStorage}
           />
-        </Box>
 
-        <P1>{moment}</P1>
+          <FullscreenExitRounded
+            className={classes.fullScreenIcon}
+            onClick={closeFullScreen}
+          />
+        </Main>
+      ) : (
+        <Main id="scroll">
+          <Box>
+            <iframe
+              allowFullScreen={true}
+              frameBorder="0"
+              title="Comercial_AMADEU"
+              id="my_frame"
+              src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+              width="100%"
+              height="700"
+            />
+          </Box>
 
-        <ExitToAppRoundedIcon
-          className={classes.icon}
-          onClick={clearLocalStorage}
-        />
-      </Main>
+          <P1>{moment}</P1>
+
+          <ExitToAppRounded
+            className={classes.leaveIcon}
+            onClick={clearLocalStorage}
+          />
+
+          <FullscreenRounded
+            className={classes.fullScreenIcon}
+            // onClick={openFullScreen}
+            onClick={openFullscreen}
+          />
+        </Main>
+      )}
     </>
   );
 };
