@@ -6,15 +6,15 @@ import { UserLoginProvider } from "./UserLogin";
 
 const Providers = ({ children }) => {
   return (
-    <PasswordConfirmProvider>
-      <PasswordAskProvider>
-        <UserLoginProvider>
-          <TextInputProvider>
+    <UserLoginProvider>
+      <TextInputProvider>
+        <PasswordConfirmProvider>
+          <PasswordAskProvider>
             <AuthProvider>{children}</AuthProvider>
-          </TextInputProvider>
-        </UserLoginProvider>
-      </PasswordAskProvider>
-    </PasswordConfirmProvider>
+          </PasswordAskProvider>
+        </PasswordConfirmProvider>
+      </TextInputProvider>
+    </UserLoginProvider>
   );
 };
 
