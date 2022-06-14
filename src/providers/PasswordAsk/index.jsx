@@ -67,22 +67,22 @@ export const PasswordAskProvider = ({ children }) => {
 
   // ENVIO DE EMAIL:
   let qwerty = {
-    usuario: "",
-    email: "",
-    random_password: reducedUUID,
-    link: "http://localhost:3000/changepassword",
-    reply_to: "suporte.vestcasa@gmail.com",
     date0: date0,
     date1: date1,
+    email: "",
+    link: "http://localhost:3000/changepassword",
     nova_senha: "",
+    random_password: reducedUUID,
+    reply_to: "suporte.vestcasa@gmail.com",
+    usuario: "",
   };
 
   const onSubmit = async (form, e) => {
     LoadPage();
 
-    qwerty.usuario = form.usuario;
     qwerty.email = form.email;
     qwerty.new_password = form.repeatNewPassword;
+    qwerty.usuario = form.usuario;
 
     e.preventDefault();
 
@@ -94,15 +94,15 @@ export const PasswordAskProvider = ({ children }) => {
     )
       .then((response) => {
         addSuccessToast();
-        createAuth();
-        setLoading(false);
-        navigate("/");
         console.log("Email enviado!", response.status, response.text);
+        createAuth();
+        navigate("/");
+        setLoading(false);
       })
       .catch((err) => {
         addFailToast();
-        setLoading(false);
         console.log("Algo deu errado!", err);
+        setLoading(false);
       });
   };
 

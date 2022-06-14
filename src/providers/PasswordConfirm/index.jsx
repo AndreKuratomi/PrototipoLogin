@@ -59,38 +59,38 @@ export const PasswordConfirmProvider = ({ children }) => {
 
   // ENVIO DE EMAIL:
   let qwerty = {
-    usuario: "",
-    email: "",
-    random_password: reducedUUID,
-    link: "http://localhost:3000/changepassword",
-    reply_to: "suporte.vestcasa@gmail.com",
     date0: date0,
     date1: date1,
+    email: "",
+    link: "http://localhost:3000/changepassword",
+    random_password: reducedUUID,
     repetir_nova_senha: "",
+    reply_to: "suporte.vestcasa@gmail.com",
+    usuario: "",
   };
 
   // LÓGICA SUBMISSÃO PARA ENVIO EMAIL:
   const onSubmit = (form, e) => {
     LoadPage();
 
-    qwerty.usuario = form.usuario;
     qwerty.email = form.email;
     qwerty.repetir_nova_senha = form.repetir_nova_senha;
+    qwerty.usuario = form.usuario;
 
     e.preventDefault();
 
     send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
       .then((response) => {
         addSuccessToast();
-        setLoading(false);
         console.log("Email enviado!", response.status, response.text);
         localStorage.clear();
         navigate("/");
+        setLoading(false);
       })
       .catch((err) => {
         addFailToast();
-        setLoading(false);
         console.log("Algo deu errado!", err);
+        setLoading(false);
       });
   };
 
