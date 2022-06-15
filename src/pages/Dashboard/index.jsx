@@ -12,12 +12,12 @@ import {
   FullscreenRounded,
   FullscreenExitRounded,
 } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useToast } from "@chakra-ui/react";
 
-import { Main, P1 } from "./styles";
+import { Main } from "./styles";
 
 const useStyles = makeStyles(() => ({
   date: {
@@ -28,6 +28,9 @@ const useStyles = makeStyles(() => ({
     bottom: "3rem",
     left: "7.5rem",
     zIndex: "1",
+    "@media (min-width: 1365px) and (min-height: 766px)": {
+      bottom: "1rem",
+    },
   },
   fullScreenIcon: {
     color: "#fff",
@@ -38,7 +41,7 @@ const useStyles = makeStyles(() => ({
       color: "#fff6",
       cursor: "pointer",
     },
-    "@media (min-width: 1366px) and (min-height: 768px)": {
+    "@media (min-width: 1365px) and (min-height: 766px)": {
       right: "0.75rem",
       top: "4rem",
     },
@@ -52,7 +55,7 @@ const useStyles = makeStyles(() => ({
       color: "#fff6",
       cursor: "pointer",
     },
-    "@media (min-width: 1366px) and (min-height: 768px)": {
+    "@media (min-width: 1365px) and (min-height: 766px)": {
       right: "0.75rem",
       top: "2rem",
     },
@@ -96,18 +99,6 @@ const Dashboard = () => {
   const { fullScreen, setFullScreen, openFullScreen, closeFullScreen } =
     useFullScreen();
 
-  const openFullscreen = () => {
-    if (deb.requestFullscreen) {
-      deb.requestFullscreen();
-    } else if (deb.webkitRequestFullscreen) {
-      /* Safari */
-      deb.webkitRequestFullscreen();
-    } else if (deb.msRequestFullscreen) {
-      /* IE11 */
-      deb.msRequestFullscreen();
-    }
-  };
-
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
   const { setLogged } = useUserLogin();
   const token = localStorage.getItem("@token: UserLoggedToken");
@@ -150,7 +141,7 @@ const Dashboard = () => {
   return (
     <>
       {fullScreen ? (
-        <Main id="scroll" className={classes.main}>
+        <Main id="scroll">
           <Box>
             <iframe
               allowFullScreen={true}
@@ -162,7 +153,9 @@ const Dashboard = () => {
               height="805"
             />
           </Box>
-          <P1>{moment}</P1>
+
+          <Typography className={classes.date}>{moment}</Typography>
+
           <ExitToAppRounded
             className={classes.leaveIcon}
             onClick={clearLocalStorage}
@@ -170,7 +163,7 @@ const Dashboard = () => {
 
           <FullscreenExitRounded
             className={classes.fullScreenIcon}
-            onClick={closeFullScreen}
+            onClick={() => closeFullScreen()}
           />
         </Main>
       ) : (
@@ -187,7 +180,7 @@ const Dashboard = () => {
             />
           </Box>
 
-          <P1>{moment}</P1>
+          <Typography className={classes.date}>{moment}</Typography>
 
           <ExitToAppRounded
             className={classes.leaveIcon}
@@ -197,7 +190,7 @@ const Dashboard = () => {
           <FullscreenRounded
             className={classes.fullScreenIcon}
             // onClick={openFullScreen}
-            onClick={openFullscreen}
+            onClick={() => openFullScreen(deb)}
           />
         </Main>
       )}
