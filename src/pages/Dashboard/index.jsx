@@ -23,41 +23,83 @@ const useStyles = makeStyles(() => ({
   date: {
     color: "#fff",
     display: "flex",
-    fontWeight: "800",
     position: "absolute",
-    bottom: "3rem",
-    left: "7.5rem",
+    fontWeight: "800",
     zIndex: "1",
-    "@media (min-width: 1365px) and (min-height: 766px)": {
+    // MOBILE:
+    "@media (min-width: 320px and (min-height: 180px))": {
+      left: "1rem",
       bottom: "1rem",
+      "& .ecuBTG p": {
+        fontSize: "8px",
+      },
+    },
+    // DESKTOP:
+    "@media (min-width: 768px and (min-height: 240px))": {
+      fontSize: "1.5rem",
+      bottom: "1rem",
+      left: "1rem",
+      "& .ecuBTG p": {
+        fontSize: "0.75rem",
+      },
+    },
+    // FULLSCREEN:
+    "@media (min-width: 1365px) and (min-height: 767px)": {
+      bottom: "1rem",
+      left: "2rem",
     },
   },
   fullScreenIcon: {
     color: "#fff",
+    fontSize: "1.5rem",
     position: "absolute",
-    right: "6.25rem",
-    top: "3.5rem",
     "&:hover": {
       color: "#fff6",
       cursor: "pointer",
     },
+    // MOBILE:
+    "@media (min-width: 320px)": {
+      fontSize: "9px",
+      right: "0rem",
+      top: "1rem",
+    },
+    // DESKTOP:
+    "@media (min-width: 768px)": {
+      right: "0rem",
+      top: "2rem",
+    },
+    // FULLSCREEN:
     "@media (min-width: 1365px) and (min-height: 766px)": {
       right: "0.75rem",
       top: "4rem",
     },
   },
+  iframeBox: {
+    position: "relative",
+  },
   leaveIcon: {
     color: "#fff",
     position: "absolute",
-    right: "6.25rem",
-    top: "1.5rem",
     "&:hover": {
       color: "#fff6",
       cursor: "pointer",
     },
+    // FULLSCREEN:
     "@media (min-width: 1365px) and (min-height: 766px)": {
       right: "0.75rem",
       top: "2rem",
+    },
+    // DESKTOP:
+    "@media (min-width: 768px)": {
+      fontSize: "1.5rem",
+      right: "6.25rem",
+      top: "1.5rem",
+    },
+    // MOBILE:
+    "@media (min-width: 320px)": {
+      fontSize: "0.5rem",
+      right: "0rem",
+      top: "0.3rem",
     },
   },
   main: {
@@ -113,6 +155,15 @@ const Dashboard = () => {
   // DESABILITAR SCROLL:
   disableBodyScroll(deb);
 
+  // DESABILITAR COMANDO F11:
+  // console.log(deb);
+  // deb.onkeydown = (evt) => {
+  //   if (evt.key === 122) {
+  //     console.log("EAÊ, JOW!");
+  //     return false;
+  //   }
+  // };
+
   // DATA E HORA:
   let moment = DateTimeMoment();
 
@@ -142,7 +193,7 @@ const Dashboard = () => {
     <>
       {fullScreen ? (
         <Main id="scroll">
-          <Box>
+          <Box className={classes.iframeBox}>
             <iframe
               allowFullScreen={true}
               frameBorder="0"
@@ -168,7 +219,7 @@ const Dashboard = () => {
         </Main>
       ) : (
         <Main id="scroll">
-          <Box>
+          <Box className={classes.iframeBox}>
             <iframe
               allowFullScreen={true}
               frameBorder="0"

@@ -10,10 +10,10 @@ export const FullScreenProvider = ({ children }) => {
   const activateFullscreen = (elem) => {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-      //Safari
+      //Safari:
     } else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen();
-      //IE11
+      //IE11:
     } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
@@ -21,26 +21,23 @@ export const FullScreenProvider = ({ children }) => {
   const unActivateFullscreen = () => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-      //Safari
+      //Safari:
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
-      //IE11
+      //IE11:
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
   };
 
-  console.log(fullScreen);
   const openFullScreen = (elem) => {
     setFullScreen(true);
     activateFullscreen(elem);
-    // console.log(fullScreen);
   };
 
   const closeFullScreen = () => {
     setFullScreen(false);
     unActivateFullscreen();
-    // console.log(fullScreen);
   };
 
   return (
