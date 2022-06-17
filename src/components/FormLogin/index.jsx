@@ -144,7 +144,7 @@ export const FormLogin = ({ error, ...rest }) => {
     // addFailToast();
     //   });
   };
-
+  console.log(errors);
   return (
     <>
       <Article>
@@ -169,10 +169,10 @@ export const FormLogin = ({ error, ...rest }) => {
               className={classes.textFieldsContent}
               error={!!errors.username}
               label="Usuário"
+              onChange={(evt) => setUsername(evt)}
               variant="standard"
-              value={text}
               {...register("username")}
-              onChange={setUsername}
+              // value={text}
             />
           </Box>
 

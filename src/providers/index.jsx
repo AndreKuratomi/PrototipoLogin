@@ -1,4 +1,5 @@
 import { AuthProvider } from "./Auth";
+import { FullScreenProvider } from "./FullScreen";
 import { PasswordAskProvider } from "./PasswordAsk";
 import { PasswordConfirmProvider } from "./PasswordConfirm";
 import { TextInputProvider } from "./TextInput";
@@ -6,15 +7,17 @@ import { UserLoginProvider } from "./UserLogin";
 
 const Providers = ({ children }) => {
   return (
-    <PasswordConfirmProvider>
-      <PasswordAskProvider>
-        <UserLoginProvider>
-          <TextInputProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </TextInputProvider>
-        </UserLoginProvider>
-      </PasswordAskProvider>
-    </PasswordConfirmProvider>
+    <UserLoginProvider>
+      <TextInputProvider>
+        <PasswordConfirmProvider>
+          <PasswordAskProvider>
+            <FullScreenProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </FullScreenProvider>
+          </PasswordAskProvider>
+        </PasswordConfirmProvider>
+      </TextInputProvider>
+    </UserLoginProvider>
   );
 };
 

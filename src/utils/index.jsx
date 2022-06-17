@@ -137,11 +137,11 @@ export const TimeOut = () => {
   // return <Article>{time}</Article>;
 };
 
-const Asdf = () => {
-  let value = 1800;
-  setInterval(() => {
-    value--;
-  }, 1000);
-  console.log(value);
-};
-Asdf();
+// const Asdf = () => {
+//   let value = 1800;
+//   setInterval(() => {
+//     value--;
+//   }, 1000);
+//   console.log(value);
+// };
+// Asdf();

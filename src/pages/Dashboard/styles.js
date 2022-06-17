@@ -4,16 +4,6 @@ export const Main = styled.main`
   overflow: hidden;
 `;
 
-export const P1 = styled.p`
-  display: flex;
-  position: absolute;
-  z-index: 1;
-  bottom: 3rem;
-  left: 7.5rem;
-  color: #fff;
-  font-weight: 800;
-`;
-
 export const P2 = styled.h3`
   display: flex;
   position: absolute;
