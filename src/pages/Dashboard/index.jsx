@@ -21,85 +21,135 @@ import { Main } from "./styles";
 
 const useStyles = makeStyles(() => ({
   date: {
+    // color: "#f0f",
     color: "#fff",
     display: "flex",
     position: "absolute",
     fontWeight: "800",
-    zIndex: "1",
     // MOBILE:
-    "@media (min-width: 320px and (min-height: 180px))": {
-      left: "1rem",
-      bottom: "1rem",
-      "& .ecuBTG p": {
-        fontSize: "8px",
+    "@media only screen and (min-height: 320px) and (orientation: landscape)": {
+      "&:nth-child(2)": {
+        top: "15.5rem",
+        left: "1rem",
       },
     },
-    // DESKTOP:
-    "@media (min-width: 768px and (min-height: 240px))": {
+    // TABLET:
+    "@media only screen and (min-width: 768px)": {
       fontSize: "1.5rem",
-      bottom: "1rem",
-      left: "1rem",
+      "&:nth-child(2)": {
+        display: "block",
+        top: "25.6rem",
+        left: "1.2rem",
+      },
       "& .ecuBTG p": {
         fontSize: "0.75rem",
       },
     },
+    // LARGE DESKTOP:
+    "@media only screen and (min-width: 1365px)": {
+      fontSize: "1.5rem",
+      "&:nth-child(2)": {
+        display: "block",
+        left: "7.5rem",
+        top: "39.6rem",
+      },
+      // "& .ecuBTG p": {
+      //   fontSize: "0.75rem",
+      // },
+    },
     // FULLSCREEN:
-    "@media (min-width: 1365px) and (min-height: 767px)": {
-      bottom: "1rem",
-      left: "2rem",
+    "@media only screen and (min-width: 1365px) and (min-height: 767px)": {
+      "&:nth-child(2)": {
+        display: "block",
+        left: "2rem",
+        top: "45.8rem",
+      },
     },
   },
   fullScreenIcon: {
+    // color: "#f0f",
     color: "#fff",
-    fontSize: "1.5rem",
     position: "absolute",
     "&:hover": {
       color: "#fff6",
       cursor: "pointer",
     },
     // MOBILE:
-    "@media (min-width: 320px)": {
-      fontSize: "9px",
-      right: "0rem",
-      top: "1rem",
+    "@media only screen and (min-height: 320px) and (orientation: landscape)": {
+      width: "1rem",
+      "&:nth-child(4)": {
+        right: "0rem",
+        top: "1.5rem",
+        // size:
+      },
+      // ".css-1696fkf-MuiSvgIcon-root": {
+      //   fontSize: "8.5rem",
+      // },
     },
     // DESKTOP:
-    "@media (min-width: 768px)": {
-      right: "0rem",
-      top: "2rem",
+    "@media only screen and (min-width: 768px)": {
+      "&:nth-child(4)": {
+        right: "0rem",
+        top: "2.2rem",
+      },
+    },
+    // LARGE DESKTOP:
+    "@media only screen and (min-width: 1365px)": {
+      "&:nth-child(4)": {
+        right: "6rem",
+        top: "3rem",
+      },
     },
     // FULLSCREEN:
-    "@media (min-width: 1365px) and (min-height: 766px)": {
-      right: "0.75rem",
-      top: "4rem",
+    "@media only screen and (min-width: 1365px) and (min-height: 766px)": {
+      "&:nth-child(4)": {
+        right: "0.5rem",
+        top: "4rem",
+      },
     },
   },
   iframeBox: {
-    position: "relative",
+    "&:first-child": {
+      position: "relative",
+    },
   },
   leaveIcon: {
+    // color: "#f0f",
     color: "#fff",
     position: "absolute",
     "&:hover": {
       color: "#fff6",
       cursor: "pointer",
     },
-    // FULLSCREEN:
-    "@media (min-width: 1365px) and (min-height: 766px)": {
-      right: "0.75rem",
-      top: "2rem",
+    // MOBILE:
+    "@media only screen and (min-height: 320px) and (orientation: landscape)": {
+      fontSize: "0.5rem",
+      "&:nth-child(3)": {
+        right: "0rem",
+        top: "0.3rem",
+      },
     },
     // DESKTOP:
-    "@media (min-width: 768px)": {
+    "@media only screen and (min-width: 768px)": {
       fontSize: "1.5rem",
-      right: "6.25rem",
-      top: "1.5rem",
+      "&:nth-child(3)": {
+        right: "0rem",
+        top: "0.8rem",
+      },
     },
-    // MOBILE:
-    "@media (min-width: 320px)": {
-      fontSize: "0.5rem",
-      right: "0rem",
-      top: "0.3rem",
+    // LARGE DESKTOP:
+    "@media only screen and (min-width: 1365px)": {
+      "&:nth-child(3)": {
+        right: "6rem",
+        top: "1.5rem",
+      },
+    },
+    // FULLSCREEN:
+    "@media only screen and (min-width: 1365px) and (min-height: 766px)": {
+      "&:nth-child(3)": {
+        right: "0.5rem",
+        top: "2rem",
+      },
     },
   },
   main: {
@@ -203,19 +253,19 @@ const Dashboard = () => {
               width="100%"
               height="805"
             />
+
+            <Typography className={classes.date}>{moment}</Typography>
+
+            <ExitToAppRounded
+              className={classes.leaveIcon}
+              onClick={clearLocalStorage}
+            />
+
+            <FullscreenExitRounded
+              className={classes.fullScreenIcon}
+              onClick={() => closeFullScreen()}
+            />
           </Box>
-
-          <Typography className={classes.date}>{moment}</Typography>
-
-          <ExitToAppRounded
-            className={classes.leaveIcon}
-            onClick={clearLocalStorage}
-          />
-
-          <FullscreenExitRounded
-            className={classes.fullScreenIcon}
-            onClick={() => closeFullScreen()}
-          />
         </Main>
       ) : (
         <Main id="scroll">
@@ -229,20 +279,20 @@ const Dashboard = () => {
               width="100%"
               height="700"
             />
+
+            <Typography className={classes.date}>{moment}</Typography>
+
+            <ExitToAppRounded
+              className={classes.leaveIcon}
+              onClick={clearLocalStorage}
+            />
+
+            <FullscreenRounded
+              className={classes.fullScreenIcon}
+              // onClick={openFullScreen}
+              onClick={() => openFullScreen(deb)}
+            />
           </Box>
-
-          <Typography className={classes.date}>{moment}</Typography>
-
-          <ExitToAppRounded
-            className={classes.leaveIcon}
-            onClick={clearLocalStorage}
-          />
-
-          <FullscreenRounded
-            className={classes.fullScreenIcon}
-            // onClick={openFullScreen}
-            onClick={() => openFullScreen(deb)}
-          />
         </Main>
       )}
     </>
