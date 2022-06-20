@@ -9,9 +9,9 @@
 
 <p><b>Prototipo-Login</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios.. Esta aplicação utiliza React e o gerenciador de states ContextAPI.</p>
 <br>
-Link deploy:
+Link AWS S3:
 
-(link)
+dev-bi.vestsys.com.br
 
 # Instalação
 
@@ -65,7 +65,7 @@ yarn start
 
 <p>Ou podemos utilizar o link do deploy a seguir:</p>
 
-(link)
+dev-bi.vestsys.com.br
 
 # Termos de uso
 
