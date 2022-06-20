@@ -27,17 +27,18 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     fontWeight: "800",
     // MOBILE:
-    "@media only screen and (min-height: 320px) and (orientation: landscape)": {
-      "&:nth-child(2)": {
-        top: "15.5rem",
-        left: "1rem",
+    "@media only screen (min-width: 475px) and (min-height: 320px) and (orientation: landscape)":
+      {
+        "&:nth-child(2)": {
+          top: "15.5rem",
+          left: "1rem",
+        },
       },
-    },
     // TABLET:
     "@media only screen and (min-width: 768px)": {
       fontSize: "1.5rem",
       "&:nth-child(2)": {
-        display: "block",
+        // display: "block",
         top: "25.6rem",
         left: "1.2rem",
       },
