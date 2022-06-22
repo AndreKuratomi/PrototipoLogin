@@ -6,7 +6,7 @@ import { disableBodyScroll } from "body-scroll-lock";
 
 import { DateTimeMoment } from "../../utils";
 
-import { ExitToAppRoundedIcon } from "@mui/icons-material";
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import { Box } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 
