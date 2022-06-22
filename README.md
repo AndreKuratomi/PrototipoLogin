@@ -7,7 +7,7 @@
 
 # Descrição
 
-<p><b>Prototipo-Login</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios.. Esta aplicação utiliza React e o gerenciador de states ContextAPI.</p>
+<p><b>Protótipo-Login</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios.. Esta aplicação utiliza React e o gerenciador de states ContextAPI.</p>
 <br>
 Link AWS S3:
 
@@ -17,7 +17,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 <h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
 
-- Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com)</b>.
+- Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
 
 - <p> E versionar o diretório para receber o clone da aplicação:</p>
 
@@ -69,4 +69,4 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Termos de uso
 
-<p>Esta aplicação consiste apenas num protótipo e, por ora, não possui qualquer intuito comercial. Apenas testagem.</p>
+<p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
