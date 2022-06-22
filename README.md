@@ -11,7 +11,7 @@
 <br>
 Link AWS S3:
 
-dev-bi.vestsys.com.br
+http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Instalação
 
@@ -65,7 +65,7 @@ yarn start
 
 <p>Ou podemos utilizar o link do deploy a seguir:</p>
 
-dev-bi.vestsys.com.br
+http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Termos de uso
 
