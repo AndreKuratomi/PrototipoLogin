@@ -69,4 +69,4 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Termos de uso
 
-<p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
+<p>Esta aplicação consiste apenas num protótipo e, por ora, não possui qualquer intuito comercial. Apenas testagem.</p>
