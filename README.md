@@ -19,7 +19,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 - <p> Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com)</b>.</p>
 
- <b>[I'm an inline-style link](https://www.google.com)</b>
+ <p><b>[I'm an inline-style link](https://www.google.com)</b></p>
 
 [I'm an inline-style link with title](https://www.google.com "Google's Homepage")
 
