@@ -17,7 +17,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 <h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
 
-- <p> Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com)</b>.</p>
+- <p> Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o </p><b>[Visual Studio Code (VSCode)](https://code.visualstudio.com)</b>.
 
  <p><b>[I'm an inline-style link](https://www.google.com)</b></p>
 
