@@ -19,7 +19,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 - <p> Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o [Visual Studio Code (VSCode)](https://code.visualstudio.com/).</p>
 
-- <p> E versionar o diretório para receber o clone da aplicação:</p>
+- <p> E versionar o diretório para receber o clone da aplicação [I'm an inline-style link](https://www.google.com):</p>
 
 ```
 git init
