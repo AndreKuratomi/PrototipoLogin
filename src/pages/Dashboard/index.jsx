@@ -47,16 +47,20 @@ const useStyles = makeStyles(() => ({
       },
     },
     // LARGE DESKTOP:
-    "@media only screen and (min-width: 1365px)": {
+    "@media only screen and (min-width: 1294px)": {
       fontSize: "1.5rem",
       "&:nth-child(2)": {
         display: "block",
+        top: "39.5rem",
         left: "7.5rem",
-        top: "39.6rem",
       },
-      // "& .ecuBTG p": {
-      //   fontSize: "0.75rem",
-      // },
+    },
+    // Screen:
+    "@media only screen and (min-width: 1365px)": {
+      "&:nth-child(3)": {
+        top: "38.5rem",
+        left: "5.2rem",
+      },
     },
     // FULLSCREEN:
     "@media only screen and (min-width: 1365px) and (min-height: 767px)": {
@@ -95,10 +99,17 @@ const useStyles = makeStyles(() => ({
       },
     },
     // LARGE DESKTOP:
-    "@media only screen and (min-width: 1365px)": {
+    "@media only screen and (min-width: 1294px)": {
       "&:nth-child(4)": {
+        right: "4rem",
+        top: "2.2rem",
+      },
+    },
+    // Screen:
+    "@media only screen and (min-width: 1365px)": {
+      "&:nth-child(3)": {
         right: "6rem",
-        top: "3rem",
+        top: "0.8rem",
       },
     },
     // FULLSCREEN:
@@ -139,10 +150,17 @@ const useStyles = makeStyles(() => ({
       },
     },
     // LARGE DESKTOP:
+    "@media only screen and (min-width: 1294px)": {
+      "&:nth-child(3)": {
+        right: "4rem",
+        top: "0.8rem",
+      },
+    },
+    // Screen:
     "@media only screen and (min-width: 1365px)": {
       "&:nth-child(3)": {
         right: "6rem",
-        top: "1.5rem",
+        top: "0.8rem",
       },
     },
     // FULLSCREEN:
@@ -186,7 +204,7 @@ const Dashboard = () => {
   };
 
   // DOM:
-  const deb = window.document.getElementById("scroll");
+  const deb = window.document.querySelector("main");
 
   // TELA CHEIA:
   const { fullScreen, setFullScreen, openFullScreen, closeFullScreen } =
@@ -208,6 +226,15 @@ const Dashboard = () => {
 
   // DESABILITAR COMANDO F11:
   // console.log(deb);
+
+  // deb.addEventListener("keypress", function (evt) {
+  //   if (evt.key === "122") {
+  //     evt.preventDefault();
+  //     alert("Tecla inválida");
+  //   }
+  // });
+
+  // console.log(deb);
   // deb.onkeydown = (evt) => {
   //   if (evt.key === 122) {
   //     console.log("EAÊ, JOW!");
@@ -215,37 +242,21 @@ const Dashboard = () => {
   //   }
   // };
 
-  // ORIENTAÇÃO LANDSCAPE E FULLSCREEN NA MÍDIA MOBILE:
-  const width = window.screen;
-  const orientation = window.screen.orientation;
-  console.log("Current orientation is " + orientation.type);
-
-  orientation.addEventListener("change", function () {
-    console.log("Current orientation is " + orientation.type);
-  });
-
-  if (width.width < 768 && orientation.type !== "landscape-primary") {
-    orientation.lock("landscape-primary");
-    console.log("Current width is " + width.width);
-    console.log("será que foi?");
-  } else {
-    orientation.unlock();
-  }
   // DATA E HORA:
   let moment = DateTimeMoment();
 
   // LOGOUT DEPOIS DE 30 MINUTOS:
-  const leaveAfter30minutes = (seconds) => {
+  const leaveAfter30minutes = (miliseconds) => {
+    timeoutToast();
     return new Promise((_) =>
       setTimeout(() => {
         clearLocalStorage();
-      }, seconds)
+      }, miliseconds)
     );
   };
 
-  const THIRTY_MINUTES = 3000000;
+  const THIRTY_MINUTES = 20000; //
   let action = setTimeout(() => {
-    timeoutToast();
     leaveAfter30minutes(700);
   }, THIRTY_MINUTES);
 
