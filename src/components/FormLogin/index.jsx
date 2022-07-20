@@ -6,13 +6,26 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { api } from "../../service/api";
 
+import { usePasswordVisible } from "../../providers/PasswordVisibility";
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-import { Password, Person } from "@mui/icons-material";
+import {
+  Password,
+  Person,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
@@ -26,8 +39,7 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
-import { red } from "@mui/material/colors";
-import { green } from "@material-ui/core/colors";
+import { green, red } from "@mui/material/colors";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
@@ -82,6 +94,11 @@ const useStyles = makeStyles({
       width: "280px",
     },
   },
+  passwordButton: {
+    color: "grey",
+    minWidth: "20px",
+    padding: "0px",
+  },
   subForm: {
     display: "flex",
     flexDirection: "column",
@@ -107,6 +124,7 @@ export const FormLogin = ({ error, ...rest }) => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { visible, userVisible, userUnvisible } = usePasswordVisible();
   const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken } = useUserLogin();
 
@@ -165,6 +183,7 @@ export const FormLogin = ({ error, ...rest }) => {
     //   });
   };
   console.log(errors);
+
   return (
     <>
       <Article>
@@ -188,9 +207,7 @@ export const FormLogin = ({ error, ...rest }) => {
               {Object.keys(errors).some((elt) => elt === "username") ? (
                 <Person sx={{ color: red[500] }} />
               ) : (
-                // <img src={IconUserError} alt="UserError" />
                 <Person sx={{ color: green[700] }} />
-                // <img src={IconUser} alt="User" />
               )}
               <TextField
                 className={classes.textFieldsContent}
@@ -210,17 +227,37 @@ export const FormLogin = ({ error, ...rest }) => {
               {Object.keys(errors).some((elt) => elt === "password") ? (
                 <Password sx={{ color: red[500] }} />
               ) : (
-                // <img src={IconPasswordError} alt="PasswordError" />
                 <Password sx={{ color: green[700] }} />
-                // <img src={IconPassword} alt="Password" />
               )}
               <TextField
                 className={classes.textFieldsContent}
                 error={!!errors.password}
                 label="Senha"
-                type="password"
+                type={visible ? "text" : "password"}
+                // onClick para ícone visibility. Se clicado, visibility e type não-password.
                 variant="standard"
                 {...register("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      {visible ? (
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={userUnvisible}
+                        >
+                          <VisibilityOff />
+                        </Button>
+                      ) : (
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={userVisible}
+                        >
+                          <Visibility />
+                        </Button>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Box>
           </Box>
