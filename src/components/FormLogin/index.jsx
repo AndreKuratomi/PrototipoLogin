@@ -12,6 +12,8 @@ import { useUserLogin } from "../../providers/UserLogin";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
+import { Password, Person } from "@mui/icons-material";
+
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
@@ -24,9 +26,17 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
+import { red } from "@mui/material/colors";
+import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
+    color: "#FFF",
+    textDecoration: "none",
+    marginTop: "0.5rem",
+    textAlign: "end",
+  },
+  forgetPasswordExtraPageBox: {
     color: "#FFF",
     textDecoration: "none",
     marginTop: "1rem",
@@ -38,15 +48,18 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   formControl: {
-    backgroundImage: `url(${Form})`,
+    background: "#009E4F",
+    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    borderRadius: "1rem",
+    // backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    // alignItems: "center",
     padding: "2rem",
     width: "385px",
     height: "420px",
     "@media (max-width: 424px)": {
-      backgroundImage: `url(${FormMobile})`,
+      // backgroundImage: `url(${FormMobile})`,
       width: "320px",
     },
   },
@@ -55,8 +68,10 @@ const useStyles = makeStyles({
     width: "200px",
   },
   inputBox: {
-    backgroundImage: `url(${Input})`,
+    // backgroundImage: `url(${Input})`,
+    background: "#fff",
     borderRadius: "1rem",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -66,6 +81,11 @@ const useStyles = makeStyles({
     "@media (max-width: 424px)": {
       width: "280px",
     },
+  },
+  subForm: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   submitButton: {
     marginTop: "1rem",
@@ -152,47 +172,64 @@ export const FormLogin = ({ error, ...rest }) => {
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
         >
-          <Box className={classes.image}>
-            <img src={LogoVestcasa} alt="Logo Vestcasa" />
-          </Box>
+          <Box className={classes.subForm}>
+            <Box className={classes.image}>
+              <img src={LogoVestcasa} alt="Logo Vestcasa" />
+            </Box>
 
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "username") ? (
-              <img src={IconUserError} alt="UserError" />
-            ) : (
-              <img src={IconUser} alt="User" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.username}
-              label="Usuário"
-              onChange={(evt) => setUsername(evt)}
-              variant="standard"
-              {...register("username")}
-              // value={text}
-            />
-          </Box>
+            <Box
+              className={classes.inputBox}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              {Object.keys(errors).some((elt) => elt === "username") ? (
+                <Person sx={{ color: red[500] }} />
+              ) : (
+                // <img src={IconUserError} alt="UserError" />
+                <Person sx={{ color: green[700] }} />
+                // <img src={IconUser} alt="User" />
+              )}
+              <TextField
+                className={classes.textFieldsContent}
+                error={!!errors.username}
+                label="Usuário"
+                onChange={(evt) => setUsername(evt)}
+                variant="standard"
+                {...register("username")}
+                // value={text}
+              />
+            </Box>
 
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "password") ? (
-              <img src={IconPasswordError} alt="PasswordError" />
-            ) : (
-              <img src={IconPassword} alt="Password" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.password}
-              label="Senha"
-              type="password"
-              variant="standard"
-              {...register("password")}
-            />
+            <Box
+              className={classes.inputBox}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              {Object.keys(errors).some((elt) => elt === "password") ? (
+                <Password sx={{ color: red[500] }} />
+              ) : (
+                // <img src={IconPasswordError} alt="PasswordError" />
+                <Password sx={{ color: green[700] }} />
+                // <img src={IconPassword} alt="Password" />
+              )}
+              <TextField
+                className={classes.textFieldsContent}
+                error={!!errors.password}
+                label="Senha"
+                type="password"
+                variant="standard"
+                {...register("password")}
+              />
+            </Box>
+          </Box>
+          <Box className={classes.forgetPasswordBox}>
+            <Typography className={classes.forgetPasswordBoxContent}>
+              <Link to="/email">
+                <A>Esqueceu a senha?</A>
+              </Link>
+            </Typography>
           </Box>
 
           <Button
@@ -204,12 +241,9 @@ export const FormLogin = ({ error, ...rest }) => {
           >
             Entrar
           </Button>
-          <Box className={classes.forgetPasswordBox}>
+          <Box className={classes.forgetPasswordExtraPageBox}>
             <Typography className={classes.forgetPasswordBoxContent}>
-              <Link to="/email">
-                <A>Esqueci minha senha</A>
-              </Link>
-              ou
+              Problemas em realizar o login?
               <A target="_blanck" href="https://suporte.vestcasa.com.br">
                 Abra um chamado conosco
               </A>
