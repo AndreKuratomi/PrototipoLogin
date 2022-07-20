@@ -215,6 +215,22 @@ const Dashboard = () => {
   //   }
   // };
 
+  // ORIENTAÇÃO LANDSCAPE E FULLSCREEN NA MÍDIA MOBILE:
+  const width = window.screen;
+  const orientation = window.screen.orientation;
+  console.log("Current orientation is " + orientation.type);
+
+  orientation.addEventListener("change", function () {
+    console.log("Current orientation is " + orientation.type);
+  });
+
+  if (width.width < 768 && orientation.type !== "landscape-primary") {
+    orientation.lock("landscape-primary");
+    console.log("Current width is " + width.width);
+    console.log("será que foi?");
+  } else {
+    orientation.unlock();
+  }
   // DATA E HORA:
   let moment = DateTimeMoment();
 
