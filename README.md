@@ -20,7 +20,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 - Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
 
-- Um <b>versionador de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Git](https://github.com/git-guides/install-git)</b>.
+- Um <b>versionador de código</b>. Por exemplo, o <b>[Git](https://github.com/git-guides/install-git)</b>.
 
 - <p> E versionar o diretório para receber o clone da aplicação:</p>
 
