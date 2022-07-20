@@ -1,4 +1,4 @@
-## Prototipo-Login
+## PrototipoLogin
 
 - [Descrição](#descrição)
 - [Instalação](#instalação)
@@ -8,7 +8,7 @@
 
 # Descrição
 
-<p><b>Prototipo-Login</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
+<p><b>PrototipoLogin</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
 <br>
 Link AWS:
 
@@ -20,7 +20,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 - Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
 
-- Um <b>versionador de código</b>. Por exemplo, o <b>[Git](https://github.com/git-guides/install-git)</b>.
+- Um <b>versionador de código</b> como o <b>[Git](https://github.com/git-guides/install-git)</b>.
 
 - <p> E versionar o diretório para receber o clone da aplicação:</p>
 
@@ -76,9 +76,9 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Referências
 
+- [ContextAPI](https://reactjs.org/docs/context.html)
 - [Material-UI](https://v4.mui.com/pt/)
 - [React](https://pt-br.reactjs.org/)
-- [ContextAPI](https://reactjs.org/docs/context.html)
 <!-- - [Docker](https://docs.docker.com/)
 - [JWT](https://github.com/auth0/node-jsonwebtoken)
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
