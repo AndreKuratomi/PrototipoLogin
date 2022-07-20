@@ -105,7 +105,23 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   submitButton: {
+    backgroundColor: "#009E4F",
+    border: ".25rem, solid, #fff",
+    borderRadius: "1rem",
+    color: "#fff",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
+    width: "10rem",
+
+    "& .MuiButton-containedPrimary:hover": {
+      backgroundColor: "#fff",
+      textDecoration: "underline",
+    },
+  },
+  submitButtonBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   textFieldsContent: {
     width: "20rem",
@@ -268,16 +284,17 @@ export const FormLogin = ({ error, ...rest }) => {
               </Link>
             </Typography>
           </Box>
-
-          <Button
-            className={classes.submitButton}
-            color="primary"
-            size="large"
-            type="submit"
-            variant="contained"
-          >
-            Entrar
-          </Button>
+          <Box className={classes.submitButtonBox}>
+            <Button
+              className={classes.submitButton}
+              color="primary"
+              size="large"
+              type="submit"
+              variant="contained"
+            >
+              Entrar
+            </Button>
+          </Box>
           <Box className={classes.forgetPasswordExtraPageBox}>
             <Typography className={classes.forgetPasswordBoxContent}>
               Problemas em realizar o login?
