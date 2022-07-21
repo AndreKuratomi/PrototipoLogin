@@ -105,17 +105,19 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   submitButton: {
-    backgroundColor: "#009E4F",
-    border: ".25rem, solid, #fff",
+    backgroundColor: "rgba(63 81 181 0.04)",
+    border: ".1rem solid #fff",
     borderRadius: "1rem",
     color: "#fff",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
     width: "10rem",
 
-    "& .MuiButton-containedPrimary:hover": {
-      backgroundColor: "#fff",
+    "& .MuiButton-containedPrimary": {
+      // "& :hover": {
+      borderColor: "#fff",
       textDecoration: "underline",
+      // },
     },
   },
   submitButtonBox: {
@@ -250,7 +252,6 @@ export const FormLogin = ({ error, ...rest }) => {
                 error={!!errors.password}
                 label="Senha"
                 type={visible ? "text" : "password"}
-                // onClick para ícone visibility. Se clicado, visibility e type não-password.
                 variant="standard"
                 {...register("password")}
                 InputProps={{
@@ -290,7 +291,7 @@ export const FormLogin = ({ error, ...rest }) => {
               color="primary"
               size="large"
               type="submit"
-              variant="contained"
+              variant="outlined"
             >
               Entrar
             </Button>
