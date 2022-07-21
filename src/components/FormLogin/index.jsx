@@ -6,11 +6,26 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { api } from "../../service/api";
 
+import { usePasswordVisible } from "../../providers/PasswordVisibility";
 import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+
+import {
+  Password,
+  Person,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
@@ -24,9 +39,16 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
+import { green, red } from "@mui/material/colors";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
+    color: "#FFF",
+    textDecoration: "none",
+    marginTop: "0.5rem",
+    textAlign: "end",
+  },
+  forgetPasswordExtraPageBox: {
     color: "#FFF",
     textDecoration: "none",
     marginTop: "1rem",
@@ -38,15 +60,18 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   formControl: {
-    backgroundImage: `url(${Form})`,
+    background: "#009E4F",
+    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    borderRadius: "1rem",
+    // backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    // alignItems: "center",
     padding: "2rem",
     width: "385px",
     height: "420px",
     "@media (max-width: 424px)": {
-      backgroundImage: `url(${FormMobile})`,
+      // backgroundImage: `url(${FormMobile})`,
       width: "320px",
     },
   },
@@ -55,8 +80,10 @@ const useStyles = makeStyles({
     width: "200px",
   },
   inputBox: {
-    backgroundImage: `url(${Input})`,
+    // backgroundImage: `url(${Input})`,
+    background: "#fff",
     borderRadius: "1rem",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -67,8 +94,36 @@ const useStyles = makeStyles({
       width: "280px",
     },
   },
+  passwordButton: {
+    color: "grey",
+    minWidth: "20px",
+    padding: "0px",
+  },
+  subForm: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   submitButton: {
+    backgroundColor: "rgba(63 81 181 0.04)",
+    border: ".1rem solid #fff",
+    borderRadius: "1rem",
+    color: "#fff",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
+    width: "10rem",
+
+    "& .MuiButton-containedPrimary": {
+      // "& :hover": {
+      borderColor: "#fff",
+      textDecoration: "underline",
+      // },
+    },
+  },
+  submitButtonBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   textFieldsContent: {
     width: "20rem",
@@ -87,6 +142,7 @@ export const FormLogin = ({ error, ...rest }) => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { visible, userVisible, userUnvisible } = usePasswordVisible();
   const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken } = useUserLogin();
 
@@ -145,6 +201,7 @@ export const FormLogin = ({ error, ...rest }) => {
     //   });
   };
   console.log(errors);
+
   return (
     <>
       <Article>
@@ -152,64 +209,96 @@ export const FormLogin = ({ error, ...rest }) => {
           className={classes.formControl}
           onSubmit={handleSubmit(onSubmitFunction)}
         >
-          <Box className={classes.image}>
-            <img src={LogoVestcasa} alt="Logo Vestcasa" />
-          </Box>
+          <Box className={classes.subForm}>
+            <Box className={classes.image}>
+              <img src={LogoVestcasa} alt="Logo Vestcasa" />
+            </Box>
 
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "username") ? (
-              <img src={IconUserError} alt="UserError" />
-            ) : (
-              <img src={IconUser} alt="User" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.username}
-              label="Usuário"
-              onChange={(evt) => setUsername(evt)}
-              variant="standard"
-              {...register("username")}
-              // value={text}
-            />
-          </Box>
+            <Box
+              className={classes.inputBox}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              {Object.keys(errors).some((elt) => elt === "username") ? (
+                <Person sx={{ color: red[500] }} />
+              ) : (
+                <Person sx={{ color: green[700] }} />
+              )}
+              <TextField
+                className={classes.textFieldsContent}
+                error={!!errors.username}
+                label="Usuário"
+                onChange={(evt) => setUsername(evt)}
+                variant="standard"
+                {...register("username")}
+                // value={text}
+              />
+            </Box>
 
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "password") ? (
-              <img src={IconPasswordError} alt="PasswordError" />
-            ) : (
-              <img src={IconPassword} alt="Password" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.password}
-              label="Senha"
-              type="password"
-              variant="standard"
-              {...register("password")}
-            />
+            <Box
+              className={classes.inputBox}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              {Object.keys(errors).some((elt) => elt === "password") ? (
+                <Password sx={{ color: red[500] }} />
+              ) : (
+                <Password sx={{ color: green[700] }} />
+              )}
+              <TextField
+                className={classes.textFieldsContent}
+                error={!!errors.password}
+                label="Senha"
+                type={visible ? "text" : "password"}
+                variant="standard"
+                {...register("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      {visible ? (
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={userUnvisible}
+                        >
+                          <VisibilityOff />
+                        </Button>
+                      ) : (
+                        <Button
+                          className={classes.passwordButton}
+                          onClick={userVisible}
+                        >
+                          <Visibility />
+                        </Button>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
           </Box>
-
-          <Button
-            className={classes.submitButton}
-            color="primary"
-            size="large"
-            type="submit"
-            variant="contained"
-          >
-            Entrar
-          </Button>
           <Box className={classes.forgetPasswordBox}>
             <Typography className={classes.forgetPasswordBoxContent}>
               <Link to="/email">
-                <A>Esqueci minha senha</A>
+                <A>Esqueceu a senha?</A>
               </Link>
-              ou
+            </Typography>
+          </Box>
+          <Box className={classes.submitButtonBox}>
+            <Button
+              className={classes.submitButton}
+              color="primary"
+              size="large"
+              type="submit"
+              variant="outlined"
+            >
+              Entrar
+            </Button>
+          </Box>
+          <Box className={classes.forgetPasswordExtraPageBox}>
+            <Typography className={classes.forgetPasswordBoxContent}>
+              Problemas em realizar o login?
               <A target="_blanck" href="https://suporte.vestcasa.com.br">
                 Abra um chamado conosco
               </A>
