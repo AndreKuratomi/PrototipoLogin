@@ -97,24 +97,30 @@ const useStyles = makeStyles({
   },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
-    border: ".1rem solid #fff",
+    border: "1px solid #fff",
     borderRadius: "1rem",
     color: "#fff",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
     width: "10rem",
 
-    "& .MuiButton-containedPrimary": {
-      // "& :hover": {
+    "& .MuiButton-outlinedPrimary:hover": {
+      //NÃO FUNCIONA!
       color: "#3f51b5",
-      textDecoration: "underline",
-      // },
+    },
+    "& .MuiButton-label:hover": {
+      //GUAMBIARRA
+      color: "#3f51b5",
     },
   },
   submitButtonBox: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+
+    // "&:hover": {
+    // color: "#3f51b5",
+    // },
   },
   textFieldsContent: {
     width: "20rem",
