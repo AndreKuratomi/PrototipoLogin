@@ -10,6 +10,9 @@ import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
+import { AccessTime, Password } from "@mui/icons-material";
+import { green, red } from "@mui/material/colors";
+
 import FormChangePasswordMobile from "../../assets/figma_imgs/FormChangePasswordMobile.png";
 import FormChangePasswordDesktop from "../../assets/figma_imgs/FormChangePasswordDesktop.png";
 import IconUser from "../../assets/figma_imgs/IconUser.png";
@@ -28,26 +31,29 @@ import { useToast } from "@chakra-ui/react";
 import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
-  buttonSingle: {
-    backgroundColor: "#3f51b5",
-    margin: "0.5rem 0",
-    width: "16rem",
-    "@media (min-width: 768px)": {
-      margin: "1rem 1rem 0 1rem",
-      width: "15rem",
-    },
-  },
-  buttons: {
-    display: "flex",
-    flexDirection: "column",
-    "@media (min-width: 768px)": {
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-  },
+  // buttonSingle: {
+  //   backgroundColor: "#3f51b5",
+  //   margin: "0.5rem 0",
+  //   width: "16rem",
+  //   "@media (min-width: 768px)": {
+  //     margin: "1rem 1rem 0 1rem",
+  //     width: "15rem",
+  //   },
+  // },
+  // buttons: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   "@media (min-width: 768px)": {
+  //     flexDirection: "row",
+  //     justifyContent: "space-between",
+  //   },
+  // },
   formControl: {
-    backgroundImage: `url(${FormChangePasswordMobile})`,
-    borderRadius: "5%",
+    background: "#009E4F",
+    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    borderRadius: "1rem",
+    // backgroundImage: `url(${FormChangePasswordMobile})`,
+    // borderRadius: "5%",
     display: "flex",
     flexWrap: "nowrap",
     flexDirection: "column",
@@ -56,27 +62,34 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     width: "20rem",
     "@media (min-width: 768px)": {
-      backgroundImage: `url(${FormChangePasswordDesktop})`,
-      flexWrap: "wrap",
-      width: "47rem",
-      height: "36rem",
+      // backgroundImage: `url(${FormChangePasswordDesktop})`,
+      // flexWrap: "wrap",
+      width: "30rem",
+      height: "30rem",
     },
   },
   image: {
-    width: "10rem",
+    width: "13rem",
   },
   inputBox: {
-    backgroundImage: `url(${Input})`,
+    // backgroundImage: `url(${Input})`,
+    background: "#fff",
     borderRadius: "1rem",
-    padding: "0.5rem",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    padding: "0 0.5rem",
     width: "280px",
+    height: "3.688rem",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       top: "-0.3rem",
     },
+    "& .MuiFormControl-marginNormal": {
+      // NÃO FUNCIONA!
+      marginTop: "10px",
+    },
     "@media (min-width: 768px)": {
       margin: "0.5rem 1rem",
-      width: "312px",
+      width: "25rem",
     },
   },
   inputsAllBox: {
@@ -86,26 +99,57 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "space-around",
-      width: "43rem",
+      width: "20rem",
       height: "22rem",
     },
   },
+  submitButton: {
+    backgroundColor: "rgba(63 81 181 0.04)",
+    border: "1px solid #fff",
+    borderRadius: "1rem",
+    color: "#fff",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    margin: "0 1rem",
+    width: "10rem",
+
+    "& .MuiButton-outlinedPrimary:hover": {
+      //NÃO FUNCIONA!
+      color: "#3f51b5",
+    },
+    "& .MuiButton-label:hover": {
+      //GUAMBIARRA
+      color: "#3f51b5",
+    },
+  },
+  submitButtonBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: "1rem",
+    // "&:hover": {
+    // color: "#3f51b5",
+    // },
+  },
   suggestionBox: {
     color: "#FFF",
+    marginTop: "0.3srem",
     textAlign: "center",
     textDecoration: "none",
     "& .MuiTypography-body1": {
-      fontSize: "0.75rem",
+      fontSize: "0.8rem",
     },
     "@media (min-width: 768px)": {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      width: "30rem",
+      width: "20rem",
     },
   },
   textFieldsContent: {
     width: "20rem",
+    ".MuiFormControl-marginNormal": {
+      marginTop: "16px",
+    },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
@@ -225,7 +269,7 @@ export const FormChangePassword = () => {
   return (
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
-        <Box>
+        <Box sx={{ marginBottom: "1rem" }}>
           <img
             src={LogoVestcasa}
             alt="Logo Vestcasa"
@@ -233,7 +277,7 @@ export const FormChangePassword = () => {
           />
         </Box>
         <Box className={classes.inputsAllBox}>
-          <Box
+          {/* <Box
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
@@ -272,18 +316,15 @@ export const FormChangePassword = () => {
               variant="standard"
               {...register("email")}
             />
-          </Box>
+          </Box> */}
           <Box
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
             {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
-              <img
-                src={IconTemporaryPasswordError}
-                alt="TemporaryPasswordError"
-              />
+              <AccessTime sx={{ color: red[500] }} />
             ) : (
-              <img src={IconTemporaryPassword} alt="TemporaryPassword" />
+              <AccessTime sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
@@ -300,10 +341,10 @@ export const FormChangePassword = () => {
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "nova_senha") ? (
-              <img src={IconPasswordError} alt="PasswordError" />
+            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
+              <Password sx={{ color: red[500] }} />
             ) : (
-              <img src={IconPassword} alt="Password" />
+              <Password sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
@@ -320,10 +361,10 @@ export const FormChangePassword = () => {
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "repetir_nova_senha") ? (
-              <img src={IconPasswordError} alt="PasswordError" />
+            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
+              <Password sx={{ color: red[500] }} />
             ) : (
-              <img src={IconPassword} alt="Password" />
+              <Password sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
@@ -344,10 +385,10 @@ export const FormChangePassword = () => {
               minúsculas e números
             </Typography>
           </Box>
-          <Box className={classes.buttons}>
+          <Box className={classes.submitButtonBox}>
             {loading ? (
               <Button
-                className={classes.buttonSingle}
+                className={classes.submitButton}
                 color="primary"
                 disabled="true"
                 size="large"
@@ -358,24 +399,15 @@ export const FormChangePassword = () => {
               </Button>
             ) : (
               <Button
-                className={classes.buttonSingle}
+                className={classes.submitButton}
                 color="primary"
                 size="large"
-                variant="contained"
+                variant="outlined"
                 type="submit"
               >
                 Enviar
               </Button>
             )}
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <Button
-                className={classes.buttonSingle}
-                size="large"
-                variant="contained"
-              >
-                <A>Login</A>
-              </Button>
-            </Link>
           </Box>
         </Box>
       </form>
