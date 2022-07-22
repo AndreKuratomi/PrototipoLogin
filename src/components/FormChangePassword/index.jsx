@@ -6,11 +6,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useAuth } from "../../providers/Auth";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
+import { usePasswordVisible } from "../../providers/PasswordVisibility";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-import { AccessTime, Password } from "@mui/icons-material";
+import {
+  AccessTime,
+  Password,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import { green, red } from "@mui/material/colors";
 
 import FormChangePasswordMobile from "../../assets/figma_imgs/FormChangePasswordMobile.png";
@@ -103,6 +115,11 @@ const useStyles = makeStyles((theme) => ({
       height: "22rem",
     },
   },
+  passwordButton: {
+    color: "grey",
+    minWidth: "20px",
+    padding: "0px",
+  },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
     border: "1px solid #fff",
@@ -166,7 +183,20 @@ export const FormChangePassword = () => {
 
   // PROVIDERS:
   const { onSubmit, loading } = usePasswordConfirm();
-  // const { loading } = useLoading();
+  const {
+    visible1,
+    setVisible1,
+    userVisible1,
+    userUnvisible1,
+    visible2,
+    setVisible2,
+    userVisible2,
+    userUnvisible2,
+    visible3,
+    setVisible3,
+    userVisible3,
+    userUnvisible3,
+  } = usePasswordVisible();
 
   // TOASTS:
   const toast = useToast();
@@ -332,9 +362,30 @@ export const FormChangePassword = () => {
               label="Senha provisória"
               placeholder="senha provisória"
               margin="normal"
-              type="password"
+              type={visible1 ? "text" : "password"}
               variant="standard"
               {...register("currentPassword")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    {visible1 ? (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userUnvisible1}
+                      >
+                        <VisibilityOff />
+                      </Button>
+                    ) : (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userVisible1}
+                      >
+                        <Visibility />
+                      </Button>
+                    )}
+                  </InputAdornment>
+                ),
+              }}
             />
           </Box>
           <Box
@@ -353,8 +404,29 @@ export const FormChangePassword = () => {
               margin="normal"
               placeholder="nova senha"
               variant="standard"
-              type="password"
+              type={visible2 ? "text" : "password"}
               {...register("nova_senha")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    {visible2 ? (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userUnvisible2}
+                      >
+                        <VisibilityOff />
+                      </Button>
+                    ) : (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userVisible2}
+                      >
+                        <Visibility />
+                      </Button>
+                    )}
+                  </InputAdornment>
+                ),
+              }}
             />
           </Box>
           <Box
@@ -372,9 +444,30 @@ export const FormChangePassword = () => {
               label="Repetir nova senha"
               margin="normal"
               placeholder="repetir nova senha"
-              type="password"
+              type={visible3 ? "text" : "password"}
               variant="standard"
               {...register("repetir_nova_senha")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    {visible3 ? (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userUnvisible3}
+                      >
+                        <VisibilityOff />
+                      </Button>
+                    ) : (
+                      <Button
+                        className={classes.passwordButton}
+                        onClick={userVisible3}
+                      >
+                        <Visibility />
+                      </Button>
+                    )}
+                  </InputAdornment>
+                ),
+              }}
             />
           </Box>
         </Box>
