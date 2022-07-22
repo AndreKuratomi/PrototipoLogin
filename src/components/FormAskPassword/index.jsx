@@ -188,6 +188,26 @@ export const FormAskPassword = () => {
             Insira seus dados para redefinir a senha
           </Typography>
         </Box>
+        {/* <Box
+          className={classes.inputBox}
+          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
+        >
+          {Object.keys(errors).some((elt) => elt === "usuario") ? (
+            <img src={IconUserError} alt="UserError" />
+          ) : (
+            <img src={IconUser} alt="User" />
+          )}
+          <TextField
+            className={classes.textFieldsContent}
+            error={!!errors.usuario}
+            label="Digite seu usuário"
+            margin="normal"
+            placeholder="usuario"
+            variant="standard"
+            type="text"
+            {...register("usuario")}
+          />
+        </Box> */}
         <Box
           className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
