@@ -30,7 +30,7 @@ export const PasswordVisibleProvider = ({ children }) => {
   };
 
   const userUnvisible2 = () => {
-    setVisible(false);
+    setVisible2(false);
   };
   const [visible3, setVisible3] = useState(false);
 
