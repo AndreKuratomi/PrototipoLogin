@@ -1,11 +1,16 @@
+import { Link, useNavigate } from "react-router-dom";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { usePasswordAsk } from "../../providers/PasswordAsk";
 
-import { Box, Button, TextField } from "@material-ui/core";
+import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+
+import { Email } from "@mui/icons-material";
+import { green, red } from "@mui/material/colors";
 
 import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
@@ -18,21 +23,46 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
-import { Article } from "./styles";
+import { A, Article } from "./styles";
 
 const useStyles = makeStyles({
-  button: {
+  // button: {
+  //   marginTop: "1rem",
+  //   width: "12.5rem",
+  // },
+  forgetPasswordBoxContent: {
+    fontSize: "0.8rem",
+    display: "flex",
+    flexDirection: "column",
+  },
+  forgetPasswordExtraPageBox: {
+    color: "#FFF",
+    textDecoration: "none",
     marginTop: "1rem",
-    width: "12.5rem",
+    textAlign: "center",
+  },
+  forgetPasswordInstructionsBox: {
+    color: "#FFF",
+    textDecoration: "none",
+    margin: "1rem 0 2rem 0",
+    textAlign: "center",
+  },
+  forgetPasswordInstructionsBoxContent: {
+    fontSize: "1rem",
+    display: "flex",
+    flexDirection: "column",
   },
   formControl: {
-    backgroundImage: `url(${Form})`,
+    background: "#009E4F",
+    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    borderRadius: "1rem",
+    // backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: "2rem",
     width: "385px",
-    height: "420px",
+    height: "460px",
     "@media (max-width: 424px)": {
       backgroundImage: `url(${FormMobile})`,
       width: "320px",
@@ -43,9 +73,11 @@ const useStyles = makeStyles({
     width: "200px",
   },
   inputBox: {
-    backgroundImage: `url(${Input})`,
+    // backgroundImage: `url(${Input})`,
+    background: "#fff",
     borderRadius: "1rem",
-    padding: "0.5rem",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    padding: "0 0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
@@ -55,8 +87,47 @@ const useStyles = makeStyles({
       width: "280px",
     },
   },
+  returnToLogin: {
+    marginTop: "1rem",
+  },
+  returnToLoginContent: {
+    fontSize: "0.9375rem",
+    display: "flex",
+    flexDirection: "column",
+  },
+  submitButton: {
+    backgroundColor: "rgba(63 81 181 0.04)",
+    border: "1px solid #fff",
+    borderRadius: "1rem",
+    color: "#fff",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    marginTop: "1rem",
+    width: "10rem",
+
+    "& .MuiButton-outlinedPrimary:hover": {
+      //NÃO FUNCIONA!
+      color: "#3f51b5",
+    },
+    "& .MuiButton-label:hover": {
+      //GUAMBIARRA
+      color: "#3f51b5",
+    },
+  },
+  submitButtonBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+
+    // "&:hover": {
+    // color: "#3f51b5",
+    // },
+  },
   textFieldsContent: {
     width: "20rem",
+    "& .MuiFormControl-marginNormal": {
+      //NÃO FUNCIONA!
+      marginTop: "8px",
+    },
     "& .MuiFormControl-root": {
       margin: "3px",
     },
@@ -112,8 +183,12 @@ export const FormAskPassword = () => {
         <Box className={classes.image}>
           <img src={LogoVestcasa} alt="Logo Vestcasa" />
         </Box>
-
-        <Box
+        <Box className={classes.forgetPasswordInstructionsBox}>
+          <Typography className={classes.forgetPasswordInstructionsBoxContent}>
+            Insira seus dados para redefinir a senha
+          </Typography>
+        </Box>
+        {/* <Box
           className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
         >
@@ -132,20 +207,20 @@ export const FormAskPassword = () => {
             type="text"
             {...register("usuario")}
           />
-        </Box>
+        </Box> */}
         <Box
           className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
         >
           {Object.keys(errors).some((elt) => elt === "email") ? (
-            <img src={IconEmailError} alt="EmailError" />
+            <Email sx={{ color: red[500] }} />
           ) : (
-            <img src={IconEmail} alt="Email" />
+            <Email sx={{ color: green[700] }} />
           )}
           <TextField
             className={classes.textFieldsContent}
             error={!!errors.email}
-            label="Digite seu email"
+            label="Email"
             margin="normal"
             placeholder="email"
             variant="standard"
@@ -155,26 +230,41 @@ export const FormAskPassword = () => {
         </Box>
         {loading ? (
           <Button
-            className={classes.button}
+            className={classes.submitButton}
             color="primary"
             disabled="true"
             size="large"
             type="submit"
-            variant="contained"
+            variant="outlined"
           >
             Enviando...
           </Button>
         ) : (
           <Button
-            className={classes.button}
+            className={classes.submitButton}
             color="primary"
             size="large"
             type="submit"
-            variant="contained"
+            variant="outlined"
           >
             Enviar
           </Button>
         )}
+        <Box className={classes.returnToLogin}>
+          <Typography className={classes.returnToLoginContent}>
+            <Link to="/">
+              <A>VOLTAR</A>
+            </Link>
+          </Typography>
+        </Box>
+        <Box className={classes.forgetPasswordExtraPageBox}>
+          <Typography className={classes.forgetPasswordBoxContent}>
+            Problemas em realizar a redefinição de senha?
+            <A target="_blanck" href="https://suporte.vestcasa.com.br">
+              Abra um chamado conosco
+            </A>
+          </Typography>
+        </Box>
       </form>
     </Article>
   );
