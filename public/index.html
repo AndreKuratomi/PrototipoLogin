@@ -59,10 +59,11 @@
 
     window.document.onkeydown = (evt) => {
       // bloqueio tecla F12:
-      if (evt.keyCode === 123) {
-        return false;
-        // bloqueio tecla F11:
-      } else if (evt.keyCode === 122) {
+      // if (evt.keyCode === 123) {
+      //   return false;
+      //   // bloqueio tecla F11:
+      // } else
+      if (evt.keyCode === 122) {
         return false;
         // bloqueio comandos Ctrl + U:
       } else if (evt.ctrlKey && evt.keyCode === 85) {

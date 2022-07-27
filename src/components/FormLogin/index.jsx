@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { api } from "../../service/api";
+import api from "../../service/api";
 
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
 import { useTextInput } from "../../providers/TextInput";
@@ -159,6 +159,41 @@ export const FormLogin = ({ error, ...rest }) => {
     });
   };
 
+  const addWarningToast = (person) => {
+    toast({
+      description:
+        "Atenção, " +
+        person.target[0].value +
+        "!" +
+        "Sua assinatura está próxima ao vencimento. Contatar suporte.",
+      duration: 7000,
+      position: "top",
+      status: "warning",
+      title: "Assinatura próxima de renovar!",
+    });
+  };
+
+  const addFailToast = (person, date) => {
+    toast({
+      description:
+        "Assinatura vencida, " + person.target[0].value + "desde " + date + "!",
+      duration: 5000,
+      position: "top",
+      status: "fail",
+      title: "Acesso bloqueado!",
+    });
+  };
+
+  const addNonLoggedToast = () => {
+    toast({
+      description: "Usuário não cadastrado! Verificar dados.",
+      duration: 5000,
+      position: "top",
+      status: "fail",
+      title: "Acesso bloqueado!",
+    });
+  };
+
   // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
     username: yup.string().required("Usuário obrigatório!"),
@@ -178,27 +213,33 @@ export const FormLogin = ({ error, ...rest }) => {
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data, text) => {
-    userLogged();
-    createUserToken();
+    api
+      .post("/login/", data)
+      .then((response) => {
+        console.log(response);
+        const { token, user } = response.data;
+        // setAuthenticated(true);
+        const now = Date.now();
 
-    navigate("/dashboard");
-
-    addSuccessToast(text);
-    // api
-    //   .post("/login", data)
-    //   .then((response) => {
-    //     const { token, user } = response.data;
-
-    //     setAuthenticated(true);
-
-    //     const now = Date.now();
-    //     let delta = user.signature.deadline - now;
-    //    if () {}
-
-    //   })
-    //   .catch((err) => {
-    // addFailToast();
-    //   });
+        let delta = user.signature_vality - now;
+        if (delta > 15) {
+          addSuccessToast(user.username);
+          userLogged();
+          createUserToken();
+          navigate("/dashboard");
+        } else if (delta <= 15 && delta > 0) {
+          addWarningToast(user.username);
+          userLogged();
+          createUserToken();
+          navigate("/dashboard");
+        } else {
+          addFailToast(user.signature_vality);
+        }
+      })
+      .catch((err) => {
+        addNonLoggedToast();
+        console.log(err);
+      });
   };
   console.log(errors);
 
