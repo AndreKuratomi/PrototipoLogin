@@ -228,12 +228,12 @@ export const FormLogin = ({ error, ...rest }) => {
           addSuccessToast(user.username);
           userLogged();
           createUserToken();
-          navigate("/dashboard");
+          navigate("/dashboardinternals");
         } else if (delta <= 15 && delta > 0) {
           addWarningToast(user.username);
           userLogged();
           createUserToken();
-          navigate("/dashboard");
+          navigate("/dashboardinternals");
         } else {
           addFailToast(user.signature_vality);
         }
