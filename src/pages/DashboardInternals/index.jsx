@@ -1,16 +1,18 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 
-import { useFullScreen } from "../../providers/FullScreen";
-import { useUserLogin } from "../../providers/UserLogin";
+// import { useFullScreen } from "../../providers/FullScreen";
+// import { useUserLogin } from "../../providers/UserLogin";
+import { PowerBIEmbed } from "powerbi-client-react";
+import { models } from "powerbi-client";
 
 import { disableBodyScroll } from "body-scroll-lock";
 
-import { DateTimeMoment } from "../../utils";
+// import { DateTimeMoment } from "../../utils";
 
 import {
   ExitToAppRounded,
-  FullscreenRounded,
-  FullscreenExitRounded,
+  // FullscreenRounded,
+  // FullscreenExitRounded,
 } from "@mui/icons-material";
 
 import {
@@ -179,6 +181,54 @@ const DashboardInternals = () => {
                 onClick={clearLocalStorage}
               />
             </CardActions>
+            <Box>
+              <PowerBIEmbed
+                embedConfig={{
+                  type: "report", // Supported types: report, dashboard, tile, visual and qna
+                  id: "f540fa03-ce62-45ec-8175-9d20a76f4fac",
+                  embedUrl:
+                    "https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+                  accessToken:
+                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjJaUXBKM1VwYmpBWVhZR2FYRUpsOGxWMFRPSSIsImtpZCI6IjJaUXBKM1VwYmpBWVhZR2FYRUpsOGxWMFRPSSJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMzBjZGIwMmItOWZiZi00MzA0LTgwZDQtY2E1OGI5ZDI0OWRhLyIsImlhdCI6MTY1OTExMzIzMCwibmJmIjoxNjU5MTEzMjMwLCJleHAiOjE2NTkxMTc5MjQsImFjY3QiOjAsImFjciI6IjEiLCJhaW8iOiJBVFFBeS84VEFBQUF6VXlSbVRXM0hPSDVzNTVpN0RhUjY2d2dDcFBnNVowL1JLMnRORWhHc2RUVlB4S0tuRjg5RDFSc0VjM2lyOU1PIiwiYW1yIjpbInB3ZCJdLCJhcHBpZCI6Ijg3MWMwMTBmLTVlNjEtNGZiMS04M2FjLTk4NjEwYTdlOTExMCIsImFwcGlkYWNyIjoiMiIsImZhbWlseV9uYW1lIjoiQkkiLCJnaXZlbl9uYW1lIjoiRGVzZW52b2x2aW1lbnRvIiwiaXBhZGRyIjoiMjAwLjQ5LjM4LjE5OCIsIm5hbWUiOiJEZXNlbnZvbHZpbWVudG8gQkkiLCJvaWQiOiI5ODgxNDdhZi1iYWI1LTQxZjctOWNlZi0xOWY5Y2ZiZWUwMTAiLCJwdWlkIjoiMTAwMzIwMDEwQ0RGQzhGQyIsInJoIjoiMC5BU1lBSzdETk1MLWZCRU9BMU1wWXVkSkoyZ2tBQUFBQUFBQUF3QUFBQUFBQUFBQW1BQTAuIiwic2NwIjoidXNlcl9pbXBlcnNvbmF0aW9uIiwic2lnbmluX3N0YXRlIjpbImttc2kiXSwic3ViIjoiOGNWYWVaYzhOSWtRd285UVB5SlMzZFI3cmlZOXFDOUdJaDVTQktza3JQMCIsInRpZCI6IjMwY2RiMDJiLTlmYmYtNDMwNC04MGQ0LWNhNThiOWQyNDlkYSIsInVuaXF1ZV9uYW1lIjoiZGV2YmlAYnVyZGF5cy5vbm1pY3Jvc29mdC5jb20iLCJ1cG4iOiJkZXZiaUBidXJkYXlzLm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IkJ1UHVGNm8yLUU2WFR3S3ByeGtBQUEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdfQ.Nwpz7ie38ELwfzTRh2dohjQtCd0LtFCwtj5752qIIyT2pcZtwtr5UE7-f568tTBQj-51OWI437w329sq4WLs6an53mAvBDe-97Pm0MZ_0VjrwIY378jH4bK1m9YAneMJH45R9bTk9bLu4UnCaxLZQ4-XEzIA7BnMFPCMlyfGZIz5fPliNQZ5Ii8_e8UwKjSn2-NcxxAXJIqxjB_0ACbXSMhJ8VuVHm0YanEKDBeNjo5lCz46zk_LhJUnZ65QofaE8wwgC3-h2ls8wIeJMuDGhklIJEF8Ss8w59Atz1zT96A1kjn9njxqCr-m40lsxbtKn8Xjn8qV69zRbdqU7nla7Q",
+                  tokenType: models.TokenType.Aad,
+                  settings: {
+                    panes: {
+                      filters: {
+                        expanded: false,
+                        visible: false,
+                      },
+                    },
+                    background: models.BackgroundType.Transparent,
+                  },
+                }}
+                eventHandlers={
+                  new Map([
+                    [
+                      "loaded",
+                      function () {
+                        console.log("Report loaded");
+                      },
+                    ],
+                    [
+                      "rendered",
+                      function () {
+                        console.log("Report rendered");
+                      },
+                    ],
+                    [
+                      "error",
+                      function (event) {
+                        console.log(event.detail);
+                      },
+                    ],
+                  ])
+                }
+                cssClassName={"report-style-class"}
+                getEmbeddedComponent={(embeddedReport) => {
+                  window.report = embeddedReport;
+                }}
+              />
+            </Box>
             <CardMedia
               className={classes.iframe}
               component="iframe"
