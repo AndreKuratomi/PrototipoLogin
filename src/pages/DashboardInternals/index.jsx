@@ -181,7 +181,7 @@ const DashboardInternals = () => {
                 onClick={clearLocalStorage}
               />
             </CardActions>
-            <Box>
+            {/* <Box>
               <PowerBIEmbed
                 embedConfig={{
                   type: "report", // Supported types: report, dashboard, tile, visual and qna
@@ -228,7 +228,7 @@ const DashboardInternals = () => {
                   window.report = embeddedReport;
                 }}
               />
-            </Box>
+            </Box> */}
             <CardMedia
               className={classes.iframe}
               component="iframe"
