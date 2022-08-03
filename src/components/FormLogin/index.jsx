@@ -151,10 +151,10 @@ export const FormLogin = ({ error, ...rest }) => {
   // TOASTS:
   const toast = useToast();
 
-  const addSuccessToast = (person) => {
+  const addSuccessToast = () => {
     toast({
-      description: "Seja bem-vindo, " + person.target[0].value + "!",
-      duration: 2000,
+      description: "Seja bem-vindo(a), fornecedor(a)!",
+      duration: 3000,
       position: "top",
       status: "success",
       title: "Login feito com sucesso!",
@@ -181,7 +181,7 @@ export const FormLogin = ({ error, ...rest }) => {
         "Assinatura vencida, " + person.target[0].value + "desde " + date + "!",
       duration: 5000,
       position: "top",
-      status: "fail",
+      status: "error",
       title: "Acesso bloqueado!",
     });
   };
@@ -191,14 +191,14 @@ export const FormLogin = ({ error, ...rest }) => {
       description: "Usuário não cadastrado! Verificar dados.",
       duration: 5000,
       position: "top",
-      status: "fail",
+      status: "error",
       title: "Acesso bloqueado!",
     });
   };
 
   // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório!"),
+    email: yup.string().email().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
   });
 
@@ -210,37 +210,65 @@ export const FormLogin = ({ error, ...rest }) => {
     resolver: yupResolver(formSchema),
   });
 
+  // // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
+  // if (errors.email && errors.email?.message === "email must be a valid email") {
+  //   addNonLoggedToast();
+  //   console.log("sdfgcx");
+  //   console.log(addNonLoggedToast());
+  // }
+  // if (errors.senha && errors.senha?.message === "Senha obrigatória!") {
+  //   addNonLoggedToast();
+  //   console.log(addNonLoggedToast());
+  // }
+  // if (
+  //   errors.repetir_nova_senha &&
+  //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
+  // ) {
+  //   addNonLoggedToast();
+  // }
+
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data, text) => {
+    // navigate("/dashboardinternals");
+    // userLogged();
+    // createUserToken();
+    console.log(data);
+    // addNonLoggedToast();
     api
-      .post("/login/", data)
+      .post("login/", data)
       .then((response) => {
         console.log(response);
-        const { token, user } = response.data;
-        // setAuthenticated(true);
+        // const { token, user } = response.data;
+        addSuccessToast();
+        navigate("/dashboardinternals");
+        userLogged();
+        createUserToken();
+        // // setAuthenticated(true);
         const now = Date.now();
 
-        let delta = user.signature_vality - now;
-        if (delta > 15) {
-          addSuccessToast(user.username);
-          userLogged();
-          createUserToken();
-          navigate("/dashboardinternals");
-        } else if (delta <= 15 && delta > 0) {
-          addWarningToast(user.username);
-          userLogged();
-          createUserToken();
-          navigate("/dashboardinternals");
-        } else {
-          addFailToast(user.signature_vality);
-        }
+        // let delta = user.signature_vality - now;
+        // console.log(delta);
+
+        // if (delta > 15) {
+        //   addSuccessToast(user.username);
+        //   userLogged();
+        //   createUserToken();
+        //   navigate("/dashboardinternals");
+        // } else if (delta <= 15 && delta > 0) {
+        //   addWarningToast(user.username);
+        //   userLogged();
+        //   createUserToken();
+        //   navigate("/dashboardinternals");
+        // } else {
+        //   addFailToast(user.signature_vality);
+        // }
       })
       .catch((err) => {
-        addNonLoggedToast();
         console.log(err);
+        addNonLoggedToast();
       });
   };
   console.log(errors);
@@ -265,18 +293,18 @@ export const FormLogin = ({ error, ...rest }) => {
                 marginBottom: "1rem",
               }}
             >
-              {Object.keys(errors).some((elt) => elt === "username") ? (
+              {Object.keys(errors).some((elt) => elt === "email") ? (
                 <Person sx={{ color: red[500] }} />
               ) : (
                 <Person sx={{ color: green[700] }} />
               )}
               <TextField
                 className={classes.textFieldsContent}
-                error={!!errors.username}
-                label="Usuário"
+                error={!!errors.email}
+                label="Email"
                 onChange={(evt) => setUsername(evt)}
                 variant="standard"
-                {...register("username")}
+                {...register("email")}
                 // value={text}
               />
             </Box>
