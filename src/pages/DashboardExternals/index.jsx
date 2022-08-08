@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 
 import {
+  AppBar,
   Box,
   Button,
   Card,
@@ -19,6 +20,7 @@ import {
   Container,
   Tab,
   Tabs,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import { Stack } from "@mui/material";
@@ -30,36 +32,123 @@ import LogoVestcasaVerde from "../../assets/figma_imgs/LogoVestcasaVerde.png";
 import LoremDashboard from "../../assets/figma_imgs/LoremDashboard.png";
 
 const useStyles = makeStyles(() => ({
-  selectedButtons: {
-    backgroundColor: "blue",
-    color: "#fff",
-    borderRadius: "1rem",
+  cards: {
+    marginBottom: "1rem",
   },
-  containers: {
+  container1: {
+    backgroundColor: "green",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    marginBottom: "1rem",
+    // marginTop: "9rem",
+    textAlign: "center",
+    "@media (min-width: 768px)": {
+      // justifyContent: "space-between",
+      // flexDirection: "row",
+      textAlign: "start",
+      // padding: "1rem 2rem",
+    },
+  },
+  container2: {
     backgroundColor: "green",
     marginBottom: "1rem",
   },
+  contentHeader: {
+    display: "flex",
+    flexDirection: "column",
+    // justifyContent: "space",
+    "@media (min-width: 768px)": {
+      justifyContent: "space-between",
+      flexDirection: "row",
+      // padding: "1rem 2rem",
+    },
+  },
   dashboardList: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-evenly",
     marginBottom: "1rem",
+    // width: "10rem",
+    "@media (min-width: 768px)": {
+      justifyContent: "space-between",
+      flexDirection: "row",
+      // padding: "1rem 2rem",
+    },
   },
   dashboardSearch: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "space-between",
     margin: "1rem 0",
+    "@media (min-width: 768px)": {
+      justifyContent: "space-between",
+      flexDirection: "row",
+      // padding: "1rem 2rem",
+    },
   },
   header: {
+    backgroundColor: "#fff",
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "1rem",
+    "@media (min-width: 768px)": {
+      justifyContent: "space-between",
+      flexDirection: "row",
+      padding: "1rem 2rem",
+    },
   },
-  image: {
+  imageLogo: {
     display: "flex",
     justifyContent: "center",
-    width: "13rem",
+    marginBottom: "1rem",
+    width: "10rem",
+    "@media (min-width: 768px)": {
+      width: "13rem",
+    },
+  },
+  imagePowerBI: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "1rem",
+    width: "16rem",
+    "@media (min-width: 768px)": {
+      width: "20rem",
+    },
+  },
+  leaveIcon: {
+    color: "#08BB6E",
+  },
+  selectedButtons: {
+    backgroundColor: "#fff",
+    border: "1px solid #08BB6E",
+    borderRadius: "1rem",
+    color: "#1A202C",
+    marginBottom: "1rem",
+    padding: "0.5rem 2rem",
+    "&hover": {
+      backgroundColor: "#08BB6E",
+      // color: "#fff",
+    },
+    "@media (min-width: 768px)": {
+      margin: "0 1rem",
+      marginBottom: "0rem",
+    },
+  },
+  subHeader: {
+    color: "#000",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  subHeaderInput: {
+    border: "1px solid #08BB6E",
+    borderRadius: "5px",
+    marginRight: "1rem",
   },
   tabs: {
+    // fontSize: "0.75rem",
     marginBottom: "1rem",
   },
 }));
@@ -86,87 +175,124 @@ const DashboardExternals = () => {
 
   return (
     <Container>
-      <Box className={classes.header}>
+      <AppBar className={classes.header} position="static">
         <CardMedia
           component="img"
           image={LogoVestcasaVerde}
           alt="logo vestcasa"
-          className={classes.image}
+          className={classes.imageLogo}
         />
-        <Input
-          label="Pesquisar"
-          startAdornment={
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          }
-          variant="outlined"
-        />
-        <ExitToAppRounded
-          className={classes.leaveIcon}
-          onClick={clearLocalStorage}
-        />
-      </Box>
 
-      {/* VISTO POR ÚLTIMO */}
-      <Container className={classes.containers}>
-        <Typography>Olá, Juliana Mello</Typography>
-        <Typography>Visto por último</Typography>
-
-        <Stack direction="row" className={classes.dashboardList}>
-          <Card>
-            <CardMedia
-              component="img"
-              image={LoremDashboard}
-              alt="lorem dashboard"
-              className={classes.image}
-            ></CardMedia>
-            <CardActions>
-              <Button>descrição</Button>
-            </CardActions>
-          </Card>
-          <Card>
-            <CardMedia
-              component="img"
-              image={LoremDashboard}
-              alt="lorem dashboard"
-              className={classes.image}
-            ></CardMedia>
-            <CardActions>
-              <Button>descrição</Button>
-            </CardActions>
-          </Card>
-          <Card>
-            <CardMedia
-              component="img"
-              image={LoremDashboard}
-              alt="lorem dashboard"
-              className={classes.image}
-            ></CardMedia>
-            <CardActions>
-              <Button>descrição</Button>
-            </CardActions>
-          </Card>
-        </Stack>
-      </Container>
-
-      {/* TODOS */}
-      <Container className={classes.containers}>
-        <Box>
-          <Box className={classes.dashboardSearch}>
-            <Button className={classes.selectedButtons}>descrição</Button>
-            <Button className={classes.selectedButtons}>descrição</Button>
-            <Button className={classes.selectedButtons}>descrição</Button>
+        <Box className={classes.subHeader}>
+          <Box
+            // className={classes.inputBox}
+            className={classes.subHeaderInput}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <Search sx={{ color: "#08BB6E" }} />
+            <input
+              placeholder="Pesquisar"
+              // variant="outlined"
+            />
           </Box>
-          <Input
+          {/* <Input
             label="Pesquisar"
             startAdornment={
               <InputAdornment position="start">
-                <Search />
+                <Search sx={{ color: "#08BB6E" }} />
               </InputAdornment>
             }
             variant="outlined"
+          /> */}
+          <ExitToAppRounded
+            className={classes.leaveIcon}
+            onClick={clearLocalStorage}
           />
+        </Box>
+      </AppBar>
+
+      {/* VISTO POR ÚLTIMO */}
+      <Container className={classes.container1}>
+        <Typography>Olá, Juliana Mello</Typography>
+        <Typography>Visto por último</Typography>
+
+        <Box className={classes.dashboardList}>
+          {/* <Stack className={classes.dashboardList}> */}
+          <Card className={classes.cards}>
+            <CardMedia
+              component="img"
+              image={LoremDashboard}
+              alt="lorem dashboard"
+              className={classes.imagePowerBI}
+            ></CardMedia>
+            <CardActions>
+              <Button>descrição</Button>
+            </CardActions>
+          </Card>
+          <Card className={classes.cards}>
+            <CardMedia
+              component="img"
+              image={LoremDashboard}
+              alt="lorem dashboard"
+              className={classes.imagePowerBI}
+            ></CardMedia>
+            <CardActions>
+              <Button>descrição</Button>
+            </CardActions>
+          </Card>
+          <Card className={classes.cards}>
+            <CardMedia
+              component="img"
+              image={LoremDashboard}
+              alt="lorem dashboard"
+              className={classes.imagePowerBI}
+            ></CardMedia>
+            <CardActions>
+              <Button>descrição</Button>
+            </CardActions>
+          </Card>
+        </Box>
+        {/* </Stack> */}
+      </Container>
+
+      {/* TODOS */}
+      <Container className={classes.container2}>
+        <Box className={classes.contentHeader}>
+          <Box className={classes.dashboardSearch}>
+            <Button className={classes.selectedButtons}>Selecionado</Button>
+            <Button className={classes.selectedButtons}>Filtro</Button>
+            <Button className={classes.selectedButtons}>Favoritos</Button>
+          </Box>
+          <Box className={classes.subHeader}>
+            <Box
+              // className={classes.inputBox}
+              className={classes.subHeaderInput}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              <Search sx={{ color: "#08BB6E" }} />
+              <input
+                placeholder="Pesquisar"
+                // variant="outlined"
+              />
+            </Box>
+            {/* <Input
+            label="Pesquisar"
+            startAdornment={
+              <InputAdornment position="start">
+                <Search sx={{ color: "#08BB6E" }} />
+              </InputAdornment>
+            }
+            variant="outlined"
+          /> */}
+          </Box>
         </Box>
 
         {/* LISTA DE TIPOS DE RELATÓRIOS */}
@@ -186,8 +312,9 @@ const DashboardExternals = () => {
           <Tab label="Entrada de Notas" {...a11yProps(7)} />
         </Tabs>
 
-        <Stack direction="row" className={classes.dashboardList}>
-          <Card>
+        {/* <Stack direction="row" className={classes.dashboardList}> */}
+        <Box className={classes.dashboardList}>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -198,7 +325,7 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-          <Card>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -209,7 +336,7 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-          <Card>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -220,9 +347,11 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-        </Stack>
-        <Stack direction="row" className={classes.dashboardList}>
-          <Card>
+        </Box>
+        {/* </Stack> */}
+        {/* <Stack direction="row" className={classes.dashboardList}> */}
+        <Box className={classes.dashboardList}>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -233,7 +362,7 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-          <Card>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -244,7 +373,7 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-          <Card>
+          <Card className={classes.cards}>
             <CardMedia
               component="img"
               image={LoremDashboard}
@@ -255,7 +384,8 @@ const DashboardExternals = () => {
               <Button>descrição</Button>
             </CardActions>
           </Card>
-        </Stack>
+          {/* </Stack> */}
+        </Box>
       </Container>
     </Container>
   );
