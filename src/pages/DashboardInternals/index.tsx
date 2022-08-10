@@ -102,7 +102,7 @@ const DashboardInternals = () => {
   // };
 
   // DOM:
-  const deb = window.document.getElementById("scroll");
+  const deb = window.document.getElementById("scroll") as HTMLElement;
 
   // // TELA CHEIA:
   // const { fullScreen, setFullScreen, openFullScreen, closeFullScreen } =

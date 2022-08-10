@@ -1,8 +1,5 @@
 import styled, { css } from "styled-components";
 
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-
 export const Article = styled.article`
   display: flex;
   justify-content: center;

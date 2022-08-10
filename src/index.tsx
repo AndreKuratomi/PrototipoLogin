@@ -11,7 +11,11 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 // import reportWebVitals from "./reportWebVitals";
 
-const container = document.getElementById("root");
+// interface IContainer {
+//   container: ;
+// }
+
+const container = document.getElementById("root") as HTMLElement;
 // const root = ReactDOM.createRoot(container);
 const root = createRoot(container);
 root.render(

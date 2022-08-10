@@ -27,13 +27,6 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-import Form from "../../assets/figma_imgs/Form.png";
-import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconPassword from "../../assets/figma_imgs/IconPassword.png";
-import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
-import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
@@ -139,7 +132,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormLogin = ({ error, ...rest }) => {
+export const FormLogin = () => {
   // STYLES:
   const classes = useStyles();
 

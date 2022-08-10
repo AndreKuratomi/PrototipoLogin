@@ -25,17 +25,6 @@ import {
 } from "@mui/icons-material";
 import { green, red } from "@mui/material/colors";
 
-import FormChangePasswordMobile from "../../assets/figma_imgs/FormChangePasswordMobile.png";
-import FormChangePasswordDesktop from "../../assets/figma_imgs/FormChangePasswordDesktop.png";
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconEmail from "../../assets/figma_imgs/IconEmail.png";
-import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
-import IconTemporaryPassword from "../../assets/figma_imgs/IconTemporaryPassword.png";
-import IconTemporaryPasswordError from "../../assets/figma_imgs/IconTemporaryPasswordError.png";
-import IconPassword from "../../assets/figma_imgs/IconPassword.png";
-import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
-import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
