@@ -1,17 +1,34 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
-export const TextInputContext = createContext();
+interface ITextProvider {
+  text: string;
+  setText: Dispatch<SetStateAction<string>>;
+  setUsername: (event: string) => void;
+}
 
-export const TextInputProvider = ({ children }) => {
+interface ITextProviderProps {
+  children: ReactNode;
+}
+
+export const TextInputContext = createContext({} as ITextProvider);
+
+export const TextInputProvider = ({ children }: ITextProviderProps) => {
   const [text, setText] = useState("");
 
   // ALTERAÇÃO STATE CONFORME USUÁRIO DIGITA:
-  const setUsername = (event) => {
-    setText(event.target.value);
+  const setUsername = (event: string) => {
+    // setText(event.target.value);
   };
 
   return (
-    <TextInputContext.Provider value={{ text, setUsername }}>
+    <TextInputContext.Provider value={{ text, setText, setUsername }}>
       {children}
     </TextInputContext.Provider>
   );

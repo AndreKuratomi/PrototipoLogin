@@ -35,6 +35,7 @@ import { useToast } from "@chakra-ui/react";
 import { Main } from "./styles";
 
 const useStyles = makeStyles(() => ({
+  card: { padding: "0" },
   cardActions: {
     display: "flex",
     justifyContent: "space-between",
@@ -166,7 +167,7 @@ const DashboardInternals = () => {
   return (
     <Main id="scroll">
       <Container className={classes.container}>
-        <Card sx={{ padding: "0" }}>
+        <Card className={classes.card}>
           <CardMedia
             component="img"
             image={LogoVestcasaVerde}

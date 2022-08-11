@@ -32,6 +32,9 @@ import { useToast } from "@chakra-ui/react";
 import { A, Article } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
+  color: {
+    color: "#fff",
+  },
   // buttonSingle: {
   //   backgroundColor: "#3f51b5",
   //   margin: "0.5rem 0",
@@ -199,7 +202,7 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  const emailErrorToast = (algo) => {
+  const emailErrorToast = (algo: string) => {
     toast({
       description: algo,
       duration: 3000,
@@ -208,7 +211,7 @@ export const FormChangePassword = () => {
       title: "Erro!",
     });
   };
-  const protoConflictToast = (algo) => {
+  const protoConflictToast = (algo: string) => {
     toast({
       description: algo,
       duration: 3000,
@@ -217,7 +220,7 @@ export const FormChangePassword = () => {
       title: "Erro!",
     });
   };
-  const repeatPasswordToast = (algo) => {
+  const repeatPasswordToast = (algo: string) => {
     toast({
       description: algo,
       duration: 3000,
@@ -284,6 +287,10 @@ export const FormChangePassword = () => {
     notAskedToast();
     return <Navigate to="/" />;
   }
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
+    console.log(e);
+  };
 
   return (
     <Article>
@@ -360,14 +367,14 @@ export const FormChangePassword = () => {
                     {visible1 ? (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userUnvisible1}
+                        onClick={(e) => handleClick(e, userUnvisible1)}
                       >
                         <VisibilityOff />
                       </Button>
                     ) : (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userVisible1}
+                        onClick={(e) => handleClick(e, userVisible1)}
                       >
                         <Visibility />
                       </Button>
@@ -401,14 +408,14 @@ export const FormChangePassword = () => {
                     {visible2 ? (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userUnvisible2}
+                        onClick={(e) => handleClick(e, userUnvisible2)}
                       >
                         <VisibilityOff />
                       </Button>
                     ) : (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userVisible2}
+                        onClick={(e) => handleClick(e, userVisible2)}
                       >
                         <Visibility />
                       </Button>
@@ -442,14 +449,14 @@ export const FormChangePassword = () => {
                     {visible3 ? (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userUnvisible3}
+                        onClick={(e) => handleClick(e, userUnvisible3)}
                       >
                         <VisibilityOff />
                       </Button>
                     ) : (
                       <Button
                         className={classes.passwordButton}
-                        onClick={userVisible3}
+                        onClick={(e) => handleClick(e, userVisible3)}
                       >
                         <Visibility />
                       </Button>
@@ -462,7 +469,7 @@ export const FormChangePassword = () => {
         </Box>
         <Box className={classes.suggestionBox}>
           <Box>
-            <Typography color={"#fff"}>
+            <Typography className={classes.color}>
               Sugestão: usar caracteres especiais/letras maiúsculas/letras
               minúsculas e números
             </Typography>
@@ -472,7 +479,7 @@ export const FormChangePassword = () => {
               <Button
                 className={classes.submitButton}
                 color="primary"
-                disabled="true"
+                disabled={true}
                 size="large"
                 variant="contained"
                 type="submit"

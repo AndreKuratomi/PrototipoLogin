@@ -40,12 +40,13 @@ export const FullScreenProvider = ({ children }: IFullScreenProviderProps) => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
       //Safari:
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-      //IE11:
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
     }
+    //  else if (document.webkitExitFullscreen) {
+    //   document.webkitExitFullscreen();
+    //   //IE11:
+    // } else if (document.msExitFullscreen) {
+    //   document.msExitFullscreen();
+    // }
   };
 
   const openFullScreen = (elem: any) => {

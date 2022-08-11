@@ -1,9 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import {
   v1 as uuidv1,
-  v2 as uuidv2,
+  // v2 as uuidv2,
   v3 as uuidv3,
   v4 as uuidv4,
   v5 as uuidv5,
@@ -15,9 +23,19 @@ import { send } from "emailjs-com";
 
 import { useToast } from "@chakra-ui/react";
 
-export const PasswordAskContext = createContext();
+interface IAskProvider {
+  loading: boolean;
+  onSubmit: (form: any, e: any) => Promise<void>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}
 
-export const PasswordAskProvider = ({ children }) => {
+interface IAskProviderProps {
+  children: ReactNode;
+}
+
+export const PasswordAskContext = createContext({} as IAskProvider);
+
+export const PasswordAskProvider = ({ children }: IAskProviderProps) => {
   // STATE PARA PROCESSAMENTO INFORMAÇÕES FORMULÁRIO:
   const [loading, setLoading] = useState(false);
 
@@ -77,11 +95,14 @@ export const PasswordAskProvider = ({ children }) => {
     usuario: "",
   };
 
-  const onSubmit = async (form, e) => {
+  const onSubmit = async (
+    form: { email: string; repeatNewPassword: any; usuario: string },
+    e: { preventDefault: () => void }
+  ) => {
     LoadPage();
 
     qwerty.email = form.email;
-    qwerty.new_password = form.repeatNewPassword;
+    qwerty.nova_senha = form.repeatNewPassword;
     qwerty.usuario = form.usuario;
 
     e.preventDefault();
@@ -107,7 +128,7 @@ export const PasswordAskProvider = ({ children }) => {
   };
 
   return (
-    <PasswordAskContext.Provider value={{ onSubmit, loading }}>
+    <PasswordAskContext.Provider value={{ onSubmit, loading, setLoading }}>
       {children}
     </PasswordAskContext.Provider>
   );

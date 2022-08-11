@@ -33,6 +33,7 @@ import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
 import { green, red } from "@mui/material/colors";
+import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
@@ -138,7 +139,7 @@ export const FormLogin = () => {
 
   // PROVIDERS:
   const { visible, userVisible, userUnvisible } = usePasswordVisible();
-  const { text, setUsername } = useTextInput();
+  // const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken } = useUserLogin();
 
   // TOASTS:
@@ -154,12 +155,10 @@ export const FormLogin = () => {
     });
   };
 
-  const addWarningToast = (person) => {
+  const addWarningToast = () => {
     toast({
       description:
-        "Atenção, " +
-        person.target[0].value +
-        "!" +
+        "Atenção!" +
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
       duration: 7000,
       position: "top",
@@ -168,10 +167,9 @@ export const FormLogin = () => {
     });
   };
 
-  const addFailToast = (person, date) => {
+  const addFailToast = (date: string) => {
     toast({
-      description:
-        "Assinatura vencida, " + person.target[0].value + "desde " + date + "!",
+      description: "Assinatura vencida desde " + date + "!",
       duration: 5000,
       position: "top",
       status: "error",
@@ -224,7 +222,7 @@ export const FormLogin = () => {
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data, text) => {
+  const onSubmitFunction = (data: Object, text: any) => {
     // navigate("/dashboardinternals");
     // userLogged();
     // createUserToken();
@@ -266,6 +264,11 @@ export const FormLogin = () => {
   };
   console.log(errors);
 
+  const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
+    console.log(e);
+    func();
+  };
+
   return (
     <>
       <Article>
@@ -295,7 +298,7 @@ export const FormLogin = () => {
                 className={classes.textFieldsContent}
                 error={!!errors.email}
                 label="Email"
-                onChange={(evt) => setUsername(evt)}
+                // onChange={(evt) => setUsername(evt)}
                 variant="standard"
                 {...register("email")}
                 // value={text}
@@ -324,14 +327,14 @@ export const FormLogin = () => {
                       {visible ? (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userUnvisible}
+                          onClick={(e) => handleClick(e, userUnvisible)}
                         >
                           <VisibilityOff />
                         </Button>
                       ) : (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userVisible}
+                          onClick={(e) => handleClick(e, userVisible)}
                         >
                           <Visibility />
                         </Button>

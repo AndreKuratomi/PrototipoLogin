@@ -10,20 +10,20 @@ import {
 interface IPasswordVisibilityProvider {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
-  userVisible: Dispatch<SetStateAction<boolean>>;
-  userUnvisible: Dispatch<SetStateAction<boolean>>;
+  userVisible: () => void;
+  userUnvisible: () => void;
   visible1: boolean;
   setVisible1: Dispatch<SetStateAction<boolean>>;
-  userVisible1: Dispatch<SetStateAction<boolean>>;
-  userUnvisible1: Dispatch<SetStateAction<boolean>>;
+  userVisible1: () => void;
+  userUnvisible1: () => void;
   visible2: boolean;
   setVisible2: Dispatch<SetStateAction<boolean>>;
-  userVisible2: Dispatch<SetStateAction<boolean>>;
-  userUnvisible2: Dispatch<SetStateAction<boolean>>;
+  userVisible2: () => void;
+  userUnvisible2: () => void;
   visible3: boolean;
   setVisible3: Dispatch<SetStateAction<boolean>>;
-  userVisible3: Dispatch<SetStateAction<boolean>>;
-  userUnvisible3: Dispatch<SetStateAction<boolean>>;
+  userVisible3: () => void;
+  userUnvisible3: () => void;
 }
 
 interface IPasswordVisibilityProviderProps {

@@ -319,7 +319,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -330,7 +330,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -341,7 +341,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -356,7 +356,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -367,7 +367,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -378,7 +378,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>

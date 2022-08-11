@@ -1,9 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import {
   v1 as uuidv1,
-  v2 as uuidv2,
+  // v2 as uuidv2,
   v3 as uuidv3,
   v4 as uuidv4,
   v5 as uuidv5,
@@ -13,9 +21,21 @@ import { send } from "emailjs-com";
 
 import { useToast } from "@chakra-ui/react";
 
-export const PasswordConfirmContext = createContext();
+interface IConfirmProvider {
+  loading: boolean;
+  onSubmit: (form: any, e: any) => Promise<void>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}
 
-export const PasswordConfirmProvider = ({ children }) => {
+interface IConfirmProviderProps {
+  children: ReactNode;
+}
+
+export const PasswordConfirmContext = createContext({} as IConfirmProvider);
+
+export const PasswordConfirmProvider = ({
+  children,
+}: IConfirmProviderProps) => {
   // STATE PARA PROCESSAMENTO INFORMAÇÕES FORMULÁRIO:
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +90,10 @@ export const PasswordConfirmProvider = ({ children }) => {
   };
 
   // LÓGICA SUBMISSÃO PARA ENVIO EMAIL:
-  const onSubmit = (form, e) => {
+  const onSubmit = async (
+    form: { email: string; repetir_nova_senha: string; usuario: string },
+    e: { preventDefault: () => void }
+  ) => {
     LoadPage();
 
     qwerty.email = form.email;
@@ -79,7 +102,12 @@ export const PasswordConfirmProvider = ({ children }) => {
 
     e.preventDefault();
 
-    send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
+    await send(
+      "service_j5y5zw8",
+      "template_kmnv10u",
+      qwerty,
+      "AP4ks7G3vrdRa8AWJ"
+    )
       .then((response) => {
         addSuccessToast();
         console.log("Email enviado!", response.status, response.text);
@@ -95,7 +123,7 @@ export const PasswordConfirmProvider = ({ children }) => {
   };
 
   return (
-    <PasswordConfirmContext.Provider value={{ onSubmit, loading }}>
+    <PasswordConfirmContext.Provider value={{ onSubmit, loading, setLoading }}>
       {children}
     </PasswordConfirmContext.Provider>
   );
