@@ -1,10 +1,28 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
 import bcrypt from "bcryptjs";
 
-export const UserLoginContext = createContext();
+interface ILoginProvider {
+  logged: boolean;
+  setLogged: Dispatch<SetStateAction<boolean>>;
+  userLogged: () => void;
+  createUserToken: () => void;
+}
 
-export const UserLoginProvider = ({ children }) => {
+interface ILoginProviderProps {
+  children: ReactNode;
+}
+
+export const UserLoginContext = createContext({} as ILoginProvider);
+
+export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
   // STATE PARA VERIFICAR SE O USUÁRIO ESTÁ LOGADO:
   const [logged, setLogged] = useState(false);
 

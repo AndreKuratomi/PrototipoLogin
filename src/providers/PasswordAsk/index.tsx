@@ -1,21 +1,41 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import {
   v1 as uuidv1,
-  v2 as uuidv2,
+  // v2 as uuidv2,
   v3 as uuidv3,
   v4 as uuidv4,
   v5 as uuidv5,
 } from "uuid";
 
+import bcrypt from "bcryptjs";
+
 import { send } from "emailjs-com";
 
 import { useToast } from "@chakra-ui/react";
 
-export const PasswordConfirmContext = createContext();
+interface IAskProvider {
+  loading: boolean;
+  onSubmit: (form: any, e: any) => Promise<void>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}
 
-export const PasswordConfirmProvider = ({ children }) => {
+interface IAskProviderProps {
+  children: ReactNode;
+}
+
+export const PasswordAskContext = createContext({} as IAskProvider);
+
+export const PasswordAskProvider = ({ children }: IAskProviderProps) => {
   // STATE PARA PROCESSAMENTO INFORMAÇÕES FORMULÁRIO:
   const [loading, setLoading] = useState(false);
 
@@ -28,22 +48,28 @@ export const PasswordConfirmProvider = ({ children }) => {
 
   const addSuccessToast = () => {
     toast({
-      description: "Senha alterada com sucesso!",
+      description: "Confira sua caixa de emails.",
       duration: 5000,
       position: "top",
       status: "success",
-      title: "Alteração feita com sucesso!",
+      title: "Solicitação enviada com sucesso!",
     });
   };
   const addFailToast = () => {
     toast({
       description:
-        "Algo deu errado! Verifique se os dados preenchidos estão corretos.",
+        "Algo deu errado! Verifique se os dados preenchidos estão corretos ou se o email está cadastrado",
       duration: 5000,
       position: "top",
       status: "error",
-      title: "Falha na alteração!",
+      title: "Falha na solicitação!",
     });
+  };
+
+  // GERAÇÂO DE 'TOKEN' E ALOCAÇÃO NO LOCALSTORAGE:
+  const createAuth = () => {
+    const cryptoken = bcrypt.genSaltSync(10);
+    localStorage.setItem("@token: NewEmailToken", JSON.stringify(cryptoken));
   };
 
   // VARIÁVEL USENAVIGATE:
@@ -63,27 +89,34 @@ export const PasswordConfirmProvider = ({ children }) => {
     date1: date1,
     email: "",
     link: "http://localhost:3000/changepassword",
+    nova_senha: "",
     random_password: reducedUUID,
-    repetir_nova_senha: "",
     reply_to: "suporte.vestcasa@gmail.com",
     usuario: "",
   };
 
-  // LÓGICA SUBMISSÃO PARA ENVIO EMAIL:
-  const onSubmit = (form, e) => {
+  const onSubmit = async (
+    form: { email: string; repeatNewPassword: any; usuario: string },
+    e: { preventDefault: () => void }
+  ) => {
     LoadPage();
 
     qwerty.email = form.email;
-    qwerty.repetir_nova_senha = form.repetir_nova_senha;
+    qwerty.nova_senha = form.repeatNewPassword;
     qwerty.usuario = form.usuario;
 
     e.preventDefault();
 
-    send("service_j5y5zw8", "template_kmnv10u", qwerty, "AP4ks7G3vrdRa8AWJ")
+    await send(
+      "service_j5y5zw8",
+      "template_qya1x9k",
+      qwerty,
+      "AP4ks7G3vrdRa8AWJ"
+    )
       .then((response) => {
         addSuccessToast();
         console.log("Email enviado!", response.status, response.text);
-        localStorage.clear();
+        createAuth();
         navigate("/");
         setLoading(false);
       })
@@ -95,10 +128,10 @@ export const PasswordConfirmProvider = ({ children }) => {
   };
 
   return (
-    <PasswordConfirmContext.Provider value={{ onSubmit, loading }}>
+    <PasswordAskContext.Provider value={{ onSubmit, loading, setLoading }}>
       {children}
-    </PasswordConfirmContext.Provider>
+    </PasswordAskContext.Provider>
   );
 };
 
-export const usePasswordConfirm = () => useContext(PasswordConfirmContext);
+export const usePasswordAsk = () => useContext(PasswordAskContext);

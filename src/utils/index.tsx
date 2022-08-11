@@ -125,13 +125,13 @@ export const TimeOut = () => {
   const displayTimeout = (second) => {
     const min = Math.floor(second / 60);
     const sec = Math.floor(second % 60);
-    time.innerHML = `
+    time.innerHTML = `
     ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
     `;
   };
 
   const endCount = () => {
-    time.innerHML = "!";
+    time.innerHTML = "!";
   };
 
   // return <Article>{time}</Article>;

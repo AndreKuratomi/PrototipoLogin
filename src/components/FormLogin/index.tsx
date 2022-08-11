@@ -27,19 +27,13 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-import Form from "../../assets/figma_imgs/Form.png";
-import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconPassword from "../../assets/figma_imgs/IconPassword.png";
-import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
-import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
 import { green, red } from "@mui/material/colors";
+import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
@@ -139,13 +133,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormLogin = ({ error, ...rest }) => {
+export const FormLogin = () => {
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
   const { visible, userVisible, userUnvisible } = usePasswordVisible();
-  const { text, setUsername } = useTextInput();
+  // const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken } = useUserLogin();
 
   // TOASTS:
@@ -161,12 +155,10 @@ export const FormLogin = ({ error, ...rest }) => {
     });
   };
 
-  const addWarningToast = (person) => {
+  const addWarningToast = () => {
     toast({
       description:
-        "Atenção, " +
-        person.target[0].value +
-        "!" +
+        "Atenção!" +
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
       duration: 7000,
       position: "top",
@@ -175,10 +167,9 @@ export const FormLogin = ({ error, ...rest }) => {
     });
   };
 
-  const addFailToast = (person, date) => {
+  const addFailToast = (date: string) => {
     toast({
-      description:
-        "Assinatura vencida, " + person.target[0].value + "desde " + date + "!",
+      description: "Assinatura vencida desde " + date + "!",
       duration: 5000,
       position: "top",
       status: "error",
@@ -231,7 +222,7 @@ export const FormLogin = ({ error, ...rest }) => {
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data, text) => {
+  const onSubmitFunction = (data: Object, text: any) => {
     // navigate("/dashboardinternals");
     // userLogged();
     // createUserToken();
@@ -273,6 +264,11 @@ export const FormLogin = ({ error, ...rest }) => {
   };
   console.log(errors);
 
+  const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
+    console.log(e);
+    func();
+  };
+
   return (
     <>
       <Article>
@@ -302,7 +298,7 @@ export const FormLogin = ({ error, ...rest }) => {
                 className={classes.textFieldsContent}
                 error={!!errors.email}
                 label="Email"
-                onChange={(evt) => setUsername(evt)}
+                // onChange={(evt) => setUsername(evt)}
                 variant="standard"
                 {...register("email")}
                 // value={text}
@@ -331,14 +327,14 @@ export const FormLogin = ({ error, ...rest }) => {
                       {visible ? (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userUnvisible}
+                          onClick={(e) => handleClick(e, userUnvisible)}
                         >
                           <VisibilityOff />
                         </Button>
                       ) : (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userVisible}
+                          onClick={(e) => handleClick(e, userVisible)}
                         >
                           <Visibility />
                         </Button>

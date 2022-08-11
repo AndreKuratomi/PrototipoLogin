@@ -159,7 +159,7 @@ const DashboardExternals = () => {
 
   const [value, setValue] = useState(0);
 
-  const a11yProps = (index) => {
+  const a11yProps = (index: number) => {
     return {
       id: `simple-tab-${index}`,
       "aria-controls": `simple-tabpanel-${index}`,
@@ -319,7 +319,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -330,7 +330,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -341,7 +341,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -356,7 +356,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -367,7 +367,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>
@@ -378,7 +378,7 @@ const DashboardExternals = () => {
               component="img"
               image={LoremDashboard}
               alt="lorem dashboard"
-              className={classes.image}
+              className={classes.imagePowerBI}
             ></CardMedia>
             <CardActions>
               <Button>descrição</Button>

@@ -148,7 +148,7 @@ export const FormAskPassword = () => {
   // TOASTS:
   const toast = useToast();
 
-  const emailErrorToast = (algo) => {
+  const emailErrorToast = (algo: string) => {
     toast({
       description: algo,
       duration: 3000,
@@ -232,7 +232,7 @@ export const FormAskPassword = () => {
           <Button
             className={classes.submitButton}
             color="primary"
-            disabled="true"
+            disabled={true}
             size="large"
             type="submit"
             variant="outlined"

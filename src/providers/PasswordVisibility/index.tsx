@@ -1,8 +1,42 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
-export const PasswordVisibleContext = createContext();
+interface IPasswordVisibilityProvider {
+  visible: boolean;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  userVisible: () => void;
+  userUnvisible: () => void;
+  visible1: boolean;
+  setVisible1: Dispatch<SetStateAction<boolean>>;
+  userVisible1: () => void;
+  userUnvisible1: () => void;
+  visible2: boolean;
+  setVisible2: Dispatch<SetStateAction<boolean>>;
+  userVisible2: () => void;
+  userUnvisible2: () => void;
+  visible3: boolean;
+  setVisible3: Dispatch<SetStateAction<boolean>>;
+  userVisible3: () => void;
+  userUnvisible3: () => void;
+}
 
-export const PasswordVisibleProvider = ({ children }) => {
+interface IPasswordVisibilityProviderProps {
+  children: ReactNode;
+}
+
+export const PasswordVisibleContext = createContext(
+  {} as IPasswordVisibilityProvider
+);
+
+export const PasswordVisibleProvider = ({
+  children,
+}: IPasswordVisibilityProviderProps) => {
   // STATE PARA VERIFICAR SE A SENHA ESTÁ VISÍVEL:
   const [visible, setVisible] = useState(false);
 

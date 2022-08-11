@@ -1,13 +1,31 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
-export const FullScreenContext = createContext();
+interface IFullScreenProvider {
+  fullScreen: boolean;
+  setFullScreen: Dispatch<SetStateAction<boolean>>;
+  openFullScreen: (elem: any) => void;
+  closeFullScreen: (elem: any) => void;
+}
 
-export const FullScreenProvider = ({ children }) => {
+interface IFullScreenProviderProps {
+  children: ReactNode;
+}
+
+export const FullScreenContext = createContext({} as IFullScreenProvider);
+
+export const FullScreenProvider = ({ children }: IFullScreenProviderProps) => {
   // STATE PARA DEFINIR TELA CHEIA:
   const [fullScreen, setFullScreen] = useState(false);
 
   // FUNÇÕES PARA ATIVAR E DESATIVAR FULLSCREEN:
-  const activateFullscreen = (elem) => {
+  const activateFullscreen = (elem: any) => {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
       //Safari:
@@ -22,15 +40,16 @@ export const FullScreenProvider = ({ children }) => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
       //Safari:
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-      //IE11:
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
     }
+    //  else if (document.webkitExitFullscreen) {
+    //   document.webkitExitFullscreen();
+    //   //IE11:
+    // } else if (document.msExitFullscreen) {
+    //   document.msExitFullscreen();
+    // }
   };
 
-  const openFullScreen = (elem) => {
+  const openFullScreen = (elem: any) => {
     setFullScreen(true);
     activateFullscreen(elem);
   };
