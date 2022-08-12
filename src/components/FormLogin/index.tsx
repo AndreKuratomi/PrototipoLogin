@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { api } from "../../service/api";
+import api from "../../service/api";
 
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
 import { useTextInput } from "../../providers/TextInput";
@@ -27,19 +27,13 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-import Form from "../../assets/figma_imgs/Form.png";
-import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconPassword from "../../assets/figma_imgs/IconPassword.png";
-import IconPasswordError from "../../assets/figma_imgs/IconPasswordError.png";
-import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
 import { green, red } from "@mui/material/colors";
+import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
@@ -139,31 +133,63 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormLogin = ({ error, ...rest }) => {
+export const FormLogin = () => {
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
   const { visible, userVisible, userUnvisible } = usePasswordVisible();
-  const { text, setUsername } = useTextInput();
+  // const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
 
-  const addSuccessToast = (person) => {
+  const addSuccessToast = () => {
     toast({
-      description: "Seja bem-vindo, " + person.target[0].value + "!",
-      duration: 2000,
+      description: "Seja bem-vindo(a), fornecedor(a)!",
+      duration: 3000,
       position: "top",
       status: "success",
       title: "Login feito com sucesso!",
     });
   };
 
+  const addWarningToast = () => {
+    toast({
+      description:
+        "Atenção!" +
+        "Sua assinatura está próxima ao vencimento. Contatar suporte.",
+      duration: 7000,
+      position: "top",
+      status: "warning",
+      title: "Assinatura próxima de renovar!",
+    });
+  };
+
+  const addFailToast = (date: string) => {
+    toast({
+      description: "Assinatura vencida desde " + date + "!",
+      duration: 5000,
+      position: "top",
+      status: "error",
+      title: "Acesso bloqueado!",
+    });
+  };
+
+  const addNonLoggedToast = () => {
+    toast({
+      description: "Usuário não cadastrado! Verificar dados.",
+      duration: 5000,
+      position: "top",
+      status: "error",
+      title: "Acesso bloqueado!",
+    });
+  };
+
   // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório!"),
+    email: yup.string().email().required("Usuário obrigatório!"),
     password: yup.string().required("Senha obrigatória!"),
   });
 
@@ -175,34 +201,73 @@ export const FormLogin = ({ error, ...rest }) => {
     resolver: yupResolver(formSchema),
   });
 
+  // // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
+  // if (errors.email && errors.email?.message === "email must be a valid email") {
+  //   addNonLoggedToast();
+  //   console.log("sdfgcx");
+  //   console.log(addNonLoggedToast());
+  // }
+  // if (errors.senha && errors.senha?.message === "Senha obrigatória!") {
+  //   addNonLoggedToast();
+  //   console.log(addNonLoggedToast());
+  // }
+  // if (
+  //   errors.repetir_nova_senha &&
+  //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
+  // ) {
+  //   addNonLoggedToast();
+  // }
+
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data, text) => {
-    userLogged();
-    createUserToken();
+  const onSubmitFunction = (data: Object, text: any) => {
+    // navigate("/dashboardinternals");
+    // userLogged();
+    // createUserToken();
+    console.log(data);
+    // addNonLoggedToast();
+    api
+      .post("login/", data)
+      .then((response) => {
+        console.log(response);
+        // const { token, user } = response.data;
+        addSuccessToast();
+        navigate("/dashboardinternals");
+        userLogged();
+        createUserToken();
+        // // setAuthenticated(true);
+        const now = Date.now();
 
-    navigate("/dashboard");
+        // let delta = user.signature_vality - now;
+        // console.log(delta);
 
-    addSuccessToast(text);
-    // api
-    //   .post("/login", data)
-    //   .then((response) => {
-    //     const { token, user } = response.data;
-
-    //     setAuthenticated(true);
-
-    //     const now = Date.now();
-    //     let delta = user.signature.deadline - now;
-    //    if () {}
-
-    //   })
-    //   .catch((err) => {
-    // addFailToast();
-    //   });
+        // if (delta > 15) {
+        //   addSuccessToast(user.username);
+        //   userLogged();
+        //   createUserToken();
+        //   navigate("/dashboardinternals");
+        // } else if (delta <= 15 && delta > 0) {
+        //   addWarningToast(user.username);
+        //   userLogged();
+        //   createUserToken();
+        //   navigate("/dashboardinternals");
+        // } else {
+        //   addFailToast(user.signature_vality);
+        // }
+      })
+      .catch((err) => {
+        console.log(err);
+        addNonLoggedToast();
+      });
   };
   console.log(errors);
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
+    console.log(e);
+    func();
+  };
 
   return (
     <>
@@ -224,18 +289,18 @@ export const FormLogin = ({ error, ...rest }) => {
                 marginBottom: "1rem",
               }}
             >
-              {Object.keys(errors).some((elt) => elt === "username") ? (
+              {Object.keys(errors).some((elt) => elt === "email") ? (
                 <Person sx={{ color: red[500] }} />
               ) : (
                 <Person sx={{ color: green[700] }} />
               )}
               <TextField
                 className={classes.textFieldsContent}
-                error={!!errors.username}
-                label="Usuário"
-                onChange={(evt) => setUsername(evt)}
+                error={!!errors.email}
+                label="Email"
+                // onChange={(evt) => setUsername(evt)}
                 variant="standard"
-                {...register("username")}
+                {...register("email")}
                 // value={text}
               />
             </Box>
@@ -262,14 +327,14 @@ export const FormLogin = ({ error, ...rest }) => {
                       {visible ? (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userUnvisible}
+                          onClick={(e) => handleClick(e, userUnvisible)}
                         >
                           <VisibilityOff />
                         </Button>
                       ) : (
                         <Button
                           className={classes.passwordButton}
-                          onClick={userVisible}
+                          onClick={(e) => handleClick(e, userVisible)}
                         >
                           <Visibility />
                         </Button>
