@@ -1,7 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-    // :root{}
+    :root{
+        --black: #000;
+        --externalDashboardGreen: #06A460;
+        --hoverGreen: #178F51;
+        --lightGreen: #EBF5ED;
+        --white: #fff;
+        --yellow: #E9B907;
+    }
+
     *{
         box-sizing: border-box;
     }
@@ -9,4 +17,6 @@ export default createGlobalStyle`
     figcaption {
         display: none;
     }
+
+
 `;
