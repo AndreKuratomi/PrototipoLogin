@@ -6,7 +6,7 @@ import { ExitToAppRounded } from "@mui/icons-material";
 
 import { makeStyles } from "@material-ui/styles";
 
-import LogoVestcasaVerde from "../../assets/figma_imgs/LogoVestcasaVerde.png";
+import LogoVestcasaNovo from "../../assets/figma_imgs/LogoVestcasaNovo.png";
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -56,7 +56,7 @@ export const HeaderDashExternal = () => {
     <AppBar className={classes.header} position="static">
       <CardMedia
         component="img"
-        image={LogoVestcasaVerde}
+        image={LogoVestcasaNovo}
         alt="logo vestcasa"
         className={classes.imageLogo}
       />

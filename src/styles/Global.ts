@@ -7,6 +7,7 @@ export default createGlobalStyle`
         --hoverGreen: #178F51;
         --lightGreen: #EBF5ED;
         --white: #fff;
+        --yellow: #E9B907;
     }
 
     *{
