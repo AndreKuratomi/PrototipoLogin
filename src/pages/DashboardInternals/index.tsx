@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   leaveIcon: {
-    color: "#000",
+    color: "var(--black)",
     "&:hover": {
       cursor: "pointer",
     },

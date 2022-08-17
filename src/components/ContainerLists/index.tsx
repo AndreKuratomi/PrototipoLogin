@@ -1,4 +1,3 @@
-import { CardsBIList } from "../CardsBIList";
 import { HeaderDashContent } from "../HeaderDashContent";
 import { TabsList } from "../TabsList";
 
@@ -21,7 +20,6 @@ export const ContainerLists = () => {
     <Container className={classes.container}>
       <HeaderDashContent />
       <TabsList />
-      <CardsBIList />
     </Container>
   );
 };
