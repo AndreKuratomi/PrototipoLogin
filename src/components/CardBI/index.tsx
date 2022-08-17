@@ -1,3 +1,5 @@
+import { Link, useNavigate } from "react-router-dom";
+
 import { Box, Button, Card, CardActions, CardMedia } from "@material-ui/core";
 import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
@@ -8,6 +10,7 @@ import LoremDashboard from "../../assets/figma_imgs/LoremDashboard.png";
 
 interface IProps {
   description: string;
+  link: string;
 }
 
 const useStyles = makeStyles(() => ({
@@ -34,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CardBI = ({ description }: IProps) => {
+export const CardBI = ({ description, link }: IProps) => {
   // STYLES:
   const classes = useStyles();
 
@@ -50,9 +53,9 @@ export const CardBI = ({ description }: IProps) => {
     <Card className={classes.cards}>
       <Box className={classes.cardsContent}>
         <CardMedia
-          component="img"
-          image={LoremDashboard}
-          alt="lorem dashboard"
+          component="iframe"
+          src={link}
+          // alt="lorem dashboard"
           className={classes.imagePowerBI}
         />
 
@@ -69,7 +72,10 @@ export const CardBI = ({ description }: IProps) => {
         )}
       </Box>
       <CardActions>
-        <Button>{description}</Button>
+        <Link to="/dashboardsingle">
+          {/* COMO MANDAR LINK VIA PROPS PARA PÁGINA DASHBOARDSINGLE???*/}
+          <Button>{description}</Button>
+        </Link>
       </CardActions>
     </Card>
   );
