@@ -15,10 +15,7 @@ export const Rotas = () => {
       <Route path="/changepassword" element={<ChangePassword />} />
       <Route path="/dashboardinternals" element={<DashboardInternals />} />
       <Route path="/dashboardexternals" element={<DashboardExternals />} />
-      <Route
-        path="/dashboardsingle"
-        element={<DashboardSingle link={link} />}
-      />
+      <Route path="/dashboardsingle" element={<DashboardSingle />} />
       <Route path="/email" element={<Email />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

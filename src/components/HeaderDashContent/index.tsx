@@ -2,23 +2,13 @@ import { Box, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
-  contentHeader: {
+  dashboardSearch: {
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "space",
-    "@media (min-width: 768px)": {
-      // justifyContent: "space-between",
-      flexDirection: "row",
-      // padding: "1rem 2rem",
-    },
-  },
-  dashboardSearch: {
-    // display: "flex",
-    // flexDirection: "column",
     // justifyContent: "space-between",
-    margin: "1rem 0",
+    marginBottom: "1rem",
     "@media (min-width: 768px)": {
-      justifyContent: "space-between",
+      justifyContent: "space-evenly",
       flexDirection: "row",
       // padding: "1rem 2rem",
     },
@@ -45,12 +35,12 @@ export const HeaderDashContent = () => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.contentHeader}>
-      <Box className={classes.dashboardSearch}>
-        <Button className={classes.selectedButtons}>Selecionado</Button>
-        <Button className={classes.selectedButtons}>Filtro</Button>
-        <Button className={classes.selectedButtons}>Favoritos</Button>
-      </Box>
+    // <Box className={classes.contentHeader}>
+    <Box className={classes.dashboardSearch}>
+      <Button className={classes.selectedButtons}>Selecionado</Button>
+      <Button className={classes.selectedButtons}>Filtro</Button>
+      <Button className={classes.selectedButtons}>Favoritos</Button>
     </Box>
+    //</Box>
   );
 };

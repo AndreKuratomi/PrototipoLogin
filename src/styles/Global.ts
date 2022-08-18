@@ -4,6 +4,7 @@ export default createGlobalStyle`
     :root{
         --black: #000;
         --externalDashboardGreen: #06A460;
+        --gray: #808080;
         --hoverGreen: #178F51;
         --lightGreen: #EBF5ED;
         --white: #fff;
