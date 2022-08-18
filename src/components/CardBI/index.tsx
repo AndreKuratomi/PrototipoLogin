@@ -14,23 +14,47 @@ interface IProps {
 }
 
 const useStyles = makeStyles(() => ({
+  button: {
+    backgroundColor: "var(--gray)",
+    width: "16rem",
+    "@media (min-width: 768px)": {
+      width: "20rem",
+    },
+    "&:hover": {
+      backgroundColor: "var(--gray)",
+    },
+  },
   cards: {
+    display: "flex",
+    flexDirection: "column",
     marginBottom: "1rem",
   },
+  cardAction: {
+    padding: "0",
+  },
   cardsContent: {
-    display: "flex",
+    maxHeight: "142.5px",
+    "@media (min-width: 768px)": {
+      maxHeight: "180.5px",
+    },
   },
   imagePowerBI: {
     display: "flex",
     justifyContent: "center",
     marginBottom: "1rem",
     width: "16rem",
+    height: "13.5rem",
     "@media (min-width: 768px)": {
       width: "20rem",
     },
   },
   starIcon: {
     color: "var(--yellow)",
+    position: "absolute",
+    marginLeft: "6.5rem",
+    "@media (min-width: 768px)": {
+      marginLeft: "18.5rem",
+    },
     "&:hover": {
       cursor: "pointer",
     },
@@ -52,13 +76,6 @@ export const CardBI = ({ description, link }: IProps) => {
   return (
     <Card className={classes.cards}>
       <Box className={classes.cardsContent}>
-        <CardMedia
-          component="iframe"
-          src={link}
-          // alt="lorem dashboard"
-          className={classes.imagePowerBI}
-        />
-
         {clicked ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
           <StarRounded
             className={classes.starIcon}
@@ -70,11 +87,19 @@ export const CardBI = ({ description, link }: IProps) => {
             onClick={() => handleClick(starClicked)}
           />
         )}
+        <CardMedia
+          component="iframe"
+          src={link}
+          // alt="lorem dashboard"
+          className={classes.imagePowerBI}
+        />
       </Box>
-      <CardActions>
+      <CardActions className={classes.cardAction}>
         <Link to="/dashboardsingle">
-          {/* COMO MANDAR LINK VIA PROPS PARA PÁGINA DASHBOARDSINGLE???*/}
-          <Button>{description}</Button>
+          <Button className={classes.button}>
+            {/* COMO MANDAR LINK VIA PROPS PARA PÁGINA DASHBOARDSINGLE???*/}
+            {description}
+          </Button>
         </Link>
       </CardActions>
     </Card>

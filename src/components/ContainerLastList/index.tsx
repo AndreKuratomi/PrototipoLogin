@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   typography2: {
     color: "var(--externalDashboardGreen)",
+    marginBottom: "1rem",
   },
 }));
 

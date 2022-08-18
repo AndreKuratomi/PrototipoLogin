@@ -16,10 +16,6 @@ import { makeStyles } from "@material-ui/styles";
 
 import { Main } from "./styles";
 
-interface IProps {
-  link: string;
-}
-
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
   cardActions: {
@@ -62,7 +58,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DashboardSingle = ({ link }: IProps) => {
+const DashboardSingle = () => {
   // STYLES:
   const classes = useStyles();
 
@@ -86,7 +82,7 @@ const DashboardSingle = ({ link }: IProps) => {
             <CardMedia
               className={classes.iframe}
               component="iframe"
-              src={link}
+              src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
             />
           </CardContent>
         </Card>

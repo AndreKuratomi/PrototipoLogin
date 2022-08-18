@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: "var(--lightGreen)",
     marginBottom: "1rem",
+    paddingTop: "1rem",
   },
 }));
 
