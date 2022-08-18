@@ -1,147 +1,46 @@
-import { useToast } from "@chakra-ui/react";
-import moment from "moment";
-import { useState } from "react";
-import { Article } from "./styles";
+let dashboards: Object[] = [
+  {
+    number: 0,
+    name: "0",
+    url: "https://app.powerbi.com/reportEmbed?reportId=317b4b04-8a3e-401e-856d-777f93bad15c&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 1,
+    name: "1",
+    url: "https://app.powerbi.com/reportEmbed?reportId=3df51012-39ef-4abd-828c-fdb53dcc6b49&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 2,
+    name: "2",
+    url: "https://app.powerbi.com/reportEmbed?reportId=0b2987e8-66ee-4fb5-9b59-34457ae69aa8&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 3,
+    name: "3",
+    url: "https://app.powerbi.com/reportEmbed?reportId=ebbde2e4-87d8-447d-bfec-0d16dc5b54f1&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 4,
+    name: "4",
+    url: "https://app.powerbi.com/reportEmbed?reportId=6c4d964f-a636-4545-af9d-ad765fe71eb4&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 5,
+    name: "5",
+    url: "https://app.powerbi.com/reportEmbed?reportId=b3f681c1-bf9d-4ce3-9d6e-73cef7e42e04&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 6,
+    name: "6",
+    url: "https://app.powerbi.com/reportEmbed?reportId=b3f681c1-bf9d-4ce3-9d6e-73cef7e42e04&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+  {
+    number: 7,
+    name: "7",
+    url: "https://app.powerbi.com/reportEmbed?reportId=ef864a74-21df-4b77-8148-690a66a5b880&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
+  },
+];
 
-// export const DateTimeMoment0 = () => {
-//   const [value, setValue] = useState(new Date());
-
-//   setInterval(() => {
-//     setValue(new Date());
-//   }, 1000);
-
-//   let date = value;
-
-//   let displayYear = date.getFullYear();
-//   let displayMonth = date.getMonth() + 1; //?!?!?!??!
-//   let displayDay = date.getDate();
-
-//   if (displayMonth < 10) {
-//     displayMonth = "0" + displayMonth;
-//   }
-//   if (displayDay < 10) {
-//     displayDay = "0" + displayDay;
-//   }
-
-//   let fullDate = displayDay + "/" + displayMonth + "/" + displayYear;
-
-//   let displayHour = date.getHours();
-//   let displayMinutes = date.getMinutes();
-//   let displaySeconds = date.getSeconds();
-
-//   if (displayHour < 10) {
-//     displayHour = "0" + displayHour;
-//   }
-//   if (displayMinutes < 10) {
-//     displayMinutes = "0" + displayMinutes;
-//   }
-//   if (displaySeconds < 10) {
-//     displaySeconds = "0" + displaySeconds;
-//   }
-
-//   let fullTime = displayHour + ":" + displayMinutes + ":" + displaySeconds;
-
-//   const semana = [
-//     "Domingo",
-//     "Segunda-Feira",
-//     "Terça-Feira",
-//     "Quarta-Feira",
-//     "Quinta-Feira",
-//     "Sexta-Feira",
-//     "Sábado",
-//   ];
-
-//   return (
-//     <Article>
-//       <p>
-//         {semana[date.getDay()]}, {fullDate}
-//       </p>
-//       <p>{fullTime}</p>
-//     </Article>
-//   );
-// };
-
-export const DateTimeMoment = () => {
-  // const now = moment();
-  // console.log(now);
-  // const [value, setValue] = useState(now);
-
-  const [value, setValue] = useState(new Date());
-  setInterval(() => {
-    setValue(new Date());
-  }, 1000);
-
-  moment.updateLocale("pt", {
-    weekdays: [
-      "Domingo",
-      "Segunda-Feira",
-      "Terça-Feira",
-      "Quarta-Feira",
-      "Quinta-Feira",
-      "Sexta-Feira",
-      "Sábado",
-    ],
-  });
-
-  const weekDay = moment().format("dddd");
-  const date = moment().format("DD/MM/YY");
-  const time = moment().format("HH:mm:ss");
-
-  return (
-    <Article>
-      <p>
-        {weekDay}, {date} {time}
-      </p>
-    </Article>
-  );
+export const getDashboards = () => {
+  return dashboards;
 };
-
-export const TimeOut = () => {
-  let timeout = 1800;
-  let time = window.document.querySelector("h3");
-
-  const toast = useToast();
-  const timeoutToast = () => {
-    toast({
-      description: "Tempo esgostado!",
-      duration: 3000,
-      position: "top",
-      status: "warning",
-      title: "Faça o login novamente.",
-    });
-  };
-
-  const countDown = setInterval(() => {
-    timeout--;
-    displayTimeout(timeout);
-    // console.log(displayTimeout(timeout));
-    if (timeout === 0 || timeout < 1) {
-      endCount();
-      clearInterval(countDown);
-      timeoutToast();
-    }
-  }, 1000);
-
-  const displayTimeout = (second) => {
-    const min = Math.floor(second / 60);
-    const sec = Math.floor(second % 60);
-    time.innerHTML = `
-    ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
-    `;
-  };
-
-  const endCount = () => {
-    time.innerHTML = "!";
-  };
-
-  // return <Article>{time}</Article>;
-};
-
-// const Asdf = () => {
-//   let value = 1800;
-//   setInterval(() => {
-//     value--;
-//   }, 1000);
-//   console.log(value);
-// };
-// Asdf();
