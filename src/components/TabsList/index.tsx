@@ -61,14 +61,16 @@ export const TabsList = () => {
         value={value}
         variant="scrollable"
       >
-        <Tab label="Estoque" {...a11yProps(0)} />
-        <Tab label="Financeiro" {...a11yProps(1)} />
-        <Tab label="Clientes" {...a11yProps(2)} />
-        <Tab label="E-commerce" {...a11yProps(3)} />
-        <Tab label="Credz" {...a11yProps(4)} />
-        <Tab label="Fornecedores" {...a11yProps(5)} />
-        <Tab label="Franqueados" {...a11yProps(6)} />
-        <Tab label="Entrada de Notas" {...a11yProps(7)} />
+        <Tab label="FAVORITOS" {...a11yProps(0)} />
+        <Tab label="Estoque" {...a11yProps(1)} />
+        <Tab label="Financeiro" {...a11yProps(2)} />
+        <Tab label="Clientes" {...a11yProps(3)} />
+        <Tab label="E-commerce" {...a11yProps(4)} />
+        <Tab label="Credz" {...a11yProps(5)} />
+        <Tab label="Fornecedores" {...a11yProps(6)} />
+        <Tab label="Franqueados" {...a11yProps(7)} />
+        <Tab label="Entrada de Notas" {...a11yProps(8)} />
+        {/* <Tab label="TODOS" {...a11yProps(9)} /> */}
       </Tabs>
       <CardsBIList value={value} />
     </Box>
