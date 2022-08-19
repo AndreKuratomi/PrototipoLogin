@@ -1,4 +1,4 @@
-import { HeaderDashContent } from "../HeaderDashContent";
+// import { HeaderDashContent } from "../HeaderDashContent";
 import { TabsList } from "../TabsList";
 
 import { Container } from "@material-ui/core";
@@ -19,7 +19,7 @@ export const ContainerLists = () => {
 
   return (
     <Container className={classes.container}>
-      <HeaderDashContent />
+      {/* <HeaderDashContent /> */}
       <TabsList />
     </Container>
   );
