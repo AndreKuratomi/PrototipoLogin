@@ -79,7 +79,6 @@ export const CardBI = ({ description, link }: IProps) => {
   let dashboards = getDashboards();
 
   // ENVIO URL:
-  // extrair número do link para daí buscar na lista o objeto que tenha este numero
   const sendURL = () => {
     const urlFound: any = dashboards.find((elem: any) => elem.url === link);
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));

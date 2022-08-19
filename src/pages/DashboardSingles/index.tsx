@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 import { getDashboards } from "../../utils";
 
-import { disableBodyScroll } from "body-scroll-lock";
+// import { disableBodyScroll } from "body-scroll-lock";
+import { lock } from "tua-body-scroll-lock";
 
 import {
   Box,
@@ -11,6 +12,7 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Typography,
 } from "@material-ui/core";
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
 
@@ -39,6 +41,9 @@ const useStyles = makeStyles(() => ({
     margin: "0",
     width: "100%",
     height: "42.5rem",
+    "@media (min-width: 767px)": {
+      height: "44rem",
+    },
   },
   image: {
     display: "flex",
@@ -50,8 +55,13 @@ const useStyles = makeStyles(() => ({
   },
   leaveIcon: {
     color: "var(--black)",
+    display: "flex",
+    // position: "static",
     "&:hover": {
       cursor: "pointer",
+    },
+    "@media (min-width: 767px)": {
+      position: "absolute",
     },
   },
 }));
@@ -60,11 +70,11 @@ const DashboardSingles = () => {
   // STYLES:
   const classes = useStyles();
 
-  // DOM:
-  const deb = window.document.getElementById("scroll") as HTMLElement;
+  // // DOM:
+  // const deb = window.document.getElementById("scroll") as HTMLElement;
 
   // DESABILITAR SCROLL:
-  disableBodyScroll(deb);
+  lock();
 
   // URLs:
   const url = JSON.parse(
@@ -73,34 +83,24 @@ const DashboardSingles = () => {
 
   // LOGOUT:
   const clearLocalStorage = () => {
-    // clearTimeout(action);
     localStorage.clear();
-    <Link to="/dashboardexternals"></Link>;
-    // window.location.href = "/";
+    window.location.href = "/dashboardexternals";
   };
 
   return (
-    <Main id="scroll">
-      <Box>
-        <KeyboardBackspaceRoundedIcon
-          className={classes.leaveIcon}
-          onClick={clearLocalStorage}
-        ></KeyboardBackspaceRoundedIcon>
-        Voltar
+    <Container className={classes.container}>
+      <Box className={classes.leaveIcon} onClick={clearLocalStorage}>
+        <KeyboardBackspaceRoundedIcon />
+        <Typography>Voltar</Typography>
       </Box>
-      <Container className={classes.container}>
-        <Card className={classes.card}>
-          <CardContent className={classes.cardConcent}>
-            <CardMedia
-              className={classes.iframe}
-              component="iframe"
-              // src={dashboards.url}
-              src={url}
-            />
-          </CardContent>
-        </Card>
-      </Container>
-    </Main>
+      {/* <Container> */}
+      <Card className={classes.card}>
+        <CardContent className={classes.cardConcent}>
+          <CardMedia className={classes.iframe} component="iframe" src={url} />
+        </CardContent>
+      </Card>
+      {/* </Containe/r> */}
+    </Container>
   );
 };
 
