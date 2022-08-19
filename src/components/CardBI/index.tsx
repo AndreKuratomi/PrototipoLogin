@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 
+import { getDashboards } from "../../utils";
+
 import { Box, Button, Card, CardActions, CardMedia } from "@material-ui/core";
 import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
@@ -73,6 +75,16 @@ export const CardBI = ({ description, link }: IProps) => {
     func();
   };
 
+  // URLs:
+  let dashboards = getDashboards();
+
+  // ENVIO URL:
+  // extrair número do link para daí buscar na lista o objeto que tenha este numero
+  const sendURL = () => {
+    const urlFound: any = dashboards.find((elem: any) => elem.url === link);
+    localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
+  };
+
   return (
     <Card className={classes.cards}>
       <Box className={classes.cardsContent}>
@@ -96,7 +108,7 @@ export const CardBI = ({ description, link }: IProps) => {
       </Box>
       <CardActions className={classes.cardAction}>
         <Link to="/dashboardsingle">
-          <Button className={classes.button}>
+          <Button className={classes.button} onClick={sendURL}>
             {/* COMO MANDAR LINK VIA PROPS PARA PÁGINA DASHBOARDSINGLE???*/}
             {description}
           </Button>

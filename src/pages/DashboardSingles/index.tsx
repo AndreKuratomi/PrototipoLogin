@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { getDashboards } from "../../utils";
+
 import { disableBodyScroll } from "body-scroll-lock";
 
 import {
@@ -36,11 +38,7 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100%",
-    height: "37.5rem",
-    // height: "41.5rem",
-    "@media (min-height: 767px)": {
-      height: "50rem",
-    },
+    height: "42.5rem",
   },
   image: {
     display: "flex",
@@ -58,7 +56,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DashboardSingle = () => {
+const DashboardSingles = () => {
   // STYLES:
   const classes = useStyles();
 
@@ -68,13 +66,27 @@ const DashboardSingle = () => {
   // DESABILITAR SCROLL:
   disableBodyScroll(deb);
 
+  // URLs:
+  const url = JSON.parse(
+    localStorage.getItem("@pbi_url: PowerBI URL") || "null"
+  );
+
+  // LOGOUT:
+  const clearLocalStorage = () => {
+    // clearTimeout(action);
+    localStorage.clear();
+    <Link to="/dashboardexternals"></Link>;
+    // window.location.href = "/";
+  };
+
   return (
     <Main id="scroll">
       <Box>
-        <Link to="/dashboardexternals">
-          <KeyboardBackspaceRoundedIcon className={classes.leaveIcon} />
-          Voltar
-        </Link>
+        <KeyboardBackspaceRoundedIcon
+          className={classes.leaveIcon}
+          onClick={clearLocalStorage}
+        ></KeyboardBackspaceRoundedIcon>
+        Voltar
       </Box>
       <Container className={classes.container}>
         <Card className={classes.card}>
@@ -82,7 +94,8 @@ const DashboardSingle = () => {
             <CardMedia
               className={classes.iframe}
               component="iframe"
-              src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+              // src={dashboards.url}
+              src={url}
             />
           </CardContent>
         </Card>
@@ -91,4 +104,4 @@ const DashboardSingle = () => {
   );
 };
 
-export default DashboardSingle;
+export default DashboardSingles;
