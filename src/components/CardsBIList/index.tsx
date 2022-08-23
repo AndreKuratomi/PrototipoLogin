@@ -16,6 +16,13 @@ interface ITabPanelProps {
   value: number;
 }
 
+interface IElem {
+  id: number;
+  category: string;
+  name: string;
+  url: string;
+}
+
 const useStyles = makeStyles(() => ({
   dashboardList: {
     display: "flex",
@@ -65,7 +72,7 @@ const TabPanel = (props: ITabPanelProps) => {
   );
 };
 
-export const CardsBIList = ({ value }: any) => {
+export const CardsBIList = ({ value }: any, { id }: IElem) => {
   // STYLES:
   const classes = useStyles();
 
@@ -77,83 +84,94 @@ export const CardsBIList = ({ value }: any) => {
 
   // CATEGORIAS:
   const estoqueCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "estoque"
+    (elem: IElem) => elem.category === "estoque"
   );
   const clientesCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "clientes"
+    (elem: IElem) => elem.category === "clientes"
   );
   const ecommerceCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "e-commerce"
+    (elem: IElem) => elem.category === "e-commerce"
   );
   const credzCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "credz"
+    (elem: IElem) => elem.category === "credz"
   );
   const fornecedoresCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "fornecedores"
+    (elem: IElem) => elem.category === "fornecedores"
   );
   const franqueadosCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "franqueados"
+    (elem: IElem) => elem.category === "franqueados"
   );
   const entradaDeNotasCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "entrada de notas"
+    (elem: IElem) => elem.category === "entrada de notas"
   );
   const financeiroCards: any = dashboards.filter(
-    (elt: any) => elt.categoria === "financeiro"
+    (elem: IElem) => elem.category === "financeiro"
   );
 
   return (
     <Box className={classes.dashboardList}>
+      {/* FAVORITOS */}
       <TabPanel value={value} index={0}>
         {favoriteCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* ESTOQUE */}
       <TabPanel value={value} index={1}>
-        {estoqueCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {estoqueCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
-        {/* {dashboards.filter((elt: any) => elt.categoria === "estoque")} */}
       </TabPanel>
+
+      {/* CLIENTES */}
       <TabPanel value={value} index={2}>
-        {clientesCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {clientesCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* E-COMMERCE */}
       <TabPanel value={value} index={3}>
-        {ecommerceCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {ecommerceCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* CREDZ */}
       <TabPanel value={value} index={4}>
-        {credzCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {credzCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* FORNECEDORES */}
       <TabPanel value={value} index={5}>
-        {fornecedoresCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {fornecedoresCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* FRANQUEADOS */}
       <TabPanel value={value} index={6}>
-        {franqueadosCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {franqueadosCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* ENTRADA DE NOTAS */}
       <TabPanel value={value} index={7}>
-        {entradaDeNotasCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {entradaDeNotasCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
+
+      {/* FINANCEIRO */}
       <TabPanel value={value} index={8}>
-        {financeiroCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+        {financeiroCards.map((elt: IElem) => (
+          <CardBI elt={elt} id={elt.id} key={elt.id} />
         ))}
       </TabPanel>
-      {/* <TabPanel value={value} index={9}>
-        {dashboards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel> */}
     </Box>
   );
 };
