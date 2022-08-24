@@ -113,63 +113,63 @@ export const CardsBIList = ({ value }: any, { id }: IElem) => {
       {/* FAVORITOS */}
       <TabPanel value={value} index={0}>
         {favoriteCards.map((elt: any) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* ESTOQUE */}
       <TabPanel value={value} index={1}>
         {estoqueCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CLIENTES */}
       <TabPanel value={value} index={2}>
         {clientesCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* E-COMMERCE */}
       <TabPanel value={value} index={3}>
         {ecommerceCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CREDZ */}
       <TabPanel value={value} index={4}>
         {credzCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FORNECEDORES */}
       <TabPanel value={value} index={5}>
         {fornecedoresCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FRANQUEADOS */}
       <TabPanel value={value} index={6}>
         {franqueadosCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* ENTRADA DE NOTAS */}
       <TabPanel value={value} index={7}>
         {entradaDeNotasCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FINANCEIRO */}
       <TabPanel value={value} index={8}>
         {financeiroCards.map((elt: IElem) => (
-          <CardBI elt={elt} id={elt.id} key={elt.id} />
+          <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
     </Box>

@@ -17,10 +17,13 @@ interface IStarFavoriteProvider {
   setClicked: Dispatch<SetStateAction<boolean>>;
   favoriteCards: Object[];
   setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
+  lastVisited: Object[];
+  setLastVisited: Dispatch<SetStateAction<Object[]>>;
   StarClicked: (id: number) => void;
   StarUnClicked: (id: number) => void;
   handleFavorite: (num: IDashboard) => void;
   handleDesFavorite: (num: IDashboard) => void;
+  handleLastVisited: (num: IDashboard, func: () => void) => void;
 }
 
 interface IStarFavoriteProviderProps {
@@ -51,6 +54,9 @@ export const StarFavoriteProvider = ({
 
   // STATE PARA INCLUIR LISTA FAVORITOS:
   const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
+
+  // STATE PARA INCLUIR LISTA FAVORITOS:
+  const [lastVisited, setLastVisited] = useState([] as Object[]);
 
   // STATE PARA ALTERAR ÍCONE ESTRELA:
   const [clicked, setClicked] = useState(false);
@@ -88,6 +94,24 @@ export const StarFavoriteProvider = ({
     }
   };
 
+  const handleLastVisited = async (num: IDashboard, func: () => void) => {
+    func();
+    if (!lastVisited.includes(num)) {
+      if (lastVisited.length < 3) {
+        setLastVisited([
+          ...lastVisited,
+          dashboards.find((elem: Object) => elem === num),
+        ]);
+      } else {
+        let filtro = lastVisited.filter(
+          (elt: Object) => elt !== lastVisited[0]
+        );
+        filtro.unshift(num);
+        return filtro;
+      }
+    }
+  };
+
   return (
     <StarFavoriteContext.Provider
       value={{
@@ -96,12 +120,15 @@ export const StarFavoriteProvider = ({
         setId,
         clicked,
         setClicked,
+        lastVisited,
+        setLastVisited,
         StarClicked,
         StarUnClicked,
         favoriteCards,
         setFavoriteCards,
         handleFavorite,
         handleDesFavorite,
+        handleLastVisited,
       }}
     >
       {children}

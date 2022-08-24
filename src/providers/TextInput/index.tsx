@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   Dispatch,
   ReactNode,
@@ -7,10 +7,13 @@ import {
   useState,
 } from "react";
 
+import { getDashboards } from "../../utils";
+
 interface ITextProvider {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
-  setUsername: (event: string) => void;
+  getText: (event: React.FormEvent<HTMLInputElement>) => void;
+  setIndexValue: (text: string) => void;
 }
 
 interface ITextProviderProps {
@@ -20,15 +23,27 @@ interface ITextProviderProps {
 export const TextInputContext = createContext({} as ITextProvider);
 
 export const TextInputProvider = ({ children }: ITextProviderProps) => {
+  const dashboards = getDashboards();
+
   const [text, setText] = useState("");
 
   // ALTERAÇÃO STATE CONFORME USUÁRIO DIGITA:
-  const setUsername = (event: string) => {
-    // setText(event.target.value);
+  const getText = (event: React.FormEvent<HTMLInputElement>) => {
+    setText(event.currentTarget.value);
+  };
+
+  const setIndexValue = (text: string) => {
+    for (let i = 0; i < dashboards.length; i++) {
+      if (dashboards[i]["category"] === text) {
+        return dashboards[i]["id"];
+      }
+    }
   };
 
   return (
-    <TextInputContext.Provider value={{ text, setText, setUsername }}>
+    <TextInputContext.Provider
+      value={{ getText, text, setText, setIndexValue }}
+    >
       {children}
     </TextInputContext.Provider>
   );

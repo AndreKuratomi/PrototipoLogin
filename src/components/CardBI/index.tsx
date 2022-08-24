@@ -18,7 +18,7 @@ interface IElt {
 interface IProps {
   //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
   elt: any;
-  id: number;
+  // id: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   cards: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: "1rem",
+    margin: "1rem",
   },
   cardAction: {
     padding: "0",
@@ -69,13 +69,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CardBI = ({ elt, id }: IProps) => {
+export const CardBI = ({ elt }: IProps) => {
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
-  const { setCardId, clicked, handleFavorite, handleDesFavorite } =
-    useStarFavorite();
+  const {
+    setCardId,
+    clicked,
+    handleFavorite,
+    handleDesFavorite,
+    handleLastVisited,
+  } = useStarFavorite();
 
   // TENTATIVA INDIVIDUALIZAR:
 
@@ -84,16 +89,14 @@ export const CardBI = ({ elt, id }: IProps) => {
 
   // ENVIO URL:
   const sendURL = () => {
-    const urlFound: any = dashboards.find((elem: any) => elem.url === elt.url);
+    const urlFound: IElt = dashboards.find(
+      (elem: IElt) => elem.url === elt.url
+    );
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
 
   return (
-    <Card
-      className={classes.cards}
-      // id={id}
-      key={elt.id}
-    >
+    <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>
         {clicked ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
           <Box onClick={() => handleDesFavorite(elt)}>
@@ -112,11 +115,16 @@ export const CardBI = ({ elt, id }: IProps) => {
         />
       </Box>
       <CardActions className={classes.cardAction}>
-        <Link to="/dashboardsingle">
-          <Button className={classes.button} onClick={sendURL}>
+        {/* <Link to="/dashboardsingle"> */}
+        <a href="/dashboardsingle" target="_blanck">
+          <Button
+            className={classes.button}
+            onClick={() => handleLastVisited(elt, sendURL)}
+          >
             {elt.name}
           </Button>
-        </Link>
+        </a>
+        {/* </Link> */}
       </CardActions>
     </Card>
   );
