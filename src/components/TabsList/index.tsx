@@ -5,6 +5,7 @@ import { CardsBIList } from "../CardsBIList";
 import { Box, Tab, Tabs } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Stack, TabsProps } from "@mui/material";
+import { useTextInput } from "src/providers/TextInput";
 
 // interface Props extends TypographyProps, TabsProps {
 //   component: ElementType<any>;
@@ -39,9 +40,19 @@ export const TabsList = () => {
   // COMPORTAMENTO TABS:
   const [value, setValue] = useState(0);
 
+  // PROVIDERS:
+  const { text, setIndexValue } = useTextInput();
+  const index = setIndexValue(text);
+  console.log(setIndexValue(text));
+
   const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
+
+  const handleChangeWithProp = async (index: number) => {
+    await setValue(index);
+  };
+  // console.log(handleChangeWithProp(index))
 
   const a11yProps = (index: number) => {
     return {
