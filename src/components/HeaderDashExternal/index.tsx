@@ -15,10 +15,14 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "1rem",
+    position: "relative",
+    "& .MuiPaper-elevation4": {
+      boxShadow: "undefined",
+    },
     "@media (min-width: 768px)": {
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: "1rem 2rem",
+      padding: "0",
     },
   },
   imageLogo: {
@@ -32,13 +36,16 @@ const useStyles = makeStyles(() => ({
   },
   leaveIcon: {
     color: "var(--externalDashboardGreen)",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
-  subHeader: {
-    color: "var(--black)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
+  // subHeader: {
+  //   color: "var(--black)",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "space-between",
+  // },
 }));
 
 export const HeaderDashExternal = () => {
@@ -53,7 +60,7 @@ export const HeaderDashExternal = () => {
   };
 
   return (
-    <AppBar className={classes.header} position="static">
+    <AppBar className={classes.header} elevation={0} position="static">
       <CardMedia
         component="img"
         image={LogoVestcasaNovo}
@@ -61,13 +68,13 @@ export const HeaderDashExternal = () => {
         className={classes.imageLogo}
       />
 
-      <Box className={classes.subHeader}>
-        <InputSearch />
-        <ExitToAppRounded
-          className={classes.leaveIcon}
-          onClick={clearLocalStorage}
-        />
-      </Box>
+      {/* <Box className={classes.subHeader}> */}
+      <InputSearch />
+      {/* </Box> */}
+      <ExitToAppRounded
+        className={classes.leaveIcon}
+        onClick={clearLocalStorage}
+      />
     </AppBar>
   );
 };
