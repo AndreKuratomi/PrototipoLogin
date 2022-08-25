@@ -37,21 +37,22 @@ import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     marginTop: "0.5rem",
     textAlign: "end",
   },
   forgetPasswordExtraPageBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
   },
   forgetPasswordBoxContent: {
-    fontSize: "0.8rem",
     display: "flex",
     flexDirection: "column",
+    fontSize: "0.8rem",
+    // marginLeft: "1rem",
   },
   formControl: {
     background: "#009E4F",
@@ -75,7 +76,7 @@ const useStyles = makeStyles({
   },
   inputBox: {
     // backgroundImage: `url(${Input})`,
-    background: "#fff",
+    background: "var(--white)",
     borderRadius: "1rem",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     padding: "0.5rem",
@@ -100,35 +101,33 @@ const useStyles = makeStyles({
   },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
-    border: "1px solid #fff",
+    border: "1px solid var(--white)",
     borderRadius: "1rem",
-    color: "#fff",
+    color: "var(--white)",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
-    width: "10rem",
+    width: "15rem",
 
-    "& .MuiButton-outlinedPrimary:hover": {
-      //NÃO FUNCIONA!
-      color: "#3f51b5",
-    },
-    "& .MuiButton-label:hover": {
-      //GUAMBIARRA
+    "&:hover": {
       color: "#3f51b5",
     },
   },
-  submitButtonBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
+
   textFieldsContent: {
     width: "20rem",
+    "& label + .MuiInput-formControl": {
+      marginTop: "0px",
+    },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
     },
     "& .MuiFormControl-root": {
-      margin: "3px",
+      margin: "1px",
+    },
+    "& .MuiInputLabel-formControl": {
+      top: "-0.5rem",
+      left: "0.25rem",
     },
   },
 });
@@ -352,7 +351,14 @@ export const FormLogin = () => {
               </Link>
             </Typography>
           </Box>
-          <Box className={classes.submitButtonBox}>
+          <Box
+            // className={classes.submitButtonBox}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             <Button
               className={classes.submitButton}
               color="primary"

@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   cards: {
     display: "flex",
     flexDirection: "column",
-    margin: "1rem",
+    margin: "1rem 0",
   },
   cardAction: {
     padding: "0",

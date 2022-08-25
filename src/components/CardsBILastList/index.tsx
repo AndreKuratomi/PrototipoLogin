@@ -17,11 +17,10 @@ const useStyles = makeStyles(() => ({
   dashboardLastList: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "start",
+    justifyContent: "space-evenly",
     marginBottom: "1rem",
     // width: "10rem",
     "@media (min-width: 768px)": {
-      justifyContent: "start",
       flexDirection: "row",
       // padding: "1rem 2rem",
     },
