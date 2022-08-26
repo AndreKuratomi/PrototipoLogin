@@ -1,12 +1,12 @@
 import { InputSearch } from "../InputSearch";
 
 import { AppBar, Box, CardMedia } from "@material-ui/core";
-
 import { ExitToAppRounded } from "@mui/icons-material";
-
 import { makeStyles } from "@material-ui/styles";
 
 import LogoVestcasaNovo from "../../assets/figma_imgs/LogoVestcasaNovo.png";
+
+import { useOpenModal } from "src/providers/ModalOpen";
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -42,15 +42,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const HeaderDashExternal = () => {
+  // PROVIDER:
+  const { setOpen } = useOpenModal();
+
   // STYLES:
   const classes = useStyles();
-
-  //   LOGOUT:
-  const clearLocalStorage = () => {
-    // clearTimeout(action);
-    localStorage.clear();
-    window.location.href = "/";
-  };
 
   return (
     <AppBar className={classes.header} position="static">
@@ -65,7 +61,7 @@ export const HeaderDashExternal = () => {
         <InputSearch />
         <ExitToAppRounded
           className={classes.leaveIcon}
-          onClick={clearLocalStorage}
+          onClick={() => setOpen(true)}
         />
       </Box>
     </AppBar>
