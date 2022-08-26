@@ -17,7 +17,7 @@ const useStyles = makeStyles((open) => ({
     position: "fixed",
     top: 0,
     right: 0,
-    zIndex: 100,
+    zIndex: 900,
   },
 }));
 

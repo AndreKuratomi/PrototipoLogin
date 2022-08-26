@@ -15,10 +15,15 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "1rem",
+    position: "relative",
+    zIndex: 1,
+    "& .MuiPaper-elevation4": {
+      boxShadow: "undefined",
+    },
     "@media (min-width: 768px)": {
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: "1rem 2rem",
+      padding: "0",
     },
   },
   imageLogo: {
@@ -32,6 +37,9 @@ const useStyles = makeStyles(() => ({
   },
   leaveIcon: {
     color: "var(--externalDashboardGreen)",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
   subHeader: {
     color: "var(--black)",
@@ -49,7 +57,7 @@ export const HeaderDashExternal = () => {
   const classes = useStyles();
 
   return (
-    <AppBar className={classes.header} position="static">
+    <AppBar className={classes.header} elevation={0} position="static">
       <CardMedia
         component="img"
         image={LogoVestcasaNovo}

@@ -1,6 +1,6 @@
 import { useTextInput } from "src/providers/TextInput";
 
-import { Box } from "@material-ui/core";
+import { Box, TextField } from "@material-ui/core";
 import { Search } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
 
@@ -16,7 +16,18 @@ const useStyles = makeStyles(() => ({
     borderRadius: "5px",
     display: "flex",
     alignItems: "center",
-    marginRight: "0.5rem",
+    "@media (min-width: 768px)": {
+      height: "3rem",
+    },
+  },
+  textField: {
+    width: "16rem",
+    "& .MuiInput-underline": {
+      borderBottom: "undefined",
+    },
+    "@media (min-width: 768px)": {
+      width: "30rem",
+    },
   },
 }));
 
@@ -33,7 +44,11 @@ export const InputSearch = () => {
         className={classes.searchIcon}
         onClick={() => setIndexValue(text)}
       />
-      <input onChange={(e) => getText(e)} placeholder="Pesquisar" />
+      <TextField
+        className={classes.textField}
+        onChange={() => getText}
+        placeholder="Pesquisar..."
+      />
     </Box>
   );
 };
