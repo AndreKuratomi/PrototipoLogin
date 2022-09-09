@@ -154,21 +154,30 @@ export const FormLogin = () => {
     });
   };
 
+  const addSuperUserToast = () => {
+    toast({
+      description: "Seja bem-vindo(a)!",
+      duration: 3000,
+      position: "top",
+      status: "success",
+      title: "Login feito com sucesso!",
+    });
+  };
+
   const addWarningToast = () => {
     toast({
       description:
-        "Atenção!" +
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
       duration: 7000,
       position: "top",
       status: "warning",
-      title: "Assinatura próxima de renovar!",
+      title: "Atenção!",
     });
   };
 
-  const addFailToast = (date: string) => {
+  const addFailToast = () => {
     toast({
-      description: "Assinatura vencida desde " + date + "!",
+      description: "Assinatura vencida! Contate suporte.",
       duration: 5000,
       position: "top",
       status: "error",
@@ -222,43 +231,55 @@ export const FormLogin = () => {
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data: Object, text: any) => {
-    // navigate("/dashboardinternals");
-    // userLogged();
-    // createUserToken();
-    console.log(data);
-    // addNonLoggedToast();
     api
       .post("login/", data)
       .then((response) => {
         console.log(response);
-        // const { token, user } = response.data;
-        addSuccessToast();
-        navigate("/dashboardinternals");
-        userLogged();
-        createUserToken();
-        // // setAuthenticated(true);
-        const now = Date.now();
+        const { signature_vality, super_user, token } = response.data;
 
-        // let delta = user.signature_vality - now;
-        // console.log(delta);
+        // SUPERUSER:
+        if (super_user) {
+          console.log("churros");
+          addSuperUserToast();
+          createUserToken();
+          navigate("/dashboardexternals");
+        } else {
+          console.log("mortais");
+          const now = Date.now();
+          console.log(now);
 
-        // if (delta > 15) {
-        //   addSuccessToast(user.username);
-        //   userLogged();
-        //   createUserToken();
-        //   navigate("/dashboardinternals");
-        // } else if (delta <= 15 && delta > 0) {
-        //   addWarningToast(user.username);
-        //   userLogged();
-        //   createUserToken();
-        //   navigate("/dashboardinternals");
-        // } else {
-        //   addFailToast(user.signature_vality);
-        // }
+          // CONVERSÃO SIGNATURE PYTHON PARA JS:
+          const dateSecondsToMiliseconds: number =
+            Math.floor(signature_vality) * 1000;
+          console.log(dateSecondsToMiliseconds);
+
+          const delta = dateSecondsToMiliseconds - now;
+          console.log(delta);
+          const fithteenInMiliseconds = 60 * 60 * 24 * 15 * 1000;
+          console.log(fithteenInMiliseconds);
+
+          if (delta > fithteenInMiliseconds) {
+            console.log("em dia");
+            addSuccessToast();
+            userLogged();
+            createUserToken();
+            navigate("/dashboardinternals");
+          } else if (delta <= fithteenInMiliseconds && delta > 0) {
+            console.log("perto de vencer");
+            addWarningToast();
+            userLogged();
+            createUserToken();
+            navigate("/dashboardinternals");
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
-        addNonLoggedToast();
+        if (err.message === "Request failed with status code 401") {
+          addFailToast();
+        } else {
+          addNonLoggedToast();
+        }
       });
   };
   console.log(errors);
