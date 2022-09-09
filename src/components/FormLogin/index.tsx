@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../service/api";
 
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
-import { useTextInput } from "../../providers/TextInput";
+// import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
 import {
@@ -165,6 +165,7 @@ export const FormLogin = () => {
   };
 
   const addWarningToast = () => {
+    //E COMO COLOCAR ELA PARA SER EXIBIDA UMA VEZ SÓ? PENSAR NUMA LISTA.
     toast({
       description:
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
@@ -209,23 +210,6 @@ export const FormLogin = () => {
     resolver: yupResolver(formSchema),
   });
 
-  // // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
-  // if (errors.email && errors.email?.message === "email must be a valid email") {
-  //   addNonLoggedToast();
-  //   console.log("sdfgcx");
-  //   console.log(addNonLoggedToast());
-  // }
-  // if (errors.senha && errors.senha?.message === "Senha obrigatória!") {
-  //   addNonLoggedToast();
-  //   console.log(addNonLoggedToast());
-  // }
-  // if (
-  //   errors.repetir_nova_senha &&
-  //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
-  // ) {
-  //   addNonLoggedToast();
-  // }
-
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
@@ -234,19 +218,19 @@ export const FormLogin = () => {
     api
       .post("login/", data)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         const { signature_vality, super_user, token } = response.data;
 
         // SUPERUSER:
         if (super_user) {
-          console.log("churros");
+          // console.log("churros");
           addSuperUserToast();
           createUserToken();
           navigate("/dashboardexternals");
         } else {
-          console.log("mortais");
+          // console.log("mortais");
           const now = Date.now();
-          console.log(now);
+          // console.log(now);
 
           // CONVERSÃO SIGNATURE PYTHON PARA JS:
           const dateSecondsToMiliseconds: number =
@@ -254,12 +238,12 @@ export const FormLogin = () => {
           console.log(dateSecondsToMiliseconds);
 
           const delta = dateSecondsToMiliseconds - now;
-          console.log(delta);
+          // console.log(delta);
           const fithteenInMiliseconds = 60 * 60 * 24 * 15 * 1000;
-          console.log(fithteenInMiliseconds);
+          // console.log(fithteenInMiliseconds);
 
           if (delta > fithteenInMiliseconds) {
-            console.log("em dia");
+            // console.log("em dia");
             addSuccessToast();
             userLogged();
             createUserToken();
@@ -282,7 +266,7 @@ export const FormLogin = () => {
         }
       });
   };
-  console.log(errors);
+  // console.log(errors);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
     console.log(e);
