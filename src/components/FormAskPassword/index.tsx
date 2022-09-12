@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import api from "../../service/api";
+
 import { usePasswordAsk } from "../../providers/PasswordAsk";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
@@ -12,13 +14,13 @@ import { makeStyles } from "@material-ui/styles";
 import { Email } from "@mui/icons-material";
 import { green, red } from "@mui/material/colors";
 
-import Form from "../../assets/figma_imgs/Form.png";
+// import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-import IconUser from "../../assets/figma_imgs/IconUser.png";
-import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-import IconEmail from "../../assets/figma_imgs/IconEmail.png";
-import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
-import Input from "../../assets/figma_imgs/Input.png";
+// import IconUser from "../../assets/figma_imgs/IconUser.png";
+// import IconUserError from "../../assets/figma_imgs/IconUserError.png";
+// import IconEmail from "../../assets/figma_imgs/IconEmail.png";
+// import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
+// import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
@@ -74,10 +76,10 @@ const useStyles = makeStyles({
   },
   inputBox: {
     // backgroundImage: `url(${Input})`,
-    background: "#fff",
+    background: "var(--white)",
     borderRadius: "1rem",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
-    padding: "0 0.5rem",
+    padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
@@ -97,43 +99,34 @@ const useStyles = makeStyles({
   },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
-    border: "1px solid #fff",
+    border: "1px solid var(--white)",
     borderRadius: "1rem",
-    color: "#fff",
+    color: "var(--white)",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
-    width: "10rem",
+    width: "15rem",
 
-    "& .MuiButton-outlinedPrimary:hover": {
-      //NÃO FUNCIONA!
+    "&:hover": {
       color: "#3f51b5",
     },
-    "& .MuiButton-label:hover": {
-      //GUAMBIARRA
-      color: "#3f51b5",
-    },
-  },
-  submitButtonBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-
-    // "&:hover": {
-    // color: "#3f51b5",
-    // },
   },
   textFieldsContent: {
+    marginTop: "0px",
+    marginBottom: "0px",
     width: "20rem",
-    "& .MuiFormControl-marginNormal": {
-      //NÃO FUNCIONA!
-      marginTop: "8px",
-    },
-    "& .MuiFormControl-root": {
-      margin: "3px",
+    "& label + .MuiInput-formControl": {
+      marginTop: "0px",
     },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
+    },
+    "& .MuiFormControl-root": {
+      margin: "1px",
+    },
+    "& .MuiInputLabel-formControl": {
+      top: "-0.5rem",
+      left: "0.25rem",
     },
   },
 });
@@ -143,10 +136,21 @@ export const FormAskPassword = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { onSubmit, loading } = usePasswordAsk();
+  const { createAuth, loading, setLoading, LoadPage } = usePasswordAsk();
+  console.log(loading);
 
   // TOASTS:
   const toast = useToast();
+
+  const addSuccessToast = () => {
+    toast({
+      description: "Confira sua caixa de emails.",
+      duration: 5000,
+      position: "top",
+      status: "success",
+      title: "Solicitação enviada com sucesso!",
+    });
+  };
 
   const emailErrorToast = (algo: string) => {
     toast({
@@ -160,7 +164,6 @@ export const FormAskPassword = () => {
 
   // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
-    usuario: yup.string().required("Usuario obrigatório!"),
     email: yup.string().email().required("Email obrigatório!"),
   });
 
@@ -177,9 +180,34 @@ export const FormAskPassword = () => {
     emailErrorToast("Email inválido! Favor verificar.");
   }
 
+  // VARIÁVEL USENAVIGATE:
+  const navigate = useNavigate();
+  // LÓGICA SUBMISSÃO FORMULÁRIO:
+  const onSubmitFunction = (data: Object, text: any) => {
+    LoadPage();
+    api
+      .post("ask/", data)
+      .then((response) => {
+        addSuccessToast();
+        console.log(response);
+        createAuth();
+        navigate("/");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        emailErrorToast("Email inválido! Favor verificar.");
+        // console.log("Algo deu errado!", err);
+        setLoading(false);
+      });
+  };
+
   return (
     <Article>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
+      <form
+        className={classes.formControl}
+        onSubmit={handleSubmit(onSubmitFunction)}
+      >
         <Box className={classes.image}>
           <img src={LogoVestcasa} alt="Logo Vestcasa" />
         </Box>
@@ -188,26 +216,6 @@ export const FormAskPassword = () => {
             Insira seus dados para redefinir a senha
           </Typography>
         </Box>
-        {/* <Box
-          className={classes.inputBox}
-          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-        >
-          {Object.keys(errors).some((elt) => elt === "usuario") ? (
-            <img src={IconUserError} alt="UserError" />
-          ) : (
-            <img src={IconUser} alt="User" />
-          )}
-          <TextField
-            className={classes.textFieldsContent}
-            error={!!errors.usuario}
-            label="Digite seu usuário"
-            margin="normal"
-            placeholder="usuario"
-            variant="standard"
-            type="text"
-            {...register("usuario")}
-          />
-        </Box> */}
         <Box
           className={classes.inputBox}
           sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
@@ -224,32 +232,41 @@ export const FormAskPassword = () => {
             margin="normal"
             placeholder="email"
             variant="standard"
-            type="text"
+            // type="text"
             {...register("email")}
           />
         </Box>
-        {loading ? (
-          <Button
-            className={classes.submitButton}
-            color="primary"
-            disabled={true}
-            size="large"
-            type="submit"
-            variant="outlined"
-          >
-            Enviando...
-          </Button>
-        ) : (
-          <Button
-            className={classes.submitButton}
-            color="primary"
-            size="large"
-            type="submit"
-            variant="outlined"
-          >
-            Enviar
-          </Button>
-        )}
+        <Box
+          // className={classes.submitButtonBox}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          {loading ? (
+            <Button
+              className={classes.submitButton}
+              color="primary"
+              disabled={true}
+              size="large"
+              type="submit"
+              variant="outlined"
+            >
+              Enviando...
+            </Button>
+          ) : (
+            <Button
+              className={classes.submitButton}
+              color="primary"
+              size="large"
+              type="submit"
+              variant="outlined"
+            >
+              Enviar
+            </Button>
+          )}
+        </Box>
         <Box className={classes.returnToLogin}>
           <Typography className={classes.returnToLoginContent}>
             <Link to="/">
