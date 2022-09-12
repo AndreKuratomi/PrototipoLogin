@@ -156,16 +156,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textFieldsContent: {
+    marginTop: "0.3rem",
+    marginBottom: "0px",
     width: "20rem",
-    ".MuiFormControl-marginNormal": {
-      marginTop: "16px",
+    "& label + .MuiInput-formControl": {
+      marginTop: "0px",
     },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
     },
     "& .MuiFormControl-root": {
-      margin: "3px",
+      margin: "1px",
+    },
+    "& .MuiInputLabel-formControl": {
+      top: "-0.5rem",
+      left: "0.25rem",
     },
   },
 }));
