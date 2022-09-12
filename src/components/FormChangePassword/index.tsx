@@ -34,31 +34,14 @@ import api from "src/service/api";
 
 const useStyles = makeStyles((theme) => ({
   color: {
-    color: "#fff",
+    color: "var(--white)",
+    marginBottom: "0.5rem",
   },
-  // buttonSingle: {
-  //   backgroundColor: "#3f51b5",
-  //   margin: "0.5rem 0",
-  //   width: "16rem",
-  //   "@media (min-width: 768px)": {
-  //     margin: "1rem 1rem 0 1rem",
-  //     width: "15rem",
-  //   },
-  // },
-  // buttons: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   "@media (min-width: 768px)": {
-  //     flexDirection: "row",
-  //     justifyContent: "space-between",
-  //   },
-  // },
+
   formControl: {
     background: "#009E4F",
     backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
     borderRadius: "1rem",
-    // backgroundImage: `url(${FormChangePasswordMobile})`,
-    // borderRadius: "5%",
     display: "flex",
     flexWrap: "nowrap",
     flexDirection: "column",
@@ -66,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "2rem",
     width: "20rem",
+
     "@media (min-width: 768px)": {
-      // backgroundImage: `url(${FormChangePasswordDesktop})`,
-      // flexWrap: "wrap",
       width: "30rem",
       height: "30rem",
     },
@@ -77,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
     width: "13rem",
   },
   inputBox: {
-    // backgroundImage: `url(${Input})`,
-    background: "#fff",
+    background: "var(--white)",
     borderRadius: "1rem",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     padding: "0 0.5rem",
     width: "280px",
     height: "3.688rem",
+
     "& .MuiInputLabel-formControl": {
       left: "0.25rem",
       top: "-0.3rem",
@@ -100,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
   inputsAllBox: {
     display: "flex",
     flexDirection: "column",
+
     "@media (min-width: 768px)": {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -115,36 +98,29 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
-    border: "1px solid #fff",
+    border: "1px solid var(--white)",
     borderRadius: "1rem",
-    color: "#fff",
+    color: "var(--white)",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     margin: "0 1rem",
     width: "10rem",
 
-    "& .MuiButton-outlinedPrimary:hover": {
-      //NÃO FUNCIONA!
-      color: "#3f51b5",
-    },
-    "& .MuiButton-label:hover": {
-      //GUAMBIARRA
+    "&:hover": {
       color: "#3f51b5",
     },
   },
-  submitButtonBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: "1rem",
-    // "&:hover": {
-    // color: "#3f51b5",
-    // },
-  },
+  // submitButtonBox: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   marginTop: "1rem",
+  // },
   suggestionBox: {
-    color: "#FFF",
+    color: "var(--white)",
     marginTop: "0.3srem",
     textAlign: "center",
     textDecoration: "none",
+
     "& .MuiTypography-body1": {
       fontSize: "0.8rem",
     },
@@ -159,6 +135,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "0.3rem",
     marginBottom: "0px",
     width: "20rem",
+
     "& label + .MuiInput-formControl": {
       marginTop: "0px",
     },
@@ -184,15 +161,12 @@ export const FormChangePassword = () => {
   const { loading, setLoading, LoadPage } = usePasswordConfirm();
   const {
     visible1,
-    setVisible1,
     userVisible1,
     userUnvisible1,
     visible2,
-    setVisible2,
     userVisible2,
     userUnvisible2,
     visible3,
-    setVisible3,
     userVisible3,
     userUnvisible3,
   } = usePasswordVisible();
@@ -340,6 +314,7 @@ export const FormChangePassword = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
     console.log(e);
+    func();
   };
 
   return (
@@ -368,8 +343,6 @@ export const FormChangePassword = () => {
               className={classes.textFieldsContent}
               error={!!errors.password_provisional}
               label="Senha provisória"
-              placeholder="senha provisória"
-              margin="normal"
               type={visible1 ? "text" : "password"}
               variant="standard"
               {...register("password_provisional")}
@@ -411,7 +384,6 @@ export const FormChangePassword = () => {
               className={classes.textFieldsContent}
               error={!!errors.new_password}
               label="Nova senha"
-              margin="normal"
               placeholder="nova senha"
               variant="standard"
               type={visible2 ? "text" : "password"}
@@ -454,7 +426,6 @@ export const FormChangePassword = () => {
               className={classes.textFieldsContent}
               error={!!errors.repeat_new_password}
               label="Repetir nova senha"
-              margin="normal"
               placeholder="repetir nova senha"
               type={visible3 ? "text" : "password"}
               variant="standard"
@@ -490,14 +461,20 @@ export const FormChangePassword = () => {
               minúsculas e números
             </Typography>
           </Box>
-          <Box className={classes.submitButtonBox}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             {loading ? (
               <Button
                 className={classes.submitButton}
                 color="primary"
                 disabled={true}
                 size="large"
-                variant="contained"
+                variant="outlined"
                 type="submit"
               >
                 Enviando...
