@@ -51,6 +51,7 @@ export const PasswordVisibleProvider = ({
   const [visible1, setVisible1] = useState(false);
 
   const userVisible1 = () => {
+    console.log("oi");
     setVisible1(true);
   };
 

@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,7 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
+import api from "src/service/api";
 
 const useStyles = makeStyles((theme) => ({
   color: {
@@ -174,7 +175,7 @@ export const FormChangePassword = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { onSubmit, loading } = usePasswordConfirm();
+  const { loading, setLoading, LoadPage } = usePasswordConfirm();
   const {
     visible1,
     setVisible1,
@@ -193,6 +194,26 @@ export const FormChangePassword = () => {
   // TOASTS:
   const toast = useToast();
 
+  const addSuccessToast = () => {
+    toast({
+      description: "Senha alterada com sucesso!",
+      duration: 5000,
+      position: "top",
+      status: "success",
+      title: "Alteração feita com sucesso!",
+    });
+  };
+  const addFailToast = () => {
+    toast({
+      description:
+        "Algo deu errado! Verifique se os dados preenchidos estão corretos.",
+      duration: 5000,
+      position: "top",
+      status: "error",
+      title: "Falha na alteração!",
+    });
+  };
+
   const notAskedToast = () => {
     toast({
       description: "O usuário não fez pedido de alteração de senha.",
@@ -202,15 +223,15 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  const emailErrorToast = (algo: string) => {
-    toast({
-      description: algo,
-      duration: 3000,
-      position: "top",
-      status: "error",
-      title: "Erro!",
-    });
-  };
+  // const emailErrorToast = (algo: string) => {
+  //   toast({
+  //     description: algo,
+  //     duration: 3000,
+  //     position: "top",
+  //     status: "error",
+  //     title: "Erro!",
+  //   });
+  // };
   const protoConflictToast = (algo: string) => {
     toast({
       description: algo,
@@ -232,19 +253,19 @@ export const FormChangePassword = () => {
 
   // LÓGICA FORMULÁRIO:
   const formSchema = yup.object().shape({
-    usuario: yup.string().required("Usuário obrigatório!"),
-    email: yup.string().email().required("Email obrigatório!"),
-    currentPassword: yup.string().required("Senha provisória obrigatória!"),
-    nova_senha: yup
+    password_provisional: yup
+      .string()
+      .required("Senha provisória obrigatória!"),
+    new_password: yup
       .string()
       .notOneOf(
-        [yup.ref("currentPassword")],
+        [yup.ref("password_provisional")],
         "A nova senha não deve ser igual à provisória!"
       )
       .required("Nova senha obrigatória!"),
-    repetir_nova_senha: yup
+    repeat_new_password: yup
       .string()
-      .oneOf([yup.ref("nova_senha")], "As senhas devem ser iguais!")
+      .oneOf([yup.ref("new_password")], "As senhas devem ser iguais!")
       .required("Repetir nova senha obrigatória!"),
   });
 
@@ -256,22 +277,22 @@ export const FormChangePassword = () => {
     resolver: yupResolver(formSchema),
   });
 
+  // VARIÁVEL USENAVIGATE:
+  const navigate = useNavigate();
+
   // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
-  if (errors.email && errors.email?.message === "email must be a valid email") {
-    emailErrorToast("Email inválido! Favor verificar.");
-  }
   if (
-    errors.nova_senha &&
-    errors.nova_senha?.message ===
+    errors.new_password &&
+    errors.new_password?.message ===
       "A nova senha não deve ser igual à provisória!"
   ) {
-    protoConflictToast(errors.nova_senha?.message);
+    protoConflictToast(errors.new_password?.message);
   }
   if (
-    errors.repetir_nova_senha &&
-    errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
+    errors.repeat_new_password &&
+    errors.repeat_new_password?.message === "As senhas devem ser iguais!"
   ) {
-    repeatPasswordToast(errors.repetir_nova_senha?.message);
+    repeatPasswordToast(errors.repeat_new_password?.message);
   }
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
@@ -288,6 +309,29 @@ export const FormChangePassword = () => {
     return <Navigate to="/" />;
   }
 
+  // LÓGICA SUBMISSÃO PARA ENVIO EMAIL:
+  const onSubmit = (data: Object) => {
+    LoadPage();
+    api
+      .post("change/", data)
+      .then((response) => {
+        addSuccessToast();
+        localStorage.clear();
+        navigate("/");
+        setLoading(false);
+        console.log(response);
+      })
+      .catch((err) => {
+        if (err.message === "Request failed with status code 500") {
+          protoConflictToast("Verificar senha provisória fornecida por email.");
+        } else {
+          addFailToast();
+          console.log(err);
+        }
+        setLoading(false);
+      });
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
     console.log(e);
   };
@@ -303,64 +347,26 @@ export const FormChangePassword = () => {
           />
         </Box>
         <Box className={classes.inputsAllBox}>
-          {/* <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "usuario") ? (
-              <img src={IconUserError} alt="UserError" />
-            ) : (
-              <img src={IconUser} alt="User" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.usuario}
-              label="Digite seu usuário"
-              margin="normal"
-              placeholder="usuario"
-              type="text"
-              variant="standard"
-              {...register("usuario")}
-            />
-          </Box>
           <Box
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "email") ? (
-              <img src={IconEmailError} alt="EmailError" />
-            ) : (
-              <img src={IconEmail} alt="Email" />
-            )}
-            <TextField
-              className={classes.textFieldsContent}
-              error={!!errors.email}
-              label="Digite seu email"
-              margin="normal"
-              placeholder="email"
-              type="text"
-              variant="standard"
-              {...register("email")}
-            />
-          </Box> */}
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
-            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
+            {Object.keys(errors).some(
+              (elt) => elt === "password_provisional"
+            ) ? (
               <AccessTime sx={{ color: red[500] }} />
             ) : (
               <AccessTime sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
-              error={!!errors.currentPassword}
+              error={!!errors.password_provisional}
               label="Senha provisória"
               placeholder="senha provisória"
               margin="normal"
               type={visible1 ? "text" : "password"}
               variant="standard"
-              {...register("currentPassword")}
+              {...register("password_provisional")}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -388,20 +394,22 @@ export const FormChangePassword = () => {
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
+            {Object.keys(errors).some(
+              (elt) => elt === "password_provisional"
+            ) ? (
               <Password sx={{ color: red[500] }} />
             ) : (
               <Password sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
-              error={!!errors.nova_senha}
+              error={!!errors.new_password}
               label="Nova senha"
               margin="normal"
               placeholder="nova senha"
               variant="standard"
               type={visible2 ? "text" : "password"}
-              {...register("nova_senha")}
+              {...register("new_password")}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -429,20 +437,22 @@ export const FormChangePassword = () => {
             className={classes.inputBox}
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
-            {Object.keys(errors).some((elt) => elt === "currentPassword") ? (
+            {Object.keys(errors).some(
+              (elt) => elt === "password_provisional"
+            ) ? (
               <Password sx={{ color: red[500] }} />
             ) : (
               <Password sx={{ color: green[700] }} />
             )}
             <TextField
               className={classes.textFieldsContent}
-              error={!!errors.repetir_nova_senha}
+              error={!!errors.repeat_new_password}
               label="Repetir nova senha"
               margin="normal"
               placeholder="repetir nova senha"
               type={visible3 ? "text" : "password"}
               variant="standard"
-              {...register("repetir_nova_senha")}
+              {...register("repeat_new_password")}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
