@@ -43,6 +43,7 @@ const DashboardExternals = () => {
     notAskedToast();
     return <Navigate to="/" />;
   }
+
   return (
     <Container>
       {open ? (
