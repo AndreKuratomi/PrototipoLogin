@@ -139,7 +139,7 @@ export const FormLogin = () => {
   // PROVIDERS:
   const { visible, userVisible, userUnvisible } = usePasswordVisible();
   // const { text, setUsername } = useTextInput();
-  const { userLogged, createUserToken } = useUserLogin();
+  const { userLogged, createUserToken, createSuperUserToken } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
@@ -225,7 +225,7 @@ export const FormLogin = () => {
         if (super_user) {
           // console.log("churros");
           addSuperUserToast();
-          createUserToken();
+          createSuperUserToken();
           navigate("/dashboardexternals");
         } else {
           // console.log("mortais");
