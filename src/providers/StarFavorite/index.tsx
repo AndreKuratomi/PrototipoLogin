@@ -10,18 +10,31 @@ import {
 import { getDashboards } from "../../utils";
 
 interface IStarFavoriteProvider {
+  cardId: number;
+  setCardId: Dispatch<SetStateAction<number>>;
+  setId: (id: number) => void;
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
   favoriteCards: Object[];
   setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
-  starClicked: () => void;
-  starUnClicked: () => void;
-  handleFavorite: (num: Object) => void;
-  handleDesFavorite: (num: Object) => void;
+  lastVisited: Object[];
+  setLastVisited: Dispatch<SetStateAction<Object[]>>;
+  StarClicked: (id: number) => void;
+  StarUnClicked: (id: number) => void;
+  handleFavorite: (num: IDashboard) => void;
+  handleDesFavorite: (num: IDashboard) => void;
+  handleLastVisited: (num: IDashboard, func: () => void) => void;
 }
 
 interface IStarFavoriteProviderProps {
   children: ReactNode;
+}
+
+interface IDashboard {
+  id: number;
+  category: string;
+  name: string;
+  url: string;
 }
 
 // URLs:
@@ -32,50 +45,90 @@ export const StarFavoriteContext = createContext({} as IStarFavoriteProvider);
 export const StarFavoriteProvider = ({
   children,
 }: IStarFavoriteProviderProps) => {
-  // STATE PARA ALTERAR ÍCONE ESTRELA:
-  const [clicked, setClicked] = useState(false);
+  // STATE PARA DELIMITAR ID DO CARD:
+  const [cardId, setCardId] = useState(0);
+
+  const setId = (id: number) => {
+    setCardId(id);
+  };
 
   // STATE PARA INCLUIR LISTA FAVORITOS:
   const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
 
-  const starClicked = () => {
-    setClicked(true);
+  // STATE PARA INCLUIR LISTA FAVORITOS:
+  const [lastVisited, setLastVisited] = useState([] as Object[]);
+
+  // STATE PARA ALTERAR ÍCONE ESTRELA:
+  const [clicked, setClicked] = useState(false);
+
+  const StarClicked = (id: number) => {
+    const dash = dashboards.find((elem: IDashboard) => elem.id === id);
+    if (dash) {
+      setClicked(true);
+    }
   };
 
-  const starUnClicked = () => {
+  const StarUnClicked = () => {
+    // STATE PARA ALTERAR ÍCONE ESTRELA:
+    // const [clicked, setClicked] = useState(false);
+    // const dash = favoriteCards.find((elem: IDashboard) => elem.id === id);
+    // if (dash) {
     setClicked(false);
+    // }
   };
 
-  const handleFavorite = (num: Object) => {
+  const handleFavorite = (num: IDashboard) => {
     if (!favoriteCards.includes(num)) {
       setFavoriteCards([
         ...favoriteCards,
         dashboards.find((elem: Object) => elem === num),
       ]);
-      starClicked();
-      console.log(clicked);
+      StarClicked(num.id);
     }
   };
 
-  const handleDesFavorite = (num: Object) => {
+  const handleDesFavorite = (num: IDashboard) => {
     if (favoriteCards.includes(num)) {
       setFavoriteCards(favoriteCards.filter((elem: Object) => elem !== num));
-      starUnClicked();
-      console.log(clicked);
+      StarUnClicked();
+    }
+  };
+
+  const handleLastVisited = async (num: IDashboard, func: () => void) => {
+    func();
+    if (!lastVisited.includes(num)) {
+      if (lastVisited.length < 3) {
+        setLastVisited([
+          ...lastVisited,
+          dashboards.find((elem: Object) => elem === num),
+        ]);
+      } else {
+        let filtro = lastVisited.filter(
+          (elt: Object) => elt !== lastVisited[0]
+        );
+        filtro.unshift(num);
+        return filtro;
+      }
     }
   };
 
   return (
     <StarFavoriteContext.Provider
       value={{
+        cardId,
+        setCardId,
+        setId,
         clicked,
         setClicked,
-        starClicked,
-        starUnClicked,
+        lastVisited,
+        setLastVisited,
+        StarClicked,
+        StarUnClicked,
         favoriteCards,
         setFavoriteCards,
         handleFavorite,
         handleDesFavorite,
+        handleLastVisited,
       }}
     >
       {children}

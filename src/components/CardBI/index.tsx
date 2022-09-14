@@ -8,12 +8,17 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useStarFavorite } from "../../providers/StarFavorite";
 
+interface IElt {
+  id: number;
+  category: string;
+  name: string;
+  url: string;
+}
+
 interface IProps {
-  // description: string;
-  // elt: Object;
+  //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
   elt: any;
-  // id: string;
-  // link: string;
+  // id: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -30,7 +35,7 @@ const useStyles = makeStyles(() => ({
   cards: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: "1rem",
+    margin: "1rem 0",
   },
   cardAction: {
     padding: "0",
@@ -69,31 +74,39 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { clicked, handleFavorite, handleDesFavorite } = useStarFavorite();
+  const {
+    setCardId,
+    clicked,
+    handleFavorite,
+    handleDesFavorite,
+    handleLastVisited,
+  } = useStarFavorite();
+
+  // TENTATIVA INDIVIDUALIZAR:
 
   // URLs:
   let dashboards = getDashboards();
 
   // ENVIO URL:
   const sendURL = () => {
-    const urlFound: any = dashboards.find((elem: any) => elem.url === elt.url);
+    const urlFound: IElt = dashboards.find(
+      (elem: IElt) => elem.url === elt.url
+    );
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
 
   return (
-    <Card className={classes.cards}>
+    <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>
-        {/* {clicked ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
-          <StarRounded
-            className={classes.starIcon}
-            onClick={() => handleDesFavorite(elt)}
-          />
-        ) : ( */}
-        <StarBorderRounded
-          className={classes.starIcon}
-          onClick={() => handleFavorite(elt)}
-        />
-        {/* )} */}
+        {clicked ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
+          <Box onClick={() => handleDesFavorite(elt)}>
+            <StarRounded className={classes.starIcon} />
+          </Box>
+        ) : (
+          <Box onClick={() => handleFavorite(elt)}>
+            <StarBorderRounded className={classes.starIcon} />
+          </Box>
+        )}
         <CardMedia
           component="iframe"
           src={elt.url}
@@ -102,11 +115,16 @@ export const CardBI = ({ elt }: IProps) => {
         />
       </Box>
       <CardActions className={classes.cardAction}>
-        <Link to="/dashboardsingle">
-          <Button className={classes.button} onClick={sendURL}>
-            {elt.description}
+        {/* <Link to="/dashboardsingle"> */}
+        <a href="/dashboardsingle" target="_blanck">
+          <Button
+            className={classes.button}
+            onClick={() => handleLastVisited(elt, sendURL)}
+          >
+            {elt.name}
           </Button>
-        </Link>
+        </a>
+        {/* </Link> */}
       </CardActions>
     </Card>
   );

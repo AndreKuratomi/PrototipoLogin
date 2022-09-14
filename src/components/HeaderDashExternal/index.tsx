@@ -1,12 +1,12 @@
 import { InputSearch } from "../InputSearch";
 
 import { AppBar, Box, CardMedia } from "@material-ui/core";
-
 import { ExitToAppRounded } from "@mui/icons-material";
-
 import { makeStyles } from "@material-ui/styles";
 
 import LogoVestcasaNovo from "../../assets/figma_imgs/LogoVestcasaNovo.png";
+
+import { useOpenModal } from "src/providers/ModalOpen";
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -15,10 +15,15 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "1rem",
+    position: "relative",
+    zIndex: 1,
+    "& .MuiPaper-elevation4": {
+      boxShadow: "undefined",
+    },
     "@media (min-width: 768px)": {
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: "1rem 2rem",
+      padding: "0",
     },
   },
   imageLogo: {
@@ -32,6 +37,9 @@ const useStyles = makeStyles(() => ({
   },
   leaveIcon: {
     color: "var(--externalDashboardGreen)",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
   subHeader: {
     color: "var(--black)",
@@ -42,18 +50,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const HeaderDashExternal = () => {
+  // PROVIDER:
+  const { setOpen } = useOpenModal();
+
   // STYLES:
   const classes = useStyles();
 
-  //   LOGOUT:
-  const clearLocalStorage = () => {
-    // clearTimeout(action);
-    localStorage.clear();
-    window.location.href = "/";
-  };
-
   return (
-    <AppBar className={classes.header} position="static">
+    <AppBar className={classes.header} elevation={0} position="static">
       <CardMedia
         component="img"
         image={LogoVestcasaNovo}
@@ -65,7 +69,7 @@ export const HeaderDashExternal = () => {
         <InputSearch />
         <ExitToAppRounded
           className={classes.leaveIcon}
-          onClick={clearLocalStorage}
+          onClick={() => setOpen(true)}
         />
       </Box>
     </AppBar>

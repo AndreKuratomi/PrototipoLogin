@@ -23,10 +23,15 @@ const useStyles = makeStyles(() => ({
   typography1: {
     color: "var(--externalDashboardGreen)",
     fontSize: "1.5rem",
+    fontWeight: 500,
+    margin: "1rem",
+    "@media (min-width: 768px)": {
+      fontSize: "2rem",
+    },
   },
   typography2: {
     color: "var(--externalDashboardGreen)",
-    marginBottom: "1rem",
+    margin: "0 1rem 1rem",
   },
 }));
 

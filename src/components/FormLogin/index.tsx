@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../service/api";
 
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
-import { useTextInput } from "../../providers/TextInput";
+// import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
 import {
@@ -37,21 +37,22 @@ import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     marginTop: "0.5rem",
     textAlign: "end",
   },
   forgetPasswordExtraPageBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
   },
   forgetPasswordBoxContent: {
-    fontSize: "0.8rem",
     display: "flex",
     flexDirection: "column",
+    fontSize: "0.8rem",
+    // marginLeft: "1rem",
   },
   formControl: {
     background: "#009E4F",
@@ -75,7 +76,7 @@ const useStyles = makeStyles({
   },
   inputBox: {
     // backgroundImage: `url(${Input})`,
-    background: "#fff",
+    background: "var(--white)",
     borderRadius: "1rem",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     padding: "0.5rem",
@@ -100,35 +101,33 @@ const useStyles = makeStyles({
   },
   submitButton: {
     backgroundColor: "rgba(63 81 181 0.04)",
-    border: "1px solid #fff",
+    border: "1px solid var(--white)",
     borderRadius: "1rem",
-    color: "#fff",
+    color: "var(--white)",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
-    width: "10rem",
+    width: "15rem",
 
-    "& .MuiButton-outlinedPrimary:hover": {
-      //NÃO FUNCIONA!
-      color: "#3f51b5",
-    },
-    "& .MuiButton-label:hover": {
-      //GUAMBIARRA
+    "&:hover": {
       color: "#3f51b5",
     },
   },
-  submitButtonBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
+
   textFieldsContent: {
     width: "20rem",
+    "& label + .MuiInput-formControl": {
+      marginTop: "0px",
+    },
     "& .MuiInputBase-input": {
       marginBottom: "0.5rem",
       paddingLeft: "0.4rem",
     },
     "& .MuiFormControl-root": {
-      margin: "3px",
+      margin: "1px",
+    },
+    "& .MuiInputLabel-formControl": {
+      top: "-0.5rem",
+      left: "0.25rem",
     },
   },
 });
@@ -155,21 +154,31 @@ export const FormLogin = () => {
     });
   };
 
+  const addSuperUserToast = () => {
+    toast({
+      description: "Seja bem-vindo(a)!",
+      duration: 3000,
+      position: "top",
+      status: "success",
+      title: "Login feito com sucesso!",
+    });
+  };
+
   const addWarningToast = () => {
+    //E COMO COLOCAR ELA PARA SER EXIBIDA UMA VEZ SÓ? PENSAR NUMA LISTA.
     toast({
       description:
-        "Atenção!" +
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
       duration: 7000,
       position: "top",
       status: "warning",
-      title: "Assinatura próxima de renovar!",
+      title: "Atenção!",
     });
   };
 
-  const addFailToast = (date: string) => {
+  const addFailToast = () => {
     toast({
-      description: "Assinatura vencida desde " + date + "!",
+      description: "Assinatura vencida! Contate suporte.",
       duration: 5000,
       position: "top",
       status: "error",
@@ -201,68 +210,63 @@ export const FormLogin = () => {
     resolver: yupResolver(formSchema),
   });
 
-  // // COMPORTAMENTO TOASTS DE ACORDO COM ERROS NOS INPUTS:
-  // if (errors.email && errors.email?.message === "email must be a valid email") {
-  //   addNonLoggedToast();
-  //   console.log("sdfgcx");
-  //   console.log(addNonLoggedToast());
-  // }
-  // if (errors.senha && errors.senha?.message === "Senha obrigatória!") {
-  //   addNonLoggedToast();
-  //   console.log(addNonLoggedToast());
-  // }
-  // if (
-  //   errors.repetir_nova_senha &&
-  //   errors.repetir_nova_senha?.message === "As senhas devem ser iguais!"
-  // ) {
-  //   addNonLoggedToast();
-  // }
-
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
   const onSubmitFunction = (data: Object, text: any) => {
-    // navigate("/dashboardinternals");
-    // userLogged();
-    // createUserToken();
-    console.log(data);
-    // addNonLoggedToast();
     api
       .post("login/", data)
       .then((response) => {
-        console.log(response);
-        // const { token, user } = response.data;
-        addSuccessToast();
-        navigate("/dashboardinternals");
-        userLogged();
-        createUserToken();
-        // // setAuthenticated(true);
-        const now = Date.now();
+        // console.log(response);
+        const { signature_vality, super_user, token } = response.data;
 
-        // let delta = user.signature_vality - now;
-        // console.log(delta);
+        // SUPERUSER:
+        if (super_user) {
+          // console.log("churros");
+          addSuperUserToast();
+          createUserToken();
+          navigate("/dashboardexternals");
+        } else {
+          // console.log("mortais");
+          const now = Date.now();
+          // console.log(now);
 
-        // if (delta > 15) {
-        //   addSuccessToast(user.username);
-        //   userLogged();
-        //   createUserToken();
-        //   navigate("/dashboardinternals");
-        // } else if (delta <= 15 && delta > 0) {
-        //   addWarningToast(user.username);
-        //   userLogged();
-        //   createUserToken();
-        //   navigate("/dashboardinternals");
-        // } else {
-        //   addFailToast(user.signature_vality);
-        // }
+          // CONVERSÃO SIGNATURE PYTHON PARA JS:
+          const dateSecondsToMiliseconds: number =
+            Math.floor(signature_vality) * 1000;
+          console.log(dateSecondsToMiliseconds);
+
+          const delta = dateSecondsToMiliseconds - now;
+          // console.log(delta);
+          const fithteenInMiliseconds = 60 * 60 * 24 * 15 * 1000;
+          // console.log(fithteenInMiliseconds);
+
+          if (delta > fithteenInMiliseconds) {
+            // console.log("em dia");
+            addSuccessToast();
+            userLogged();
+            createUserToken();
+            navigate("/dashboardinternals");
+          } else if (delta <= fithteenInMiliseconds && delta > 0) {
+            console.log("perto de vencer");
+            addWarningToast();
+            userLogged();
+            createUserToken();
+            navigate("/dashboardinternals");
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
-        addNonLoggedToast();
+        if (err.message === "Request failed with status code 401") {
+          addFailToast();
+        } else {
+          addNonLoggedToast();
+        }
       });
   };
-  console.log(errors);
+  // console.log(errors);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
     console.log(e);
@@ -352,7 +356,14 @@ export const FormLogin = () => {
               </Link>
             </Typography>
           </Box>
-          <Box className={classes.submitButtonBox}>
+          <Box
+            // className={classes.submitButtonBox}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             <Button
               className={classes.submitButton}
               color="primary"
