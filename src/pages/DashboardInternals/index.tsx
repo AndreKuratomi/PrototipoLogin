@@ -1,9 +1,9 @@
-// import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // import { useFullScreen } from "../../providers/FullScreen";
-// import { useUserLogin } from "../../providers/UserLogin";
-import { PowerBIEmbed } from "powerbi-client-react";
-import { models } from "powerbi-client";
+import { useUserLogin } from "../../providers/UserLogin";
+// import { PowerBIEmbed } from "powerbi-client-react";
+// import { models } from "powerbi-client";
 
 // import { disableBodyScroll } from "body-scroll-lock";
 import { lock } from "tua-body-scroll-lock";
@@ -73,18 +73,18 @@ const DashboardInternals = () => {
   // STYLES:
   const classes = useStyles();
 
-  // // TOASTS:
-  // const toast = useToast();
+  // TOASTS:
+  const toast = useToast();
 
-  // const notLoggedToast = () => {
-  //   toast({
-  //     description: "Usuário não logado!",
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "error",
-  //     title: "Não autorizado",
-  //   });
-  // };
+  const notLoggedToast = () => {
+    toast({
+      description: "Usuário não logado!",
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
+  };
   // const timeoutToast = () => {
   //   toast({
   //     description: "Faça o login novamente.",
@@ -95,16 +95,16 @@ const DashboardInternals = () => {
   //   });
   // };
 
-  // // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
-  // const { setLogged } = useUserLogin();
-  // const token = localStorage.getItem("@token: UserLoggedToken");
+  // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
+  const { userLogged } = useUserLogin();
+  const token = localStorage.getItem("@token: UserLoggedToken");
 
-  // if (token) {
-  //   setLogged(true);
-  // } else {
-  //   notLoggedToast();
-  //   return <Navigate to="/" />;
-  // }
+  if (token) {
+    userLogged();
+  } else {
+    notLoggedToast();
+    return <Navigate to="/" />;
+  }
 
   // DESABILITAR SCROLL:
   lock();
