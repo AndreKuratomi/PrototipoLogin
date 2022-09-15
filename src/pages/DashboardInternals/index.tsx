@@ -99,9 +99,9 @@ const DashboardInternals = () => {
 
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
   const { userLogged } = useUserLogin();
-  const token = localStorage.getItem("@token: UserLoggedToken");
+  const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
 
-  if (token) {
+  if (_cnpj) {
     userLogged();
   } else {
     notLoggedToast();
@@ -120,7 +120,7 @@ const DashboardInternals = () => {
 
   // API
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
-
+  console.log(cnpj);
   const showDashboard = () => {
     api
       .get(`suppliers/${cnpj}`)
