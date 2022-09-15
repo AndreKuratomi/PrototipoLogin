@@ -219,7 +219,7 @@ export const FormLogin = () => {
       .post("login/", data)
       .then((response) => {
         // console.log(response);
-        const { signature_vality, super_user, token } = response.data;
+        const { signature_vality, super_user, cnpj, token } = response.data;
 
         // SUPERUSER:
         if (super_user) {
@@ -246,13 +246,13 @@ export const FormLogin = () => {
             // console.log("em dia");
             addSuccessToast();
             userLogged();
-            createUserToken();
+            createUserToken(cnpj);
             navigate("/dashboardinternals");
           } else if (delta <= fithteenInMiliseconds && delta > 0) {
             console.log("perto de vencer");
             addWarningToast();
             userLogged();
-            createUserToken();
+            createUserToken(cnpj);
             navigate("/dashboardinternals");
           }
         }

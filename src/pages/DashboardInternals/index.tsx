@@ -1,11 +1,8 @@
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-// import { useFullScreen } from "../../providers/FullScreen";
 import { useUserLogin } from "../../providers/UserLogin";
-// import { PowerBIEmbed } from "powerbi-client-react";
-// import { models } from "powerbi-client";
 
-// import { disableBodyScroll } from "body-scroll-lock";
 import { lock } from "tua-body-scroll-lock";
 
 import { ExitToAppRounded } from "@mui/icons-material";
@@ -26,6 +23,8 @@ import { makeStyles } from "@material-ui/styles";
 import LogoVestcasaVerde from "../../assets/figma_imgs/LogoVestcasaVerde.png";
 
 import { useToast } from "@chakra-ui/react";
+
+import api from "src/service/api";
 
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
@@ -70,6 +69,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const DashboardInternals = () => {
+  // STATES:
+  const [dashboard, setDashboard] = useState("");
+
   // STYLES:
   const classes = useStyles();
 
@@ -116,6 +118,24 @@ const DashboardInternals = () => {
     window.location.href = "/";
   };
 
+  // API
+  const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
+
+  const showDashboard = () => {
+    api
+      .get(`suppliers/${cnpj}`)
+      .then((response) => {
+        console.log(response);
+        setDashboard(response.data.url_dashboard);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  showDashboard();
+  // useEffect(() => showDashboard(), []);
+
   return (
     // <Container>
     <Container className={classes.container}>
@@ -137,7 +157,8 @@ const DashboardInternals = () => {
           <CardMedia
             className={classes.iframe}
             component="iframe"
-            src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            // src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            src={dashboard}
           />
         </CardContent>
       </Card>
