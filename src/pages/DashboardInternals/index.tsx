@@ -32,9 +32,9 @@ const useStyles = makeStyles(() => ({
   cardActions: {
     display: "flex",
     justifyContent: "space-between",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
+    // "@media (min-height: 767px)": {
+    //   display: "none",
+    // },
   },
   cardConcent: {
     padding: "0",
@@ -50,16 +50,16 @@ const useStyles = makeStyles(() => ({
     height: "37.5rem",
     // height: "41.5rem",
     "@media (min-height: 767px)": {
-      height: "50rem",
+      height: "94vh",
     },
   },
   image: {
     display: "flex",
     justifyContent: "center",
     width: "13rem",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
+    // "@media (min-height: 767px)": {
+    //   display: "none",
+    // },
   },
   leaveIcon: {
     color: "var(--black)",
