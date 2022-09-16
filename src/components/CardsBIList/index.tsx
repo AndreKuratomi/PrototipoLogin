@@ -77,8 +77,12 @@ export const CardsBIList = ({ value }: any, { id }: IElem) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { favoriteCards } = useStarFavorite();
+  // const { favoriteCards } = useStarFavorite();
 
+  const favorites = JSON.parse(
+    localStorage.getItem("@FavoritesList") || "null"
+  );
+  console.log(favorites);
   // URLs:
   let dashboards = getDashboards();
 
@@ -112,7 +116,7 @@ export const CardsBIList = ({ value }: any, { id }: IElem) => {
     <Box className={classes.dashboardList}>
       {/* FAVORITOS */}
       <TabPanel value={value} index={0}>
-        {favoriteCards.map((elt: any) => (
+        {favorites.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>

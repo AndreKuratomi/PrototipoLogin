@@ -37,14 +37,6 @@ const useStyles = makeStyles(() => ({
       height: "104vh",
     },
   },
-  image: {
-    display: "flex",
-    justifyContent: "center",
-    width: "13rem",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
-  },
   leaveIcon: {
     color: "var(--black)",
     display: "flex",

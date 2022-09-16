@@ -43,7 +43,6 @@ export const TabsList = () => {
   // PROVIDERS:
   const { text, setIndexValue } = useTextInput();
   const index = setIndexValue(text);
-  console.log(setIndexValue(text));
 
   const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);

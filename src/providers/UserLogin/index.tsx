@@ -14,7 +14,7 @@ interface ILoginProvider {
   setLogged: Dispatch<SetStateAction<boolean>>;
   userLogged: () => void;
   createUserToken: (elem: string) => void;
-  createSuperUserToken: () => void;
+  createSuperUserToken: (elem: string) => void;
 }
 
 interface ILoginProviderProps {
@@ -37,12 +37,9 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
     localStorage.setItem("@UserLoggedToken:cnpj", elem);
   };
 
-  const createSuperUserToken = () => {
-    const cryptoUserToken = bcrypt.genSaltSync(10);
-    localStorage.setItem(
-      "@token: SuperUserLoggedToken",
-      JSON.stringify(cryptoUserToken)
-    );
+  const createSuperUserToken = (elem: string) => {
+    // const cryptoUserToken = bcrypt.genSaltSync(10);
+    localStorage.setItem("@SuperUserLoggedToken:cnpj", elem);
   };
 
   return (

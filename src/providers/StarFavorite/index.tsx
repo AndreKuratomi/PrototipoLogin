@@ -10,15 +10,17 @@ import {
 import { getDashboards } from "../../utils";
 
 interface IStarFavoriteProvider {
+  visited: Object[];
+  favorites: Object[];
   cardId: number;
   setCardId: Dispatch<SetStateAction<number>>;
   setId: (id: number) => void;
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
-  favoriteCards: Object[];
-  setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
-  lastVisited: Object[];
-  setLastVisited: Dispatch<SetStateAction<Object[]>>;
+  // favoriteCards: Object[];
+  // setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
+  // lastVisited: Object[];
+  // setLastVisited: Dispatch<SetStateAction<Object[]>>;
   StarClicked: (id: number) => void;
   StarUnClicked: (id: number) => void;
   handleFavorite: (num: IDashboard) => void;
@@ -53,10 +55,16 @@ export const StarFavoriteProvider = ({
   };
 
   // STATE PARA INCLUIR LISTA FAVORITOS:
-  const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
+  // const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
+  const favorites: Object[] = [];
+  // favorites.push("churros");
+  localStorage.setItem("@FavoritesList", JSON.stringify(favorites));
+  // console.log(algo); // let favoritesListLocalStorage = [];
 
   // STATE PARA INCLUIR LISTA FAVORITOS:
-  const [lastVisited, setLastVisited] = useState([] as Object[]);
+  // const [lastVisited, setLastVisited] = useState([] as Object[]);
+  const visited: Object[] = [];
+  // console.log(algo2); // let lastVisitedLocalStorage = []
 
   // STATE PARA ALTERAR ÍCONE ESTRELA:
   const [clicked, setClicked] = useState(false);
@@ -77,37 +85,46 @@ export const StarFavoriteProvider = ({
     // }
   };
 
+  // INCLUSÃO DE FAVORITOS:
   const handleFavorite = (num: IDashboard) => {
-    if (!favoriteCards.includes(num)) {
-      setFavoriteCards([
-        ...favoriteCards,
-        dashboards.find((elem: Object) => elem === num),
-      ]);
+    if (!favorites.includes(num)) {
+      // setFavoriteCards([
+      //   ...
+      favorites.push(dashboards.find((elem: Object) => elem === num));
+      // ,
+      // ]);
       StarClicked(num.id);
     }
   };
 
+  // EXCLUSÃO DE FAVORITOS:
   const handleDesFavorite = (num: IDashboard) => {
-    if (favoriteCards.includes(num)) {
-      setFavoriteCards(favoriteCards.filter((elem: Object) => elem !== num));
+    if (favorites.includes(num)) {
+      favorites.filter((elem: Object) => elem !== num);
       StarUnClicked();
     }
   };
 
+  // INCLUSÃO DE FAVORITOS:
   const handleLastVisited = async (num: IDashboard, func: () => void) => {
     func();
-    if (!lastVisited.includes(num)) {
-      if (lastVisited.length < 3) {
-        setLastVisited([
-          ...lastVisited,
-          dashboards.find((elem: Object) => elem === num),
-        ]);
-      } else {
-        let filtro = lastVisited.filter(
-          (elt: Object) => elt !== lastVisited[0]
-        );
-        filtro.unshift(num);
-        return filtro;
+    if (!visited.includes(num)) {
+      if (visited.length < 3) {
+        // setvisited([
+        //   ...
+        visited.push(dashboards.find((elem: Object) => elem === num));
+        localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+
+        // ]);
+      } else if (visited.length >= 3) {
+        // let filtro = visited.filter(
+        //   (elt: Object) => elt !== visited[0]
+        // );
+        visited.push(dashboards.find((elem: Object) => elem === num));
+        visited.shift();
+        localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+
+        // return filtro;
       }
     }
   };
@@ -115,17 +132,19 @@ export const StarFavoriteProvider = ({
   return (
     <StarFavoriteContext.Provider
       value={{
+        visited,
+        favorites,
         cardId,
         setCardId,
         setId,
         clicked,
         setClicked,
-        lastVisited,
-        setLastVisited,
+        // lastVisited,
+        // setFavoriteCards,
+        // setLastVisited,
         StarClicked,
         StarUnClicked,
-        favoriteCards,
-        setFavoriteCards,
+        // favoriteCards,
         handleFavorite,
         handleDesFavorite,
         handleLastVisited,

@@ -33,11 +33,11 @@ const DashboardExternals = () => {
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
 
-  const token = JSON.parse(
-    localStorage.getItem("@token: SuperUserLoggedToken") || "null"
+  const cnpj = JSON.parse(
+    localStorage.getItem("@SuperUserLoggedToken:cnpj") || "null"
   );
 
-  if (token) {
+  if (cnpj) {
     userLogged();
   } else {
     notAskedToast();

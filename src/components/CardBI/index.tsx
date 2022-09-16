@@ -93,6 +93,7 @@ export const CardBI = ({ elt }: IProps) => {
       (elem: IElt) => elem.url === elt.url
     );
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
+    // localStorage.
   };
 
   return (
