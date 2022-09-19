@@ -80,6 +80,8 @@ export const CardBI = ({ elt }: IProps) => {
     handleFavorite,
     handleDesFavorite,
     handleLastVisited,
+    // url,
+    // setUrl,
   } = useStarFavorite();
 
   // TENTATIVA INDIVIDUALIZAR:
@@ -93,9 +95,7 @@ export const CardBI = ({ elt }: IProps) => {
       (elem: IElt) => elem.url === elt.url
     );
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
-    // localStorage.
   };
-
   return (
     <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>
@@ -116,8 +116,7 @@ export const CardBI = ({ elt }: IProps) => {
         />
       </Box>
       <CardActions className={classes.cardAction}>
-        {/* <Link to="/dashboardsingle"> */}
-        <a href="/dashboardsingle" target="_blanck">
+        <a target="_blanck" href="/dashboardsingle">
           <Button
             className={classes.button}
             onClick={() => handleLastVisited(elt, sendURL)}
@@ -125,7 +124,6 @@ export const CardBI = ({ elt }: IProps) => {
             {elt.name}
           </Button>
         </a>
-        {/* </Link> */}
       </CardActions>
     </Card>
   );

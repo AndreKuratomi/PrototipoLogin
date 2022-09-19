@@ -38,6 +38,7 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
   };
 
   const createSuperUserToken = (elem: string) => {
+    console.log(elem);
     // const cryptoUserToken = bcrypt.genSaltSync(10);
     localStorage.setItem("@SuperUserLoggedToken:cnpj", elem);
   };

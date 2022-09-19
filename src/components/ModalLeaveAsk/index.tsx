@@ -51,7 +51,7 @@ export const ModalLeaveAsk = ({ open }: any) => {
   //   LOGOUT:
   const clearLocalStorage = () => {
     console.log("churros");
-    localStorage.clear();
+    localStorage.removeItem("@SuperUserLoggedToken:cnpj");
     window.location.href = "/";
   };
 

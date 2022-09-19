@@ -17,10 +17,8 @@ interface IStarFavoriteProvider {
   setId: (id: number) => void;
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
-  // favoriteCards: Object[];
-  // setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
-  // lastVisited: Object[];
-  // setLastVisited: Dispatch<SetStateAction<Object[]>>;
+  url: string;
+  setUrl: Dispatch<SetStateAction<string>>;
   StarClicked: (id: number) => void;
   StarUnClicked: (id: number) => void;
   handleFavorite: (num: IDashboard) => void;
@@ -54,17 +52,12 @@ export const StarFavoriteProvider = ({
     setCardId(id);
   };
 
-  // STATE PARA INCLUIR LISTA FAVORITOS:
-  // const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
+  // LISTA FAVORITOS:
   const favorites: Object[] = [];
-  // favorites.push("churros");
-  localStorage.setItem("@FavoritesList", JSON.stringify(favorites));
-  // console.log(algo); // let favoritesListLocalStorage = [];
+  // localStorage.setItem("@FavoritesList", JSON.stringify(favorites));
 
-  // STATE PARA INCLUIR LISTA FAVORITOS:
-  // const [lastVisited, setLastVisited] = useState([] as Object[]);
-  const visited: Object[] = [];
-  // console.log(algo2); // let lastVisitedLocalStorage = []
+  // STATE URL PARA SINGLE DASHBOARD:
+  const [url, setUrl] = useState("");
 
   // STATE PARA ALTERAR ÍCONE ESTRELA:
   const [clicked, setClicked] = useState(false);
@@ -105,26 +98,30 @@ export const StarFavoriteProvider = ({
     }
   };
 
-  // INCLUSÃO DE FAVORITOS:
+  // LISTA VISITADOS:
+  const visited: Object[] = [];
+
+  // INCLUSÃO DE VISITADOS:
   const handleLastVisited = async (num: IDashboard, func: () => void) => {
     func();
-    if (!visited.includes(num)) {
-      if (visited.length < 3) {
-        // setvisited([
-        //   ...
-        visited.push(dashboards.find((elem: Object) => elem === num));
-        localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+    const dashboard = dashboards.find((elem: Object) => elem === num);
+    if (dashboard) {
+      console.log(visited);
+      if (!visited.includes(num)) {
+        console.log("não tem");
+        if (visited.length < 3) {
+          visited.push(dashboard);
+          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+        } else {
+          // let filtro = visited.filter(
+          //   (elt: Object) => elt !== visited[0]
+          // );
+          visited.push(dashboard);
+          visited.shift();
+          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
 
-        // ]);
-      } else if (visited.length >= 3) {
-        // let filtro = visited.filter(
-        //   (elt: Object) => elt !== visited[0]
-        // );
-        visited.push(dashboards.find((elem: Object) => elem === num));
-        visited.shift();
-        localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-
-        // return filtro;
+          // return filtro;
+        }
       }
     }
   };
@@ -139,12 +136,11 @@ export const StarFavoriteProvider = ({
         setId,
         clicked,
         setClicked,
-        // lastVisited,
-        // setFavoriteCards,
+        url,
+        setUrl,
         // setLastVisited,
         StarClicked,
         StarUnClicked,
-        // favoriteCards,
         handleFavorite,
         handleDesFavorite,
         handleLastVisited,

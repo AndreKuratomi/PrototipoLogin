@@ -226,7 +226,7 @@ export const FormLogin = () => {
         if (super_user) {
           // console.log("churros");
           addSuperUserToast();
-          createSuperUserToken(last_name);
+          createSuperUserToken(cnpj);
           navigate("/dashboardexternals");
         } else {
           // console.log("mortais");

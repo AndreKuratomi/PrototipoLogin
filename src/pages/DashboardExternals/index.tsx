@@ -36,6 +36,9 @@ const DashboardExternals = () => {
   const cnpj = JSON.parse(
     localStorage.getItem("@SuperUserLoggedToken:cnpj") || "null"
   );
+  //
+
+  //
 
   if (cnpj) {
     userLogged();

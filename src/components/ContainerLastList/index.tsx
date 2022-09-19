@@ -80,7 +80,7 @@ export const ContainerLastList = () => {
   return (
     <Container className={classes.container}>
       <Typography className={classes.typography1}>
-        Olá, Ahmadi
+        Olá, Ahmad
         {/* {name} */}
       </Typography>
       <Typography className={classes.typography2}>Visto por último</Typography>
