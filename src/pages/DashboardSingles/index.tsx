@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { getDashboards } from "../../utils";
+// import { getDashboards } from "../../utils";
 
-// import { disableBodyScroll } from "body-scroll-lock";
 import { lock } from "tua-body-scroll-lock";
 
 import {
@@ -20,15 +19,10 @@ import { makeStyles } from "@material-ui/styles";
 
 import { Main } from "./styles";
 
+import { useStarFavorite } from "../../providers/StarFavorite";
+
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
-  cardActions: {
-    display: "flex",
-    justifyContent: "space-between",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
-  },
   cardConcent: {
     padding: "0",
   },
@@ -42,15 +36,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     height: "42.5rem",
     "@media (min-width: 767px)": {
-      height: "44rem",
-    },
-  },
-  image: {
-    display: "flex",
-    justifyContent: "center",
-    width: "13rem",
-    "@media (min-height: 767px)": {
-      display: "none",
+      height: "104vh",
     },
   },
   leaveIcon: {
@@ -70,36 +56,35 @@ const DashboardSingles = () => {
   // STYLES:
   const classes = useStyles();
 
-  // // DOM:
-  // const deb = window.document.getElementById("scroll") as HTMLElement;
-
   // DESABILITAR SCROLL:
   lock();
 
-  // URLs:
+  // PROVIDERS:
   const url = JSON.parse(
     localStorage.getItem("@pbi_url: PowerBI URL") || "null"
   );
 
+  // PROVIDERS:
+  // const { url } = useStarFavorite();
+  // console.log(url[0]);
+
   // LOGOUT:
-  const clearLocalStorage = () => {
-    localStorage.clear();
+  const backToDashboard = () => {
+    localStorage.removeItem("@pbi_url: PowerBI URL");
     window.location.href = "/dashboardexternals";
   };
 
   return (
     <Container className={classes.container}>
-      <Box className={classes.leaveIcon} onClick={clearLocalStorage}>
+      <Box className={classes.leaveIcon} onClick={backToDashboard}>
         <KeyboardBackspaceRoundedIcon />
         <Typography>Voltar</Typography>
       </Box>
-      {/* <Container> */}
       <Card className={classes.card}>
         <CardContent className={classes.cardConcent}>
           <CardMedia className={classes.iframe} component="iframe" src={url} />
         </CardContent>
       </Card>
-      {/* </Containe/r> */}
     </Container>
   );
 };

@@ -32,13 +32,20 @@ export const CardsBILastList = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { lastVisited } = useStarFavorite();
+  // const { lastVisited } = useStarFavorite();
+
+  const last_visited = JSON.parse(
+    localStorage.getItem("@LastVisitedList") || "null"
+  );
+
+  console.log(last_visited);
 
   return (
     <Box className={classes.dashboardLastList}>
-      {lastVisited.map((elt: any) => (
+      {last_visited.map((elt: any) => (
         <CardBI elt={elt} key={elt.id} />
       ))}
     </Box>
   );
+  // }
 };
