@@ -56,9 +56,9 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     width: "13rem",
-    // "@media (min-height: 767px)": {
-    //   display: "none",
-    // },
+    "@media (min-height: 500px)": {
+      display: "none",
+    },
   },
   leaveIcon: {
     color: "var(--black)",
