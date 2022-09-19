@@ -19,6 +19,8 @@ import { makeStyles } from "@material-ui/styles";
 
 import { Main } from "./styles";
 
+import { useStarFavorite } from "../../providers/StarFavorite";
+
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
   cardConcent: {
@@ -35,14 +37,6 @@ const useStyles = makeStyles(() => ({
     height: "42.5rem",
     "@media (min-width: 767px)": {
       height: "104vh",
-    },
-  },
-  image: {
-    display: "flex",
-    justifyContent: "center",
-    width: "13rem",
-    "@media (min-height: 767px)": {
-      display: "none",
     },
   },
   leaveIcon: {
@@ -65,10 +59,14 @@ const DashboardSingles = () => {
   // DESABILITAR SCROLL:
   lock();
 
-  // URLs:
+  // PROVIDERS:
   const url = JSON.parse(
     localStorage.getItem("@pbi_url: PowerBI URL") || "null"
   );
+
+  // PROVIDERS:
+  // const { url } = useStarFavorite();
+  // console.log(url[0]);
 
   // LOGOUT:
   const backToDashboard = () => {
