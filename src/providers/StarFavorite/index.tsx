@@ -10,7 +10,6 @@ import {
 import { getDashboards } from "../../utils";
 
 interface IStarFavoriteProvider {
-  visited: Object[];
   favorites: Object[];
   cardId: number;
   setCardId: Dispatch<SetStateAction<number>>;
@@ -23,7 +22,6 @@ interface IStarFavoriteProvider {
   StarUnClicked: (id: number) => void;
   handleFavorite: (num: IDashboard) => void;
   handleDesFavorite: (num: IDashboard) => void;
-  handleLastVisited: (num: IDashboard, func: () => void) => void;
 }
 
 interface IStarFavoriteProviderProps {
@@ -98,38 +96,9 @@ export const StarFavoriteProvider = ({
     }
   };
 
-  // LISTA VISITADOS:
-  const visited: Object[] = [];
-
-  // INCLUSÃO DE VISITADOS:
-  const handleLastVisited = async (num: IDashboard, func: () => void) => {
-    func();
-    const dashboard = dashboards.find((elem: Object) => elem === num);
-    if (dashboard) {
-      console.log(visited);
-      if (!visited.includes(num)) {
-        console.log("não tem");
-        if (visited.length < 3) {
-          visited.push(dashboard);
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-        } else {
-          // let filtro = visited.filter(
-          //   (elt: Object) => elt !== visited[0]
-          // );
-          visited.push(dashboard);
-          visited.shift();
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-
-          // return filtro;
-        }
-      }
-    }
-  };
-
   return (
     <StarFavoriteContext.Provider
       value={{
-        visited,
         favorites,
         cardId,
         setCardId,
@@ -138,12 +107,10 @@ export const StarFavoriteProvider = ({
         setClicked,
         url,
         setUrl,
-        // setLastVisited,
         StarClicked,
         StarUnClicked,
         handleFavorite,
         handleDesFavorite,
-        handleLastVisited,
       }}
     >
       {children}

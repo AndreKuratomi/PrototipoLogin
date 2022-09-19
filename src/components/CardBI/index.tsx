@@ -6,7 +6,15 @@ import { Box, Button, Card, CardActions, CardMedia } from "@material-ui/core";
 import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
 
+import { useDashboardVisited } from "../../providers/DashboardVisited";
 import { useStarFavorite } from "../../providers/StarFavorite";
+
+interface IDashboard {
+  id: number;
+  category: string;
+  name: string;
+  url: string;
+}
 
 interface IElt {
   id: number;
@@ -74,20 +82,50 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const {
-    setCardId,
-    clicked,
-    handleFavorite,
-    handleDesFavorite,
-    handleLastVisited,
-    // url,
-    // setUrl,
-  } = useStarFavorite();
+  const { setCardId, clicked, handleFavorite, handleDesFavorite } =
+    useStarFavorite();
+
+  const { visited, setVisited } = useDashboardVisited();
+  console.log(visited);
+  // localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
 
   // TENTATIVA INDIVIDUALIZAR:
-
+  // const visited: Object[] = [];
   // URLs:
   let dashboards = getDashboards();
+
+  // INCLUSÃO DE VISITADOS:
+  const handleLastVisited = async (num: IDashboard, func: () => void) => {
+    func();
+    const dashboard = dashboards.find((elem: Object) => elem === num);
+    if (dashboard) {
+      console.log(visited);
+      if (!visited.includes(num)) {
+        if (visited.length < 3) {
+          // const last_visited = JSON.parse(
+          //   localStorage.getItem("@LastVisitedList") || "null"
+          // );
+          setVisited([...visited, dashboard]);
+          console.log(visited);
+
+          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+        } else {
+          // const last_visited = JSON.parse(
+          //   localStorage.getItem("@LastVisitedList") || "null"
+          // );
+          // let filtro = setVisited(filter(
+          //   (elt: Object) => elt !== visited[0]
+          // );
+          // visited.push(dashboard);
+          setVisited([...visited, dashboard]);
+          visited.shift();
+          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
+
+          // return filtro;
+        }
+      }
+    }
+  };
 
   // ENVIO URL:
   const sendURL = () => {
@@ -96,6 +134,7 @@ export const CardBI = ({ elt }: IProps) => {
     );
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
+
   return (
     <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>

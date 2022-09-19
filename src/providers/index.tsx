@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { AuthProvider } from "./Auth";
+import { DashboardVisitedProvider } from "./DashboardVisited";
 import { FullScreenProvider } from "./FullScreen";
 import { OpenModalProvider } from "./ModalOpen";
 import { PasswordAskProvider } from "./PasswordAsk";
@@ -24,7 +25,9 @@ const Providers = ({ children }: IProviderProps) => {
               <PasswordAskProvider>
                 <OpenModalProvider>
                   <FullScreenProvider>
-                    <AuthProvider>{children}</AuthProvider>
+                    <DashboardVisitedProvider>
+                      <AuthProvider>{children}</AuthProvider>
+                    </DashboardVisitedProvider>
                   </FullScreenProvider>
                 </OpenModalProvider>
               </PasswordAskProvider>
