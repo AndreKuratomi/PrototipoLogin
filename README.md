@@ -8,7 +8,7 @@
 
 # Descrição
 
-<p><b>PrototipoLogin</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
+<p><b>PrototipoLogin</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
 <br>
 Link AWS:
 
@@ -76,6 +76,7 @@ http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Referências
 
+- [Typescript](https://www.typescriptlang.org/)
 - [ContextAPI](https://reactjs.org/docs/context.html)
 - [Material-UI](https://v4.mui.com/pt/)
 - [React](https://pt-br.reactjs.org/)
