@@ -8,10 +8,12 @@ import {
 } from "react";
 
 import { getDashboards } from "../../utils";
+import { useDashboard } from "../Dashboard";
 
 interface IDashboardVisitedProvider {
-  visited: Object[];
-  setVisited: Dispatch<SetStateAction<Object[]>>;
+  handleLastVisited: (num: IDashboard, func: () => void) => void;
+  lastVisited: Object[];
+  setLastVisited: Dispatch<SetStateAction<Object[]>>;
 }
 
 interface IDashboardVisitedProviderProps {
@@ -25,9 +27,6 @@ interface IDashboard {
   url: string;
 }
 
-// URLs:
-let dashboards = getDashboards();
-
 export const DashboardVisitedContext = createContext(
   {} as IDashboardVisitedProvider
 );
@@ -36,13 +35,35 @@ export const DashboardVisitedProvider = ({
   children,
 }: IDashboardVisitedProviderProps) => {
   // LISTA VISITADOS:
-  const [visited, setVisited] = useState([] as Object[]);
+  const [lastVisited, setLastVisited] = useState([] as Object[]);
+
+  // PROVIDERS:
+  const { dashboard } = useDashboard();
+
+  // INCLUSÃO DE VISITADOS:
+  const handleLastVisited = (num: IDashboard, func: () => void) => {
+    func();
+    const dashboards = dashboard.find((elem: Object) => elem === num);
+    if (dashboards) {
+      console.log(lastVisited);
+      if (!lastVisited.includes(num)) {
+        if (lastVisited.length < 3) {
+          setLastVisited([...lastVisited, dashboards]);
+          console.log(lastVisited);
+        } else if (lastVisited.length === 3) {
+          lastVisited.shift(); // MAS COMO COLOCAR DENTRO DE UM SETSTATE???
+          setLastVisited([...lastVisited, dashboards]);
+        }
+      }
+    }
+  };
 
   return (
     <DashboardVisitedContext.Provider
       value={{
-        visited,
-        setVisited,
+        handleLastVisited,
+        lastVisited,
+        setLastVisited,
       }}
     >
       {children}

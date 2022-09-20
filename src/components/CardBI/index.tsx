@@ -88,46 +88,11 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { dashboard } = useDashboard();
+  const { handleLastVisited } = useDashboardVisited();
   const { handleFavorite, handleDesFavorite } = useStarFavorite();
 
-  const { visited, setVisited } = useDashboardVisited();
-
   // TENTATIVA INDIVIDUALIZAR:
-
-  const { dashboard } = useDashboard();
-
-  // INCLUSÃO DE VISITADOS:
-  const handleLastVisited = async (num: IDashboard, func: () => void) => {
-    func();
-    const dashboards = dashboard.find((elem: Object) => elem === num);
-    if (dashboards) {
-      console.log(visited);
-      if (!visited.includes(num)) {
-        if (visited.length < 3) {
-          // const last_visited = JSON.parse(
-          //   localStorage.getItem("@LastVisitedList") || "null"
-          // );
-          setVisited([...visited, dashboards]);
-          console.log(visited);
-
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-        } else {
-          // const last_visited = JSON.parse(
-          //   localStorage.getItem("@LastVisitedList") || "null"
-          // );
-          // let filtro = setVisited(filter(
-          //   (elt: Object) => elt !== visited[0]
-          // );
-          // visited.push(dashboard);
-          setVisited([...visited, dashboards]);
-          visited.shift();
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-
-          // return filtro;
-        }
-      }
-    }
-  };
 
   // ENVIO URL:
   const sendURL = () => {

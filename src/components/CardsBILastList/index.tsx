@@ -6,6 +6,7 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useStarFavorite } from "src/providers/StarFavorite";
+import { useDashboardVisited } from "src/providers/DashboardVisited";
 
 interface IElem {
   id: number;
@@ -33,17 +34,17 @@ export const CardsBILastList = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  // const { lastVisited } = useStarFavorite();
+  const { lastVisited } = useDashboardVisited();
 
-  const last_visited = JSON.parse(
-    localStorage.getItem("@LastVisitedList") || "null"
-  );
+  // const last_visited = JSON.parse(
+  //   localStorage.getItem("@LastVisitedList") || "null"
+  // );
 
-  console.log(last_visited);
+  // console.log(last_visited);
 
   return (
     <Box className={classes.dashboardLastList}>
-      {last_visited.map(
+      {lastVisited.map(
         (
           elt: any
           // state: boolean,
