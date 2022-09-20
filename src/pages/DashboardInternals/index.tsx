@@ -46,19 +46,21 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100%",
-    height: "37.5rem",
-    // height: "41.5rem",
-    "@media (min-height: 767px)": {
-      height: "94vh",
-    },
+    height: "100vh",
+    // "@media (max-height: 767px)": {
+    //   height: "23.5rem",
+    // },
+    // "@media (min-height: 767px)": {
+    //   height: "94vh",
+    // },
   },
   image: {
     display: "flex",
     justifyContent: "center",
     width: "13rem",
-    // "@media (min-height: 767px)": {
-    //   display: "none",
-    // },
+    "@media (max-height: 500px)": {
+      display: "none",
+    },
   },
   leaveIcon: {
     color: "var(--black)",

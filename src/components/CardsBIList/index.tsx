@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction, useState } from "react";
+
 import { CardBI } from "../CardBI";
 
 import { getDashboards } from "../../utils";
@@ -8,6 +10,7 @@ import { Box } from "@material-ui/core";
 // import { TabPanel } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/styles";
 import { List } from "@mui/material";
+import { useDashboard } from "src/providers/Dashboard";
 
 interface ITabPanelProps {
   children?: React.ReactNode;
@@ -72,107 +75,106 @@ const TabPanel = (props: ITabPanelProps) => {
   );
 };
 
-export const CardsBIList = ({ value }: any, { id }: IElem) => {
+export const CardsBIList = ({ value }: any, { id }: any) => {
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
-  // const { favoriteCards } = useStarFavorite();
+  const { favorites } = useStarFavorite();
+  // const [clicked, setClicked] = useState(false);
+  const { dashboard, setDashboard } = useDashboard();
 
-  const favorites = JSON.parse(
-    localStorage.getItem("@FavoritesList") || "null"
-  );
-  // console.log(favorites);
-  // URLs:
-  let dashboards = getDashboards();
+  // const favorites = JSON.parse(
+  //   localStorage.getItem("@FavoritesList") || "null"
+  // );
 
   // CATEGORIAS:
-  const estoqueCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "estoque"
+  const estoqueCards: any = dashboard.filter(
+    (elem: any) => elem.category === "estoque"
   );
-  const clientesCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "clientes"
+  const clientesCards: any = dashboard.filter(
+    (elem: any) => elem.category === "clientes"
   );
-  const ecommerceCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "e-commerce"
+  const ecommerceCards: any = dashboard.filter(
+    (elem: any) => elem.category === "e-commerce"
   );
-  const credzCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "credz"
+  const credzCards: any = dashboard.filter(
+    (elem: any) => elem.category === "credz"
   );
-  const fornecedoresCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "fornecedores"
+  const fornecedoresCards: any = dashboard.filter(
+    (elem: any) => elem.category === "fornecedores"
   );
-  const franqueadosCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "franqueados"
+  const franqueadosCards: any = dashboard.filter(
+    (elem: any) => elem.category === "franqueados"
   );
-  const entradaDeNotasCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "entrada de notas"
+  const entradaDeNotasCards: any = dashboard.filter(
+    (elem: any) => elem.category === "entrada de notas"
   );
-  const financeiroCards: any = dashboards.filter(
-    (elem: IElem) => elem.category === "financeiro"
+  const financeiroCards: any = dashboard.filter(
+    (elem: any) => elem.category === "financeiro"
   );
 
   return (
     <Box className={classes.dashboardList}>
       {/* FAVORITOS */}
       <TabPanel value={value} index={0}>
-        {/* {favorites.map((elt: any) => (
+        {favorites.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
-        ))} */}
+        ))}
       </TabPanel>
 
       {/* ESTOQUE */}
       <TabPanel value={value} index={1}>
-        {estoqueCards.map((elt: IElem) => (
+        {estoqueCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CLIENTES */}
       <TabPanel value={value} index={2}>
-        {clientesCards.map((elt: IElem) => (
+        {clientesCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* E-COMMERCE */}
       <TabPanel value={value} index={3}>
-        {ecommerceCards.map((elt: IElem) => (
+        {ecommerceCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CREDZ */}
       <TabPanel value={value} index={4}>
-        {credzCards.map((elt: IElem) => (
+        {credzCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FORNECEDORES */}
       <TabPanel value={value} index={5}>
-        {fornecedoresCards.map((elt: IElem) => (
+        {fornecedoresCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FRANQUEADOS */}
       <TabPanel value={value} index={6}>
-        {franqueadosCards.map((elt: IElem) => (
+        {franqueadosCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* ENTRADA DE NOTAS */}
       <TabPanel value={value} index={7}>
-        {entradaDeNotasCards.map((elt: IElem) => (
+        {entradaDeNotasCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FINANCEIRO */}
       <TabPanel value={value} index={8}>
-        {financeiroCards.map((elt: IElem) => (
+        {financeiroCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
