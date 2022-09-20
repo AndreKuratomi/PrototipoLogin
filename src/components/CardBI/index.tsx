@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import { getDashboards } from "../../utils";
@@ -8,6 +10,7 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useDashboardVisited } from "../../providers/DashboardVisited";
 import { useStarFavorite } from "../../providers/StarFavorite";
+import { useDashboard } from "src/providers/Dashboard";
 
 interface IDashboard {
   id: number;
@@ -18,6 +21,7 @@ interface IDashboard {
 
 interface IElt {
   id: number;
+  isFavorite: boolean;
   category: string;
   name: string;
   url: string;
@@ -26,6 +30,8 @@ interface IElt {
 interface IProps {
   //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
   elt: any;
+  // state: boolean;
+  // setState: Dispatch<SetStateAction<boolean>>;
   // id: number;
 }
 
@@ -82,30 +88,26 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { setCardId, clicked, handleFavorite, handleDesFavorite } =
-    useStarFavorite();
+  const { handleFavorite, handleDesFavorite } = useStarFavorite();
 
   const { visited, setVisited } = useDashboardVisited();
-  console.log(visited);
-  // localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
 
   // TENTATIVA INDIVIDUALIZAR:
-  // const visited: Object[] = [];
-  // URLs:
-  let dashboards = getDashboards();
+
+  const { dashboard } = useDashboard();
 
   // INCLUSÃO DE VISITADOS:
   const handleLastVisited = async (num: IDashboard, func: () => void) => {
     func();
-    const dashboard = dashboards.find((elem: Object) => elem === num);
-    if (dashboard) {
+    const dashboards = dashboard.find((elem: Object) => elem === num);
+    if (dashboards) {
       console.log(visited);
       if (!visited.includes(num)) {
         if (visited.length < 3) {
           // const last_visited = JSON.parse(
           //   localStorage.getItem("@LastVisitedList") || "null"
           // );
-          setVisited([...visited, dashboard]);
+          setVisited([...visited, dashboards]);
           console.log(visited);
 
           localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
@@ -117,7 +119,7 @@ export const CardBI = ({ elt }: IProps) => {
           //   (elt: Object) => elt !== visited[0]
           // );
           // visited.push(dashboard);
-          setVisited([...visited, dashboard]);
+          setVisited([...visited, dashboards]);
           visited.shift();
           localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
 
@@ -129,16 +131,14 @@ export const CardBI = ({ elt }: IProps) => {
 
   // ENVIO URL:
   const sendURL = () => {
-    const urlFound: IElt = dashboards.find(
-      (elem: IElt) => elem.url === elt.url
-    );
+    const urlFound: any = dashboard.find((elem: any) => elem.url === elt.url);
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
 
   return (
     <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>
-        {clicked ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
+        {elt.isFavorite ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
           <Box onClick={() => handleDesFavorite(elt)}>
             <StarRounded className={classes.starIcon} />
           </Box>
