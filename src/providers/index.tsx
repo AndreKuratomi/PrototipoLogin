@@ -10,6 +10,7 @@ import { PasswordVisibleProvider } from "./PasswordVisibility";
 import { StarFavoriteProvider } from "./StarFavorite";
 import { TextInputProvider } from "./TextInput";
 import { UserLoginProvider } from "./UserLogin";
+import { DashboardProvider } from "./Dashboard";
 
 interface IProviderProps {
   children: ReactNode;
@@ -19,21 +20,23 @@ const Providers = ({ children }: IProviderProps) => {
   return (
     <UserLoginProvider>
       <TextInputProvider>
-        <StarFavoriteProvider>
-          <PasswordVisibleProvider>
-            <PasswordConfirmProvider>
-              <PasswordAskProvider>
-                <OpenModalProvider>
-                  <FullScreenProvider>
-                    <DashboardVisitedProvider>
-                      <AuthProvider>{children}</AuthProvider>
-                    </DashboardVisitedProvider>
-                  </FullScreenProvider>
-                </OpenModalProvider>
-              </PasswordAskProvider>
-            </PasswordConfirmProvider>
-          </PasswordVisibleProvider>
-        </StarFavoriteProvider>
+        <DashboardProvider>
+          <StarFavoriteProvider>
+            <PasswordVisibleProvider>
+              <PasswordConfirmProvider>
+                <PasswordAskProvider>
+                  <OpenModalProvider>
+                    <FullScreenProvider>
+                      <DashboardVisitedProvider>
+                        <AuthProvider>{children}</AuthProvider>
+                      </DashboardVisitedProvider>
+                    </FullScreenProvider>
+                  </OpenModalProvider>
+                </PasswordAskProvider>
+              </PasswordConfirmProvider>
+            </PasswordVisibleProvider>
+          </StarFavoriteProvider>
+        </DashboardProvider>
       </TextInputProvider>
     </UserLoginProvider>
   );

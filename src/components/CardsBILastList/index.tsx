@@ -1,10 +1,11 @@
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
 import { CardBI } from "../CardBI";
 
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useStarFavorite } from "src/providers/StarFavorite";
-import { useEffect } from "react";
 
 interface IElem {
   id: number;
@@ -42,9 +43,20 @@ export const CardsBILastList = () => {
 
   return (
     <Box className={classes.dashboardLastList}>
-      {last_visited.map((elt: any) => (
-        <CardBI elt={elt} key={elt.id} />
-      ))}
+      {last_visited.map(
+        (
+          elt: any
+          // state: boolean,
+          // setState: Dispatch<SetStateAction<boolean>>
+        ) => (
+          <CardBI
+            elt={elt}
+            key={elt.id}
+            // state={clicked}
+            // setState={setClicked}
+          />
+        )
+      )}
     </Box>
   );
   // }
