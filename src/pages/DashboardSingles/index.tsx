@@ -13,7 +13,9 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
+
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -34,10 +36,7 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100%",
-    height: "42.5rem",
-    "@media (min-width: 767px)": {
-      height: "104vh",
-    },
+    height: "100vh",
   },
   leaveIcon: {
     color: "var(--black)",
@@ -73,13 +72,24 @@ const DashboardSingles = () => {
     localStorage.removeItem("@pbi_url: PowerBI URL");
     window.location.href = "/dashboardexternals";
   };
+  const closeDashboard = () => {
+    localStorage.removeItem("@pbi_url: PowerBI URL");
+    window.close();
+  };
 
   return (
     <Container className={classes.container}>
-      <Box className={classes.leaveIcon} onClick={backToDashboard}>
-        <KeyboardBackspaceRoundedIcon />
-        <Typography>Voltar</Typography>
-      </Box>
+      {window.innerWidth < 768 ? (
+        <Box className={classes.leaveIcon} onClick={backToDashboard}>
+          <KeyboardBackspaceRoundedIcon />
+          <Typography>Voltar</Typography>
+        </Box>
+      ) : (
+        <Box className={classes.leaveIcon} onClick={closeDashboard}>
+          <CloseRoundedIcon />
+          <Typography>Fechar</Typography>
+        </Box>
+      )}
       <Card className={classes.card}>
         <CardContent className={classes.cardConcent}>
           <CardMedia className={classes.iframe} component="iframe" src={url} />

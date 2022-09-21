@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import { ContainerLastList } from "../../components/ContainerLastList";
 import { ContainerLists } from "../../components/ContainerLists";
+import { ContainerCategoryList } from "../../components/ContainerCategoryList";
 import { HeaderDashExternal } from "../../components/HeaderDashExternal";
 import { ModalBackground } from "../../components/ModalBackground";
 import { ModalLeaveAsk } from "../../components/ModalLeaveAsk";
@@ -12,6 +13,7 @@ import { useToast } from "@chakra-ui/react";
 
 import { useOpenModal } from "src/providers/ModalOpen";
 import { useUserLogin } from "src/providers/UserLogin";
+import { useTextInput } from "src/providers/TextInput";
 
 const DashboardExternals = () => {
   // TOASTS:
@@ -29,16 +31,13 @@ const DashboardExternals = () => {
 
   // PROVIDERS:
   const { open } = useOpenModal();
+  const { text } = useTextInput();
   const { userLogged } = useUserLogin();
 
-  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
-
+  // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO ESTÁ LOGADO:
   const cnpj = JSON.parse(
     localStorage.getItem("@SuperUserLoggedToken:cnpj") || "null"
   );
-  //
-
-  //
 
   if (cnpj) {
     userLogged();
@@ -59,7 +58,8 @@ const DashboardExternals = () => {
 
       <ContainerLastList />
 
-      <ContainerLists />
+      {text ? <ContainerCategoryList /> : <ContainerLists />}
+      {/* <ContainerLists /> */}
     </Container>
   );
 };
