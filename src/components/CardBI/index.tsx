@@ -38,7 +38,7 @@ interface IProps {
 const useStyles = makeStyles(() => ({
   button: {
     backgroundColor: "var(--gray)",
-    width: "16rem",
+    width: "83vw",
     "@media (min-width: 768px)": {
       width: "20rem",
     },
@@ -50,12 +50,15 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     margin: "1rem 0",
+    "@media (min-width: 768px)": {
+      margin: "1rem",
+    },
   },
   cardAction: {
     padding: "0",
   },
   cardsContent: {
-    maxHeight: "142.5px",
+    maxHeight: "26vh",
     "@media (min-width: 768px)": {
       maxHeight: "180.5px",
     },
@@ -64,7 +67,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     marginBottom: "1rem",
-    width: "16rem",
+    width: "83vw",
     height: "13.5rem",
     "@media (min-width: 768px)": {
       width: "20rem",
@@ -73,9 +76,11 @@ const useStyles = makeStyles(() => ({
   starIcon: {
     color: "var(--yellow)",
     position: "absolute",
-    marginLeft: "6.5rem",
+    // marginRight: "0vw",
+    marginLeft: "76vw",
     "@media (min-width: 768px)": {
-      marginLeft: "18.5rem",
+      // marginRight: "0vw",
+      marginLeft: "15.5vw",
     },
     "&:hover": {
       cursor: "pointer",

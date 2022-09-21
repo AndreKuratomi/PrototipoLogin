@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginBottom: "1rem",
     // marginTop: "9rem",
-    textAlign: "center",
     "@media (min-width: 768px)": {
       // justifyContent: "space-between",
       // flexDirection: "row",
@@ -36,6 +35,7 @@ const useStyles = makeStyles(() => ({
   typography2: {
     color: "var(--externalDashboardGreen)",
     margin: "0 1rem 1rem",
+    textAlign: "center",
   },
 }));
 

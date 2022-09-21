@@ -51,7 +51,7 @@ export const DashboardVisitedProvider = ({
           setLastVisited([...lastVisited, dashboards]);
           console.log(lastVisited);
         } else if (lastVisited.length === 3) {
-          lastVisited.shift(); // MAS COMO COLOCAR DENTRO DE UM SETSTATE???
+          lastVisited.shift(); // MAS COMO COLOCAR DENTRO DE UM SETSTATE??? OU TUDO BEM DEIXAR ASSIM?
           setLastVisited([...lastVisited, dashboards]);
         }
       }
