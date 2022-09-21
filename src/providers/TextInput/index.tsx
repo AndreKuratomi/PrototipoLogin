@@ -29,6 +29,8 @@ export const TextInputProvider = ({ children }: ITextProviderProps) => {
 
   // ALTERAÇÃO STATE CONFORME USUÁRIO DIGITA:
   const getText = (event: React.FormEvent<HTMLInputElement>) => {
+    console.log(text);
+    console.log(event.currentTarget.value);
     setText(event.currentTarget.value);
   };
 

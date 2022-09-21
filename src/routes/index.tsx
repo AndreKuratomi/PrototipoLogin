@@ -16,9 +16,11 @@ export const Rotas = () => {
       <Route path="/changepassword" element={<ChangePassword />} />
       <Route path="/dashboardinternals" element={<DashboardInternals />} />
       <Route path="/dashboardexternals" element={<DashboardExternals />} />
-      <Route path="/dashboardsingle" element={<DashboardSingles />}>
+      <Route path="/dashboardsingle" element={<DashboardSingles />} />
+      {/* MAS POR QUE NÃO ABREM MÚLTIPLAS PÁGINAS??? USAR USEPARAMS */}
+      {/* <Route path="/dashboardsingle" element={<DashboardSingles />}>
         <Route path=":singleId" element={<Single />} />
-      </Route>
+      </Route> */}
       <Route path="/email" element={<Email />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

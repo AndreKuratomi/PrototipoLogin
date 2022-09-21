@@ -44,20 +44,9 @@ export const CardsBILastList = () => {
 
   return (
     <Box className={classes.dashboardLastList}>
-      {lastVisited.map(
-        (
-          elt: any
-          // state: boolean,
-          // setState: Dispatch<SetStateAction<boolean>>
-        ) => (
-          <CardBI
-            elt={elt}
-            key={elt.id}
-            // state={clicked}
-            // setState={setClicked}
-          />
-        )
-      )}
+      {lastVisited.map((elt: any) => (
+        <CardBI elt={elt} key={elt.id} />
+      ))}
     </Box>
   );
   // }
