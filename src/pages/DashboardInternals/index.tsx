@@ -45,14 +45,14 @@ const useStyles = makeStyles(() => ({
   },
   iframe: {
     margin: "0",
-    width: "100%",
-    height: "100vh",
+    width: "100vw",
+    height: "94vh",
     // "@media (max-height: 767px)": {
     //   height: "23.5rem",
     // },
-    // "@media (min-height: 767px)": {
-    //   height: "94vh",
-    // },
+    "@media (max-height: 500px)": {
+      height: "99vh",
+    },
   },
   image: {
     display: "flex",
