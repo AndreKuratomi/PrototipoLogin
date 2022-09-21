@@ -43,6 +43,7 @@ export const StarFavoriteProvider = ({
   // PROVIDERS:
   const { dashboard, setDashboard } = useDashboard();
 
+  // ÍCONE CLICADO:
   const StarClicked = (id: number) => {
     const dash = dashboard.find((elem: any) => elem.id === id);
     if (dash) {
@@ -51,6 +52,7 @@ export const StarFavoriteProvider = ({
     }
   };
 
+  // ÍCONE DESCLICADO:
   const StarUnClicked = (id: number) => {
     const dash = dashboard.find((elem: any) => elem.id === id);
     if (dash) {

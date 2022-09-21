@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginBottom: "1rem",
     // marginTop: "9rem",
-    textAlign: "center",
     "@media (min-width: 768px)": {
       // justifyContent: "space-between",
       // flexDirection: "row",
@@ -29,13 +28,19 @@ const useStyles = makeStyles(() => ({
     fontSize: "1.5rem",
     fontWeight: 500,
     margin: "1rem",
+    textAlign: "center",
     "@media (min-width: 768px)": {
       fontSize: "2rem",
+      textAlign: "left",
     },
   },
   typography2: {
     color: "var(--externalDashboardGreen)",
     margin: "0 1rem 1rem",
+    textAlign: "center",
+    "@media (min-width: 768px)": {
+      textAlign: "left",
+    },
   },
 }));
 

@@ -38,7 +38,7 @@ interface IProps {
 const useStyles = makeStyles(() => ({
   button: {
     backgroundColor: "var(--gray)",
-    width: "16rem",
+    width: "83vw",
     "@media (min-width: 768px)": {
       width: "20rem",
     },
@@ -50,12 +50,15 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     margin: "1rem 0",
+    "@media (min-width: 768px)": {
+      margin: "1rem",
+    },
   },
   cardAction: {
     padding: "0",
   },
   cardsContent: {
-    maxHeight: "142.5px",
+    maxHeight: "26vh",
     "@media (min-width: 768px)": {
       maxHeight: "180.5px",
     },
@@ -64,7 +67,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     marginBottom: "1rem",
-    width: "16rem",
+    width: "83vw",
     height: "13.5rem",
     "@media (min-width: 768px)": {
       width: "20rem",
@@ -73,9 +76,11 @@ const useStyles = makeStyles(() => ({
   starIcon: {
     color: "var(--yellow)",
     position: "absolute",
-    marginLeft: "6.5rem",
+    // marginRight: "0vw",
+    marginLeft: "76vw",
     "@media (min-width: 768px)": {
-      marginLeft: "18.5rem",
+      // marginRight: "0vw",
+      marginLeft: "15.5vw",
     },
     "&:hover": {
       cursor: "pointer",
@@ -88,46 +93,11 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { dashboard } = useDashboard();
+  const { handleLastVisited } = useDashboardVisited();
   const { handleFavorite, handleDesFavorite } = useStarFavorite();
 
-  const { visited, setVisited } = useDashboardVisited();
-
   // TENTATIVA INDIVIDUALIZAR:
-
-  const { dashboard } = useDashboard();
-
-  // INCLUSÃO DE VISITADOS:
-  const handleLastVisited = async (num: IDashboard, func: () => void) => {
-    func();
-    const dashboards = dashboard.find((elem: Object) => elem === num);
-    if (dashboards) {
-      console.log(visited);
-      if (!visited.includes(num)) {
-        if (visited.length < 3) {
-          // const last_visited = JSON.parse(
-          //   localStorage.getItem("@LastVisitedList") || "null"
-          // );
-          setVisited([...visited, dashboards]);
-          console.log(visited);
-
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-        } else {
-          // const last_visited = JSON.parse(
-          //   localStorage.getItem("@LastVisitedList") || "null"
-          // );
-          // let filtro = setVisited(filter(
-          //   (elt: Object) => elt !== visited[0]
-          // );
-          // visited.push(dashboard);
-          setVisited([...visited, dashboards]);
-          visited.shift();
-          localStorage.setItem("@LastVisitedList", JSON.stringify(visited));
-
-          // return filtro;
-        }
-      }
-    }
-  };
 
   // ENVIO URL:
   const sendURL = () => {
@@ -155,14 +125,25 @@ export const CardBI = ({ elt }: IProps) => {
         />
       </Box>
       <CardActions className={classes.cardAction}>
-        <a target="_blanck" href="/dashboardsingle">
-          <Button
-            className={classes.button}
-            onClick={() => handleLastVisited(elt, sendURL)}
-          >
-            {elt.name}
-          </Button>
-        </a>
+        {window.innerWidth < 768 ? (
+          <a target="_self" href="/dashboardsingle">
+            <Button
+              className={classes.button}
+              onClick={() => handleLastVisited(elt, sendURL)}
+            >
+              {elt.name}
+            </Button>
+          </a>
+        ) : (
+          <a target="_blanck" href="/dashboardsingle">
+            <Button
+              className={classes.button}
+              onClick={() => handleLastVisited(elt, sendURL)}
+            >
+              {elt.name}
+            </Button>
+          </a>
+        )}
       </CardActions>
     </Card>
   );

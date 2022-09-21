@@ -91,7 +91,7 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
     {
       id: 7,
       category: "entrada de notas",
-      name: "Dispatch<SetStateAction<{ id: number; category: string; name: string; isFavorite: boolean; url: string; }>>7",
+      name: "7",
       isFavorite: false,
       url: "https://app.powerbi.com/reportEmbed?reportId=ef864a74-21df-4b77-8148-690a66a5b880&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
     },
