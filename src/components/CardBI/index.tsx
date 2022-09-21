@@ -125,14 +125,25 @@ export const CardBI = ({ elt }: IProps) => {
         />
       </Box>
       <CardActions className={classes.cardAction}>
-        <a target="_blanck" href="/dashboardsingle">
-          <Button
-            className={classes.button}
-            onClick={() => handleLastVisited(elt, sendURL)}
-          >
-            {elt.name}
-          </Button>
-        </a>
+        {window.innerWidth < 768 ? (
+          <a target="_self" href="/dashboardsingle">
+            <Button
+              className={classes.button}
+              onClick={() => handleLastVisited(elt, sendURL)}
+            >
+              {elt.name}
+            </Button>
+          </a>
+        ) : (
+          <a target="_blanck" href="/dashboardsingle">
+            <Button
+              className={classes.button}
+              onClick={() => handleLastVisited(elt, sendURL)}
+            >
+              {elt.name}
+            </Button>
+          </a>
+        )}
       </CardActions>
     </Card>
   );

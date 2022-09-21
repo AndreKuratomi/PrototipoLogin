@@ -28,14 +28,19 @@ const useStyles = makeStyles(() => ({
     fontSize: "1.5rem",
     fontWeight: 500,
     margin: "1rem",
+    textAlign: "center",
     "@media (min-width: 768px)": {
       fontSize: "2rem",
+      textAlign: "left",
     },
   },
   typography2: {
     color: "var(--externalDashboardGreen)",
     margin: "0 1rem 1rem",
     textAlign: "center",
+    "@media (min-width: 768px)": {
+      textAlign: "left",
+    },
   },
 }));
 
