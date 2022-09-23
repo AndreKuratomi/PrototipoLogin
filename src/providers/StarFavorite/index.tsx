@@ -7,15 +7,19 @@ import {
   useState,
 } from "react";
 
-import { getDashboards } from "../../utils";
+import api from "src/service/api";
+
+// import { getDashboards } from "../../utils";
 import { useDashboard } from "../Dashboard";
 
 interface IDashboard {
   id: number;
-  isFavorite: boolean;
   category: string;
+  is_favorite: boolean;
   name: string;
   url: string;
+  created_at: string;
+  supplier_owner: string;
 }
 
 interface IStarFavoriteProvider {
@@ -43,20 +47,35 @@ export const StarFavoriteProvider = ({
   // PROVIDERS:
   const { dashboard, setDashboard } = useDashboard();
 
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
+
+  // API:
+  // api
+  //   .get(`dashboards/id/${_cnpj}/`)
+  //   .patch(`dashboards/favorite/${_cnpj}/`)
+  //   .then((response) => {
+  //     console.log(response);
+  //     setDashboard(response.data.dashboards[0]);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
   // ÍCONE CLICADO:
   const StarClicked = (id: number) => {
-    const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dash) {
-      dash.isFavorite = true;
+    // const dash = dashboard.find((elem: any) => elem.id === id);
+    if (dashboard) {
+      dashboard[0].is_favorite = true;
       setDashboard(dashboard);
     }
   };
 
   // ÍCONE DESCLICADO:
   const StarUnClicked = (id: number) => {
-    const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dash) {
-      dash.isFavorite = false;
+    // const dash = dashboard.find((elem: any) => elem.id === id);
+    if (dashboard) {
+      dashboard[0].is_favorite = false;
       setDashboard(dashboard);
     }
   };
