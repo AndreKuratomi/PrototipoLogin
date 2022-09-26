@@ -93,16 +93,13 @@ export const CardBI = ({ elt }: IProps) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  // const { dashboard } = useDashboard();
+  const { dashboard } = useDashboard();
   const { handleLastVisited } = useDashboardVisited();
   const { handleFavorite, handleDesFavorite } = useStarFavorite();
 
-  // TENTATIVA INDIVIDUALIZAR:
-  const dashboardi: Object[] = [];
-
   // ENVIO URL:
   const sendURL = () => {
-    const urlFound: any = dashboardi.find((elem: any) => elem.url === elt.url);
+    const urlFound: any = dashboard.find((elem: any) => elem.url === elt.url);
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
 

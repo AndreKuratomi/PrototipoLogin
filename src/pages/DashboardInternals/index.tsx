@@ -68,7 +68,8 @@ const useStyles = makeStyles(() => ({
 
 const DashboardInternals = () => {
   // STATES:
-  const { dashboardURL, showDashboardByID } = useDashboard();
+  // const {} = useDashboard();
+  const { dashboard, dashboardURL, showDashboardByID } = useDashboard();
   console.log(dashboardURL);
   // const url: string = dashboard[0].url;
   // console.log(url);
@@ -126,7 +127,8 @@ const DashboardInternals = () => {
 
   showDashboardByID(cnpj);
   console.log(dashboardURL);
-  // useEffect(() => showDashboard(), []);
+  console.log(dashboard);
+  // useEffect(() => showDashboard(cnpj), []);
 
   return (
     // <Container>

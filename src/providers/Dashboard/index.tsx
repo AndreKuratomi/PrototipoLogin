@@ -4,6 +4,7 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -17,21 +18,30 @@ interface IDashboardItself {
   url: string;
   created_at: string;
   supplier_owner: string;
-  // never[]
+}
+
+interface IUser {
+  cnpj: string;
+  email: string;
+  franquia: string;
+  first_name: string;
+  last_name: string;
+  signature_vality: string;
+  signature_created_at: string;
+  is_admin: boolean;
+  is_super_user: boolean;
+  username: string;
+  username_created_at: string;
+  login_dates: Object[];
+  dashboards: IDashboardItself[];
 }
 
 interface IDashboardProvider {
-  // dashboard: IDashboardItself;
+  dashboard: any;
+  setDashboard: Dispatch<SetStateAction<any>>;
+  // dashboard: IDashboardItself[];
   // setDashboard: Dispatch<
-  //   SetStateAction<{
-  //     id: number;
-  //     category: string;
-  //     is_favorite: boolean;
-  //     name: string;
-  //     url: string;
-  //     created_at: string;
-  //     supplier_owner: string;
-  //   }>
+  //   SetStateAction<IDashboardItself[]>
   //   // Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type
   // >;
   dashboardURL: string;
@@ -49,6 +59,20 @@ export const DashboardContext = createContext({} as IDashboardProvider);
 export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
   // STATE VERIFICAÇÃO SE USUÁRIO ESTÁ HABILITADO PARA TROCAR SENHA:
   const [dashboard, setDashboard] = useState([]);
+
+  useEffect(() => {
+    api
+      .get(`dashboards/`)
+      .then((response) => {
+        setDashboard(response.data);
+        // console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  // console.log(dashboard);
+
   const [dashboardURL, setDashboardURL] = useState("");
   // {
   //   id: 0,
@@ -112,20 +136,21 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       // .get(`dashboards/id/${id}/`)
       .get(`suppliers/${cnpj}/`)
       .then((response) => {
-        console.log(response.data.dashboards[0].url);
+        // console.log(response.data.dashboards[0].url);
         setDashboardURL(response.data.dashboards[0].url);
-        setDashboard(response.data.dashboards[0]);
+        // setDashboard(response.data.dashboards[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   };
   console.log(dashboardURL);
+  console.log(dashboard);
   return (
     <DashboardContext.Provider
       value={{
-        // dashboard,
-        // setDashboard,
+        dashboard,
+        setDashboard,
         dashboardURL,
         setDashboardURL,
         showDashboardByID,
