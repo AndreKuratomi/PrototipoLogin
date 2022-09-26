@@ -38,12 +38,12 @@ export const DashboardVisitedProvider = ({
   const [lastVisited, setLastVisited] = useState([] as Object[]);
 
   // PROVIDERS:
-  const { dashboard } = useDashboard();
-
+  // const { dashboard } = useDashboard();
+  const dashboardi: Object[] = [];
   // INCLUSÃO DE VISITADOS:
   const handleLastVisited = (num: IDashboard, func: () => void) => {
     func();
-    const dashboards = dashboard.find((elem: Object) => elem === num);
+    const dashboards = dashboardi.find((elem: Object) => elem === num);
     if (dashboards) {
       console.log(lastVisited);
       if (!lastVisited.includes(num)) {

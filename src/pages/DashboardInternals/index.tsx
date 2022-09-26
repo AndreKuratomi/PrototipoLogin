@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-
-import { useUserLogin } from "../../providers/UserLogin";
 
 import { lock } from "tua-body-scroll-lock";
 
 import { ExitToAppRounded } from "@mui/icons-material";
-
 import {
   Box,
   Card,
@@ -17,14 +13,14 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/styles";
 
 import LogoVestcasaVerde from "../../assets/figma_imgs/LogoVestcasaVerde.png";
 
-import { useToast } from "@chakra-ui/react";
+import { useUserLogin } from "../../providers/UserLogin";
+import { useDashboard } from "src/providers/Dashboard";
 
-import api from "src/service/api";
+import { useToast } from "@chakra-ui/react";
 
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
@@ -72,8 +68,10 @@ const useStyles = makeStyles(() => ({
 
 const DashboardInternals = () => {
   // STATES:
-  const [dashboard, setDashboard] = useState("");
-
+  const { dashboardURL, showDashboardByID } = useDashboard();
+  console.log(dashboardURL);
+  // const url: string = dashboard[0].url;
+  // console.log(url);
   // STYLES:
   const classes = useStyles();
 
@@ -111,7 +109,9 @@ const DashboardInternals = () => {
   }
 
   // DESABILITAR SCROLL:
-  lock();
+  if (window.innerHeight > 400) {
+    lock();
+  }
 
   // LOGOUT:
   const clearLocalStorage = () => {
@@ -123,19 +123,9 @@ const DashboardInternals = () => {
   // API
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
   console.log(cnpj);
-  const showDashboard = () => {
-    api
-      .get(`suppliers/${cnpj}`)
-      .then((response) => {
-        console.log(response);
-        setDashboard(response.data.url_dashboard);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  showDashboard();
+  showDashboardByID(cnpj);
+  console.log(dashboardURL);
   // useEffect(() => showDashboard(), []);
 
   return (
@@ -160,7 +150,7 @@ const DashboardInternals = () => {
             className={classes.iframe}
             component="iframe"
             // src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            src={dashboard}
+            src={dashboardURL}
           />
         </CardContent>
       </Card>

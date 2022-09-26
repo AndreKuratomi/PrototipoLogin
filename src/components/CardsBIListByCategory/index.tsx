@@ -86,10 +86,11 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { dashboard, setDashboard } = useDashboard();
+  // const { dashboard, setDashboard } = useDashboard();
   // const { favorites } = useStarFavorite();
   const { text } = useTextInput();
   console.log(text);
+  const dashboardi: Object[] = [];
 
   // TOASTS:
   const toast = useToast();
@@ -105,7 +106,7 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
   };
 
   // CATEGORIAS:
-  const selectedCards: any = dashboard.filter(
+  const selectedCards: any = dashboardi.filter(
     (elem: any) => elem.category === text
   );
   console.log(selectedCards);
