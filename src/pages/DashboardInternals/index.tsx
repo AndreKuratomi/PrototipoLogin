@@ -68,10 +68,10 @@ const useStyles = makeStyles(() => ({
 
 const DashboardInternals = () => {
   // STATES:
-  const { dashboard, showDashboard } = useDashboard();
-  console.log(dashboard);
-  const url: string = dashboard[0].url;
-  console.log(url);
+  const { dashboardURL, showDashboardByID } = useDashboard();
+  console.log(dashboardURL);
+  // const url: string = dashboard[0].url;
+  // console.log(url);
   // STYLES:
   const classes = useStyles();
 
@@ -124,7 +124,8 @@ const DashboardInternals = () => {
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
   console.log(cnpj);
 
-  showDashboard(cnpj);
+  showDashboardByID(cnpj);
+  console.log(dashboardURL);
   // useEffect(() => showDashboard(), []);
 
   return (
@@ -149,7 +150,7 @@ const DashboardInternals = () => {
             className={classes.iframe}
             component="iframe"
             // src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            src={url}
+            src={dashboardURL}
           />
         </CardContent>
       </Card>

@@ -82,35 +82,36 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
   // PROVIDERS:
   const { favorites } = useStarFavorite();
   // const [clicked, setClicked] = useState(false);
-  const { dashboard, setDashboard } = useDashboard();
+  // const { dashboard, setDashboard } = useDashboard();
+  const dashboardi: Object[] = [];
 
   // const favorites = JSON.parse(
   //   localStorage.getItem("@FavoritesList") || "null"
   // );
 
   // CATEGORIAS:
-  const estoqueCards: any = dashboard.filter(
+  const estoqueCards: any = dashboardi.filter(
     (elem: any) => elem.category === "estoque"
   );
-  const clientesCards: any = dashboard.filter(
+  const clientesCards: any = dashboardi.filter(
     (elem: any) => elem.category === "clientes"
   );
-  const ecommerceCards: any = dashboard.filter(
+  const ecommerceCards: any = dashboardi.filter(
     (elem: any) => elem.category === "e-commerce"
   );
-  const credzCards: any = dashboard.filter(
+  const credzCards: any = dashboardi.filter(
     (elem: any) => elem.category === "credz"
   );
-  const fornecedoresCards: any = dashboard.filter(
+  const fornecedoresCards: any = dashboardi.filter(
     (elem: any) => elem.category === "fornecedores"
   );
-  const franqueadosCards: any = dashboard.filter(
+  const franqueadosCards: any = dashboardi.filter(
     (elem: any) => elem.category === "franqueados"
   );
-  const entradaDeNotasCards: any = dashboard.filter(
+  const entradaDeNotasCards: any = dashboardi.filter(
     (elem: any) => elem.category === "entrada de notas"
   );
-  const financeiroCards: any = dashboard.filter(
+  const financeiroCards: any = dashboardi.filter(
     (elem: any) => elem.category === "financeiro"
   );
 

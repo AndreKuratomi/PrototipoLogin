@@ -218,7 +218,7 @@ export const FormLogin = () => {
     api
       .post("login/", data)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         const { cnpj, last_name, signature_vality, super_user, token } =
           response.data;
 

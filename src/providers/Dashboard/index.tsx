@@ -17,25 +17,27 @@ interface IDashboardItself {
   url: string;
   created_at: string;
   supplier_owner: string;
+  // never[]
 }
 
 interface IDashboardProvider {
-  dashboard: IDashboardItself[];
-  setDashboard: any;
-  // Dispatch<
-  //   SetStateAction<
-  //     {
-  //       id: number;
-  //       category: string;
-  //       is_favorite: boolean;
-  //       name: string;
-  //       url: string;
-  //       created_at: string;
-  //       supplier_owner: string;
-  //     }[]
-  //   >
+  // dashboard: IDashboardItself;
+  // setDashboard: Dispatch<
+  //   SetStateAction<{
+  //     id: number;
+  //     category: string;
+  //     is_favorite: boolean;
+  //     name: string;
+  //     url: string;
+  //     created_at: string;
+  //     supplier_owner: string;
+  //   }>
+  //   // Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type
   // >;
-  showDashboard: (id: string) => void;
+  dashboardURL: string;
+  setDashboardURL: Dispatch<SetStateAction<string>>;
+  // Object[]>
+  showDashboardByID: (id: string) => void;
 }
 
 interface IDashboardProviderProps {
@@ -47,6 +49,7 @@ export const DashboardContext = createContext({} as IDashboardProvider);
 export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
   // STATE VERIFICAÇÃO SE USUÁRIO ESTÁ HABILITADO PARA TROCAR SENHA:
   const [dashboard, setDashboard] = useState([]);
+  const [dashboardURL, setDashboardURL] = useState("");
   // {
   //   id: 0,
   //   category: "estoque",
@@ -104,21 +107,29 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
   //   url: "https://app.powerbi.com/reportEmbed?reportId=ef864a74-21df-4b77-8148-690a66a5b880&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D",
   // },
 
-  const showDashboard = (id: string) => {
+  const showDashboardByID = (cnpj: string) => {
     api
-      .get(`dashboards/id/${id}/`)
+      // .get(`dashboards/id/${id}/`)
+      .get(`suppliers/${cnpj}/`)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.dashboards[0].url);
+        setDashboardURL(response.data.dashboards[0].url);
         setDashboard(response.data.dashboards[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  console.log(dashboardURL);
   return (
     <DashboardContext.Provider
-      value={{ dashboard, setDashboard, showDashboard }}
+      value={{
+        // dashboard,
+        // setDashboard,
+        dashboardURL,
+        setDashboardURL,
+        showDashboardByID,
+      }}
     >
       {children}
     </DashboardContext.Provider>

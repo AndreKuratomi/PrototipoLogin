@@ -45,7 +45,7 @@ export const StarFavoriteProvider = ({
   const [favorites, setFavorites] = useState([] as Object[]);
 
   // PROVIDERS:
-  const { dashboard, setDashboard } = useDashboard();
+  // const { dashboard, setDashboard } = useDashboard();
 
   // LOCALSTORAGE:
   const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
@@ -65,19 +65,19 @@ export const StarFavoriteProvider = ({
   // ÍCONE CLICADO:
   const StarClicked = (id: number) => {
     // const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dashboard) {
-      dashboard[0].is_favorite = true;
-      setDashboard(dashboard);
-    }
+    // if (dashboard) {
+    //   dashboard.is_favorite = true;
+    //   setDashboard(dashboard);
+    // }
   };
 
   // ÍCONE DESCLICADO:
   const StarUnClicked = (id: number) => {
     // const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dashboard) {
-      dashboard[0].is_favorite = false;
-      setDashboard(dashboard);
-    }
+    // if (dashboard) {
+    //   dashboard.is_favorite = false;
+    //   setDashboard(dashboard);
+    // }
   };
 
   // INCLUSÃO DE FAVORITOS:
