@@ -128,51 +128,51 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
         ))}
       </TabPanel>
 
-      {/* CLIENTES */}
+      {/* FINANCEIRO */}
       <TabPanel value={value} index={2}>
+        {financeiroCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>
+
+      {/* CLIENTES */}
+      <TabPanel value={value} index={3}>
         {clientesCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* E-COMMERCE */}
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={4}>
         {ecommerceCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CREDZ */}
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={5}>
         {credzCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FORNECEDORES */}
-      <TabPanel value={value} index={5}>
+      <TabPanel value={value} index={6}>
         {fornecedoresCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FRANQUEADOS */}
-      <TabPanel value={value} index={6}>
+      <TabPanel value={value} index={7}>
         {franqueadosCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* ENTRADA DE NOTAS */}
-      <TabPanel value={value} index={7}>
-        {entradaDeNotasCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel>
-
-      {/* FINANCEIRO */}
       <TabPanel value={value} index={8}>
-        {financeiroCards.map((elt: any) => (
+        {entradaDeNotasCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
