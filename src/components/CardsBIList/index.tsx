@@ -11,6 +11,7 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { List } from "@mui/material";
 import { useDashboard } from "src/providers/Dashboard";
+import api from "src/service/api";
 
 interface ITabPanelProps {
   children?: React.ReactNode;
@@ -80,11 +81,35 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { favorites } = useStarFavorite();
+  const { dashboard, setDashboard } = useDashboard();
+  const { favorites, setFavorites } = useStarFavorite();
 
-  const { dashboard } = useDashboard();
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
-  useEffect(() => dashboard, []);
+  // API
+  // useEffect(() => {
+  //   api
+  //     .get(`dashboards/`)
+  //     .then((response) => {
+  //       setDashboard(response.data);
+  //       console.log(dashboard); // console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  // api
+  //   .get(`suppliers/${_cnpj}/`)
+  //   .then((response) => {
+  //     setFavorites(response.data.favorite_dashboards);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // }, []);
 
   // CATEGORIAS:
   const estoqueCards: any = dashboard.filter(

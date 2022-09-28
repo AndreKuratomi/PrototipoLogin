@@ -48,9 +48,9 @@ export const TabsList = () => {
     setValue(newValue);
   };
 
-  const handleChangeWithProp = async (index: number) => {
-    await setValue(index);
-  };
+  // const handleChangeWithProp = async (index: number) => {
+  //   await setValue(index);
+  // };
   // console.log(handleChangeWithProp(index))
 
   const a11yProps = (index: number) => {
@@ -63,8 +63,6 @@ export const TabsList = () => {
   return (
     <Box>
       <Tabs
-        // {...rest}
-        // allowScrollButtonsMobile //COMO HABILITAR PARA MOBILE???
         className={classes.tabs}
         onChange={handleChange}
         scrollButtons="auto"

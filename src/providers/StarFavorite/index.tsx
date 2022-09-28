@@ -4,6 +4,7 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -25,10 +26,10 @@ interface IDashboard {
 interface IStarFavoriteProvider {
   favorites: Object[];
   setFavorites: Dispatch<SetStateAction<Object[]>>;
-  StarClicked: (id: number) => void;
-  StarUnClicked: (id: number) => void;
-  handleFavorite: (num: IDashboard) => void;
-  handleDesFavorite: (num: IDashboard) => void;
+  handleStarClicked: (id: number) => void;
+  // StarUnClicked: (id: number) => void;
+  // handleFavorite: (num: IDashboard) => void;
+  // handleDesFavorite: (num: IDashboard) => void;
 }
 
 interface IStarFavoriteProviderProps {
@@ -41,29 +42,40 @@ export const StarFavoriteContext = createContext({} as IStarFavoriteProvider);
 export const StarFavoriteProvider = ({
   children,
 }: IStarFavoriteProviderProps) => {
+  // PROVIDERS:
+  const { dashboard, setDashboard } = useDashboard();
+
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
+
   // LISTA FAVORITOS:
   const [favorites, setFavorites] = useState([] as Object[]);
 
-  // PROVIDERS:
-  // const { dashboard, setDashboard } = useDashboard();
-
-  // LOCALSTORAGE:
-  const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
-
   // API:
-  // api
-  //   .get(`dashboards/id/${_cnpj}/`)
-  //   .patch(`dashboards/favorite/${_cnpj}/`)
-  //   .then((response) => {
-  //     console.log(response);
-  //     setDashboard(response.data.dashboards[0]);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  useEffect(() => {
+    api
+      .get(`suppliers/${_cnpj}/`)
+      .then((response) => {
+        setFavorites(response.data.favorite_dashboards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [favorites, _cnpj]);
 
   // ÍCONE CLICADO:
-  const StarClicked = (id: number) => {
+  const handleStarClicked = (id: number) => {
+    // useEffect?
+    api
+      .patch(`dashboards/favorite/${id}/`)
+      .then((_) => {
+        console.log(favorites);
+        // setFavorites(favorites.filter((elt: any) => elt.is_favorite === true));
+        // console.log(favorites);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // const dash = dashboard.find((elem: any) => elem.id === id);
     // if (dashboard) {
     //   dashboard.is_favorite = true;
@@ -71,44 +83,44 @@ export const StarFavoriteProvider = ({
     // }
   };
 
-  // ÍCONE DESCLICADO:
-  const StarUnClicked = (id: number) => {
-    // const dash = dashboard.find((elem: any) => elem.id === id);
-    // if (dashboard) {
-    //   dashboard.is_favorite = false;
-    //   setDashboard(dashboard);
-    // }
-  };
+  // // ÍCONE DESCLICADO:
+  // const StarUnClicked = (id: number) => {
+  //   const dash = dashboard.find((elem: any) => elem.id === id);
+  //   if (dashboard) {
+  //     dashboard.is_favorite = false;
+  //     setDashboard(dashboard);
+  //   }
+  // };
 
   // INCLUSÃO DE FAVORITOS:
-  const handleFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (!favorites.includes(num)) {
-      setFavorites([...favorites, num]);
-      StarClicked(num.id);
-      console.log(favorites);
-    }
-  };
+  // const handleFavorite = (num: IDashboard) => {
+  //   console.log(favorites);
+  //   if (!favorites.includes(num)) {
+  //     setFavorites([...favorites, num]);
+  //     handleStarClicked(num.id);
+  //     console.log(favorites);
+  //   }
+  //   // if (favorites.includes(num)) {
+  //   handleStarClicked(num.id);
+  //   setFavorites(favorites.filter((elem: any) => elem !== num));
+  //   console.log(favorites);
+  //   // }
+  // };
 
-  // EXCLUSÃO DE FAVORITOS:
-  const handleDesFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (favorites.includes(num)) {
-      StarUnClicked(num.id);
-      setFavorites(favorites.filter((elem: any) => elem !== num));
-      console.log(favorites);
-    }
-  };
+  // // EXCLUSÃO DE FAVORITOS:
+  // const handleDesFavorite = (num: IDashboard) => {
+  //   console.log(favorites);
+  // };
 
   return (
     <StarFavoriteContext.Provider
       value={{
         favorites,
         setFavorites,
-        StarClicked,
-        StarUnClicked,
-        handleFavorite,
-        handleDesFavorite,
+        handleStarClicked,
+        // StarUnClicked,
+        // handleFavorite,
+        // handleDesFavorite,
       }}
     >
       {children}
