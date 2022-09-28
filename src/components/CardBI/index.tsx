@@ -1,9 +1,3 @@
-import { Dispatch, SetStateAction, useState } from "react";
-
-import { Link, useNavigate } from "react-router-dom";
-
-import { getDashboards } from "../../utils";
-
 import { Box, Button, Card, CardActions, CardMedia } from "@material-ui/core";
 import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
@@ -110,12 +104,9 @@ export const CardBI = ({ elt }: IProps) => {
       <Box className={classes.cardsContent}>
         <Box onClick={() => handleStarClicked(elt.id)}>
           {elt.is_favorite ? (
-            // TIRAR BOX DE CONDICIONAL??
             <StarRounded className={classes.starIcon} />
           ) : (
             <StarBorderRounded className={classes.starIcon} />
-            //     <Box onClick={() => handleStarClicked(elt.id)}>
-            // </Box>
           )}
         </Box>
         <CardMedia

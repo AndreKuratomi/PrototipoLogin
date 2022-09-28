@@ -39,14 +39,8 @@ interface IUser {
 interface IDashboardProvider {
   dashboard: any;
   setDashboard: Dispatch<SetStateAction<any>>;
-  // dashboard: IDashboardItself[];
-  // setDashboard: Dispatch<
-  //   SetStateAction<IDashboardItself[]>
-  //   // Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type
-  // >;
   dashboardURL: string;
   setDashboardURL: Dispatch<SetStateAction<string>>;
-  // Object[]>
   showDashboardByID: (id: string) => void;
 }
 
@@ -65,24 +59,20 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       .get(`dashboards/`)
       .then((response) => {
         setDashboard(response.data);
-        console.log(dashboard); // console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [dashboard]);
-  // console.log();
 
+  // STATE DASHBOARDS.URL:
   const [dashboardURL, setDashboardURL] = useState("");
 
   const showDashboardByID = (cnpj: string) => {
     api
-      // .get(`dashboards/id/${id}/`)
       .get(`suppliers/${cnpj}/`)
       .then((response) => {
-        // console.log(response.data.dashboards[0].url);
         setDashboardURL(response.data.dashboards[0].url);
-        console.log(dashboardURL); // setDashboard(response.data.dashboards[0]);
       })
       .catch((err) => {
         console.log(err);
