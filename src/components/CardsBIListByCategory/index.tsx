@@ -1,19 +1,15 @@
-import { Dispatch, SetStateAction, useState } from "react";
-
 import { CardBI } from "../CardBI";
 
-import { getDashboards } from "../../utils";
+import { Box, Container, Typography } from "@material-ui/core";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-import { Box } from "@material-ui/core";
 // import { TabPanel } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/styles";
-import { List } from "@mui/material";
-
-import { useToast } from "@chakra-ui/react";
 
 import { useDashboard } from "src/providers/Dashboard";
-// import { useStarFavorite } from "../../providers/StarFavorite";
 import { useTextInput } from "src/providers/TextInput";
+
+import { useToast } from "@chakra-ui/react";
 
 interface ITabPanelProps {
   children?: React.ReactNode;
@@ -30,6 +26,11 @@ interface IElem {
 }
 
 const useStyles = makeStyles(() => ({
+  container: {
+    margin: "0",
+    maxWidth: "none",
+    padding: "0",
+  },
   dashboardList: {
     display: "flex",
     flexDirection: "column",
@@ -41,6 +42,17 @@ const useStyles = makeStyles(() => ({
       justifyContent: "space-evenly",
       flexDirection: "row",
       // padding: "1rem 2rem",
+    },
+  },
+  leaveIcon: {
+    color: "var(--black)",
+    display: "flex",
+    // position: "static",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "@media (min-width: 767px)": {
+      position: "absolute",
     },
   },
   list: {
@@ -58,72 +70,58 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// const TabPanel = (props: ITabPanelProps) => {
-//   // PROVIDERS:
-//   const { text } = useTextInput();
-
-//   // PROPS:
-//   const { index, value, children, className, ...other } = props;
-
-//   // STYLES:
-//   const classes = useStyles();
-
-//   return (
-//     <div
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`simple-tabpanel-${index}`}
-//       aria-labelledby={`simple-tabpanel-${index}`}
-//       {...other}
-//     >
-//       {value === index && <List className={classes.list}>{children}</List>}
-//     </div>
-//   );
-// };
-
 export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
-  // STYLES:
-  const classes = useStyles();
-
-  // PROVIDERS:
-  // const { dashboard, setDashboard } = useDashboard();
-  // const { favorites } = useStarFavorite();
-  const { text } = useTextInput();
-  console.log(text);
-  const dashboardi: Object[] = [];
-
   // TOASTS:
   const toast = useToast();
 
   const notFoundToast = () => {
     toast({
       description: "Verifique o texto digitado.",
-      duration: 5000,
+      duration: 3000,
       position: "top",
       status: "error",
       title: "Categoria não encontrada!",
     });
   };
 
+  // STYLES:
+  const classes = useStyles();
+
+  // PROVIDERS:
+  const { dashboard, selectedDashboard, setSelectedDashboard } = useDashboard();
+  const { finalText, setFinalText, text, setText } = useTextInput();
+
+  console.log(text);
+  console.log(finalText);
+
+  // showDashboardsByCategory("credz");
   // CATEGORIAS:
-  const selectedCards: any = dashboardi.filter(
-    (elem: any) => elem.category === text
-  );
-  console.log(selectedCards);
-  if (!selectedCards) {
+  const selected = dashboard.filter((elem: any) => elem.category === finalText);
+  console.log(selected);
+  // setSelectedDashboard(selected);
+  // console.log(selectedDashboard);
+  if (selected.length === 0) {
+    console.log("irk");
     notFoundToast();
+    setFinalText("");
   }
 
+  const closeModal = () => {
+    setText("");
+    setFinalText("");
+  };
+
   return (
-    <Box className={classes.dashboardList}>
-      {/* ESTOQUE */}
-      {/* <TabPanel value={value} index={1}> */}
-      {selectedCards ? (
-        selectedCards.map((elt: any) => <CardBI elt={elt} key={elt.id} />)
-      ) : (
-        <></>
-      )}
-      {/* </TabPanel> */}
-    </Box>
+    <Container className={classes.container}>
+      <Box className={classes.leaveIcon} onClick={closeModal}>
+        <CloseRoundedIcon />
+        <Typography>Fechar</Typography>
+      </Box>
+      <Box className={classes.dashboardList}>
+        {selected.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </Box>
+    </Container>
   );
 };

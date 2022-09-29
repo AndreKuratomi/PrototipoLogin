@@ -84,7 +84,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const CardBI = ({ elt }: IProps) => {
-  console.log(elt);
+  // console.log(elt);
   // STYLES:
   const classes = useStyles();
 

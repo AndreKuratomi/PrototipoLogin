@@ -11,6 +11,7 @@ import { Container } from "@material-ui/core";
 
 import { useToast } from "@chakra-ui/react";
 
+import { useDashboard } from "src/providers/Dashboard";
 import { useOpenModal } from "src/providers/ModalOpen";
 import { useUserLogin } from "src/providers/UserLogin";
 import { useTextInput } from "src/providers/TextInput";
@@ -31,8 +32,9 @@ const DashboardExternals = () => {
 
   // PROVIDERS:
   const { open } = useOpenModal();
-  const { text } = useTextInput();
+  // const { selectedDashboard } = useDashboard();
   const { userLogged } = useUserLogin();
+  const { finalText, text } = useTextInput();
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO ESTÁ LOGADO:
   const cnpj = JSON.parse(
@@ -45,7 +47,7 @@ const DashboardExternals = () => {
     notAskedToast();
     return <Navigate to="/" />;
   }
-
+  // console.log(selectedDashboard);
   return (
     <Container>
       {open ? (
@@ -58,8 +60,8 @@ const DashboardExternals = () => {
 
       <ContainerLastList />
 
-      {text ? <ContainerCategoryList /> : <ContainerLists />}
-      {/* <ContainerLists /> */}
+      {finalText ? <ContainerCategoryList /> : <ContainerLists />}
+      {/* {text ? <ContainerCategoryList /> : <ContainerLists />} */}
     </Container>
   );
 };
