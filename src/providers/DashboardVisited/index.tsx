@@ -39,7 +39,7 @@ export const DashboardVisitedProvider = ({
 
   // PROVIDERS:
   const { dashboard } = useDashboard();
-  // const dashboardi: Object[] = [];
+
   // INCLUSÃO DE VISITADOS:
   const handleLastVisited = (num: IDashboard, func: () => void) => {
     func();

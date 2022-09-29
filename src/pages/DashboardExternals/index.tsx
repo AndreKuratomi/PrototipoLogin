@@ -32,7 +32,6 @@ const DashboardExternals = () => {
 
   // PROVIDERS:
   const { open } = useOpenModal();
-  // const { selectedDashboard } = useDashboard();
   const { userLogged } = useUserLogin();
   const { finalText, text } = useTextInput();
 
@@ -47,7 +46,7 @@ const DashboardExternals = () => {
     notAskedToast();
     return <Navigate to="/" />;
   }
-  // console.log(selectedDashboard);
+
   return (
     <Container>
       {open ? (
@@ -61,7 +60,6 @@ const DashboardExternals = () => {
       <ContainerLastList />
 
       {finalText ? <ContainerCategoryList /> : <ContainerLists />}
-      {/* {text ? <ContainerCategoryList /> : <ContainerLists />} */}
     </Container>
   );
 };

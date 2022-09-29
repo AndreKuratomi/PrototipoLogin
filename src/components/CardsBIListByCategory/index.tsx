@@ -2,8 +2,6 @@ import { CardBI } from "../CardBI";
 
 import { Box, Container, Typography } from "@material-ui/core";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-
-// import { TabPanel } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/styles";
 
 import { useDashboard } from "src/providers/Dashboard";
@@ -94,7 +92,6 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
   console.log(text);
   console.log(finalText);
 
-  // showDashboardsByCategory("credz");
   // CATEGORIAS:
   const selected = dashboard.filter((elem: any) => elem.category === finalText);
   console.log(selected);

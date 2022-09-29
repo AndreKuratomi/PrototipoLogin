@@ -54,6 +54,7 @@ export const InputSearch = () => {
       <Search
         className={classes.searchIcon}
         onClick={() => handleButtonClick()}
+        type="submit"
       />
       <TextField
         className={classes.textField}
