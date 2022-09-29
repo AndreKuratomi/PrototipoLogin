@@ -4,13 +4,11 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
 import api from "src/service/api";
-
-// import { getDashboards } from "../../utils";
-import { useDashboard } from "../Dashboard";
 
 interface IDashboard {
   id: number;
@@ -25,79 +23,46 @@ interface IDashboard {
 interface IStarFavoriteProvider {
   favorites: Object[];
   setFavorites: Dispatch<SetStateAction<Object[]>>;
-  StarClicked: (id: number) => void;
-  StarUnClicked: (id: number) => void;
-  handleFavorite: (num: IDashboard) => void;
-  handleDesFavorite: (num: IDashboard) => void;
+  handleStarClicked: (id: number) => void;
 }
 
 interface IStarFavoriteProviderProps {
   children: ReactNode;
 }
-// URLs:
 
 export const StarFavoriteContext = createContext({} as IStarFavoriteProvider);
 
 export const StarFavoriteProvider = ({
   children,
 }: IStarFavoriteProviderProps) => {
-  // LISTA FAVORITOS:
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
+
+  // LISTA FAVORITOS DASHBOARD EXTERNALS:
   const [favorites, setFavorites] = useState([] as Object[]);
 
-  // PROVIDERS:
-  // const { dashboard, setDashboard } = useDashboard();
-
-  // LOCALSTORAGE:
-  const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
-
   // API:
-  // api
-  //   .get(`dashboards/id/${_cnpj}/`)
-  //   .patch(`dashboards/favorite/${_cnpj}/`)
-  //   .then((response) => {
-  //     console.log(response);
-  //     setDashboard(response.data.dashboards[0]);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  useEffect(() => {
+    api
+      .get(`suppliers/${_cnpj}/`)
+      .then((response) => {
+        setFavorites(response.data.favorite_dashboards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [favorites, _cnpj]);
 
   // ÍCONE CLICADO:
-  const StarClicked = (id: number) => {
-    // const dash = dashboard.find((elem: any) => elem.id === id);
-    // if (dashboard) {
-    //   dashboard.is_favorite = true;
-    //   setDashboard(dashboard);
-    // }
-  };
-
-  // ÍCONE DESCLICADO:
-  const StarUnClicked = (id: number) => {
-    // const dash = dashboard.find((elem: any) => elem.id === id);
-    // if (dashboard) {
-    //   dashboard.is_favorite = false;
-    //   setDashboard(dashboard);
-    // }
-  };
-
-  // INCLUSÃO DE FAVORITOS:
-  const handleFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (!favorites.includes(num)) {
-      setFavorites([...favorites, num]);
-      StarClicked(num.id);
-      console.log(favorites);
-    }
-  };
-
-  // EXCLUSÃO DE FAVORITOS:
-  const handleDesFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (favorites.includes(num)) {
-      StarUnClicked(num.id);
-      setFavorites(favorites.filter((elem: any) => elem !== num));
-      console.log(favorites);
-    }
+  const handleStarClicked = (id: number) => {
+    api
+      .patch(`dashboards/favorite/${id}/`)
+      .then((_) => {
+        console.log(favorites);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -105,10 +70,7 @@ export const StarFavoriteProvider = ({
       value={{
         favorites,
         setFavorites,
-        StarClicked,
-        StarUnClicked,
-        handleFavorite,
-        handleDesFavorite,
+        handleStarClicked,
       }}
     >
       {children}

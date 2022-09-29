@@ -1,9 +1,3 @@
-import { Dispatch, SetStateAction, useState } from "react";
-
-import { Link, useNavigate } from "react-router-dom";
-
-import { getDashboards } from "../../utils";
-
 import { Box, Button, Card, CardActions, CardMedia } from "@material-ui/core";
 import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
@@ -21,10 +15,11 @@ interface IDashboard {
 
 interface IElt {
   id: number;
-  isFavorite: boolean;
+  is_favorite: boolean;
   category: string;
   name: string;
   url: string;
+  supplier_owner: string;
 }
 
 interface IProps {
@@ -89,35 +84,31 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const CardBI = ({ elt }: IProps) => {
+  // console.log(elt);
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
-  // const { dashboard } = useDashboard();
+  const { dashboard } = useDashboard();
   const { handleLastVisited } = useDashboardVisited();
-  const { handleFavorite, handleDesFavorite } = useStarFavorite();
-
-  // TENTATIVA INDIVIDUALIZAR:
-  const dashboardi: Object[] = [];
+  const { handleStarClicked } = useStarFavorite();
 
   // ENVIO URL:
   const sendURL = () => {
-    const urlFound: any = dashboardi.find((elem: any) => elem.url === elt.url);
+    const urlFound: any = dashboard.find((elem: any) => elem.url === elt.url);
     localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
   };
 
   return (
     <Card className={classes.cards} key={elt.id}>
       <Box className={classes.cardsContent}>
-        {elt.isFavorite ? ( //INDIVIDUALIZAR O EFEITO DO CLIQUE!
-          <Box onClick={() => handleDesFavorite(elt)}>
+        <Box onClick={() => handleStarClicked(elt.id)}>
+          {elt.is_favorite ? (
             <StarRounded className={classes.starIcon} />
-          </Box>
-        ) : (
-          <Box onClick={() => handleFavorite(elt)}>
+          ) : (
             <StarBorderRounded className={classes.starIcon} />
-          </Box>
-        )}
+          )}
+        </Box>
         <CardMedia
           component="iframe"
           src={elt.url}

@@ -1,8 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
-
 import { CardBI } from "../CardBI";
-
-import { getDashboards } from "../../utils";
 
 import { useStarFavorite } from "../../providers/StarFavorite";
 
@@ -63,7 +59,7 @@ const TabPanel = (props: ITabPanelProps) => {
   const classes = useStyles();
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -71,7 +67,7 @@ const TabPanel = (props: ITabPanelProps) => {
       {...other}
     >
       {value === index && <List className={classes.list}>{children}</List>}
-    </div>
+    </Box>
   );
 };
 
@@ -80,38 +76,32 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { dashboard } = useDashboard();
   const { favorites } = useStarFavorite();
-  // const [clicked, setClicked] = useState(false);
-  // const { dashboard, setDashboard } = useDashboard();
-  const dashboardi: Object[] = [];
-
-  // const favorites = JSON.parse(
-  //   localStorage.getItem("@FavoritesList") || "null"
-  // );
 
   // CATEGORIAS:
-  const estoqueCards: any = dashboardi.filter(
+  const estoqueCards: any = dashboard.filter(
     (elem: any) => elem.category === "estoque"
   );
-  const clientesCards: any = dashboardi.filter(
+  const clientesCards: any = dashboard.filter(
     (elem: any) => elem.category === "clientes"
   );
-  const ecommerceCards: any = dashboardi.filter(
+  const ecommerceCards: any = dashboard.filter(
     (elem: any) => elem.category === "e-commerce"
   );
-  const credzCards: any = dashboardi.filter(
+  const credzCards: any = dashboard.filter(
     (elem: any) => elem.category === "credz"
   );
-  const fornecedoresCards: any = dashboardi.filter(
+  const fornecedoresCards: any = dashboard.filter(
     (elem: any) => elem.category === "fornecedores"
   );
-  const franqueadosCards: any = dashboardi.filter(
+  const franqueadosCards: any = dashboard.filter(
     (elem: any) => elem.category === "franqueados"
   );
-  const entradaDeNotasCards: any = dashboardi.filter(
+  const entradaDeNotasCards: any = dashboard.filter(
     (elem: any) => elem.category === "entrada de notas"
   );
-  const financeiroCards: any = dashboardi.filter(
+  const financeiroCards: any = dashboard.filter(
     (elem: any) => elem.category === "financeiro"
   );
 
@@ -131,51 +121,51 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
         ))}
       </TabPanel>
 
-      {/* CLIENTES */}
+      {/* FINANCEIRO */}
       <TabPanel value={value} index={2}>
+        {financeiroCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>
+
+      {/* CLIENTES */}
+      <TabPanel value={value} index={3}>
         {clientesCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* E-COMMERCE */}
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={4}>
         {ecommerceCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* CREDZ */}
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={5}>
         {credzCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FORNECEDORES */}
-      <TabPanel value={value} index={5}>
+      <TabPanel value={value} index={6}>
         {fornecedoresCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* FRANQUEADOS */}
-      <TabPanel value={value} index={6}>
+      <TabPanel value={value} index={7}>
         {franqueadosCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
       {/* ENTRADA DE NOTAS */}
-      <TabPanel value={value} index={7}>
-        {entradaDeNotasCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel>
-
-      {/* FINANCEIRO */}
       <TabPanel value={value} index={8}>
-        {financeiroCards.map((elt: any) => (
+        {entradaDeNotasCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
