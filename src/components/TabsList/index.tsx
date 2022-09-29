@@ -40,17 +40,15 @@ export const TabsList = () => {
   // COMPORTAMENTO TABS:
   const [value, setValue] = useState(0);
 
-  // PROVIDERS:
-  const { text, setIndexValue } = useTextInput();
-  const index = setIndexValue(text);
+  // const index = setIndexValue(text);
 
   const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
-  const handleChangeWithProp = async (index: number) => {
-    await setValue(index);
-  };
+  // const handleChangeWithProp = async (index: number) => {
+  //   await setValue(index);
+  // };
   // console.log(handleChangeWithProp(index))
 
   const a11yProps = (index: number) => {
@@ -63,8 +61,6 @@ export const TabsList = () => {
   return (
     <Box>
       <Tabs
-        // {...rest}
-        // allowScrollButtonsMobile //COMO HABILITAR PARA MOBILE???
         className={classes.tabs}
         onChange={handleChange}
         scrollButtons="auto"

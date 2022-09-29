@@ -4,81 +4,65 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
-import { getDashboards } from "../../utils";
-import { useDashboard } from "../Dashboard";
+import api from "src/service/api";
 
 interface IDashboard {
   id: number;
-  isFavorite: boolean;
   category: string;
+  is_favorite: boolean;
   name: string;
   url: string;
+  created_at: string;
+  supplier_owner: string;
 }
 
 interface IStarFavoriteProvider {
   favorites: Object[];
   setFavorites: Dispatch<SetStateAction<Object[]>>;
-  StarClicked: (id: number) => void;
-  StarUnClicked: (id: number) => void;
-  handleFavorite: (num: IDashboard) => void;
-  handleDesFavorite: (num: IDashboard) => void;
+  handleStarClicked: (id: number) => void;
 }
 
 interface IStarFavoriteProviderProps {
   children: ReactNode;
 }
-// URLs:
 
 export const StarFavoriteContext = createContext({} as IStarFavoriteProvider);
 
 export const StarFavoriteProvider = ({
   children,
 }: IStarFavoriteProviderProps) => {
-  // LISTA FAVORITOS:
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
+
+  // LISTA FAVORITOS DASHBOARD EXTERNALS:
   const [favorites, setFavorites] = useState([] as Object[]);
 
-  // PROVIDERS:
-  const { dashboard, setDashboard } = useDashboard();
+  // API:
+  useEffect(() => {
+    api
+      .get(`suppliers/${_cnpj}/`)
+      .then((response) => {
+        setFavorites(response.data.favorite_dashboards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [favorites, _cnpj]);
 
   // ÍCONE CLICADO:
-  const StarClicked = (id: number) => {
-    const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dash) {
-      dash.isFavorite = true;
-      setDashboard(dashboard);
-    }
-  };
-
-  // ÍCONE DESCLICADO:
-  const StarUnClicked = (id: number) => {
-    const dash = dashboard.find((elem: any) => elem.id === id);
-    if (dash) {
-      dash.isFavorite = false;
-      setDashboard(dashboard);
-    }
-  };
-
-  // INCLUSÃO DE FAVORITOS:
-  const handleFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (!favorites.includes(num)) {
-      setFavorites([...favorites, num]);
-      StarClicked(num.id);
-      console.log(favorites);
-    }
-  };
-
-  // EXCLUSÃO DE FAVORITOS:
-  const handleDesFavorite = (num: IDashboard) => {
-    console.log(favorites);
-    if (favorites.includes(num)) {
-      StarUnClicked(num.id);
-      setFavorites(favorites.filter((elem: any) => elem !== num));
-      console.log(favorites);
-    }
+  const handleStarClicked = (id: number) => {
+    api
+      .patch(`dashboards/favorite/${id}/`)
+      .then((_) => {
+        console.log(favorites);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -86,10 +70,7 @@ export const StarFavoriteProvider = ({
       value={{
         favorites,
         setFavorites,
-        StarClicked,
-        StarUnClicked,
-        handleFavorite,
-        handleDesFavorite,
+        handleStarClicked,
       }}
     >
       {children}

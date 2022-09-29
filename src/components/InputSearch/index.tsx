@@ -5,6 +5,8 @@ import { Search } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
 import { IconButton } from "@mui/material";
 
+import { useDashboard } from "src/providers/Dashboard";
+
 const useStyles = makeStyles(() => ({
   searchIcon: {
     color: "var(--externalDashboardGreen)",
@@ -37,26 +39,28 @@ export const InputSearch = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { getText, setIndexValue, text, setText } = useTextInput();
+  const { finalText, setFinalText, text, setText } = useTextInput();
 
-  const handleButtonClick = (event: React.FormEvent<HTMLInputElement>) => {
-    console.log(event);
+  const handleButtonClick = () => {
     console.log(text);
-    setText(event.currentTarget.value);
+
+    setText(text);
+    setFinalText(text.trim().toLowerCase());
+    console.log(finalText);
   };
 
   return (
     <Box className={classes.subHeaderInput}>
-      {/* <IconButton color="primary" size="small" type="submit"> */}
       <Search
         className={classes.searchIcon}
-        onClick={() => handleButtonClick}
+        onClick={() => handleButtonClick()}
+        type="submit"
       />
-      {/* </IconButton> */}
       <TextField
         className={classes.textField}
         onChange={(event) => setText(event.currentTarget.value)}
         placeholder="Pesquisar categoria"
+        value={text}
         // InputProps={{
         //   startAdornment: (
         //     <InputAdornment position="start">
