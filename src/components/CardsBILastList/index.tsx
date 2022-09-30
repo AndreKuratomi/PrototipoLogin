@@ -34,18 +34,20 @@ export const CardsBILastList = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { lastVisited } = useDashboardVisited();
+  const { lastVisited, setLastVisited } = useDashboardVisited();
 
-  // const last_visited = JSON.parse(
-  //   localStorage.getItem("@LastVisitedList") || "null"
+  // console.log(lastVisited);
+  // setLastVisited(
+  //   lastVisited.sort((a: any, b: any) => {
+  //     return a.last_clicked.localeCompare(b.last_clicked).reverse();
+  //   })
   // );
-
-  // console.log(last_visited);
 
   return (
     <Box className={classes.dashboardLastList}>
       {lastVisited.map((elt: any) => (
         <CardBI elt={elt} key={elt.id} />
+        // <CardBI elt={elt} key={elt.last_clicked} />
       ))}
     </Box>
   );

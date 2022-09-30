@@ -14,8 +14,8 @@ import { useDashboard } from "../Dashboard";
 
 interface IDashboardVisitedProvider {
   handleLastVisited: (elt: any) => void;
-  lastVisited: Object[];
-  setLastVisited: Dispatch<SetStateAction<Object[]>>;
+  lastVisited: any;
+  setLastVisited: Dispatch<SetStateAction<any>>;
 }
 
 interface IDashboardVisitedProviderProps {
@@ -40,16 +40,25 @@ export const DashboardVisitedProvider = ({
   const cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
   // LISTA VISITADOS:
-  const [lastVisited, setLastVisited] = useState([] as Object[]);
+  const [lastVisited, setLastVisited] = useState([] as any);
 
   // API:
   useEffect(() => {
     api
       .get(`suppliers/${cnpj}`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setLastVisited(response.data.last_visited_dashboards);
+        // console.log(lastVisited);
       })
+      // .then((_) => {
+      //   setLastVisited(
+      //     lastVisited.sort((a: any, b: any) => {
+      //       return a.last_clicked.localeCompare(b.last_clicked).reverse();
+      //     })
+      //   );
+      //   console.log(lastVisited);
+      // })
       .catch((err) => {
         console.log(err);
       });
