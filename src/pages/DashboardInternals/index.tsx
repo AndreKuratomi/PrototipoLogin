@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
 const DashboardInternals = () => {
   // STATES:
   // const {} = useDashboard();
-  const { dashboard, dashboardURL, showDashboardByID } = useDashboard();
+  const { dashboard, dashboardURL, showDashboardURLByID } = useDashboard();
   console.log(dashboardURL);
   // const url: string = dashboard[0].url;
   // console.log(url);
@@ -125,7 +125,7 @@ const DashboardInternals = () => {
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
   console.log(cnpj);
 
-  showDashboardByID(cnpj);
+  showDashboardURLByID(cnpj);
   console.log(dashboardURL);
   console.log(dashboard);
   // useEffect(() => showDashboard(cnpj), []);

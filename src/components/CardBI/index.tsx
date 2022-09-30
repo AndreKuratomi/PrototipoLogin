@@ -121,7 +121,7 @@ export const CardBI = ({ elt }: IProps) => {
           <a target="_self" href="/dashboardsingle">
             <Button
               className={classes.button}
-              onClick={() => handleLastVisited(elt, sendURL)}
+              onClick={() => handleLastVisited(elt)}
             >
               {elt.name}
             </Button>
@@ -130,7 +130,7 @@ export const CardBI = ({ elt }: IProps) => {
           <a target="_blanck" href="/dashboardsingle">
             <Button
               className={classes.button}
-              onClick={() => handleLastVisited(elt, sendURL)}
+              onClick={() => handleLastVisited(elt)}
             >
               {elt.name}
             </Button>
