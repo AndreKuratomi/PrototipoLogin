@@ -43,10 +43,12 @@ interface IUser {
 interface IDashboardProvider {
   dashboard: any;
   setDashboard: Dispatch<SetStateAction<any>>;
+  dashboardID: any;
+  setDashboardID: Dispatch<SetStateAction<any>>;
+  showDashboardByID: (cnpj: string) => void;
   dashboardURL: string;
   setDashboardURL: Dispatch<SetStateAction<string>>;
-  showDashboardByID: (id: string) => void;
-  // showDashboardsByCategory: (id: string) => void;
+  showDashboardURLByID: (id: string) => void;
   selectedDashboard: Object[];
   setSelectedDashboard: Dispatch<SetStateAction<Object[]>>;
 }
@@ -86,9 +88,23 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
   }, [dashboard]);
 
   // STATE DASHBOARDS.URL:
-  const [dashboardURL, setDashboardURL] = useState("");
+  const [dashboardID, setDashboardID] = useState("");
 
   const showDashboardByID = (cnpj: string) => {
+    api
+      .get(`suppliers/${cnpj}/`)
+      .then((response) => {
+        setDashboardID(response.data.dashboards[0].id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // STATE DASHBOARDS.URL:
+  const [dashboardURL, setDashboardURL] = useState("");
+
+  const showDashboardURLByID = (cnpj: string) => {
     api
       .get(`suppliers/${cnpj}/`)
       .then((response) => {
@@ -132,10 +148,12 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       value={{
         dashboard,
         setDashboard,
+        dashboardID,
+        setDashboardID,
         dashboardURL,
         setDashboardURL,
+        showDashboardURLByID,
         showDashboardByID,
-        // showDashboardsByCategory,
         selectedDashboard,
         setSelectedDashboard,
       }}
