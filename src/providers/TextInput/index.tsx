@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 
-import { getDashboards } from "../../utils";
+// import { getDashboards } from "../../utils";
 
 interface ITextProvider {
   text: string;
