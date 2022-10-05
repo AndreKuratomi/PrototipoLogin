@@ -4,131 +4,73 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
-import { getDashboards } from "../../utils";
+import api from "src/service/api";
+
+interface IDashboard {
+  id: number;
+  category: string;
+  is_favorite: boolean;
+  name: string;
+  url: string;
+  created_at: string;
+  supplier_owner: string;
+}
 
 interface IStarFavoriteProvider {
-  cardId: number;
-  setCardId: Dispatch<SetStateAction<number>>;
-  setId: (id: number) => void;
-  clicked: boolean;
-  setClicked: Dispatch<SetStateAction<boolean>>;
-  favoriteCards: Object[];
-  setFavoriteCards: Dispatch<SetStateAction<Object[]>>;
-  lastVisited: Object[];
-  setLastVisited: Dispatch<SetStateAction<Object[]>>;
-  StarClicked: (id: number) => void;
-  StarUnClicked: (id: number) => void;
-  handleFavorite: (num: IDashboard) => void;
-  handleDesFavorite: (num: IDashboard) => void;
-  handleLastVisited: (num: IDashboard, func: () => void) => void;
+  favorites: Object[];
+  setFavorites: Dispatch<SetStateAction<Object[]>>;
+  handleStarClicked: (id: number) => void;
 }
 
 interface IStarFavoriteProviderProps {
   children: ReactNode;
 }
 
-interface IDashboard {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
-}
-
-// URLs:
-let dashboards = getDashboards();
-
 export const StarFavoriteContext = createContext({} as IStarFavoriteProvider);
 
 export const StarFavoriteProvider = ({
   children,
 }: IStarFavoriteProviderProps) => {
-  // STATE PARA DELIMITAR ID DO CARD:
-  const [cardId, setCardId] = useState(0);
+  // LOCALSTORAGE:
+  const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
-  const setId = (id: number) => {
-    setCardId(id);
-  };
+  // LISTA FAVORITOS DASHBOARD EXTERNALS:
+  const [favorites, setFavorites] = useState([] as Object[]);
 
-  // STATE PARA INCLUIR LISTA FAVORITOS:
-  const [favoriteCards, setFavoriteCards] = useState([] as Object[]);
+  // API:
+  useEffect(() => {
+    api
+      .get(`suppliers/${_cnpj}/`)
+      .then((response) => {
+        setFavorites(response.data.favorite_dashboards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [favorites, _cnpj]);
 
-  // STATE PARA INCLUIR LISTA FAVORITOS:
-  const [lastVisited, setLastVisited] = useState([] as Object[]);
-
-  // STATE PARA ALTERAR ÍCONE ESTRELA:
-  const [clicked, setClicked] = useState(false);
-
-  const StarClicked = (id: number) => {
-    const dash = dashboards.find((elem: IDashboard) => elem.id === id);
-    if (dash) {
-      setClicked(true);
-    }
-  };
-
-  const StarUnClicked = () => {
-    // STATE PARA ALTERAR ÍCONE ESTRELA:
-    // const [clicked, setClicked] = useState(false);
-    // const dash = favoriteCards.find((elem: IDashboard) => elem.id === id);
-    // if (dash) {
-    setClicked(false);
-    // }
-  };
-
-  const handleFavorite = (num: IDashboard) => {
-    if (!favoriteCards.includes(num)) {
-      setFavoriteCards([
-        ...favoriteCards,
-        dashboards.find((elem: Object) => elem === num),
-      ]);
-      StarClicked(num.id);
-    }
-  };
-
-  const handleDesFavorite = (num: IDashboard) => {
-    if (favoriteCards.includes(num)) {
-      setFavoriteCards(favoriteCards.filter((elem: Object) => elem !== num));
-      StarUnClicked();
-    }
-  };
-
-  const handleLastVisited = async (num: IDashboard, func: () => void) => {
-    func();
-    if (!lastVisited.includes(num)) {
-      if (lastVisited.length < 3) {
-        setLastVisited([
-          ...lastVisited,
-          dashboards.find((elem: Object) => elem === num),
-        ]);
-      } else {
-        let filtro = lastVisited.filter(
-          (elt: Object) => elt !== lastVisited[0]
-        );
-        filtro.unshift(num);
-        return filtro;
-      }
-    }
+  // ÍCONE CLICADO:
+  const handleStarClicked = (id: number) => {
+    api
+      .patch(`dashboards/favorite/${id}/`)
+      .then((_) => {
+        console.log(favorites);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <StarFavoriteContext.Provider
       value={{
-        cardId,
-        setCardId,
-        setId,
-        clicked,
-        setClicked,
-        lastVisited,
-        setLastVisited,
-        StarClicked,
-        StarUnClicked,
-        favoriteCards,
-        setFavoriteCards,
-        handleFavorite,
-        handleDesFavorite,
-        handleLastVisited,
+        favorites,
+        setFavorites,
+        handleStarClicked,
       }}
     >
       {children}

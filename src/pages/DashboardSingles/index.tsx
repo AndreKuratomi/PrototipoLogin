@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { getDashboards } from "../../utils";
+// import { getDashboards } from "../../utils";
 
-// import { disableBodyScroll } from "body-scroll-lock";
 import { lock } from "tua-body-scroll-lock";
 
 import {
@@ -14,21 +13,18 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
+
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import { makeStyles } from "@material-ui/styles";
 
 import { Main } from "./styles";
 
+import { useStarFavorite } from "../../providers/StarFavorite";
+
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
-  cardActions: {
-    display: "flex",
-    justifyContent: "space-between",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
-  },
   cardConcent: {
     padding: "0",
   },
@@ -40,18 +36,7 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100%",
-    height: "42.5rem",
-    "@media (min-width: 767px)": {
-      height: "44rem",
-    },
-  },
-  image: {
-    display: "flex",
-    justifyContent: "center",
-    width: "13rem",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
+    height: "100vh",
   },
   leaveIcon: {
     color: "var(--black)",
@@ -70,36 +55,46 @@ const DashboardSingles = () => {
   // STYLES:
   const classes = useStyles();
 
-  // // DOM:
-  // const deb = window.document.getElementById("scroll") as HTMLElement;
-
   // DESABILITAR SCROLL:
   lock();
 
-  // URLs:
+  // PROVIDERS:
   const url = JSON.parse(
     localStorage.getItem("@pbi_url: PowerBI URL") || "null"
   );
 
+  // PROVIDERS:
+  // const { url } = useStarFavorite();
+  // console.log(url[0]);
+
   // LOGOUT:
-  const clearLocalStorage = () => {
-    localStorage.clear();
+  const backToDashboard = () => {
+    localStorage.removeItem("@pbi_url: PowerBI URL");
     window.location.href = "/dashboardexternals";
+  };
+  const closeDashboard = () => {
+    localStorage.removeItem("@pbi_url: PowerBI URL");
+    window.close();
   };
 
   return (
     <Container className={classes.container}>
-      <Box className={classes.leaveIcon} onClick={clearLocalStorage}>
-        <KeyboardBackspaceRoundedIcon />
-        <Typography>Voltar</Typography>
-      </Box>
-      {/* <Container> */}
+      {window.innerWidth < 768 ? (
+        <Box className={classes.leaveIcon} onClick={backToDashboard}>
+          <KeyboardBackspaceRoundedIcon />
+          <Typography>Voltar</Typography>
+        </Box>
+      ) : (
+        <Box className={classes.leaveIcon} onClick={closeDashboard}>
+          <CloseRoundedIcon />
+          <Typography>Fechar</Typography>
+        </Box>
+      )}
       <Card className={classes.card}>
         <CardContent className={classes.cardConcent}>
           <CardMedia className={classes.iframe} component="iframe" src={url} />
         </CardContent>
       </Card>
-      {/* </Containe/r> */}
     </Container>
   );
 };

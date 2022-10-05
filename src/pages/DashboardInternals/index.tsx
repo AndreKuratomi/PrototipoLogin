@@ -1,15 +1,8 @@
-// import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-// import { useFullScreen } from "../../providers/FullScreen";
-// import { useUserLogin } from "../../providers/UserLogin";
-import { PowerBIEmbed } from "powerbi-client-react";
-import { models } from "powerbi-client";
-
-// import { disableBodyScroll } from "body-scroll-lock";
 import { lock } from "tua-body-scroll-lock";
 
 import { ExitToAppRounded } from "@mui/icons-material";
-
 import {
   Box,
   Card,
@@ -20,10 +13,12 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/styles";
 
 import LogoVestcasaVerde from "../../assets/figma_imgs/LogoVestcasaVerde.png";
+
+import { useUserLogin } from "../../providers/UserLogin";
+import { useDashboard } from "src/providers/Dashboard";
 
 import { useToast } from "@chakra-ui/react";
 
@@ -32,9 +27,9 @@ const useStyles = makeStyles(() => ({
   cardActions: {
     display: "flex",
     justifyContent: "space-between",
-    "@media (min-height: 767px)": {
-      display: "none",
-    },
+    // "@media (min-height: 767px)": {
+    //   display: "none",
+    // },
   },
   cardConcent: {
     padding: "0",
@@ -46,18 +41,20 @@ const useStyles = makeStyles(() => ({
   },
   iframe: {
     margin: "0",
-    width: "100%",
-    height: "37.5rem",
-    // height: "41.5rem",
-    "@media (min-height: 767px)": {
-      height: "50rem",
+    width: "100vw",
+    height: "94vh",
+    // "@media (max-height: 767px)": {
+    //   height: "23.5rem",
+    // },
+    "@media (max-height: 500px)": {
+      height: "99vh",
     },
   },
   image: {
     display: "flex",
     justifyContent: "center",
     width: "13rem",
-    "@media (min-height: 767px)": {
+    "@media (max-height: 500px)": {
       display: "none",
     },
   },
@@ -70,21 +67,27 @@ const useStyles = makeStyles(() => ({
 }));
 
 const DashboardInternals = () => {
+  // STATES:
+  // const {} = useDashboard();
+  const { dashboard, dashboardURL, showDashboardURLByID } = useDashboard();
+  console.log(dashboardURL);
+  // const url: string = dashboard[0].url;
+  // console.log(url);
   // STYLES:
   const classes = useStyles();
 
-  // // TOASTS:
-  // const toast = useToast();
+  // TOASTS:
+  const toast = useToast();
 
-  // const notLoggedToast = () => {
-  //   toast({
-  //     description: "Usuário não logado!",
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "error",
-  //     title: "Não autorizado",
-  //   });
-  // };
+  const notLoggedToast = () => {
+    toast({
+      description: "Usuário não logado!",
+      duration: 3000,
+      position: "top",
+      status: "error",
+      title: "Não autorizado",
+    });
+  };
   // const timeoutToast = () => {
   //   toast({
   //     description: "Faça o login novamente.",
@@ -95,19 +98,21 @@ const DashboardInternals = () => {
   //   });
   // };
 
-  // // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
-  // const { setLogged } = useUserLogin();
-  // const token = localStorage.getItem("@token: UserLoggedToken");
+  // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
+  const { userLogged } = useUserLogin();
+  const _cnpj = localStorage.getItem("@UserLoggedToken:cnpj");
 
-  // if (token) {
-  //   setLogged(true);
-  // } else {
-  //   notLoggedToast();
-  //   return <Navigate to="/" />;
-  // }
+  if (_cnpj) {
+    userLogged();
+  } else {
+    notLoggedToast();
+    return <Navigate to="/" />;
+  }
 
   // DESABILITAR SCROLL:
-  lock();
+  if (window.innerHeight > 400) {
+    lock();
+  }
 
   // LOGOUT:
   const clearLocalStorage = () => {
@@ -115,6 +120,15 @@ const DashboardInternals = () => {
     localStorage.clear();
     window.location.href = "/";
   };
+
+  // API
+  const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
+  console.log(cnpj);
+
+  showDashboardURLByID(cnpj);
+  console.log(dashboardURL);
+  console.log(dashboard);
+  // useEffect(() => showDashboard(cnpj), []);
 
   return (
     // <Container>
@@ -137,7 +151,8 @@ const DashboardInternals = () => {
           <CardMedia
             className={classes.iframe}
             component="iframe"
-            src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            // src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            src={dashboardURL}
           />
         </CardContent>
       </Card>

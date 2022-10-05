@@ -1,8 +1,11 @@
 import { useTextInput } from "src/providers/TextInput";
 
-import { Box, TextField } from "@material-ui/core";
+import { Box, Button, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@mui/icons-material";
 import { makeStyles } from "@material-ui/styles";
+import { IconButton } from "@mui/material";
+
+import { useDashboard } from "src/providers/Dashboard";
 
 const useStyles = makeStyles(() => ({
   searchIcon: {
@@ -36,18 +39,38 @@ export const InputSearch = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { getText, setIndexValue, text } = useTextInput();
+  const { finalText, setFinalText, text, setText } = useTextInput();
+
+  const handleButtonClick = () => {
+    console.log(text);
+
+    setText(text);
+    setFinalText(text.trim().toLowerCase());
+    console.log(finalText);
+  };
 
   return (
     <Box className={classes.subHeaderInput}>
       <Search
         className={classes.searchIcon}
-        onClick={() => setIndexValue(text)}
+        onClick={() => handleButtonClick()}
+        type="submit"
       />
       <TextField
         className={classes.textField}
-        onChange={() => getText}
-        placeholder="Pesquisar..."
+        onChange={(event) => setText(event.currentTarget.value)}
+        placeholder="Pesquisar categoria"
+        value={text}
+        // InputProps={{
+        //   startAdornment: (
+        //     <InputAdornment position="start">
+        //       <Search
+        //         className={classes.searchIcon}
+        //         onClick={() => handleButtonClick}
+        //       />
+        //     </InputAdornment>
+        //   ),
+        // }}
       />
     </Box>
   );

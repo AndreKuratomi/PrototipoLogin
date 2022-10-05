@@ -17,7 +17,8 @@ interface ILoginProvider {
   setLoggedCNPJ: Dispatch<SetStateAction<string>>;
   getDataByEmail: (email: string) => void;
   userLogged: () => void;
-  createUserToken: () => void;
+  createUserToken: (elem: string) => void;
+  createSuperUserToken: (elem: string) => void;
 }
 
 interface ILoginProviderProps {
@@ -51,12 +52,15 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
   };
 
   // GERAÇÃO DE TOKEN E ALOCAÇÃO NO LOCALSTORAGE QUANDO USUÁRIO LOGA:
-  const createUserToken = () => {
-    const cryptoUserToken = bcrypt.genSaltSync(10);
-    localStorage.setItem(
-      "@token: UserLoggedToken",
-      JSON.stringify(cryptoUserToken)
-    );
+  const createUserToken = (elem: string) => {
+    // const cryptoUserToken = bcrypt.genSaltSync(10);
+    localStorage.setItem("@UserLoggedToken:cnpj", elem);
+  };
+
+  const createSuperUserToken = (elem: string) => {
+    console.log(elem);
+    // const cryptoUserToken = bcrypt.genSaltSync(10);
+    localStorage.setItem("@SuperUserLoggedToken:cnpj", elem);
   };
 
   return (
@@ -69,7 +73,7 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
         getDataByEmail,
         userLogged,
         createUserToken,
-        // createSuperUserToken,
+        createSuperUserToken,
       }}
     >
       {children}

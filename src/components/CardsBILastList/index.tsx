@@ -1,10 +1,12 @@
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
 import { CardBI } from "../CardBI";
 
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useStarFavorite } from "src/providers/StarFavorite";
-import { useEffect } from "react";
+import { useDashboardVisited } from "src/providers/DashboardVisited";
 
 interface IElem {
   id: number;
@@ -32,13 +34,22 @@ export const CardsBILastList = () => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { lastVisited } = useStarFavorite();
+  const { lastVisited, setLastVisited } = useDashboardVisited();
+
+  // console.log(lastVisited);
+  // setLastVisited(
+  //   lastVisited.sort((a: any, b: any) => {
+  //     return a.last_clicked.localeCompare(b.last_clicked).reverse();
+  //   })
+  // );
 
   return (
     <Box className={classes.dashboardLastList}>
       {lastVisited.map((elt: any) => (
         <CardBI elt={elt} key={elt.id} />
+        // <CardBI elt={elt} key={elt.last_clicked} />
       ))}
     </Box>
   );
+  // }
 };

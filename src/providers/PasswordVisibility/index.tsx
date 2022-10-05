@@ -39,42 +39,37 @@ export const PasswordVisibleProvider = ({
 }: IPasswordVisibilityProviderProps) => {
   // STATE PARA VERIFICAR SE A SENHA ESTÁ VISÍVEL:
   const [visible, setVisible] = useState(false);
-
   const userVisible = () => {
     setVisible(true);
   };
-
   const userUnvisible = () => {
     setVisible(false);
   };
 
   const [visible1, setVisible1] = useState(false);
-
   const userVisible1 = () => {
     setVisible1(true);
   };
-
   const userUnvisible1 = () => {
     setVisible1(false);
   };
-  const [visible2, setVisible2] = useState(false);
 
+  const [visible2, setVisible2] = useState(false);
   const userVisible2 = () => {
     setVisible2(true);
   };
-
   const userUnvisible2 = () => {
     setVisible2(false);
   };
-  const [visible3, setVisible3] = useState(false);
 
+  const [visible3, setVisible3] = useState(false);
   const userVisible3 = () => {
     setVisible3(true);
   };
-
   const userUnvisible3 = () => {
     setVisible3(false);
   };
+
   return (
     <PasswordVisibleContext.Provider
       value={{
