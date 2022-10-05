@@ -69,7 +69,7 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
         getDataByEmail,
         userLogged,
         createUserToken,
-        createSuperUserToken,
+        // createSuperUserToken,
       }}
     >
       {children}
