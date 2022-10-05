@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../service/api";
 
 import { usePasswordAsk } from "../../providers/PasswordAsk";
+import { useUserLogin } from "src/providers/UserLogin";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -14,13 +15,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Email } from "@mui/icons-material";
 import { green, red } from "@mui/material/colors";
 
-// import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-// import IconUser from "../../assets/figma_imgs/IconUser.png";
-// import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-// import IconEmail from "../../assets/figma_imgs/IconEmail.png";
-// import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
-// import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
@@ -137,7 +132,12 @@ export const FormAskPassword = () => {
 
   // PROVIDERS:
   const { createAuth, loading, setLoading, LoadPage } = usePasswordAsk();
-  console.log(loading);
+  const { loggedCNPJ, setLoggedCNPJ } = useUserLogin();
+
+  // CNPJ:
+  const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
+  console.log(cnpj);
+  const super_cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj") || "";
 
   // TOASTS:
   const toast = useToast();
@@ -179,6 +179,7 @@ export const FormAskPassword = () => {
   if (errors.email && errors.email?.message === "email must be a valid email") {
     emailErrorToast("Email inválido! Favor verificar.");
   }
+  console.log(loggedCNPJ);
 
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
@@ -188,8 +189,9 @@ export const FormAskPassword = () => {
     api
       .post("ask/", data)
       .then((response) => {
+        setLoggedCNPJ(cnpj);
         addSuccessToast();
-        console.log(response);
+        console.log(loggedCNPJ);
         createAuth();
         navigate("/");
         setLoading(false);

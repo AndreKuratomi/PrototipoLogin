@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../providers/Auth";
 import { usePasswordConfirm } from "../../providers/PasswordConfirm";
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
+import { useUserLogin } from "src/providers/UserLogin";
 
 import {
   Box,
@@ -30,6 +31,8 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
+
+import api from "src/service/api";
 
 const useStyles = makeStyles((theme) => ({
   color: {
@@ -189,6 +192,7 @@ export const FormChangePassword = () => {
     userVisible3,
     userUnvisible3,
   } = usePasswordVisible();
+  const { loggedCNPJ } = useUserLogin();
 
   // TOASTS:
   const toast = useToast();
@@ -280,8 +284,10 @@ export const FormChangePassword = () => {
   const token = JSON.parse(
     localStorage.getItem("@token: NewEmailToken") || "null"
   );
-
+  console.log(loggedCNPJ);
   if (token) {
+    setAuth(true);
+  } else if (loggedCNPJ) {
     setAuth(true);
   } else {
     notAskedToast();
