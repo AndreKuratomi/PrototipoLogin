@@ -132,11 +132,10 @@ export const FormAskPassword = () => {
 
   // PROVIDERS:
   const { createAuth, loading, setLoading, LoadPage } = usePasswordAsk();
-  const { loggedCNPJ, setLoggedCNPJ } = useUserLogin();
+  const { loggedCNPJ, setLoggedCNPJ, allowUser } = useUserLogin();
 
   // CNPJ:
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
-  console.log(cnpj);
   const super_cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj") || "";
 
   // TOASTS:
@@ -180,18 +179,26 @@ export const FormAskPassword = () => {
     emailErrorToast("Email inválido! Favor verificar.");
   }
   console.log(loggedCNPJ);
+  // setLoggedCNPJ("churros");
+
+  // setLoggedCNPJ(true);
+  // console.log(loggedCNPJ);
 
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data: Object, text: any) => {
+  const onSubmitFunction = (data: any) => {
+    // getDataByEmail(data.email as string);
+    // console.log(loggedCNPJ);
+
     LoadPage();
+
     api
       .post("ask/", data)
       .then((response) => {
-        setLoggedCNPJ(cnpj);
+        const { email } = response.data;
+        allowUser();
         addSuccessToast();
-        console.log(loggedCNPJ);
         createAuth();
         navigate("/");
         setLoading(false);
@@ -203,6 +210,7 @@ export const FormAskPassword = () => {
         setLoading(false);
       });
   };
+  console.log(loggedCNPJ);
 
   return (
     <Article>

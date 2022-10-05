@@ -13,9 +13,9 @@ import api from "src/service/api";
 interface ILoginProvider {
   logged: boolean;
   setLogged: Dispatch<SetStateAction<boolean>>;
-  loggedCNPJ: string;
-  setLoggedCNPJ: Dispatch<SetStateAction<string>>;
-  getDataByEmail: (email: string) => void;
+  loggedCNPJ: boolean;
+  setLoggedCNPJ: Dispatch<SetStateAction<boolean>>;
+  allowUser: () => void;
   userLogged: () => void;
   createUserToken: (elem: string) => void;
   createSuperUserToken: (elem: string) => void;
@@ -32,20 +32,12 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
   const [logged, setLogged] = useState(false);
 
   // STATE PARA VERIFICAR SE O USUÁRIO FEZ PEDIDO DE ALTERAÇÃO DE SENHA POR STATE:
-  const [loggedCNPJ, setLoggedCNPJ] = useState("");
+  const [loggedCNPJ, setLoggedCNPJ] = useState(false);
 
-  // API:
-  const getDataByEmail = (email: string) => {
-    api
-      .get(`ask/${email}`)
-      .then((response) => {
-        setLoggedCNPJ(response.data.cnpj);
-        console.log("");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const allowUser = () => {
+    setLoggedCNPJ(true);
   };
+  console.log(loggedCNPJ);
 
   const userLogged = () => {
     setLogged(true);
@@ -70,7 +62,7 @@ export const UserLoginProvider = ({ children }: ILoginProviderProps) => {
         setLogged,
         loggedCNPJ,
         setLoggedCNPJ,
-        getDataByEmail,
+        allowUser,
         userLogged,
         createUserToken,
         createSuperUserToken,

@@ -17,7 +17,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-
 import {
   AccessTime,
   Password,
@@ -31,7 +30,6 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
-import api from "src/service/api";
 
 import api from "src/service/api";
 
@@ -161,6 +159,7 @@ export const FormChangePassword = () => {
   const classes = useStyles();
 
   // PROVIDERS:
+  const { setAuth } = useAuth();
   const { loading, setLoading, LoadPage } = usePasswordConfirm();
   const {
     visible1,
@@ -173,20 +172,12 @@ export const FormChangePassword = () => {
     userVisible3,
     userUnvisible3,
   } = usePasswordVisible();
-  const { loggedCNPJ } = useUserLogin();
+  const { loggedCNPJ, setLoggedCNPJ } = useUserLogin();
+  console.log(loggedCNPJ);
 
   // TOASTS:
   const toast = useToast();
 
-  const addSuccessToast = () => {
-    toast({
-      description: "Senha alterada com sucesso!",
-      duration: 5000,
-      position: "top",
-      status: "success",
-      title: "Alteração feita com sucesso!",
-    });
-  };
   const addFailToast = () => {
     toast({
       description:
@@ -197,7 +188,15 @@ export const FormChangePassword = () => {
       title: "Falha na alteração!",
     });
   };
-
+  const addSuccessToast = () => {
+    toast({
+      description: "Senha alterada com sucesso!",
+      duration: 5000,
+      position: "top",
+      status: "success",
+      title: "Alteração feita com sucesso!",
+    });
+  };
   const notAskedToast = () => {
     toast({
       description: "O usuário não fez pedido de alteração de senha.",
@@ -207,15 +206,6 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  // const emailErrorToast = (algo: string) => {
-  //   toast({
-  //     description: algo,
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "error",
-  //     title: "Erro!",
-  //   });
-  // };
   const protoConflictToast = (algo: string) => {
     toast({
       description: algo,
@@ -280,12 +270,11 @@ export const FormChangePassword = () => {
   }
 
   // AUTENTICAÇÃO PARA VERIFICAR SE O USUÁRIO FEZ O PEDIDO DE ALTERAÇÃO:
-  const { setAuth } = useAuth();
 
   const token = JSON.parse(
     localStorage.getItem("@token: NewEmailToken") || "null"
   );
-  console.log(loggedCNPJ);
+
   if (token) {
     setAuth(true);
   } else if (loggedCNPJ) {
@@ -305,6 +294,7 @@ export const FormChangePassword = () => {
         localStorage.clear();
         navigate("/");
         setLoading(false);
+        setLoggedCNPJ(false);
         console.log(response);
       })
       .catch((err) => {
