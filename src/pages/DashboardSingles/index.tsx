@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100%",
-    height: "100vh",
+    height: "111vh",
   },
   leaveIcon: {
     color: "var(--black)",

@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   iframe: {
     margin: "0",
     width: "100vw",
-    height: "94vh",
+    height: "104vh",
     // "@media (max-height: 767px)": {
     //   height: "23.5rem",
     // },
@@ -134,12 +134,12 @@ const DashboardInternals = () => {
     // <Container>
     <Container className={classes.container}>
       <Card className={classes.card}>
-        <CardMedia
+        {/* <CardMedia
           component="img"
           image={LogoVestcasaVerde}
           alt="logo vestcasa"
           className={classes.image}
-        />
+        /> */}
         <CardContent className={classes.cardConcent}>
           <CardActions className={classes.cardActions}>
             <Typography>Olá, franqueado</Typography>

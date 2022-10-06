@@ -321,11 +321,11 @@ export const FormChangePassword = () => {
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box sx={{ marginBottom: "1rem" }}>
-          <img
+          {/* <img
             src={LogoVestcasa}
             alt="Logo Vestcasa"
             className={classes.image}
-          />
+          /> */}
         </Box>
         <Box className={classes.inputsAllBox}>
           <Box

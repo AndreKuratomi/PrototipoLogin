@@ -80,30 +80,39 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
   const { favorites } = useStarFavorite();
 
   // CATEGORIAS:
-  const estoqueCards: any = dashboard.filter(
-    (elem: any) => elem.category === "estoque"
-  );
-  const clientesCards: any = dashboard.filter(
-    (elem: any) => elem.category === "clientes"
-  );
   const ecommerceCards: any = dashboard.filter(
     (elem: any) => elem.category === "e-commerce"
   );
-  const credzCards: any = dashboard.filter(
-    (elem: any) => elem.category === "credz"
+  const clubedolivroCards: any = dashboard.filter(
+    (elem: any) => elem.category === "clube do livro"
   );
-  const fornecedoresCards: any = dashboard.filter(
-    (elem: any) => elem.category === "fornecedores"
+  const alurapetsCards: any = dashboard.filter(
+    (elem: any) => elem.category === "alura pets"
   );
-  const franqueadosCards: any = dashboard.filter(
-    (elem: any) => elem.category === "franqueados"
-  );
-  const entradaDeNotasCards: any = dashboard.filter(
-    (elem: any) => elem.category === "entrada de notas"
-  );
-  const financeiroCards: any = dashboard.filter(
-    (elem: any) => elem.category === "financeiro"
-  );
+  // const estoqueCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "estoque"
+  // );
+  // const clientesCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "clientes"
+  // );
+  // const ecommerceCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "e-commerce"
+  // );
+  // const credzCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "credz"
+  // );
+  // const fornecedoresCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "fornecedores"
+  // );
+  // const franqueadosCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "franqueados"
+  // );
+  // const entradaDeNotasCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "entrada de notas"
+  // );
+  // const financeiroCards: any = dashboard.filter(
+  //   (elem: any) => elem.category === "financeiro"
+  // );
 
   return (
     <Box className={classes.dashboardList}>
@@ -116,59 +125,80 @@ export const CardsBIList = ({ value }: any, { id }: any) => {
 
       {/* ESTOQUE */}
       <TabPanel value={value} index={1}>
-        {estoqueCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel>
-
-      {/* FINANCEIRO */}
-      <TabPanel value={value} index={2}>
-        {financeiroCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel>
-
-      {/* CLIENTES */}
-      <TabPanel value={value} index={3}>
-        {clientesCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
-        ))}
-      </TabPanel>
-
-      {/* E-COMMERCE */}
-      <TabPanel value={value} index={4}>
         {ecommerceCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </TabPanel>
 
-      {/* CREDZ */}
+      {/* ESTOQUE */}
+      <TabPanel value={value} index={2}>
+        {clubedolivroCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>
+
+      {/* ESTOQUE */}
+      <TabPanel value={value} index={3}>
+        {alurapetsCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>
+
+      {/* ESTOQUE 
+      <TabPanel value={value} index={1}>
+        {estoqueCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>*/}
+
+      {/* FINANCEIRO 
+      <TabPanel value={value} index={2}>
+        {financeiroCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>*/}
+
+      {/* CLIENTES 
+      <TabPanel value={value} index={3}>
+        {clientesCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>*/}
+
+      {/* E-COMMERCE 
+      <TabPanel value={value} index={4}>
+        {ecommerceCards.map((elt: any) => (
+          <CardBI elt={elt} key={elt.id} />
+        ))}
+      </TabPanel>*/}
+
+      {/* CREDZ 
       <TabPanel value={value} index={5}>
         {credzCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
-      </TabPanel>
+      </TabPanel>*/}
 
-      {/* FORNECEDORES */}
+      {/* FORNECEDORES 
       <TabPanel value={value} index={6}>
         {fornecedoresCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
-      </TabPanel>
+      </TabPanel>*/}
 
-      {/* FRANQUEADOS */}
+      {/* FRANQUEADOS 
       <TabPanel value={value} index={7}>
         {franqueadosCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
-      </TabPanel>
+      </TabPanel>*/}
 
-      {/* ENTRADA DE NOTAS */}
+      {/* ENTRADA DE NOTAS 
       <TabPanel value={value} index={8}>
         {entradaDeNotasCards.map((elt: any) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
-      </TabPanel>
+      </TabPanel>*/}
     </Box>
   );
 };

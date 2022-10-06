@@ -71,11 +71,11 @@ const useStyles = makeStyles(() => ({
   starIcon: {
     color: "var(--yellow)",
     position: "absolute",
-    // marginRight: "0vw",
-    marginLeft: "76vw",
+    marginRight: "0vw",
+    // marginLeft: "76vw",
     "@media (min-width: 768px)": {
-      // marginRight: "0vw",
-      marginLeft: "15.5vw",
+      marginRight: "0vw",
+      // marginLeft: "15.5vw",
     },
     "&:hover": {
       cursor: "pointer",
