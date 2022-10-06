@@ -9,7 +9,7 @@ import {
 } from "react";
 import api from "src/service/api";
 
-import { getDashboards } from "../../utils";
+// import { getDashboards } from "../../utils";
 import { useDashboard } from "../Dashboard";
 
 interface IDashboardVisitedProvider {
