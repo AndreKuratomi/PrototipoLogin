@@ -283,7 +283,7 @@ export const FormLogin = () => {
         >
           <Box className={classes.subForm}>
             <Box className={classes.image}>
-              <img src={LogoVestcasa} alt="Logo Vestcasa" />
+              {/* <img src={LogoVestcasa} alt="Logo Vestcasa" /> */}
             </Box>
 
             <Box
