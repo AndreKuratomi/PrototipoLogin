@@ -12,7 +12,7 @@
 <br>
 Link AWS:
 
-http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
+http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Instalação
 
