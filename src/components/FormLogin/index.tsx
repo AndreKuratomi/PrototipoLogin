@@ -69,7 +69,10 @@ const useStyles = makeStyles({
   inputBox: {
     background: "var(--white)",
     borderRadius: "1rem",
+    display: "flex",
+    alignItems: "center",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
+    marginBottom: "1rem",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -90,10 +93,18 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
   },
+  submitButtonBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   submitButton: {
     backgroundColor: "var(--shadowBlack)",
     border: "1px solid var(--white)",
     borderRadius: "1rem",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
     color: "var(--white)",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
     marginTop: "1rem",
@@ -262,14 +273,7 @@ export const FormLogin = () => {
               {/* <img src={LogoVestcasa} alt="Logo Vestcasa" /> */}
             </Box>
 
-            <Box
-              className={classes.inputBox}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
+            <Box className={classes.inputBox}>
               {Object.keys(errors).some((elt) => elt === "email") ? (
                 <Person sx={{ color: red[500] }} />
               ) : (
@@ -284,10 +288,7 @@ export const FormLogin = () => {
               />
             </Box>
 
-            <Box
-              className={classes.inputBox}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
+            <Box className={classes.inputBox}>
               {Object.keys(errors).some((elt) => elt === "password") ? (
                 <Password sx={{ color: red[500] }} />
               ) : (
@@ -331,13 +332,7 @@ export const FormLogin = () => {
               </Link>
             </Typography>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
+          <Box className={classes.submitButtonBox}>
             <Button
               className={classes.submitButton}
               color="primary"

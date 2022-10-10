@@ -1,11 +1,9 @@
-import { ChangeEvent, ElementType, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { CardsBIList } from "../CardsBIList";
 
 import { Box, Tab, Tabs } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Stack, TabsProps } from "@mui/material";
-import { useTextInput } from "src/providers/TextInput";
 
 const useStyles = makeStyles(() => ({
   dashboardList: {
@@ -33,7 +31,7 @@ export const TabsList = () => {
   // COMPORTAMENTO TABS:
   const [value, setValue] = useState(0);
 
-  const handleChange = (newValue: number) => {
+  const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
