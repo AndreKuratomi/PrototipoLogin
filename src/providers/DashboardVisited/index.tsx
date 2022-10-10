@@ -9,7 +9,6 @@ import {
 } from "react";
 import api from "src/service/api";
 
-// import { getDashboards } from "../../utils";
 import { useDashboard } from "../Dashboard";
 
 interface IDashboardVisitedProvider {
@@ -47,18 +46,8 @@ export const DashboardVisitedProvider = ({
     api
       .get(`suppliers/${cnpj}`)
       .then((response) => {
-        // console.log(response);
         setLastVisited(response.data.last_visited_dashboards);
-        // console.log(lastVisited);
       })
-      // .then((_) => {
-      //   setLastVisited(
-      //     lastVisited.sort((a: any, b: any) => {
-      //       return a.last_clicked.localeCompare(b.last_clicked).reverse();
-      //     })
-      //   );
-      //   console.log(lastVisited);
-      // })
       .catch((err) => {
         console.log(err);
       });
@@ -80,21 +69,6 @@ export const DashboardVisitedProvider = ({
       .catch((err) => {
         console.log(err);
       });
-
-    // func();
-    // const dashboards = dashboard.find((elem: Object) => elem === num);
-    // if (dashboards) {
-    //   console.log(lastVisited);
-    //   if (!lastVisited.includes(num)) {
-    //     if (lastVisited.length < 3) {
-    //       setLastVisited([...lastVisited, dashboards]);
-    //       console.log(lastVisited);
-    //     } else if (lastVisited.length === 3) {
-    //       lastVisited.shift(); // MAS COMO COLOCAR DENTRO DE UM SETSTATE??? OU TUDO BEM DEIXAR ASSIM?
-    //       setLastVisited([...lastVisited, dashboards]);
-    //     }
-    //   }
-    // }
   };
 
   return (

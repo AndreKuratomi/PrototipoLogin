@@ -39,8 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   formControl: {
-    background: "#009E4F",
-    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    background: "var(--formDarkGreen)",
+    backgroundImage:
+      "linear-gradient(to bottom left, var(--formDarkGreen), var(--formLightGreen))",
     borderRadius: "1rem",
     display: "flex",
     flexWrap: "nowrap",
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   inputBox: {
     background: "var(--white)",
     borderRadius: "1rem",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     padding: "0 0.5rem",
     width: "280px",
     height: "3.688rem",
@@ -97,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "0px",
   },
   submitButton: {
-    backgroundColor: "rgba(63 81 181 0.04)",
+    backgroundColor: "var(--shadowBlack)",
     border: "1px solid var(--white)",
     borderRadius: "1rem",
     color: "var(--white)",
@@ -106,15 +107,9 @@ const useStyles = makeStyles((theme) => ({
     width: "10rem",
 
     "&:hover": {
-      color: "#3f51b5",
+      color: "var(--hoverBlue)",
     },
   },
-  // submitButtonBox: {
-  //   display: "flex",
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  //   marginTop: "1rem",
-  // },
   suggestionBox: {
     color: "var(--white)",
     marginTop: "0.3srem",
@@ -203,15 +198,6 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  // const emailErrorToast = (algo: string) => {
-  //   toast({
-  //     description: algo,
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "error",
-  //     title: "Erro!",
-  //   });
-  // };
   const protoConflictToast = (algo: string) => {
     toast({
       description: algo,
@@ -294,12 +280,11 @@ export const FormChangePassword = () => {
     LoadPage();
     api
       .post("change/", data)
-      .then((response) => {
+      .then((_) => {
         addSuccessToast();
         localStorage.clear();
         navigate("/");
         setLoading(false);
-        console.log(response);
       })
       .catch((err) => {
         if (err.message === "Request failed with status code 500") {

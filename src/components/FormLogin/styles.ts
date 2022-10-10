@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Article = styled.article`
   display: flex;
@@ -10,24 +10,8 @@ export const Article = styled.article`
   }
 `;
 
-// svg {
-//   width: 2rem;
-//   height: 2rem;
-//   // color: green;
-//   // background-image: url(${IconUserError});
-// }
-
-// ${(props) =>
-//   props.isErrored &&
-//   css`
-//     svg {
-//       // background-image: url(${IconUserError});
-//       // color: red;
-//     }
-//   `}
-
 export const A = styled.a`
-  color: #fff;
+  color: var(--white);
   font-weight: 500;
 
   &:hover {

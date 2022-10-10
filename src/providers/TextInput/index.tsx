@@ -25,25 +25,11 @@ interface ITextProviderProps {
 export const TextInputContext = createContext({} as ITextProvider);
 
 export const TextInputProvider = ({ children }: ITextProviderProps) => {
-  // const dashboards = getDashboards();
-
+  // STATE PARA O TEXTO ESCRITO NO INPUT:
   const [text, setText] = useState("");
+
+  // STATE PARA O TEXTO ESCRITO NO INPUT:
   const [finalText, setFinalText] = useState("");
-
-  // ALTERAÇÃO STATE CONFORME USUÁRIO DIGITA:
-  // const getText = (event: React.FormEvent<HTMLInputElement>) => {
-  //   console.log(text);
-  //   console.log(event.currentTarget.value);
-  //   setText(event.currentTarget.value);
-  // };
-
-  // const setIndexValue = (text: string) => {
-  //   for (let i = 0; i < dashboards.length; i++) {
-  //     if (dashboards[i]["category"] === text) {
-  //       return dashboards[i]["id"];
-  //     }
-  //   }
-  // };
 
   return (
     <TextInputContext.Provider

@@ -1,12 +1,7 @@
-// import { Link } from "react-router-dom";
-
-// import { getDashboards } from "../../utils";
-
 import { lock } from "tua-body-scroll-lock";
 
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -18,10 +13,6 @@ import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceR
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import { makeStyles } from "@material-ui/styles";
-
-import { Main } from "./styles";
-
-import { useStarFavorite } from "../../providers/StarFavorite";
 
 const useStyles = makeStyles(() => ({
   card: { padding: "0" },
@@ -41,7 +32,6 @@ const useStyles = makeStyles(() => ({
   leaveIcon: {
     color: "var(--black)",
     display: "flex",
-    // position: "static",
     "&:hover": {
       cursor: "pointer",
     },
@@ -62,10 +52,6 @@ const DashboardSingles = () => {
   const url = JSON.parse(
     localStorage.getItem("@pbi_url: PowerBI URL") || "null"
   );
-
-  // PROVIDERS:
-  // const { url } = useStarFavorite();
-  // console.log(url[0]);
 
   // LOGOUT:
   const backToDashboard = () => {

@@ -10,7 +10,7 @@ export const P2 = styled.h3`
   z-index: 1;
   top: 1.5rem;
   right: 34rem;
-  color: #fff;
+  color: var(--white);
   font-weight: 800;
 `;
 
@@ -19,12 +19,12 @@ export const A = styled.a`
     z-index: 1;
     top: 0.5rem;
     right: 6rem;
-    color: #fff0;
+    color: var(--alphaBlack);
     font-weight: 800;
     font-size: xx-large;
 
   &:hover {
-    background-color: #00f
+    background-color: var(--blue)
     cursor: pointer;
     text-decoration: underline;
   }

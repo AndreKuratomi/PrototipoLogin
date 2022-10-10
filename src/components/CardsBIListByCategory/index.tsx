@@ -35,17 +35,14 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     marginBottom: "1rem",
-    // width: "10rem",
     "@media (min-width: 768px)": {
       justifyContent: "space-evenly",
       flexDirection: "row",
-      // padding: "1rem 2rem",
     },
   },
   leaveIcon: {
     color: "var(--black)",
     display: "flex",
-    // position: "static",
     "&:hover": {
       cursor: "pointer",
     },
@@ -59,11 +56,9 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     marginBottom: "1rem",
-    // width: "10rem",
     "@media (min-width: 768px)": {
       justifyContent: "space-between",
       flexDirection: "row",
-      // padding: "1rem 2rem",
     },
   },
 }));
@@ -86,19 +81,12 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { dashboard, selectedDashboard, setSelectedDashboard } = useDashboard();
-  const { finalText, setFinalText, text, setText } = useTextInput();
-
-  console.log(text);
-  console.log(finalText);
+  const { dashboard } = useDashboard();
+  const { finalText, setFinalText, setText } = useTextInput();
 
   // CATEGORIAS:
   const selected = dashboard.filter((elem: any) => elem.category === finalText);
-  console.log(selected);
-  // setSelectedDashboard(selected);
-  // console.log(selectedDashboard);
   if (selected.length === 0) {
-    console.log("irk");
     notFoundToast();
     setFinalText("");
   }

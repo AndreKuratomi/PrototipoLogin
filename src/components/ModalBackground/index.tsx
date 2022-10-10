@@ -7,9 +7,8 @@ interface IProps {
 
 const useStyles = makeStyles((open) => ({
   modal: {
-    background: "rgba(0, 0, 0, 0.5)",
+    background: "var(--alphaBlackModal)",
     display: "flex",
-    // display: ${(props) => props.open ? (display: "block") : (display: "none")},
     justifyContent: "center",
     alignItems: "center",
     width: "100vw",

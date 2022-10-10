@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useDashboardVisited } from "../../providers/DashboardVisited";
 import { useStarFavorite } from "../../providers/StarFavorite";
-import { useDashboard } from "src/providers/Dashboard";
 
 interface IDashboard {
   id: number;
@@ -25,9 +24,6 @@ interface IElt {
 interface IProps {
   //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
   elt: any;
-  // state: boolean;
-  // setState: Dispatch<SetStateAction<boolean>>;
-  // id: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -72,10 +68,8 @@ const useStyles = makeStyles(() => ({
     color: "var(--yellow)",
     position: "absolute",
     marginRight: "0vw",
-    // marginLeft: "76vw",
     "@media (min-width: 768px)": {
       marginRight: "0vw",
-      // marginLeft: "15.5vw",
     },
     "&:hover": {
       cursor: "pointer",
@@ -84,20 +78,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const CardBI = ({ elt }: IProps) => {
-  // console.log(elt);
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
-  const { dashboard } = useDashboard();
   const { handleLastVisited } = useDashboardVisited();
   const { handleStarClicked } = useStarFavorite();
-
-  // ENVIO URL:
-  const sendURL = () => {
-    const urlFound: any = dashboard.find((elem: any) => elem.url === elt.url);
-    localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
-  };
 
   return (
     <Card className={classes.cards} key={elt.id}>
@@ -112,7 +98,6 @@ export const CardBI = ({ elt }: IProps) => {
         <CardMedia
           component="iframe"
           src={elt.url}
-          // alt="lorem dashboard"
           className={classes.imagePowerBI}
         />
       </Box>

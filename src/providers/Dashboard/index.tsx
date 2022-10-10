@@ -10,10 +10,6 @@ import {
 
 import api from "src/service/api";
 
-import { useToast } from "@chakra-ui/react";
-
-import { useTextInput } from "../TextInput";
-
 interface IDashboardItself {
   id: number;
   category: string;
@@ -60,19 +56,6 @@ interface IDashboardProviderProps {
 export const DashboardContext = createContext({} as IDashboardProvider);
 
 export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
-  // TOASTS:
-  const toast = useToast();
-
-  const notFoundToast = () => {
-    toast({
-      description: "Verifique o texto digitado.",
-      duration: 3000,
-      position: "top",
-      status: "error",
-      title: "Categoria não encontrada!",
-    });
-  };
-
   // STATE TODOS OS DASHBOARDS:
   const [dashboard, setDashboard] = useState([]);
 
@@ -87,7 +70,7 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       });
   }, [dashboard]);
 
-  // STATE DASHBOARDS.URL:
+  // STATE DASHBOARDS.ID:
   const [dashboardID, setDashboardID] = useState("");
 
   const showDashboardByID = (cnpj: string) => {
@@ -115,33 +98,8 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       });
   };
 
-  // STATE SELECTED DASHBOARD:
-  // const [selectedDashboard, setSelectedDashboard] = useState([]);
-
   // STATE DASHBOARDS BY CATEGORY:
   const [selectedDashboard, setSelectedDashboard] = useState([] as Object[]);
-  // const { finalText, setFinalText } = useTextInput();
-  // if (finalText) {
-  //   api
-  //     .get(`dashboards/category/${finalText}/`)
-  //     .then((response) => {
-  //       console.log(response.data.length);
-  //       if (response.data.length !== 0) {
-  //         setSelectedDashboard(response.data);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       notFoundToast();
-  //       console.log(err);
-  //       setFinalText("");
-  //     });
-  // }
-
-  // useEffect(() => {}, [selectedDashboard, text]);
-  // const showDashboardsByCategory = (category: string) => {
-
-  // const adjusted_category = category.trim().toLowerCase();
-  // };
 
   return (
     <DashboardContext.Provider

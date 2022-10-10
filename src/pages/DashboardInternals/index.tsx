@@ -4,12 +4,10 @@ import { lock } from "tua-body-scroll-lock";
 
 import { ExitToAppRounded } from "@mui/icons-material";
 import {
-  Box,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  CardHeader,
   Container,
   Typography,
 } from "@material-ui/core";
@@ -27,9 +25,6 @@ const useStyles = makeStyles(() => ({
   cardActions: {
     display: "flex",
     justifyContent: "space-between",
-    // "@media (min-height: 767px)": {
-    //   display: "none",
-    // },
   },
   cardConcent: {
     padding: "0",
@@ -43,9 +38,6 @@ const useStyles = makeStyles(() => ({
     margin: "0",
     width: "100vw",
     height: "104vh",
-    // "@media (max-height: 767px)": {
-    //   height: "23.5rem",
-    // },
     "@media (max-height: 500px)": {
       height: "99vh",
     },
@@ -68,11 +60,8 @@ const useStyles = makeStyles(() => ({
 
 const DashboardInternals = () => {
   // STATES:
-  // const {} = useDashboard();
-  const { dashboard, dashboardURL, showDashboardURLByID } = useDashboard();
-  console.log(dashboardURL);
-  // const url: string = dashboard[0].url;
-  // console.log(url);
+  const { dashboardURL, showDashboardURLByID } = useDashboard();
+
   // STYLES:
   const classes = useStyles();
 
@@ -88,15 +77,6 @@ const DashboardInternals = () => {
       title: "Não autorizado",
     });
   };
-  // const timeoutToast = () => {
-  //   toast({
-  //     description: "Faça o login novamente.",
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "warning",
-  //     title: "Tempo esgotado!",
-  //   });
-  // };
 
   // VERIFICAÇÃO SE O USUÁRIO ESTÁ MESMO LOGADO:
   const { userLogged } = useUserLogin();
@@ -116,22 +96,16 @@ const DashboardInternals = () => {
 
   // LOGOUT:
   const clearLocalStorage = () => {
-    // clearTimeout(action);
     localStorage.clear();
     window.location.href = "/";
   };
 
   // API
   const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
-  console.log(cnpj);
 
   showDashboardURLByID(cnpj);
-  console.log(dashboardURL);
-  console.log(dashboard);
-  // useEffect(() => showDashboard(cnpj), []);
 
   return (
-    // <Container>
     <Container className={classes.container}>
       <Card className={classes.card}>
         {/* <CardMedia
@@ -151,7 +125,6 @@ const DashboardInternals = () => {
           <CardMedia
             className={classes.iframe}
             component="iframe"
-            // src="https://app.powerbi.com/reportEmbed?reportId=f540fa03-ce62-45ec-8175-9d20a76f4fac&autoAuth=true&ctid=30cdb02b-9fbf-4304-80d4-ca58b9d249da&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
             src={dashboardURL}
           />
         </CardContent>

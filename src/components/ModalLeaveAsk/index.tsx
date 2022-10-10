@@ -3,7 +3,7 @@ import { useOpenModal } from "../../providers/ModalOpen";
 import { Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles((open) => ({
+const useStyles = makeStyles(() => ({
   buttonBack: {
     color: "var(--externalDashboardGreen)",
     "&:hover": {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((open) => ({
   buttonLeave: {
     backgroundColor: "var(--externalDashboardGreen)",
     color: "var(--white)",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     fontSize: "1rem",
     marginBottom: "1rem",
     "&:hover": {
@@ -21,8 +21,6 @@ const useStyles = makeStyles((open) => ({
     },
   },
   paper: {
-    // display: "block",
-    // display: ${(props) => props.open ? (display: "block") : (display: "none")},
     color: "var(--externalDashboardGreen)",
     display: "flex",
     flexDirection: "column",

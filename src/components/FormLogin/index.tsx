@@ -7,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../service/api";
 
 import { usePasswordVisible } from "../../providers/PasswordVisibility";
-// import { useTextInput } from "../../providers/TextInput";
 import { useUserLogin } from "../../providers/UserLogin";
 
 import {
@@ -25,15 +24,11 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-
-import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
 import { A, Article } from "./styles";
 import { green, red } from "@mui/material/colors";
-import React from "react";
 
 const useStyles = makeStyles({
   forgetPasswordBox: {
@@ -52,21 +47,18 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     fontSize: "0.8rem",
-    // marginLeft: "1rem",
   },
   formControl: {
-    background: "#009E4F",
-    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    background: "var(--formDarkGreen)",
+    backgroundImage:
+      "linear-gradient(to bottom left, var(--formDarkGreen), var(--formLightGreen))",
     borderRadius: "1rem",
-    // backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
-    // alignItems: "center",
     padding: "2rem",
     width: "385px",
     height: "420px",
     "@media (max-width: 424px)": {
-      // backgroundImage: `url(${FormMobile})`,
       width: "320px",
     },
   },
@@ -75,10 +67,9 @@ const useStyles = makeStyles({
     width: "200px",
   },
   inputBox: {
-    // backgroundImage: `url(${Input})`,
     background: "var(--white)",
     borderRadius: "1rem",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -100,7 +91,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   submitButton: {
-    backgroundColor: "rgba(63 81 181 0.04)",
+    backgroundColor: "var(--shadowBlack)",
     border: "1px solid var(--white)",
     borderRadius: "1rem",
     color: "var(--white)",
@@ -109,7 +100,7 @@ const useStyles = makeStyles({
     width: "15rem",
 
     "&:hover": {
-      color: "#3f51b5",
+      color: "var(--hoverBlue)",
     },
   },
 
@@ -138,7 +129,6 @@ export const FormLogin = () => {
 
   // PROVIDERS:
   const { visible, userVisible, userUnvisible } = usePasswordVisible();
-  // const { text, setUsername } = useTextInput();
   const { userLogged, createUserToken, createSuperUserToken } = useUserLogin();
 
   // TOASTS:
@@ -165,7 +155,6 @@ export const FormLogin = () => {
   };
 
   const addWarningToast = () => {
-    //E COMO COLOCAR ELA PARA SER EXIBIDA UMA VEZ SÓ? PENSAR NUMA LISTA.
     toast({
       description:
         "Sua assinatura está próxima ao vencimento. Contatar suporte.",
@@ -218,39 +207,29 @@ export const FormLogin = () => {
     api
       .post("login/", data)
       .then((response) => {
-        console.log(response);
-        const { cnpj, last_name, signature_vality, super_user, token } =
-          response.data;
+        const { cnpj, signature_vality, super_user } = response.data;
 
         // SUPERUSER:
         if (super_user) {
-          // console.log("churros");
           addSuperUserToast();
           createSuperUserToken(cnpj);
           navigate("/dashboardexternals");
         } else {
-          // console.log("mortais");
           const now = Date.now();
-          // console.log(now);
 
           // CONVERSÃO SIGNATURE PYTHON PARA JS:
           const dateSecondsToMiliseconds: number =
             Math.floor(signature_vality) * 1000;
-          console.log(dateSecondsToMiliseconds);
 
           const delta = dateSecondsToMiliseconds - now;
-          // console.log(delta);
           const fithteenInMiliseconds = 60 * 60 * 24 * 15 * 1000;
-          // console.log(fithteenInMiliseconds);
 
           if (delta > fithteenInMiliseconds) {
-            // console.log("em dia");
             addSuccessToast();
             userLogged();
             createUserToken(cnpj);
             navigate("/dashboardinternals");
           } else if (delta <= fithteenInMiliseconds && delta > 0) {
-            // console.log("perto de vencer");
             addWarningToast();
             userLogged();
             createUserToken(cnpj);
@@ -259,7 +238,6 @@ export const FormLogin = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err.message === "Request failed with status code 401") {
           addFailToast();
         } else {
@@ -267,10 +245,8 @@ export const FormLogin = () => {
         }
       });
   };
-  // console.log(errors);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, func: () => void) => {
-    console.log(e);
     func();
   };
 
@@ -303,10 +279,8 @@ export const FormLogin = () => {
                 className={classes.textFieldsContent}
                 error={!!errors.email}
                 label="Email"
-                // onChange={(evt) => setUsername(evt)}
                 variant="standard"
                 {...register("email")}
-                // value={text}
               />
             </Box>
 
@@ -358,7 +332,6 @@ export const FormLogin = () => {
             </Typography>
           </Box>
           <Box
-            // className={classes.submitButtonBox}
             sx={{
               display: "flex",
               flexDirection: "row",

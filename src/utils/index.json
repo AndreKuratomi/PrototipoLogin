@@ -215,7 +215,3 @@ const dashboards: Object[] = [
   //   "supplier_owner": "10000000000007",
   // },
 ];
-
-// export const getDashboards = () => {
-//   return dashboards;
-// };
