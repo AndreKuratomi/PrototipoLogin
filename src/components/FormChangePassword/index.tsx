@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,8 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
-import { A, Article } from "./styles";
+import { Article } from "./styles";
+
 import api from "src/service/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
       top: "-0.3rem",
     },
     "& .MuiFormControl-marginNormal": {
-      // NÃO FUNCIONA!
       marginTop: "10px",
     },
     "@media (min-width: 768px)": {
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid var(--white)",
     borderRadius: "1rem",
     color: "var(--white)",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     margin: "0 1rem",
     width: "10rem",
 
@@ -201,18 +201,18 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  const protoConflictToast = (algo: string) => {
+  const protoConflictToast = (text: string) => {
     toast({
-      description: algo,
+      description: text,
       duration: 3000,
       position: "top",
       status: "error",
       title: "Erro!",
     });
   };
-  const repeatPasswordToast = (algo: string) => {
+  const repeatPasswordToast = (text: string) => {
     toast({
-      description: algo,
+      description: text,
       duration: 3000,
       position: "top",
       status: "error",

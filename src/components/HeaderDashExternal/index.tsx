@@ -40,6 +40,9 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     right: 0,
     top: 0,
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   subHeader: {
     color: "var(--black)",
