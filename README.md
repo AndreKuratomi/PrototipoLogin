@@ -8,7 +8,7 @@
 
 # Descrição
 
-<p><b>PrototipoLogin</b> é uma aplicação que simula um login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
+<p><b>PrototipoLogin</b> é uma aplicação que faz login para o usuário acessar seus próprios relatórios. Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
 <br>
 Link AWS:
 
@@ -58,7 +58,7 @@ npm install --global yarn
 code .
 ```
 
-# Utilização
+# Inicialização
 
 <p>Para exibir o frontend para o usuário utlizando o VSCode utilizamos no terminal o seguinte comando:</p>
 
@@ -69,6 +69,105 @@ yarn start
 <p>Ou podemos utilizar o link AWS a seguir:</p>
 
 http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
+
+
+# Utilização
+
+<h5>1. Login e assinaturas:</h5>
+
+<p>Ao ser efetuado o login a API faz uma busca no banco de dados para verificar se o fornecedor está ou não em dia com sua assinatura.</p> 
+
+<p>Se estiver em dia o acesso é autorizado e é exibida a seguinte mensagem:</p>
+
+```
+Login feito com sucesso! Seja bem-vindo(a), fornecedor(a)!
+```
+
+
+<p> Faltando até 15 dias para o vencimento o acesso é autorizado mas com a seguinte notificação:</p>
+
+```
+Atenção! "Sua assinatura está próxima ao vencimento. Contatar suporte."
+```
+
+
+<p> E se vencida o acesso é bloqueado e é exibida a seguinte mensagem:</p>
+
+```
+Acesso bloqueado! "Assinatura vencida! Contate suporte."
+```
+
+
+<h5>2. Troca de senha:</h5>
+
+<p>Quando o usuário faz pedido de alteração de senha ele recebe a seguinte mensagem e recebe um email notificando:</p>
+
+```
+Solicitação enviada com sucesso! "Confira sua caixa de emails."
+```
+
+```
+Olá, {username}! Recebemos seu pedido por nova senha.
+
+Segue abaixo a senha provisória mais o link para alteração de senha:
+
+
+Senha provisória: {senha}
+
+
+Link para alteração de senha aqui {link alteração de senha}
+
+
+Por favor, não responda este e-mail. Ele é enviado de forma automática.
+
+Atenciosamente,
+
+EMPRESA
+```
+
+<p>Ao mesmo tempo, o suporte configurado recebe um email notificando:</p>
+
+```
+Notificação: O(A) usuário(a) {username} solicitou troca de senha às {horário} em {data}.
+
+Senha provisória de {username}: {senha}
+
+
+EMPRESA
+```
+
+<p></p>
+
+```
+Alteração feita com sucesso! Senha alterada com sucesso!
+```
+
+```
+Olá, {username}!
+
+Sua senha foi atualizada com sucesso!
+
+
+Siga agora para o login. {link login}
+
+
+Por favor, não responda este e-mail. Ele é enviado de forma automática.
+
+Atenciosamente,
+
+EMPRESA
+```
+
+<p>E o suporte recebe:</p>
+
+```
+Notificação: O(A) usuário(a) {username} solicitou troca de senha às {horário} em {data}.
+
+Senha provisória de {username}: {senha}
+
+
+EMPRESA
+```
 
 # Termos de uso
 
@@ -90,7 +189,7 @@ http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 - [Material-UI](https://v4.mui.com/pt/)
 - [PowerBI](https://powerbi.microsoft.com/pt-br/)
-- [PowerBI(Iframe)](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
+- [PowerBI (Iframe)](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
 - [React](https://pt-br.reactjs.org/)
 - [React (ContextAPI)](https://reactjs.org/docs/context.html)
 - [Tua-Body-Scroll-Lock](https://www.npmjs.com/package/tua-body-scroll-lock)
