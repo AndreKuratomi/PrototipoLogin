@@ -20,7 +20,13 @@ const useStyles = makeStyles(() => ({
   singleTab: {},
 
   tabs: {
+    display: "flex",
     marginBottom: "1rem",
+    "@media (min-width: 768px)": {
+      "& .MuiTabs-flexContainer": {
+        justifyContent: "space-around",
+      },
+    },
   },
 }));
 
