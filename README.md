@@ -76,50 +76,22 @@ http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Referências
 
-- [Typescript](https://www.typescriptlang.org/)
-- [ContextAPI](https://reactjs.org/docs/context.html)
-- [Material-UI](https://v4.mui.com/pt/)
-- [Chakra-UI Toast](https://chakra-ui.com/docs/components/toast/usage)
-- [React](https://pt-br.reactjs.org/)
-- [Tua-Body-Scroll-Lock](https://www.npmjs.com/package/tua-body-scroll-lock)
-- [Current screen size](https://www.w3schools.com/howto/howto_js_get_current_window.asp)
+- [AWS S3 (GetStartedWithS3)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)
+- [AWS S3 (Website Hosting)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
+- [AWS S3 (Medium)](https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081)
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+- [Bloqueio comandos teclado (Mozilla)](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
+- [Bloqueio comandos teclado (ClueMediator)](https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
+- [Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)
+- [Current screen size](https://www.w3schools.com/howto/howto_js_get_current_window.asp)
+- [Figma](https://www.figma.com/)
+- [Figma (Exporting images)](https://www.captain-design.com/blog/3-simple-ways-to-export-your-images-in-figma/)
 - [Formatação README](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-- [Bloqueio comandos teclado](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
-- [PowerBI](https://www.npmjs.com/package/dotenv)
-- [Iframe PowerBI](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
-- [Figma](https://www.figma.com/)(https://www.captain-design.com/blog/3-simple-ways-to-export-your-images-in-figma/)
-- [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)(https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)()
-
-
-Documentation - Overview
-**Amazon Web Service (AWS) S3:**
-
-[https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)
-
-[https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
-
-[https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081](https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081)
-
-Links bloqueio de comandos teclado:
-[https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)[https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript](https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
-:
-
-
-**Figma:**
-
-https://figma.com
-
-[https://www.captain-design.com/blog/3-simple-ways-to-export-your-images-in-figma/](https://www.captain-design.com/blog/3-simple-ways-to-export-your-images-in-figma/)
-
-**Iframe PowerBI:**
-
-[https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=LuísGustavoSerra-ExcelênciaemPowerBI](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
-
-**Links bloqueio de comandos teclado:**
-
-[https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
-
-[https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript](https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
-
+- [Material-UI](https://v4.mui.com/pt/)
+- [PowerBI](https://powerbi.microsoft.com/pt-br/)
+- [PowerBI(Iframe)](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
+- [React](https://pt-br.reactjs.org/)
+- [React (ContextAPI)](https://reactjs.org/docs/context.html)
+- [Tua-Body-Scroll-Lock](https://www.npmjs.com/package/tua-body-scroll-lock)
+- [Typescript](https://www.typescriptlang.org/)
