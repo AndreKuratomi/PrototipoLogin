@@ -68,7 +68,7 @@ yarn start
 
 <p>Ou podemos utilizar o link AWS a seguir:</p>
 
-http://dev-bi.vestsys.com.br.s3-website-us-east-1.amazonaws.com/
+http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
 
 # Termos de uso
 
