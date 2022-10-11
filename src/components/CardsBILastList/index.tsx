@@ -38,5 +38,4 @@ export const CardsBILastList = () => {
       ))}
     </Box>
   );
-  // }
 };

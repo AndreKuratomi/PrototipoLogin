@@ -22,7 +22,6 @@ interface IElt {
 }
 
 interface IProps {
-  //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
   elt: any;
 }
 

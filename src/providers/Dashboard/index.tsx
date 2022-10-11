@@ -17,6 +17,7 @@ interface IDashboardItself {
   name: string;
   url: string;
   created_at: string;
+  last_clicked: string;
   supplier_owner: string;
 }
 

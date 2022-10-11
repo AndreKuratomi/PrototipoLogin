@@ -63,7 +63,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
+export const CardsBIListByCategory = () => {
   // TOASTS:
   const toast = useToast();
 

@@ -7,15 +7,11 @@ import React, {
   useState,
 } from "react";
 
-// import { getDashboards } from "../../utils";
-
 interface ITextProvider {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
   finalText: string;
   setFinalText: Dispatch<SetStateAction<string>>;
-  // getText: (event: React.FormEvent<HTMLInputElement>) => void;
-  // setIndexValue: (text: string) => void;
 }
 
 interface ITextProviderProps {
@@ -28,7 +24,7 @@ export const TextInputProvider = ({ children }: ITextProviderProps) => {
   // STATE PARA O TEXTO ESCRITO NO INPUT:
   const [text, setText] = useState("");
 
-  // STATE PARA O TEXTO ESCRITO NO INPUT:
+  // STATE PARA O TEXTO VINDO DO INPUT (SAINDO DE ONCHANGE):
   const [finalText, setFinalText] = useState("");
 
   return (
