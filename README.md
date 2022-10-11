@@ -14,6 +14,10 @@ Link AWS:
 
 http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
 
+Repositório API:
+
+https://github.com/AndreKuratomi/PrototipoLogin-API
+
 # Instalação
 
 <h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
