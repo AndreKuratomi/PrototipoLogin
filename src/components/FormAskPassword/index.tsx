@@ -67,7 +67,10 @@ const useStyles = makeStyles({
   inputBox: {
     background: "var(--white)",
     borderRadius: "1rem",
+    display: "flex",
+    alignItems: "center",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
+    marginBottom: "1rem",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -202,10 +205,7 @@ export const FormAskPassword = () => {
             Insira seus dados para redefinir a senha
           </Typography>
         </Box>
-        <Box
-          className={classes.inputBox}
-          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-        >
+        <Box className={classes.inputBox}>
           {Object.keys(errors).some((elt) => elt === "email") ? (
             <Email sx={{ color: red[500] }} />
           ) : (
