@@ -136,7 +136,7 @@ Senha provisória de {username}: {senha}
 EMPRESA
 ```
 
-<p></p>
+<p>Após alteração de senha o usuário recebe a seguinte mensagem e email:</p>
 
 ```
 Alteração feita com sucesso! Senha alterada com sucesso!
