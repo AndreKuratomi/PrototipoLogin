@@ -62,7 +62,10 @@ const useStyles = makeStyles((theme) => ({
   inputBox: {
     background: "var(--white)",
     borderRadius: "1rem",
+    display: "flex",
+    alignItems: "center",
     filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
+    marginBottom: "1rem",
     padding: "0 0.5rem",
     width: "280px",
     height: "3.688rem",
@@ -313,10 +316,7 @@ export const FormChangePassword = () => {
           /> */}
         </Box>
         <Box className={classes.inputsAllBox}>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (
@@ -354,10 +354,7 @@ export const FormChangePassword = () => {
               }}
             />
           </Box>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (
@@ -396,10 +393,7 @@ export const FormChangePassword = () => {
               }}
             />
           </Box>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (

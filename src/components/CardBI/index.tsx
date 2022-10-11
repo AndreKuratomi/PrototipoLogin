@@ -59,7 +59,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginBottom: "1rem",
     width: "83vw",
-    height: "13.5rem",
+    height: "17.5rem",
     "@media (min-width: 768px)": {
       width: "20rem",
     },
