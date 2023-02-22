@@ -101,6 +101,33 @@ Atenção! "Sua assinatura está próxima ao vencimento. Contatar suporte."
 Acesso bloqueado! "Assinatura vencida! Contate suporte."
 ```
 
+<h6>Usuários para testar:</h6>
+
+```
+USUÁRIO: Fornecedor1
+TIPO: fornecedor
+EMAIL: fornecedor1@mail.com.br
+SENHA: 1234
+ASSINATURA: Em dia (até 05/10/2023)
+
+USUÁRIO: Fornecedor2
+TIPO: fornecedor
+EMAIL: fornecedor2@mail.com.br
+SENHA: 1234
+ASSINATURA: A vencer (até 20/10/2022)
+
+USUÁRIO: Fornecedor4
+TIPO: fornecedor
+EMAIL: fornecedor4@mail.com.br
+SENHA: 1234
+ASSINATURA: Vencida (vencida em 05/10/2022)
+
+USUÁRIO: SuperUsuario
+TIPO: administrador
+EMAIL: superusuario@mail.com.br
+SENHA: 1234
+ASSINATURA: -----
+```
 
 <h5>2. Troca de senha:</h5>
 
