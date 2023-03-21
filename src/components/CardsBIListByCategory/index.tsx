@@ -9,19 +9,19 @@ import { useTextInput } from "src/providers/TextInput";
 
 import { useToast } from "@chakra-ui/react";
 
-interface ITabPanelProps {
-  children?: React.ReactNode;
-  className?: string;
-  index: number;
-  value: number;
-}
+// interface ITabPanelProps {
+//   children?: React.ReactNode;
+//   className?: string;
+//   index: number;
+//   value: number;
+// }
 
-interface IElem {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
-}
+// interface IElem {
+//   id: number;
+//   category: string;
+//   name: string;
+//   url: string;
+// }
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -35,17 +35,14 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     marginBottom: "1rem",
-    // width: "10rem",
     "@media (min-width: 768px)": {
       justifyContent: "space-evenly",
       flexDirection: "row",
-      // padding: "1rem 2rem",
     },
   },
   leaveIcon: {
     color: "var(--black)",
     display: "flex",
-    // position: "static",
     "&:hover": {
       cursor: "pointer",
     },
@@ -59,16 +56,14 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     marginBottom: "1rem",
-    // width: "10rem",
     "@media (min-width: 768px)": {
       justifyContent: "space-between",
       flexDirection: "row",
-      // padding: "1rem 2rem",
     },
   },
 }));
 
-export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
+export const CardsBIListByCategory = () => {
   // TOASTS:
   const toast = useToast();
 
@@ -86,19 +81,12 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
   const classes = useStyles();
 
   // PROVIDERS:
-  const { dashboard, selectedDashboard, setSelectedDashboard } = useDashboard();
-  const { finalText, setFinalText, text, setText } = useTextInput();
-
-  console.log(text);
-  console.log(finalText);
+  const { dashboard } = useDashboard();
+  const { finalText, setFinalText, setText } = useTextInput();
 
   // CATEGORIAS:
-  const selected = dashboard.filter((elem: any) => elem.category === finalText);
-  console.log(selected);
-  // setSelectedDashboard(selected);
-  // console.log(selectedDashboard);
+  const selected = dashboard.filter((elem) => elem.category === finalText);
   if (selected.length === 0) {
-    console.log("irk");
     notFoundToast();
     setFinalText("");
   }
@@ -115,7 +103,7 @@ export const CardsBIListByCategory = ({ value }: any, { id }: any) => {
         <Typography>Fechar</Typography>
       </Box>
       <Box className={classes.dashboardList}>
-        {selected.map((elt: any) => (
+        {selected.map((elt) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </Box>

@@ -10,11 +10,11 @@ export const Article = styled.article`
 `;
 
 export const A = styled.a`
-  color: #fff;
+  color: var(--white);
   font-weight: 500;
 
   &:hover {
-    color: "#3f51b5",
+    color: var(--hoverBlue);
     cursor: pointer;
     text-decoration: underline;
   }

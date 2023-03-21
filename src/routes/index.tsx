@@ -7,7 +7,6 @@ import DashboardSingles from "../pages/DashboardSingles";
 import Email from "../pages/Email";
 import Login from "../pages/Login";
 import NotFound from "../components/NotFound";
-import Single from "../pages/Single";
 
 export const Rotas = () => {
   return (
@@ -17,10 +16,6 @@ export const Rotas = () => {
       <Route path="/dashboardinternals" element={<DashboardInternals />} />
       <Route path="/dashboardexternals" element={<DashboardExternals />} />
       <Route path="/dashboardsingle" element={<DashboardSingles />} />
-      {/* MAS POR QUE NÃO ABREM MÚLTIPLAS PÁGINAS??? USAR USEPARAMS */}
-      {/* <Route path="/dashboardsingle" element={<DashboardSingles />}>
-        <Route path=":singleId" element={<Single />} />
-      </Route> */}
       <Route path="/email" element={<Email />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

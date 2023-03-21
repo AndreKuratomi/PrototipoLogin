@@ -10,10 +10,6 @@ import {
 
 import api from "src/service/api";
 
-import { useToast } from "@chakra-ui/react";
-
-import { useTextInput } from "../TextInput";
-
 interface IDashboardItself {
   id: number;
   category: string;
@@ -21,30 +17,31 @@ interface IDashboardItself {
   name: string;
   url: string;
   created_at: string;
+  last_clicked: string;
   supplier_owner: string;
 }
 
-interface IUser {
-  cnpj: string;
-  email: string;
-  franquia: string;
-  first_name: string;
-  last_name: string;
-  signature_vality: string;
-  signature_created_at: string;
-  is_admin: boolean;
-  is_super_user: boolean;
-  username: string;
-  username_created_at: string;
-  login_dates: Object[];
-  dashboards: IDashboardItself[];
-}
+// interface IUser {
+//   cnpj: string;
+//   email: string;
+//   franquia: string;
+//   first_name: string;
+//   last_name: string;
+//   signature_vality: string;
+//   signature_created_at: string;
+//   is_admin: boolean;
+//   is_super_user: boolean;
+//   username: string;
+//   username_created_at: string;
+//   login_dates: Object[];
+//   dashboards: IDashboardItself[];
+// }
 
 interface IDashboardProvider {
-  dashboard: any;
-  setDashboard: Dispatch<SetStateAction<any>>;
-  dashboardID: any;
-  setDashboardID: Dispatch<SetStateAction<any>>;
+  dashboard: IDashboardItself[];
+  setDashboard: Dispatch<SetStateAction<IDashboardItself[]>>;
+  dashboardID: string;
+  setDashboardID: Dispatch<SetStateAction<string>>;
   showDashboardByID: (cnpj: string) => void;
   dashboardURL: string;
   setDashboardURL: Dispatch<SetStateAction<string>>;
@@ -60,21 +57,8 @@ interface IDashboardProviderProps {
 export const DashboardContext = createContext({} as IDashboardProvider);
 
 export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
-  // TOASTS:
-  const toast = useToast();
-
-  const notFoundToast = () => {
-    toast({
-      description: "Verifique o texto digitado.",
-      duration: 3000,
-      position: "top",
-      status: "error",
-      title: "Categoria não encontrada!",
-    });
-  };
-
   // STATE TODOS OS DASHBOARDS:
-  const [dashboard, setDashboard] = useState([]);
+  const [dashboard, setDashboard] = useState([] as IDashboardItself[]);
 
   useEffect(() => {
     api
@@ -87,7 +71,7 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       });
   }, [dashboard]);
 
-  // STATE DASHBOARDS.URL:
+  // STATE DASHBOARDS.ID:
   const [dashboardID, setDashboardID] = useState("");
 
   const showDashboardByID = (cnpj: string) => {
@@ -115,33 +99,8 @@ export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
       });
   };
 
-  // STATE SELECTED DASHBOARD:
-  // const [selectedDashboard, setSelectedDashboard] = useState([]);
-
   // STATE DASHBOARDS BY CATEGORY:
   const [selectedDashboard, setSelectedDashboard] = useState([] as Object[]);
-  // const { finalText, setFinalText } = useTextInput();
-  // if (finalText) {
-  //   api
-  //     .get(`dashboards/category/${finalText}/`)
-  //     .then((response) => {
-  //       console.log(response.data.length);
-  //       if (response.data.length !== 0) {
-  //         setSelectedDashboard(response.data);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       notFoundToast();
-  //       console.log(err);
-  //       setFinalText("");
-  //     });
-  // }
-
-  // useEffect(() => {}, [selectedDashboard, text]);
-  // const showDashboardsByCategory = (category: string) => {
-
-  // const adjusted_category = category.trim().toLowerCase();
-  // };
 
   return (
     <DashboardContext.Provider

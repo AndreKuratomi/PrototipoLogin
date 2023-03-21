@@ -7,7 +7,7 @@ export const Article = styled.article`
 `;
 
 export const A = styled.a`
-  color: #fff;
+  color: var(--white);
   font-weight: 500;
 
   &:hover {

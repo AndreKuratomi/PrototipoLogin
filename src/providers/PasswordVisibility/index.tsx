@@ -46,6 +46,7 @@ export const PasswordVisibleProvider = ({
     setVisible(false);
   };
 
+  // STATE PARA VERIFICAR SE A SENHA PROVISÓRIA ESTÁ VISÍVEL:
   const [visible1, setVisible1] = useState(false);
   const userVisible1 = () => {
     setVisible1(true);
@@ -54,6 +55,7 @@ export const PasswordVisibleProvider = ({
     setVisible1(false);
   };
 
+  // STATE PARA VERIFICAR SE A NOVA SENHA ESTÁ VISÍVEL:
   const [visible2, setVisible2] = useState(false);
   const userVisible2 = () => {
     setVisible2(true);
@@ -62,6 +64,7 @@ export const PasswordVisibleProvider = ({
     setVisible2(false);
   };
 
+  // STATE PARA VERIFICAR SE A NOVA SENHA REPETIDA ESTÁ VISÍVEL:
   const [visible3, setVisible3] = useState(false);
   const userVisible3 = () => {
     setVisible3(true);
