@@ -214,7 +214,7 @@ export const FormLogin = () => {
   const navigate = useNavigate();
 
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data: Object, text: any) => {
+  const onSubmitFunction = (data: Object) => {
     api
       .post("login/", data)
       .then((response) => {

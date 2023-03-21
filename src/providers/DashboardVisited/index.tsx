@@ -12,21 +12,25 @@ import api from "src/service/api";
 
 import { useDashboard } from "../Dashboard";
 
+interface IDashboardVisited {
+  id: number;
+  category: string;
+  is_favorite: boolean;
+  name: string;
+  url: string;
+  created_at: string;
+  last_clicked: string;
+  supplier_owner: string;
+}
+
 interface IDashboardVisitedProvider {
-  handleLastVisited: (elt: any) => void;
-  lastVisited: any;
-  setLastVisited: Dispatch<SetStateAction<any>>;
+  handleLastVisited: (elt: IDashboardVisited) => void;
+  lastVisited: IDashboardVisited[];
+  setLastVisited: Dispatch<SetStateAction<IDashboardVisited[]>>;
 }
 
 interface IDashboardVisitedProviderProps {
   children: ReactNode;
-}
-
-interface IDashboard {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
 }
 
 export const DashboardVisitedContext = createContext(
@@ -40,7 +44,7 @@ export const DashboardVisitedProvider = ({
   const cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
   // LISTA VISITADOS:
-  const [lastVisited, setLastVisited] = useState([] as any);
+  const [lastVisited, setLastVisited] = useState([] as IDashboardVisited[]);
 
   // API:
   useEffect(() => {
@@ -58,9 +62,12 @@ export const DashboardVisitedProvider = ({
   const { dashboard } = useDashboard();
 
   // INCLUSÃO DE VISITADOS:
-  const handleLastVisited = (elt: any) => {
-    const urlFound: any = dashboard.find((elem: any) => elem.id === elt.id);
-    localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
+  const handleLastVisited = (elt: IDashboardVisited) => {
+    const urlFound = dashboard.find((elem) => elem.id === elt.id);
+    localStorage.setItem(
+      "@pbi_url: PowerBI URL",
+      JSON.stringify(urlFound?.url)
+    );
 
     api
       .patch(`dashboards/last/${elt.id}/`)

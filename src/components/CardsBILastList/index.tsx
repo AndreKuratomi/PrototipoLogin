@@ -5,13 +5,6 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useDashboardVisited } from "src/providers/DashboardVisited";
 
-interface IElem {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
-}
-
 const useStyles = makeStyles(() => ({
   dashboardLastList: {
     display: "flex",
@@ -33,7 +26,7 @@ export const CardsBILastList = () => {
 
   return (
     <Box className={classes.dashboardLastList}>
-      {lastVisited.map((elt: any) => (
+      {lastVisited.map((elt) => (
         <CardBI elt={elt} key={elt.id} />
       ))}
     </Box>

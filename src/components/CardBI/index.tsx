@@ -5,24 +5,37 @@ import { makeStyles } from "@material-ui/styles";
 import { useDashboardVisited } from "../../providers/DashboardVisited";
 import { useStarFavorite } from "../../providers/StarFavorite";
 
-interface IDashboard {
+interface IDashboardItself {
   id: number;
   category: string;
-  name: string;
-  url: string;
-}
-
-interface IElt {
-  id: number;
   is_favorite: boolean;
-  category: string;
   name: string;
   url: string;
+  created_at: string;
+  last_clicked: string;
   supplier_owner: string;
+  // elt: IDashboardItself;
 }
 
-interface IProps {
-  elt: any;
+// interface IDashboard {
+//   id: number;
+//   category: string;
+//   name: string;
+//   url: string;
+// }
+
+// interface IElt {
+//   id: number;
+//   is_favorite: boolean;
+//   category: string;
+//   name: string;
+//   url: string;
+//   supplier_owner: string;
+// }
+
+interface CardBIProps {
+  elt: IDashboardItself;
+  // key: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -76,7 +89,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CardBI = ({ elt }: IProps) => {
+export const CardBI = (props: CardBIProps) => {
+  //PROPS:
+  const { elt } = props;
+
   // STYLES:
   const classes = useStyles();
 

@@ -3,6 +3,10 @@ import { useOpenModal } from "../../providers/ModalOpen";
 import { Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
+interface IModalProp {
+  open: boolean;
+}
+
 const useStyles = makeStyles(() => ({
   buttonBack: {
     color: "var(--externalDashboardGreen)",
@@ -45,7 +49,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const ModalLeaveAsk = ({ open }: any) => {
+export const ModalLeaveAsk = (prop: IModalProp) => {
+  const { open } = prop;
+
   //   LOGOUT:
   const clearLocalStorage = () => {
     console.log("churros");

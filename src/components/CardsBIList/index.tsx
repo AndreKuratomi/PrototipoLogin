@@ -11,15 +11,40 @@ interface ITabPanelProps {
   children?: React.ReactNode;
   className?: string;
   index: number;
+  tabValue: number;
+}
+
+interface ICardsBIListProp {
   value: number;
 }
 
-interface IElem {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
-}
+// interface IElem {
+//   id: number;
+//   category: string;
+//   name: string;
+//   url: string;
+// }
+
+// interface IFavorite {
+//   id: number;
+//   category: string;
+//   is_favorite: boolean;
+//   name: string;
+//   url: string;
+//   created_at: string;
+//   supplier_owner: string;
+// }
+
+// interface IDashboardItself {
+//   id: number;
+//   category: string;
+//   is_favorite: boolean;
+//   name: string;
+//   url: string;
+//   created_at: string;
+//   last_clicked?: string;
+//   supplier_owner: string;
+// }
 
 const useStyles = makeStyles(() => ({
   dashboardList: {
@@ -48,7 +73,7 @@ const useStyles = makeStyles(() => ({
 
 const TabPanel = (props: ITabPanelProps) => {
   // PROPS:
-  const { index, value, children, className, ...other } = props;
+  const { index, tabValue, children, className, ...other } = props;
 
   // STYLES:
   const classes = useStyles();
@@ -56,17 +81,20 @@ const TabPanel = (props: ITabPanelProps) => {
   return (
     <Box
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabValue !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tabpanel-${index}`}
       {...other}
     >
-      {value === index && <List className={classes.list}>{children}</List>}
+      {tabValue === index && <List className={classes.list}>{children}</List>}
     </Box>
   );
 };
 
-export const CardsBIList = ({ value }: any) => {
+export const CardsBIList = (prop: ICardsBIListProp) => {
+  // PROP:
+  const { value } = prop;
+
   // STYLES:
   const classes = useStyles();
 
@@ -75,43 +103,43 @@ export const CardsBIList = ({ value }: any) => {
   const { favorites } = useStarFavorite();
 
   // CATEGORIAS:
-  const ecommerceCards: any = dashboard.filter(
-    (elem: any) => elem.category === "e-commerce"
+  const ecommerceCards = dashboard.filter(
+    (elem) => elem.category === "e-commerce"
   );
-  const clubedolivroCards: any = dashboard.filter(
-    (elem: any) => elem.category === "clube do livro"
+  const clubedolivroCards = dashboard.filter(
+    (elem) => elem.category === "clube do livro"
   );
-  const alurapetsCards: any = dashboard.filter(
-    (elem: any) => elem.category === "alura pets"
+  const alurapetsCards = dashboard.filter(
+    (elem) => elem.category === "alura pets"
   );
 
   return (
     <Box className={classes.dashboardList}>
       {/* FAVORITOS */}
-      <TabPanel value={value} index={0}>
-        {favorites.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+      <TabPanel tabValue={value} index={0}>
+        {favorites.map((elem) => (
+          <CardBI elt={elem} key={elem.id} />
         ))}
       </TabPanel>
 
       {/* ESTOQUE */}
-      <TabPanel value={value} index={1}>
-        {ecommerceCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+      <TabPanel tabValue={value} index={1}>
+        {ecommerceCards.map((elem) => (
+          <CardBI elt={elem} key={elem.id} />
         ))}
       </TabPanel>
 
       {/* CLUBE DO LIVRO */}
-      <TabPanel value={value} index={2}>
-        {clubedolivroCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+      <TabPanel tabValue={value} index={2}>
+        {clubedolivroCards.map((elem) => (
+          <CardBI elt={elem} key={elem.id} />
         ))}
       </TabPanel>
 
       {/* ALURA PETS */}
-      <TabPanel value={value} index={3}>
-        {alurapetsCards.map((elt: any) => (
-          <CardBI elt={elt} key={elt.id} />
+      <TabPanel tabValue={value} index={3}>
+        {alurapetsCards.map((elem) => (
+          <CardBI elt={elem} key={elem.id} />
         ))}
       </TabPanel>
     </Box>

@@ -9,19 +9,19 @@ import { useTextInput } from "src/providers/TextInput";
 
 import { useToast } from "@chakra-ui/react";
 
-interface ITabPanelProps {
-  children?: React.ReactNode;
-  className?: string;
-  index: number;
-  value: number;
-}
+// interface ITabPanelProps {
+//   children?: React.ReactNode;
+//   className?: string;
+//   index: number;
+//   value: number;
+// }
 
-interface IElem {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
-}
+// interface IElem {
+//   id: number;
+//   category: string;
+//   name: string;
+//   url: string;
+// }
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -85,7 +85,7 @@ export const CardsBIListByCategory = () => {
   const { finalText, setFinalText, setText } = useTextInput();
 
   // CATEGORIAS:
-  const selected = dashboard.filter((elem: any) => elem.category === finalText);
+  const selected = dashboard.filter((elem) => elem.category === finalText);
   if (selected.length === 0) {
     notFoundToast();
     setFinalText("");
@@ -103,7 +103,7 @@ export const CardsBIListByCategory = () => {
         <Typography>Fechar</Typography>
       </Box>
       <Box className={classes.dashboardList}>
-        {selected.map((elt: any) => (
+        {selected.map((elt) => (
           <CardBI elt={elt} key={elt.id} />
         ))}
       </Box>

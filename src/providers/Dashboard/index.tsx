@@ -21,27 +21,27 @@ interface IDashboardItself {
   supplier_owner: string;
 }
 
-interface IUser {
-  cnpj: string;
-  email: string;
-  franquia: string;
-  first_name: string;
-  last_name: string;
-  signature_vality: string;
-  signature_created_at: string;
-  is_admin: boolean;
-  is_super_user: boolean;
-  username: string;
-  username_created_at: string;
-  login_dates: Object[];
-  dashboards: IDashboardItself[];
-}
+// interface IUser {
+//   cnpj: string;
+//   email: string;
+//   franquia: string;
+//   first_name: string;
+//   last_name: string;
+//   signature_vality: string;
+//   signature_created_at: string;
+//   is_admin: boolean;
+//   is_super_user: boolean;
+//   username: string;
+//   username_created_at: string;
+//   login_dates: Object[];
+//   dashboards: IDashboardItself[];
+// }
 
 interface IDashboardProvider {
-  dashboard: any;
-  setDashboard: Dispatch<SetStateAction<any>>;
-  dashboardID: any;
-  setDashboardID: Dispatch<SetStateAction<any>>;
+  dashboard: IDashboardItself[];
+  setDashboard: Dispatch<SetStateAction<IDashboardItself[]>>;
+  dashboardID: string;
+  setDashboardID: Dispatch<SetStateAction<string>>;
   showDashboardByID: (cnpj: string) => void;
   dashboardURL: string;
   setDashboardURL: Dispatch<SetStateAction<string>>;
@@ -58,7 +58,7 @@ export const DashboardContext = createContext({} as IDashboardProvider);
 
 export const DashboardProvider = ({ children }: IDashboardProviderProps) => {
   // STATE TODOS OS DASHBOARDS:
-  const [dashboard, setDashboard] = useState([]);
+  const [dashboard, setDashboard] = useState([] as IDashboardItself[]);
 
   useEffect(() => {
     api
