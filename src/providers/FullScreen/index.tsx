@@ -7,11 +7,19 @@ import {
   useState,
 } from "react";
 
+interface IFullScreen extends Element {
+  webkitRequestFullscreen?: () => void;
+  msRequestFullscreen?: () => void;
+  exitFullscreen?: () => void;
+  webkitExitFullscreen?: () => void;
+  msExitFullscreen?: () => void;
+}
+
 interface IFullScreenProvider {
   fullScreen: boolean;
   setFullScreen: Dispatch<SetStateAction<boolean>>;
-  openFullScreen: (elem: any) => void;
-  closeFullScreen: (elem: any) => void;
+  openFullScreen: (elem: IFullScreen) => void;
+  closeFullScreen: (elem: IFullScreen) => void;
 }
 
 interface IFullScreenProviderProps {
@@ -25,7 +33,7 @@ export const FullScreenProvider = ({ children }: IFullScreenProviderProps) => {
   const [fullScreen, setFullScreen] = useState(false);
 
   // FUNÇÕES PARA ATIVAR E DESATIVAR FULLSCREEN:
-  const activateFullscreen = (elem: any) => {
+  const activateFullscreen = (elem: IFullScreen) => {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
       //Safari:
@@ -36,27 +44,26 @@ export const FullScreenProvider = ({ children }: IFullScreenProviderProps) => {
       elem.msRequestFullscreen();
     }
   };
-  const unActivateFullscreen = () => {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
+  const unActivateFullscreen = (elem: IFullScreen) => {
+    if (elem.exitFullscreen) {
+      elem.exitFullscreen();
       //Safari:
+    } else if (elem.webkitExitFullscreen) {
+      elem.webkitExitFullscreen();
+      //IE11:
+    } else if (elem.msExitFullscreen) {
+      elem.msExitFullscreen();
     }
-    //  else if (document.webkitExitFullscreen) {
-    //   document.webkitExitFullscreen();
-    //   //IE11:
-    // } else if (document.msExitFullscreen) {
-    //   document.msExitFullscreen();
-    // }
   };
 
-  const openFullScreen = (elem: any) => {
+  const openFullScreen = (elem: IFullScreen) => {
     setFullScreen(true);
     activateFullscreen(elem);
   };
 
-  const closeFullScreen = () => {
+  const closeFullScreen = (elem: IFullScreen) => {
     setFullScreen(false);
-    unActivateFullscreen();
+    unActivateFullscreen(elem);
   };
 
   return (

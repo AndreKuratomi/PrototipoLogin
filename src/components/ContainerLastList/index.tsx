@@ -1,12 +1,8 @@
-import { useState } from "react";
-
 import { CardsBILastList } from "../CardsBILastList";
 
 import { Container, Typography } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/styles";
-
-import api from "src/service/api";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -15,12 +11,8 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     marginBottom: "1rem",
-    // marginTop: "9rem",
     "@media (min-width: 768px)": {
-      // justifyContent: "space-between",
-      // flexDirection: "row",
       textAlign: "start",
-      // padding: "1rem 2rem",
     },
   },
   typography1: {
@@ -45,48 +37,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const ContainerLastList = () => {
-  // STATES:
-  // const [name, setName] = useState("");
-
   // STYLES:
   const classes = useStyles();
-
-  // API:
-  // const cnpj = localStorage.getItem("@UserLoggedToken:cnpj") || "";
-
-  // const getName = () => {
-  //   api
-  //     .get(`suppliers/${cnpj}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       for (let elem in response) {
-  //         console.log(elem["data"]);
-  //         // if (elem.cnpj === cnpj) {
-  //         //   setName(elem.cnpj);
-  //         // }
-  //         // for (let count = 0; count < elem.data.length; count++) {
-  //         //   for (let elem in response[count]) {
-  //         //     console.log(elem);
-  //         //   }
-  //         // // if (elem.cnpj === cnpj) {
-  //         // //   setName(elem.cnpj);
-  //         // // }
-  //         // }
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // // useEffect(() => , [])
-  // getName();
 
   return (
     <Container className={classes.container}>
       <Typography className={classes.typography1}>
         Olá, Administrador
-        {/* {name} */}
       </Typography>
       <Typography className={classes.typography2}>Visto por último</Typography>
       <CardsBILastList />

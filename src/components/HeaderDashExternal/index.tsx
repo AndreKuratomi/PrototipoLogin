@@ -21,9 +21,9 @@ const useStyles = makeStyles(() => ({
       boxShadow: "undefined",
     },
     "@media (min-width: 768px)": {
-      justifyContent: "space-between",
+      justifyContent: "space-around",
       flexDirection: "row",
-      padding: "0",
+      padding: "1rem",
     },
   },
   imageLogo: {
@@ -40,6 +40,9 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     right: 0,
     top: 0,
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   subHeader: {
     color: "var(--black)",
@@ -58,12 +61,12 @@ export const HeaderDashExternal = () => {
 
   return (
     <AppBar className={classes.header} elevation={0} position="static">
-      <CardMedia
+      {/* <CardMedia
         component="img"
         image={LogoVestcasaNovo}
         alt="logo vestcasa"
         className={classes.imageLogo}
-      />
+      /> */}
 
       <Box className={classes.subHeader}>
         <InputSearch />

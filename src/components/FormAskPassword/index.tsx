@@ -14,13 +14,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Email } from "@mui/icons-material";
 import { green, red } from "@mui/material/colors";
 
-// import Form from "../../assets/figma_imgs/Form.png";
 import FormMobile from "../../assets/figma_imgs/FormMobile.png";
-// import IconUser from "../../assets/figma_imgs/IconUser.png";
-// import IconUserError from "../../assets/figma_imgs/IconUserError.png";
-// import IconEmail from "../../assets/figma_imgs/IconEmail.png";
-// import IconEmailError from "../../assets/figma_imgs/IconEmailError.png";
-// import Input from "../../assets/figma_imgs/Input.png";
 import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
@@ -28,23 +22,19 @@ import { useToast } from "@chakra-ui/react";
 import { A, Article } from "./styles";
 
 const useStyles = makeStyles({
-  // button: {
-  //   marginTop: "1rem",
-  //   width: "12.5rem",
-  // },
   forgetPasswordBoxContent: {
     fontSize: "0.8rem",
     display: "flex",
     flexDirection: "column",
   },
   forgetPasswordExtraPageBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     marginTop: "1rem",
     textAlign: "center",
   },
   forgetPasswordInstructionsBox: {
-    color: "#FFF",
+    color: "var(--white)",
     textDecoration: "none",
     margin: "1rem 0 2rem 0",
     textAlign: "center",
@@ -55,10 +45,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   formControl: {
-    background: "#009E4F",
-    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    background: "var(--formDarkGreen)",
+    backgroundImage:
+      "linear-gradient(to bottom left, var(--formDarkGreen), var(--formLightGreen))",
     borderRadius: "1rem",
-    // backgroundImage: `url(${Form})`,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -75,10 +65,12 @@ const useStyles = makeStyles({
     width: "200px",
   },
   inputBox: {
-    // backgroundImage: `url(${Input})`,
     background: "var(--white)",
     borderRadius: "1rem",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    display: "flex",
+    alignItems: "center",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
+    marginBottom: "1rem",
     padding: "0.5rem",
     width: "312px",
     "& .MuiInputLabel-formControl": {
@@ -98,16 +90,16 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   submitButton: {
-    backgroundColor: "rgba(63 81 181 0.04)",
+    backgroundColor: "var(--shadowBlack)",
     border: "1px solid var(--white)",
     borderRadius: "1rem",
     color: "var(--white)",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     marginTop: "1rem",
     width: "15rem",
 
     "&:hover": {
-      color: "#3f51b5",
+      color: "var(--hoverBlue)",
     },
   },
   textFieldsContent: {
@@ -137,7 +129,6 @@ export const FormAskPassword = () => {
 
   // PROVIDERS:
   const { createAuth, loading, setLoading, LoadPage } = usePasswordAsk();
-  console.log(loading);
 
   // TOASTS:
   const toast = useToast();
@@ -183,13 +174,12 @@ export const FormAskPassword = () => {
   // VARIÁVEL USENAVIGATE:
   const navigate = useNavigate();
   // LÓGICA SUBMISSÃO FORMULÁRIO:
-  const onSubmitFunction = (data: Object, text: any) => {
+  const onSubmitFunction = (data: Object) => {
     LoadPage();
     api
       .post("ask/", data)
-      .then((response) => {
+      .then((_) => {
         addSuccessToast();
-        console.log(response);
         createAuth();
         navigate("/");
         setLoading(false);
@@ -197,7 +187,6 @@ export const FormAskPassword = () => {
       .catch((err) => {
         console.log(err);
         emailErrorToast("Email inválido! Favor verificar.");
-        // console.log("Algo deu errado!", err);
         setLoading(false);
       });
   };
@@ -209,17 +198,14 @@ export const FormAskPassword = () => {
         onSubmit={handleSubmit(onSubmitFunction)}
       >
         <Box className={classes.image}>
-          <img src={LogoVestcasa} alt="Logo Vestcasa" />
+          {/* <img src={LogoVestcasa} alt="Logo Vestcasa" /> */}
         </Box>
         <Box className={classes.forgetPasswordInstructionsBox}>
           <Typography className={classes.forgetPasswordInstructionsBoxContent}>
             Insira seus dados para redefinir a senha
           </Typography>
         </Box>
-        <Box
-          className={classes.inputBox}
-          sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-        >
+        <Box className={classes.inputBox}>
           {Object.keys(errors).some((elt) => elt === "email") ? (
             <Email sx={{ color: red[500] }} />
           ) : (
@@ -232,12 +218,10 @@ export const FormAskPassword = () => {
             margin="normal"
             placeholder="email"
             variant="standard"
-            // type="text"
             {...register("email")}
           />
         </Box>
         <Box
-          // className={classes.submitButtonBox}
           sx={{
             display: "flex",
             flexDirection: "row",

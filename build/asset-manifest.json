@@ -1,16 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.1bd0ba82.js",
-    "static/media/LogoVestcasaVerde.png": "/static/media/LogoVestcasaVerde.2b47c621f17f4fdc8d8c.png",
-    "static/media/LogoVestcasa.png": "/static/media/LogoVestcasa.044b78972273f4fff22e.png",
-    "static/media/LogoVestcasaNovo.png": "/static/media/LogoVestcasaNovo.441919064ebf2616e1c0.png",
+    "main.js": "/static/js/main.2d6568a8.js",
     "index.html": "/index.html",
     "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.1bd0ba82.js.map": "/static/js/main.1bd0ba82.js.map"
+    "main.2d6568a8.js.map": "/static/js/main.2d6568a8.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.1bd0ba82.js"
+    "static/js/main.2d6568a8.js"
   ]
 }

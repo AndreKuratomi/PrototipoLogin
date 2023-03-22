@@ -10,10 +10,11 @@ import {
 
 import api from "src/service/api";
 
-interface IDashboard {
+interface IFavorite {
   id: number;
   category: string;
   is_favorite: boolean;
+  last_clicked: string;
   name: string;
   url: string;
   created_at: string;
@@ -21,8 +22,8 @@ interface IDashboard {
 }
 
 interface IStarFavoriteProvider {
-  favorites: Object[];
-  setFavorites: Dispatch<SetStateAction<Object[]>>;
+  favorites: IFavorite[];
+  setFavorites: Dispatch<SetStateAction<IFavorite[]>>;
   handleStarClicked: (id: number) => void;
 }
 
@@ -39,7 +40,7 @@ export const StarFavoriteProvider = ({
   const _cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
   // LISTA FAVORITOS DASHBOARD EXTERNALS:
-  const [favorites, setFavorites] = useState([] as Object[]);
+  const [favorites, setFavorites] = useState([] as IFavorite[]);
 
   // API:
   useEffect(() => {

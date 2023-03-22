@@ -7,26 +7,30 @@ import {
   useEffect,
   useState,
 } from "react";
+
 import api from "src/service/api";
 
-// import { getDashboards } from "../../utils";
 import { useDashboard } from "../Dashboard";
 
+interface IDashboardVisited {
+  id: number;
+  category: string;
+  is_favorite: boolean;
+  name: string;
+  url: string;
+  created_at: string;
+  last_clicked: string;
+  supplier_owner: string;
+}
+
 interface IDashboardVisitedProvider {
-  handleLastVisited: (elt: any) => void;
-  lastVisited: any;
-  setLastVisited: Dispatch<SetStateAction<any>>;
+  handleLastVisited: (elt: IDashboardVisited) => void;
+  lastVisited: IDashboardVisited[];
+  setLastVisited: Dispatch<SetStateAction<IDashboardVisited[]>>;
 }
 
 interface IDashboardVisitedProviderProps {
   children: ReactNode;
-}
-
-interface IDashboard {
-  id: number;
-  category: string;
-  name: string;
-  url: string;
 }
 
 export const DashboardVisitedContext = createContext(
@@ -40,25 +44,15 @@ export const DashboardVisitedProvider = ({
   const cnpj = localStorage.getItem("@SuperUserLoggedToken:cnpj");
 
   // LISTA VISITADOS:
-  const [lastVisited, setLastVisited] = useState([] as any);
+  const [lastVisited, setLastVisited] = useState([] as IDashboardVisited[]);
 
   // API:
   useEffect(() => {
     api
       .get(`suppliers/${cnpj}`)
       .then((response) => {
-        // console.log(response);
         setLastVisited(response.data.last_visited_dashboards);
-        // console.log(lastVisited);
       })
-      // .then((_) => {
-      //   setLastVisited(
-      //     lastVisited.sort((a: any, b: any) => {
-      //       return a.last_clicked.localeCompare(b.last_clicked).reverse();
-      //     })
-      //   );
-      //   console.log(lastVisited);
-      // })
       .catch((err) => {
         console.log(err);
       });
@@ -68,9 +62,12 @@ export const DashboardVisitedProvider = ({
   const { dashboard } = useDashboard();
 
   // INCLUSÃO DE VISITADOS:
-  const handleLastVisited = (elt: any) => {
-    const urlFound: any = dashboard.find((elem: any) => elem.id === elt.id);
-    localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
+  const handleLastVisited = (elt: IDashboardVisited) => {
+    const urlFound = dashboard.find((elem) => elem.id === elt.id);
+    localStorage.setItem(
+      "@pbi_url: PowerBI URL",
+      JSON.stringify(urlFound?.url)
+    );
 
     api
       .patch(`dashboards/last/${elt.id}/`)
@@ -80,21 +77,6 @@ export const DashboardVisitedProvider = ({
       .catch((err) => {
         console.log(err);
       });
-
-    // func();
-    // const dashboards = dashboard.find((elem: Object) => elem === num);
-    // if (dashboards) {
-    //   console.log(lastVisited);
-    //   if (!lastVisited.includes(num)) {
-    //     if (lastVisited.length < 3) {
-    //       setLastVisited([...lastVisited, dashboards]);
-    //       console.log(lastVisited);
-    //     } else if (lastVisited.length === 3) {
-    //       lastVisited.shift(); // MAS COMO COLOCAR DENTRO DE UM SETSTATE??? OU TUDO BEM DEIXAR ASSIM?
-    //       setLastVisited([...lastVisited, dashboards]);
-    //     }
-    //   }
-    // }
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,8 @@ import LogoVestcasa from "../../assets/figma_imgs/LogoVestcasa.png";
 
 import { useToast } from "@chakra-ui/react";
 
-import { A, Article } from "./styles";
+import { Article } from "./styles";
+
 import api from "src/service/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   formControl: {
-    background: "#009E4F",
-    backgroundImage: "linear-gradient(to bottom left, #009E4F, #22BA87)",
+    background: "var(--formDarkGreen)",
+    backgroundImage:
+      "linear-gradient(to bottom left, var(--formDarkGreen), var(--formLightGreen))",
     borderRadius: "1rem",
     display: "flex",
     flexWrap: "nowrap",
@@ -61,7 +63,10 @@ const useStyles = makeStyles((theme) => ({
   inputBox: {
     background: "var(--white)",
     borderRadius: "1rem",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    display: "flex",
+    alignItems: "center",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
+    marginBottom: "1rem",
     padding: "0 0.5rem",
     width: "280px",
     height: "3.688rem",
@@ -71,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
       top: "-0.3rem",
     },
     "& .MuiFormControl-marginNormal": {
-      // NÃO FUNCIONA!
       marginTop: "10px",
     },
     "@media (min-width: 768px)": {
@@ -97,24 +101,18 @@ const useStyles = makeStyles((theme) => ({
     padding: "0px",
   },
   submitButton: {
-    backgroundColor: "rgba(63 81 181 0.04)",
+    backgroundColor: "var(--shadowBlack)",
     border: "1px solid var(--white)",
     borderRadius: "1rem",
     color: "var(--white)",
-    filter: "drop-shadow(0.7rem 0.7rem 0.1rem rgba(3,3,3,8%))",
+    filter: "drop-shadow(0.7rem 0.7rem 0.1rem var(--alphaGray))",
     margin: "0 1rem",
     width: "10rem",
 
     "&:hover": {
-      color: "#3f51b5",
+      color: "var(--hoverBlue)",
     },
   },
-  // submitButtonBox: {
-  //   display: "flex",
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  //   marginTop: "1rem",
-  // },
   suggestionBox: {
     color: "var(--white)",
     marginTop: "0.3srem",
@@ -203,27 +201,18 @@ export const FormChangePassword = () => {
       title: "Não autorizado",
     });
   };
-  // const emailErrorToast = (algo: string) => {
-  //   toast({
-  //     description: algo,
-  //     duration: 3000,
-  //     position: "top",
-  //     status: "error",
-  //     title: "Erro!",
-  //   });
-  // };
-  const protoConflictToast = (algo: string) => {
+  const protoConflictToast = (text: string) => {
     toast({
-      description: algo,
+      description: text,
       duration: 3000,
       position: "top",
       status: "error",
       title: "Erro!",
     });
   };
-  const repeatPasswordToast = (algo: string) => {
+  const repeatPasswordToast = (text: string) => {
     toast({
-      description: algo,
+      description: text,
       duration: 3000,
       position: "top",
       status: "error",
@@ -294,12 +283,11 @@ export const FormChangePassword = () => {
     LoadPage();
     api
       .post("change/", data)
-      .then((response) => {
+      .then((_) => {
         addSuccessToast();
         localStorage.clear();
         navigate("/");
         setLoading(false);
-        console.log(response);
       })
       .catch((err) => {
         if (err.message === "Request failed with status code 500") {
@@ -321,17 +309,14 @@ export const FormChangePassword = () => {
     <Article>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.formControl}>
         <Box sx={{ marginBottom: "1rem" }}>
-          <img
+          {/* <img
             src={LogoVestcasa}
             alt="Logo Vestcasa"
             className={classes.image}
-          />
+          /> */}
         </Box>
         <Box className={classes.inputsAllBox}>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (
@@ -369,10 +354,7 @@ export const FormChangePassword = () => {
               }}
             />
           </Box>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (
@@ -411,10 +393,7 @@ export const FormChangePassword = () => {
               }}
             />
           </Box>
-          <Box
-            className={classes.inputBox}
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
+          <Box className={classes.inputBox}>
             {Object.keys(errors).some(
               (elt) => elt === "password_provisional"
             ) ? (

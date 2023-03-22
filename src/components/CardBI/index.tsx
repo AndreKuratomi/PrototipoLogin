@@ -4,30 +4,38 @@ import { makeStyles } from "@material-ui/styles";
 
 import { useDashboardVisited } from "../../providers/DashboardVisited";
 import { useStarFavorite } from "../../providers/StarFavorite";
-import { useDashboard } from "src/providers/Dashboard";
 
-interface IDashboard {
+interface IDashboardItself {
   id: number;
   category: string;
-  name: string;
-  url: string;
-}
-
-interface IElt {
-  id: number;
   is_favorite: boolean;
-  category: string;
   name: string;
   url: string;
+  created_at: string;
+  last_clicked: string;
   supplier_owner: string;
+  // elt: IDashboardItself;
 }
 
-interface IProps {
-  //MAS POR QUE ASSIM FUNCIONA E ACIMA NÃO????
-  elt: any;
-  // state: boolean;
-  // setState: Dispatch<SetStateAction<boolean>>;
-  // id: number;
+// interface IDashboard {
+//   id: number;
+//   category: string;
+//   name: string;
+//   url: string;
+// }
+
+// interface IElt {
+//   id: number;
+//   is_favorite: boolean;
+//   category: string;
+//   name: string;
+//   url: string;
+//   supplier_owner: string;
+// }
+
+interface CardBIProps {
+  elt: IDashboardItself;
+  // key: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -63,7 +71,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginBottom: "1rem",
     width: "83vw",
-    height: "13.5rem",
+    height: "17.5rem",
     "@media (min-width: 768px)": {
       width: "20rem",
     },
@@ -71,11 +79,9 @@ const useStyles = makeStyles(() => ({
   starIcon: {
     color: "var(--yellow)",
     position: "absolute",
-    // marginRight: "0vw",
-    marginLeft: "76vw",
+    marginRight: "0vw",
     "@media (min-width: 768px)": {
-      // marginRight: "0vw",
-      marginLeft: "15.5vw",
+      marginRight: "0vw",
     },
     "&:hover": {
       cursor: "pointer",
@@ -83,21 +89,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CardBI = ({ elt }: IProps) => {
-  // console.log(elt);
+export const CardBI = (props: CardBIProps) => {
+  //PROPS:
+  const { elt } = props;
+
   // STYLES:
   const classes = useStyles();
 
   // PROVIDERS:
-  const { dashboard } = useDashboard();
   const { handleLastVisited } = useDashboardVisited();
   const { handleStarClicked } = useStarFavorite();
-
-  // ENVIO URL:
-  const sendURL = () => {
-    const urlFound: any = dashboard.find((elem: any) => elem.url === elt.url);
-    localStorage.setItem("@pbi_url: PowerBI URL", JSON.stringify(urlFound.url));
-  };
 
   return (
     <Card className={classes.cards} key={elt.id}>
@@ -112,7 +113,6 @@ export const CardBI = ({ elt }: IProps) => {
         <CardMedia
           component="iframe"
           src={elt.url}
-          // alt="lorem dashboard"
           className={classes.imagePowerBI}
         />
       </Box>
