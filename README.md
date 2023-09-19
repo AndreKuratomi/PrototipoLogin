@@ -10,7 +10,7 @@
 
 <p><b>PrototipoLogin</b> é uma aplicação que faz login para o usuário acessar seus próprios relatórios. 
   
-Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b> e o gerenciador de states <b>ContextAPI</b>.</p>
+Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b>, o gerenciador de states <b>ContextAPI</b> e o serviço AWS <strong>S3</strong>.</p>
 <br>
 Link AWS:
 
