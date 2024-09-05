@@ -99,7 +99,7 @@ code .
 yarn start
 ```
 
-For the functionalities of this project work locally the <b>backend</b> needs to already been running. Check it out how [here](https://github.com/AndreKuratomi/prototipo_login_api).
+For the functionalities of this project work locally the <b>backend</b> needs to be already running. Check it out how [here](https://github.com/AndreKuratomi/prototipo_login_api).
 
 <br>
 
