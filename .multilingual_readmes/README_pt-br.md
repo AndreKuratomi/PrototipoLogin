@@ -108,6 +108,7 @@ yarn start
 
 Para todas as funcionalidades desta aplicação funcionarem localmente o <b>backend</b> precisa já operar. Conferir como [aqui](https://github.com/AndreKuratomi/prototipo_login_api).
 
+<br>
 
 ## Utilização
 
