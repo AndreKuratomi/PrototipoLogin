@@ -1,139 +1,190 @@
-## PrototipoLogin
+# PrototipoLogin
 
-- [Descrição](#descrição)
-- [Instalação](#instalação)
-- [Utilização](#utilização)
-- [Termos de uso](#termos-de-uso)
-- [Referências](#referências)
+- [Translations](#translations)
+- [About](#about)
+- [Links](#links)
+- [Instalation](#instalation)
+- [How to use it](#how-to-use-it)
+- [References](#references)
 
-# Descrição
-
-<p><b>PrototipoLogin</b> é uma aplicação que faz login para o usuário acessar seus próprios relatórios. 
-  
-Esta aplicação utiliza a linguagem <b>Typescript</b>, a biblioteca javascript <b>React</b>, a biblioteca de interface <b>Material-UI</b>, o gerenciador de states <b>ContextAPI</b> e o serviço AWS <strong>S3</strong>.</p>
 <br>
-Link AWS:
 
-http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
+## Translations
 
-Repositório API:
+- [Português brasileiro](./.multilingual_readmes/README_pt-br.md)
+- [English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin/)
 
-https://github.com/AndreKuratomi/prototipo_login_api
+<br>
 
-# Instalação
+## About
 
-<h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
+The fullstack application <b>PrototipoLogin</b> is a prototype that logs a company suppliers to their own <strong>PowerBI</strong> dashboard visualization and also a company CEO as superuser to view all the company dashboards. Mobile responsive.
 
-- Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
+This application uses the language <strong>Javascript</strong>'s extention <strong>[Typescript](https://www.typescriptlang.org/)</strong>, its library <strong>[React](https://pt-br.legacy.reactjs.org/)</strong>, React's states manager <strong>[ContextAPI](https://legacy.reactjs.org/docs/context.html)</strong>, the open-source React component library <strong>[Material UI](https://mui.com/material-ui/)</strong>, <strong>[Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)</strong> for its toasts. This frontend part is deployed in <strong>[AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)</strong> service.
 
-- Um <b>versionador de código</b> como o <b>[Git](https://github.com/git-guides/install-git)</b>.
+## Links
 
-- <p> E versionar o diretório para receber o clone da aplicação:</p>
+AWS S3 [link](http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/)
+
+PrototipoLogin's API [repository](https://github.com/AndreKuratomi/prototipo_login_api)
+
+<br>
+
+
+## Instalation
+
+<h3>0. It is first necessary to have instaled the following devices:</h3>
+
+- The code versioning <b>[Git](https://git-scm.com/downloads)</b>.
+
+- The virtual environment <b>[Node](https://nodejs.org/pt)</b> (use version >=14.0.0).
+
+- Its version manager <b>[NVM](https://github.com/nvm-sh/nvm)</b>.
+
+- The package manager <b>[Yarn](https://yarnpkg.com/)</b>.
+
+- A <b>code editor</b>, also known as <b>IDE</b>. For instance, <strong>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</strong> that is going to be used here.
+
+- <p>And versioning your directory to receive the aplication clone:</p>
+
 
 ```
 git init
 ```
 
-<h5>1. Fazer o clone do repositório <b>PrototipoLogin</b> na sua máquina pelo terminal do computador ou pelo do IDE:</h5>
+<br>
+<h3>1. Clone the repository <b>PrototipoLogin</b> by your machine terminal or by the IDE's:</h3>
 
 ```
 git clone https://github.com/AndreKuratomi/PrototipoLogin.git
 ```
 
-<p>Entrar na pasta criada:</p>
+WINDOWS:
+
+Obs: In case of any mistake similar to this one: 
+
+```
+unable to access 'https://github.com/AndreKuratomi/PrototipoLogin.git/': SSL certificate problem: self-signed certificate in certificate chain
+```
+
+Configure git to disable SSL certification:
+
+```
+git config --global http.sslVerify "false"
+```
+
+<h3>2. After cloning the repository:</h3>
+
+
+<p>Enter the directory:</p>
 
 ```
 cd PrototipoLogin
 ```
-
-<p>Instalar as dependências:</p>
+<p>Install the project's dependencies:</p>
 
 ```
 yarn
 ```
 
-<p><b>Obs:</b> caso não tenha o gerenciador de pacotes <b>yarn</b> instalar desta maneira:</p>
-
-```
-npm install --global yarn
-```
-
-<p>E rodar a aplicação:</p>
+<p>Open the aplication with your IDE:</p>
 
 ```
 code .
 ```
 
-# Inicialização
-
-<p>Para exibir o frontend para o usuário utlizando o VSCode utilizamos no terminal o seguinte comando:</p>
+<p>And by the IDE's terminal run <b>yarn</b> to exibit the frontend:</p>
 
 ```
 yarn start
 ```
 
-<p>Ou podemos utilizar o link AWS a seguir:</p>
+For the functionalities of this project work locally the <b>backend</b> needs to already been running. Check it out how [here](https://github.com/AndreKuratomi/prototipo_login_api).
 
-http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
+<br>
 
+# How to use it
 
-# Utilização
+<h3>1. Login and signatures:</h3>
 
-<h5>1. Login e assinaturas:</h5>
+<p>When the supplier tries to log the application's API check if he is up to date with his subscription to the platform.</p> 
 
-<p>Ao ser efetuado o login a API faz uma busca no banco de dados para verificar se o fornecedor está ou não em dia com sua assinatura.</p> 
-
-<p>Se estiver em dia o acesso é autorizado e é exibida a seguinte mensagem:</p>
+<p>If the supplier is up to date his access is done and it is displayed the following chacka-ui toast:</p>
 
 ```
 Login feito com sucesso! Seja bem-vindo(a), fornecedor(a)!
 ```
 
+Translation:
 
-<p> Faltando até 15 dias para o vencimento o acesso é autorizado mas com a seguinte notificação:</p>
+```
+Login made sucessfully! Welcome, supplier!
+```
+<br>
+
+<p> Up to <b>15 days</b> before the expiration date the supplier's access is authorized but with a warning toast:</p>
 
 ```
 Atenção! "Sua assinatura está próxima ao vencimento. Contatar suporte."
 ```
 
+Translation:
 
-<p> E se vencida o acesso é bloqueado e é exibida a seguinte mensagem:</p>
+```
+Warning! "Your signature is close to expire. Contact suport."
+```
+<br>
+
+<p> If the signature is expired the access is blocked and this toast is displayed:</p>
 
 ```
 Acesso bloqueado! "Assinatura vencida! Contate suporte."
 ```
 
-<h6>Usuários para testar:</h6>
+Translation:
 
 ```
-USUÁRIO: Fornecedor1
-TIPO: fornecedor
-EMAIL: fornecedor1@mail.com.br
-SENHA: 1234
-ASSINATURA: Em dia (até 05/10/2023)
+Access blocked! "Your signature is expired. Contact suport."
+```
 
-USUÁRIO: Fornecedor2
-TIPO: fornecedor
-EMAIL: fornecedor2@mail.com.br
-SENHA: 1234
-ASSINATURA: A vencer (até 20/10/2022)
+<br>
 
-USUÁRIO: Fornecedor4
-TIPO: fornecedor
-EMAIL: fornecedor4@mail.com.br
-SENHA: 1234
-ASSINATURA: Vencida (vencida em 05/10/2022)
+<h3>2. Users for testing (available in src/utils/index.json):</h3>
 
-USUÁRIO: SuperUsuario
-TIPO: administrador
+```
+USER: Supplier1
+TYPE: supplier
+EMAIL: supplier1@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Up to date (untill 05/10/2023)
+
+USER: Supplier2
+TYPE: supplier
+EMAIL: supplier2@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Close to expire (untill 20/10/2022)
+
+USER: Supplier4
+TYPE: supplier
+EMAIL: supplier4@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Expired (Expired in 05/10/2022)
+
+USER: SuperUser
+TYPE: administrador
 EMAIL: superusuario@mail.com.br
-SENHA: 1234
-ASSINATURA: -----
+PASSWORD: 1234
+SIGNATURE SITUATION: -----
 ```
 
-<h5>2. Troca de senha:</h5>
+<h3>3. Keyboard commands block:</h3>
 
-<p>Quando o usuário faz pedido de alteração de senha ele recebe a seguinte mensagem e recebe um email notificando:</p>
+At the time this application was developed it was asked to block some keyboard commands such as "Ctrl+C", "F12" for security reasons. This blocks are available in React's html file.
+
+
+<h3>4. Forgot password:</h3>
+
+<p>When the user asks for password change the toast bellow is displayed and an email is sent to him notifying:</p>
 
 ```
 Solicitação enviada com sucesso! "Confira sua caixa de emails."
@@ -158,7 +209,32 @@ Atenciosamente,
 EMPRESA
 ```
 
-<p>Ao mesmo tempo, o suporte configurado recebe um email notificando:</p>
+Translation:
+
+```
+Request sent sucessfully! "Checkout your email inbox."
+```
+
+```
+Hello, {username}! We received your request for new password.
+
+Bellow the temporary password and the link for password change:
+
+
+Temporary password: {senha}
+
+
+Link for password change here {link for password change}
+
+
+Please do not answer this e-mail. It is sent authomatically.
+
+Yours faithfully,
+
+COMPANY
+```
+
+<p>At the same time, the configured support receives an email notifying:</p>
 
 ```
 Notificação: O(A) usuário(a) {username} solicitou troca de senha às {horário} em {data}.
@@ -169,7 +245,20 @@ Senha provisória de {username}: {senha}
 EMPRESA
 ```
 
-<p>Após alteração de senha o usuário recebe a seguinte mensagem e email:</p>
+Translation:
+
+
+```
+Notification: The user {username} asked for password change at {in} in {date}.
+
+{username}'s temporary password: {password}
+
+
+COMPANY
+```
+<br>
+
+<p>After the password is changed this toast is displayed and the user receives this email message:</p>
 
 ```
 Alteração feita com sucesso! Senha alterada com sucesso!
@@ -191,39 +280,78 @@ Atenciosamente,
 EMPRESA
 ```
 
-<p>E o suporte recebe:</p>
+Translation:
+
 
 ```
-Notificação: O(A) usuário(a) {username} solicitou troca de senha às {horário} em {data}.
+Password change made succesfully!
+```
 
-Senha provisória de {username}: {senha}
+```
+Hello, {username}!
+
+Your password was changed succesfully!
+
+
+Now to back to the login page. {link login}
+
+
+Please do not answer this e-mail. It is sent authomatically.
+
+Yours faithfully,
+
+COMPANY
+```
+
+<p>And the support receives:</p>
+
+```
+Notificação: O(A) usuário(a) {username} realizou troca de senha às {horário} em {data}.
+
+Nova senha de {username}: {senha}
 
 
 EMPRESA
 ```
 
-# Termos de uso
+Translation:
 
-<p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
+```
+Notification: The user {username} changed his password at {time} in {date}.
 
-# Referências
+The {username}'s new password is : {password}
+
+
+COMPANY
+```
+
+<br>
+
+## References
 
 - [AWS S3 (GetStartedWithS3)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)
 - [AWS S3 (Website Hosting)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
 - [AWS S3 (Medium)](https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081)
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
-- [Bloqueio comandos teclado (Mozilla)](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
-- [Bloqueio comandos teclado (ClueMediator)](https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
 - [Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)
 - [Current screen size](https://www.w3schools.com/howto/howto_js_get_current_window.asp)
 - [Figma](https://www.figma.com/)
 - [Figma (Exporting images)](https://www.captain-design.com/blog/3-simple-ways-to-export-your-images-in-figma/)
-- [Formatação README](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Format README](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Git](https://git-scm.com/downloads)
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-- [Material-UI](https://v4.mui.com/pt/)
+- [Keyboard commands block (Mozilla)](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
+- [Keyboard commands block (ClueMediator)](https://www.cluemediator.com/disable-right-click-and-f12-key-using-javascript)
+- [Material UI](https://mui.com/material-ui/)
+- [Node](https://nodejs.org/pt)
+- [NVM](https://github.com/nvm-sh/nvm)
 - [PowerBI](https://powerbi.microsoft.com/pt-br/)
 - [PowerBI (Iframe)](https://www.youtube.com/watch?v=stHD0FVsdJk&ab_channel=Lu%C3%ADsGustavoSerra-Excel%C3%AAnciaemPowerBI)
-- [React](https://pt-br.reactjs.org/)
+- [React](https://pt-br.legacy.reactjs.org/)
 - [React (ContextAPI)](https://reactjs.org/docs/context.html)
 - [Tua-Body-Scroll-Lock](https://www.npmjs.com/package/tua-body-scroll-lock)
 - [Typescript](https://www.typescriptlang.org/)
+- [Visual Studio Code (VSCode)](https://code.visualstudio.com/)
+- [Yarn](https://yarnpkg.com/)
+
+<br>
