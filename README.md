@@ -109,7 +109,7 @@ For the functionalities of this project work locally the <b>backend</b> needs to
 
 <p>When the supplier tries to log the application's API check if he is up to date with his subscription to the platform.</p> 
 
-<p>If the supplier is up to date his access is done and it is displayed the following chacka-ui toast:</p>
+<p>If the supplier is up to date his access is done and it is displayed the following <b>chackra-ui</b> toast:</p>
 
 ```
 Login feito com sucesso! Seja bem-vindo(a), fornecedor(a)!
@@ -144,7 +144,7 @@ Acesso bloqueado! "Assinatura vencida! Contate suporte."
 Translation:
 
 ```
-Access blocked! "Your signature is expired. Contact suport."
+Access blocked! "Your signature is expired. Contact support."
 ```
 
 <br>
@@ -221,7 +221,7 @@ Hello, {username}! We received your request for new password.
 Bellow the temporary password and the link for password change:
 
 
-Temporary password: {senha}
+Temporary password: {password}
 
 
 Link for password change here {link for password change}
@@ -249,7 +249,7 @@ Translation:
 
 
 ```
-Notification: The user {username} asked for password change at {in} in {date}.
+Notification: The user {username} asked for password change at {time} in {date}.
 
 {username}'s temporary password: {password}
 
@@ -293,7 +293,7 @@ Hello, {username}!
 Your password was changed succesfully!
 
 
-Now to back to the login page. {link login}
+Now to back to the login page: {link login}
 
 
 Please do not answer this e-mail. It is sent authomatically.
