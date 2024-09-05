@@ -5,12 +5,11 @@
 - [Links](#links)
 - [Instalação](#instalação)
 - [Utilização](#utilização)
-- [Termos de uso](#termos-de-uso)
 - [Referências](#referências)
 
 <br>
 
-## Translations
+## Traduções
 
 - [English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin/)
 - [Português brasileiro](./.multilingual_readmes/README_pt-br.md)
@@ -20,7 +19,7 @@
 
 ## Sobre
 
-A aplicação fullstack <b>PrototipoLogin</b> é um protótipo que faz o login tanto dos fornacedores de uma empresa às suas dashboards em <strong>PowerBI</strong> quando do próprio CEO da empresa como superuser para visualizar todas as dashboards da empresa. Possui responsividade Mobile. 
+A aplicação fullstack <b>PrototipoLogin</b> é um protótipo que faz o login tanto dos fornecedores de uma empresa às suas dashboards em <strong>PowerBI</strong> quando do próprio CEO da empresa como superuser para visualizar todas as dashboards da empresa. Possui responsividade Mobile. 
   
 Esta aplicação utiliza a extensão <strong>[Typescript](https://www.typescriptlang.org/)</strong> da linguagem <strong>Javascript</strong>, sua biblioteca <strong>[React](https://pt-br.legacy.reactjs.org/)</strong>, seu gerenciador de states <strong>[ContextAPI](https://legacy.reactjs.org/docs/context.html)</strong>, a biblioteca open-source de componentes React <strong>[Material UI](https://mui.com/material-ui/)</strong> e a biblioteca <strong>[Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)</strong> para os toasts da aplicação. E este repositório frontend tem deploy no serviço <strong>[AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)</strong>.
 
@@ -107,9 +106,7 @@ yarn start
 yarn start
 ```
 
-<p>Ou podemos utilizar o link AWS a seguir:</p>
-
-http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/
+Para todas as funcionalidades desta aplicação funcionarem localmente o <b>backend</b> precisa já operar. Conferir como [aqui](https://github.com/AndreKuratomi/prototipo_login_api).
 
 
 ## Utilização
