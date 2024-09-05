@@ -20,7 +20,7 @@
 
 The fullstack application <b>PrototipoLogin</b> is a prototype that logs a company suppliers to their own <strong>PowerBI</strong> dashboard visualization and also a company CEO as superuser to view all the company dashboards. Mobile responsive.
 
-This application uses the language <strong>Javascript</strong>'s extention <strong>[Typescript](https://www.typescriptlang.org/)</strong>, its library <strong>[React](https://pt-br.legacy.reactjs.org/)</strong>, React's states manager <strong>[ContextAPI](https://legacy.reactjs.org/docs/context.html)</strong>, the open-source React component library <strong>[Material UI](https://mui.com/material-ui/)</strong>, <strong>[Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)</strong> for its toasts. This frontend part is deployed in <strong>[AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)</strong> service.
+This application uses the language <strong>Javascript</strong> extention's <strong>[Typescript](https://www.typescriptlang.org/)</strong>, its library <strong>[React](https://pt-br.legacy.reactjs.org/)</strong>, React's states manager <strong>[ContextAPI](https://legacy.reactjs.org/docs/context.html)</strong>, the open-source React component library <strong>[Material UI](https://mui.com/material-ui/)</strong> and <strong>[Chakra-UI (Toast)](https://chakra-ui.com/docs/components/toast/usage)</strong> for its toasts. This frontend part is deployed in <strong>[AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)</strong> service.
 
 ## Links
 
