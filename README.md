@@ -29,7 +29,7 @@ Esta aplicação utiliza a extensão <strong>[Typescript](https://www.typescript
 
 AWS S3 [link](http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/)
 
-Repositório backend [PrototipoLogin API](https://github.com/AndreKuratomi/prototipo_login_api)
+Repositório backend [PrototipoLogin API](https://github.com/AndreKuratomi/prototipo_login_api/tree/pt_br)
 
 <br>
 
