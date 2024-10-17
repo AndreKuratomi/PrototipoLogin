@@ -11,7 +11,7 @@
 
 ## Traduções
 
-- [🇬🇧 / 🇺🇸 English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin/)
+- [🇬🇧 / 🇺🇸 English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin)
 - [🇧🇷 Português brasileiro](./README_pt-br.md)
 
 <br>
