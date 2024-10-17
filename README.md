@@ -11,8 +11,8 @@
 
 ## Translations
 
-- [Português brasileiro](./.multilingual_readmes/README_pt-br.md)
-- [English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin/)
+- [🇧🇷 Português brasileiro](./.multilingual_readmes/README_pt-br.md)
+- [🇬🇧 / 🇺🇸 English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin/)
 
 <br>
 
