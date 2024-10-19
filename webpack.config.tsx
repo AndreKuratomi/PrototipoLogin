@@ -1,8 +1,15 @@
-// module.exports: {
-//     loaders: [
-//         {test: /\.tsx?$/, loader: "awesome-typescript-loader"},
-//     ],
-//     preLoaders: [
-//         {test: /\.jsx?$/, loader: "source-map-loader"},
-//     ],
-// }
+import webpack from 'webpack';
+
+module.exports = {
+  resolve: {
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+      buffer: require.resolve('buffer'),
+    },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ],
+};
