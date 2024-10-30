@@ -2,10 +2,7 @@ import webpack from 'webpack';
 
 module.exports = {
   resolve: {
-    fallback: {
-      crypto: require.resolve('crypto-browserify'),
-      buffer: require.resolve('buffer'),
-    },
+    fallback: {},
   },
   plugins: [
     new webpack.ProvidePlugin({
