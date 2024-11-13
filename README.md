@@ -24,9 +24,9 @@ This application uses the language <strong>Javascript</strong> extention's <stro
 
 ## Links
 
-AWS S3 [link](http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/)
+[AWS S3 link](http://dev-bi-abkura.com.br.s3-website-us-east-1.amazonaws.com/)
 
-PrototipoLogin's API [repository](https://github.com/AndreKuratomi/prototipo_login_api)
+[PrototipoLogin's API repository](https://github.com/AndreKuratomi/prototipo_login_api)
 
 <br>
 

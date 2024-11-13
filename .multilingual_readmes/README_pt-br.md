@@ -41,7 +41,7 @@ Repositório backend [PrototipoLogin API](https://github.com/AndreKuratomi/proto
 
 - O ambiente de desenvolvimento <b>[Node](https://nodejs.org/pt)</b>.
 
-- Seu gerenciador de versões <b>[NVM](https://github.com/nvm-sh/nvm)</b> (usar versão >= 14.0.0).
+- Seu gerenciador de versões <b>[NVM](https://github.com/nvm-sh/nvm)</b> (usar versão >= 18.0.0).
 
 - O gerenciador de pacotes <b>[Yarn](https://yarnpkg.com/)</b>.
 

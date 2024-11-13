@@ -104,13 +104,13 @@ export const CardsBIList = (prop: ICardsBIListProp) => {
 
   // CATEGORIAS:
   const ecommerceCards = dashboard.filter(
-    (elem) => elem.category === "e-commerce"
+    (elem) => elem.category.toLowerCase() === "e-commerce"
   );
   const clubedolivroCards = dashboard.filter(
-    (elem) => elem.category === "clube do livro"
+    (elem) => elem.category.toLowerCase() === "clube do livro"
   );
   const alurapetsCards = dashboard.filter(
-    (elem) => elem.category === "alura pets"
+    (elem) => elem.category.toLowerCase() === "alura pets"
   );
 
   return (
