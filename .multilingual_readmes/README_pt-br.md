@@ -11,8 +11,8 @@
 
 ## Traduções
 
-- [English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin)
-- [Português brasileiro](./.multilingual_readmes/README_pt-br.md)
+- [🇬🇧 / 🇺🇸 English / Inglês](https://github.com/AndreKuratomi/PrototipoLogin)
+- [🇧🇷 Português brasileiro](./README_pt-br.md)
 
 <br>
 
@@ -108,6 +108,7 @@ yarn start
 
 Para todas as funcionalidades desta aplicação funcionarem localmente o <b>backend</b> precisa já operar. Conferir como [aqui](https://github.com/AndreKuratomi/prototipo_login_api).
 
+<br>
 
 ## Utilização
 
