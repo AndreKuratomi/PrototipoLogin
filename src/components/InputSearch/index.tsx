@@ -43,6 +43,12 @@ export const InputSearch = () => {
     setFinalText(text.trim().toLowerCase());
   };
 
+  const handleEnterKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key == "Enter") {
+      handleButtonClick();
+    };
+  };
+
   return (
     <Box className={classes.subHeaderInput}>
       <Search
@@ -53,6 +59,7 @@ export const InputSearch = () => {
       <TextField
         className={classes.textField}
         onChange={(event) => setText(event.currentTarget.value)}
+        onKeyDown={handleEnterKeyDown}
         placeholder="Pesquisar categoria"
         value={text}
       />

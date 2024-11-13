@@ -58,7 +58,7 @@ export const TabsList = () => {
         variant="scrollable"
       >
         <Tab label="FAVORITOS" {...a11yProps(0)} />
-        <Tab label="Ecommerce" {...a11yProps(1)} />
+        <Tab label="E-commerce" {...a11yProps(1)} />
         <Tab label="Clube do livro" {...a11yProps(2)} />
         <Tab label="Alura petz" {...a11yProps(3)} />
       </Tabs>

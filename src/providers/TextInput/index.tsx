@@ -4,8 +4,10 @@ import React, {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
+import api from "src/service/api";
 
 interface ITextProvider {
   text: string;
@@ -23,7 +25,7 @@ export const TextInputContext = createContext({} as ITextProvider);
 export const TextInputProvider = ({ children }: ITextProviderProps) => {
   // STATE PARA O TEXTO ESCRITO NO INPUT:
   const [text, setText] = useState("");
-
+  
   // STATE PARA O TEXTO VINDO DO INPUT (SAINDO DE ONCHANGE):
   const [finalText, setFinalText] = useState("");
 

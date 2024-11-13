@@ -85,7 +85,7 @@ export const CardsBIListByCategory = () => {
   const { finalText, setFinalText, setText } = useTextInput();
 
   // CATEGORIAS:
-  const selected = dashboard.filter((elem) => elem.category === finalText);
+  const selected = dashboard.filter((elem) => elem.category.toLowerCase().includes(finalText.toLowerCase()));
   if (selected.length === 0) {
     notFoundToast();
     setFinalText("");
