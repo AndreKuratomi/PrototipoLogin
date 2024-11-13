@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import bcrypt from "bcryptjs";
+import cryptoRandomString from "crypto-random-string";
 
 interface IAskProvider {
   createAuth: () => void;
@@ -32,7 +32,7 @@ export const PasswordAskProvider = ({ children }: IAskProviderProps) => {
 
   // GERAÇÂO DE 'TOKEN' E ALOCAÇÃO NO LOCALSTORAGE:
   const createAuth = () => {
-    const cryptoken = bcrypt.genSaltSync(10);
+    const cryptoken = cryptoRandomString({ length: 20 });
     localStorage.setItem("@token: NewEmailToken", JSON.stringify(cryptoken));
   };
 

@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  node:
+    image: node:18
+    ports:
+      - "3001:3001"
+    command: ["yarn", "start"]
+    restart: always
+    volumes:
+      - .:/docker_dir
+    working_dir: /docker_dir
+
+  web:
+    build: .
+    depends_on: 
+      - node
+    ports:
+      - "3002:3001"
+    restart: always
