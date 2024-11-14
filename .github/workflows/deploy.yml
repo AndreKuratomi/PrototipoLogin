@@ -11,7 +11,7 @@ jobs:
 
     permissions:
       id-token: write
-      contens: read
+      contents: read
   
     steps:
       - name: Checkout code
@@ -20,13 +20,18 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-asume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Build project
         run: |
           yarn install
           yarn build
+
+      - name: List files in build directory
+        run: |
+          ls -la build/
+
       
       - name: Deploy to S3
         run: |
