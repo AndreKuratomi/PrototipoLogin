@@ -139,29 +139,29 @@ Acesso bloqueado! "Assinatura vencida! Contate suporte."
 <h3>2. Usuários para testar (disponíveis em src/utils/index.json):</h3>
 
 ```
-USUÁRIO: Fornecedor1
-TIPO: fornecedor
-EMAIL: fornecedor1@mail.com.br
-SENHA: 1234
-ASSINATURA: Em dia (até 05/10/2023)
+USER: Supplier1
+TYPE: supplier
+EMAIL: supplier1@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Up to date (untill 05/10/2023)
 
-USUÁRIO: Fornecedor2
-TIPO: fornecedor
-EMAIL: fornecedor2@mail.com.br
-SENHA: 1234
-ASSINATURA: A vencer (até 20/10/2022)
+USER: Supplier2
+TYPE: supplier
+EMAIL: supplier2@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Close to expire (untill 20/10/2022)
 
-USUÁRIO: Fornecedor4
-TIPO: fornecedor
-EMAIL: fornecedor4@mail.com.br
-SENHA: 1234
-ASSINATURA: Vencida (vencida em 05/10/2022)
+USER: Supplier3
+TYPE: supplier
+EMAIL: supplier3@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: Expired (Expired in 05/10/2022)
 
-USUÁRIO: SuperUsuario
-TIPO: administrador
-EMAIL: superusuario@mail.com.br
-SENHA: 1234
-ASSINATURA: -----
+USER: SuperUser
+TYPE: administrador
+EMAIL: superuser@mail.com.br
+PASSWORD: 1234
+SIGNATURE SITUATION: -----
 ```
 
 <br>
