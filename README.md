@@ -164,15 +164,15 @@ EMAIL: supplier2@mail.com.br
 PASSWORD: 1234
 SIGNATURE SITUATION: Close to expire (untill 20/10/2022)
 
-USER: Supplier4
+USER: Supplier3
 TYPE: supplier
-EMAIL: supplier4@mail.com.br
+EMAIL: supplier3@mail.com.br
 PASSWORD: 1234
 SIGNATURE SITUATION: Expired (Expired in 05/10/2022)
 
 USER: SuperUser
 TYPE: administrador
-EMAIL: superusuario@mail.com.br
+EMAIL: superuser@mail.com.br
 PASSWORD: 1234
 SIGNATURE SITUATION: -----
 ```
